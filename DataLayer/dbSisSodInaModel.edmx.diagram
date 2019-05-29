@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c9bce00158a74fbf882b10a681c55b59" Name="Diagram1" ZoomLevel="111">
+        <EntityTypeShape EntityType="dbSisSodInaModel.publishers" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbAbonos" Width="1.5" PointX="32.25" PointY="39.875" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbBarrios" Width="1.5" PointX="7.5" PointY="26.5" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbCajas" Width="1.5" PointX="20.25" PointY="29" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbCajaUsuario" Width="1.5" PointX="22.5" PointY="36.25" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbCajaUsuMonedas" Width="1.5" PointX="24.75" PointY="40.125" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbCanton" Width="1.5" PointX="3" PointY="26.625" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbCategoriaProducto" Width="1.5" PointX="12" PointY="53.25" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbClientes" Width="1.5" PointX="12" PointY="24" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbCreditos" Width="1.5" PointX="30" PointY="39.5" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbDetalleDocumento" Width="1.5" PointX="25.5" PointY="34.875" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbDetalleImpresion" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbDetalleMovimiento" Width="1.5" PointX="30" PointY="36.125" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbDetalleProducto" Width="1.5" PointX="30" PointY="44" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbDistrito" Width="1.5" PointX="5.25" PointY="26.625" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbDocumento" Width="1.5" PointX="20.25" PointY="33" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbEmpleado" Width="1.5" PointX="15" PointY="25.75" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbEmpresa" Width="1.5" PointX="12" PointY="46" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbExoneraciones" Width="1.5" PointX="9.75" PointY="21.875" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbHorarioProveedor" Width="1.5" PointX="14.25" PointY="38.875" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbImpuestos" Width="1.5" PointX="12" PointY="39.75" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbIngredienteProveedor" Width="1.5" PointX="30" PointY="46.75" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbIngredientes" Width="1.5" PointX="27.75" PointY="43.375" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbInventario" Width="1.5" PointX="12" PointY="36.125" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbMonedas" Width="1.5" PointX="22.5" PointY="41.125" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbMovimientos" Width="1.5" PointX="27.75" PointY="36.25" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbPagos" Width="1.5" PointX="17.25" PointY="25.75" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbParametrosEmpresa" Width="1.5" PointX="14.25" PointY="48.25" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbPersona" Width="1.5" PointX="9.75" PointY="24.875" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbPersonasTribunalS" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbProducto" Width="1.5" PointX="14.25" PointY="30.625" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbProveedores" Width="1.5" PointX="12" PointY="30.125" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbProvincia" Width="1.5" PointX="0.75" PointY="26.875" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbPRUEBA2" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbReporteHacienda" Width="1.5" PointX="14.25" PointY="52.75" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbRequerimientos" Width="1.5" PointX="12.75" PointY="60.875" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbRoles" Width="1.5" PointX="15" PointY="60.75" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoClientes" Width="1.5" PointX="9.75" PointY="31.625" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoDocumento" Width="1.5" PointX="18" PointY="41.25" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoId" Width="1.5" PointX="7.5" PointY="23.875" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoIngrediente" Width="1.5" PointX="25.5" PointY="43.875" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoMedidas" Width="1.5" PointX="12" PointY="19.375" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoMoneda" Width="1.5" PointX="18" PointY="32.125" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoMovimiento" Width="1.5" PointX="25.5" PointY="30.25" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoPago" Width="1.5" PointX="18" PointY="46" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoPuesto" Width="1.5" PointX="12.75" PointY="15.125" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoVenta" Width="1.5" PointX="18" PointY="43.625" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbUsuarios" Width="1.5" PointX="17.25" PointY="36.125" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbAbonos_tbCreditos" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbBarrios_tbDistrito" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbPersona_tbBarrios" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbCajaUsuario_tbCajas" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbCajaUsuario_tbUsuarios" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbCajaUsuMonedas_tbCajaUsuario" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbCajaUsuMonedas_tbMonedas" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbCanton_tbProvincia" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbDistrito_tbCanton" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbProducto_tbCategoriaProducto" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbClientes_tbExoneraciones" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbClientes_tbPersona" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbClientes_tbTipoClientes" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbFactura_tbClientes" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbCreditos_tbMovimientos" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbDetalleDocumento_tbDocumento" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbDetalleFactura_tbProducto" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbDetalleMovimiento_tbIngredientes" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbDetalleMovimiento_tbMovimientos" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbDetalleProducto_tbIngredientes" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbDocumento_tbEmpresa" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbDocumento_tbTipoDocumento" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbDocumento_tbTipoMoneda" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbDocumento_tbTipoPago" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbDocumento_tbTipoVenta" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbEmpleado_tbPersona" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbEmpleado_tbTipoPuesto" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbPagos_tbEmpleado" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbEmpresa_tbPersona" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbParametrosEmpresa_tbEmpresa" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbReporteHacienda_tbEmpresa" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbUsuarios_tbEmpresa" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbHorarioProveedor_tbProveedores" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbProducto_tbImpuestos" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbIngredienteProveedor_tbIngredientes" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbIngredientes_tbTipoIngrediente" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbProducto_tbInventario" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbMonedas_tbTipoMoneda" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbMovimientos_tbTipoMovimiento" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbPagos_tbMovimientos" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbPersona_tbTipoId" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbProveedores_tbPersona" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbUsuarios_tbPersona" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbProducto_tbProveedores" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbProducto_tbTipoMedidas" />
+        <AssociationConnector Association="dbSisSodInaModel.FK_tbUsuarios_tbRoles" />
+        <AssociationConnector Association="dbSisSodInaModel.tbMovimientoCajaUsuario" />
+        <AssociationConnector Association="dbSisSodInaModel.tbPermisos" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8A87989E-190A-49AA-9C8C-AA8CE7FFE3E6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BusinessLayer</RootNamespace>
+    <AssemblyName>BusinessLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BAbonos.cs" />
+    <Compile Include="BCanton.cs" />
+    <Compile Include="BEmpresa.cs" />
+    <Compile Include="BTipoId.cs" />
+    <Compile Include="BProvincias.cs" />
+    <Compile Include="BCajas.cs" />
+    <Compile Include="BCajaUsuario.cs" />
+    <Compile Include="BCajaUsuarioMonedas.cs" />
+    <Compile Include="BCategoriaProducto.cs" />
+    <Compile Include="BCliente.cs" />
+    <Compile Include="BCredito.cs" />
+    <Compile Include="BDetalleImpresion.cs" />
+    <Compile Include="BEliminarFactura.cs" />
+    <Compile Include="BEmpleado.cs" />
+    <Compile Include="BFacturacion.cs" />
+    <Compile Include="BImpuestos.cs" />
+    <Compile Include="BIngredientes.cs" />
+    <Compile Include="BInventario.cs" />
+    <Compile Include="BMoneda.cs" />
+    <Compile Include="BMovimiento.cs" />
+    <Compile Include="BPagoSalario.cs" />
+    <Compile Include="BProducto.cs" />
+    <Compile Include="BProveedores.cs" />
+    <Compile Include="BPuesto.cs" />
+    <Compile Include="BRequerimientos.cs" />
+    <Compile Include="BRoles.cs" />
+    <Compile Include="BTipoCliente.cs" />
+    <Compile Include="BTipoIngrediente.cs" />
+    <Compile Include="BExoneracion.cs" />
+    <Compile Include="BTipoPago.cs" />
+    <Compile Include="BTipoVenta.cs" />
+    <Compile Include="BTipoMedida.cs" />
+    <Compile Include="BTipoMoneda.cs" />
+    <Compile Include="BTipoMovimiento.cs" />
+    <Compile Include="BUsuario.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLayer\CommonLayer.csproj">
+      <Project>{c7766845-fe00-4b97-a3e1-9c109c6e7868}</Project>
+      <Name>CommonLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
+      <Project>{01cc938c-44df-4e01-a5d8-3bae49c9bf11}</Project>
+      <Name>DataLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EntityLayer\EntityLayer.csproj">
+      <Project>{62df6310-c49c-45fe-a86e-efe9f6a8285a}</Project>
+      <Name>EntityLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FacturacionElectronicaLayer\FacturacionElectronicaLayer.csproj">
+      <Project>{bde0469b-7322-48bb-b8be-8f3c896141fe}</Project>
+      <Name>FacturacionElectronicaLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

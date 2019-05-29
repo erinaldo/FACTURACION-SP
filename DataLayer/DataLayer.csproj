@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{01CC938C-44DF-4E01-A5D8-3BAE49C9BF11}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataLayer</RootNamespace>
+    <AssemblyName>DataLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DAbonos.cs" />
+    <Compile Include="dbSisSodInaModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbSisSodInaModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbSisSodInaModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbSisSodInaModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DCanton.cs" />
+    <Compile Include="DEmpresa.cs" />
+    <Compile Include="DProvincia.cs" />
+    <Compile Include="DCajas.cs" />
+    <Compile Include="DCajaUsuario.cs" />
+    <Compile Include="DCajaUsuarioMonedas.cs" />
+    <Compile Include="DCategoriaProducto.cs" />
+    <Compile Include="DClientes.cs" />
+    <Compile Include="DCredito.cs" />
+    <Compile Include="DDetalleImpresion.cs" />
+    <Compile Include="DDetalleProdcuto.cs" />
+    <Compile Include="DDetalleProducto.cs" />
+    <Compile Include="DEliminarFactura.cs" />
+    <Compile Include="DEmpleado.cs" />
+    <Compile Include="DFacturacion.cs" />
+    <Compile Include="Dimpuestos.cs" />
+    <Compile Include="DIngredientes.cs" />
+    <Compile Include="DInventario.cs" />
+    <Compile Include="DMoneda.cs" />
+    <Compile Include="DMovimientos.cs" />
+    <Compile Include="DPagoSalario.cs" />
+    <Compile Include="DPersona.cs" />
+    <Compile Include="DProductos.cs" />
+    <Compile Include="DProveedores.cs" />
+    <Compile Include="DPuesto.cs" />
+    <Compile Include="DRequerimientos.cs" />
+    <Compile Include="DRoles.cs" />
+    <Compile Include="DTipoCliente.cs" />
+    <Compile Include="DTipoVenta.cs" />
+    <Compile Include="DTipoPago.cs" />
+    <Compile Include="DTipoIngrediente.cs" />
+    <Compile Include="DExoneraciones.cs" />
+    <Compile Include="DTipoId.cs" />
+    <Compile Include="DTipoMedida.cs" />
+    <Compile Include="DTipoMoneda.cs" />
+    <Compile Include="DTipoMovimiento.cs" />
+    <Compile Include="DUsuario.cs" />
+    <Compile Include="frmPermisos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPermisos.Designer.cs">
+      <DependentUpon>frmPermisos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="dbSisSodInaModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>dbSisSodInaModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="dbSisSodInaModel.edmx.diagram">
+      <DependentUpon>dbSisSodInaModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLayer\CommonLayer.csproj">
+      <Project>{c7766845-fe00-4b97-a3e1-9c109c6e7868}</Project>
+      <Name>CommonLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EntityLayer\EntityLayer.csproj">
+      <Project>{62df6310-c49c-45fe-a86e-efe9f6a8285a}</Project>
+      <Name>EntityLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dbSisSodInaModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>dbSisSodInaModel.edmx</DependentUpon>
+      <LastGenOutput>dbSisSodInaModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="dbSisSodInaModel.edmx.sql" />
+    <Content Include="Scripts de reportes\p_CantidadMinima.sql" />
+    <Content Include="Scripts de reportes\p_InventarioCantidad.sql" />
+    <Content Include="Scripts de reportes\P_PlanillaEmpleados.sql" />
+    <Content Include="Scripts de reportes\v_InventarioCantidad.sql" />
+    <Content Include="Scripts de reportes\v_InventarioMinimo.sql" />
+    <Content Include="Scripts de reportes\v_PlanillaEmpleados.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
