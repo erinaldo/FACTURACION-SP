@@ -44,6 +44,7 @@
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.tlsBtnSalir = new System.Windows.Forms.ToolStripButton();
             this.gbxDatos = new System.Windows.Forms.GroupBox();
+            this.chkImprimeDoc = new System.Windows.Forms.CheckBox();
             this.gbxHacienda = new System.Windows.Forms.GroupBox();
             this.btnRutaComprasXML = new System.Windows.Forms.Button();
             this.btnRutaXML = new System.Windows.Forms.Button();
@@ -82,7 +83,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.sp_FacturaElectronicaTableAdapter1 = new PresentationLayer.Reportes.dtReporteHaciendaTableAdapters.sp_FacturaElectronicaTableAdapter();
-            this.chkImprimeDoc = new System.Windows.Forms.CheckBox();
+            this.txtActEconomica = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.tlsMenu.SuspendLayout();
             this.gbxDatos.SuspendLayout();
             this.gbxHacienda.SuspendLayout();
@@ -215,6 +217,8 @@
             // 
             // gbxDatos
             // 
+            this.gbxDatos.Controls.Add(this.txtActEconomica);
+            this.gbxDatos.Controls.Add(this.label14);
             this.gbxDatos.Controls.Add(this.chkImprimeDoc);
             this.gbxDatos.Controls.Add(this.gbxHacienda);
             this.gbxDatos.Controls.Add(this.gbxCorreo);
@@ -230,6 +234,16 @@
             this.gbxDatos.TabIndex = 15;
             this.gbxDatos.TabStop = false;
             this.gbxDatos.Text = "Datos de Empresa";
+            // 
+            // chkImprimeDoc
+            // 
+            this.chkImprimeDoc.AutoSize = true;
+            this.chkImprimeDoc.Location = new System.Drawing.Point(187, 696);
+            this.chkImprimeDoc.Name = "chkImprimeDoc";
+            this.chkImprimeDoc.Size = new System.Drawing.Size(160, 21);
+            this.chkImprimeDoc.TabIndex = 36;
+            this.chkImprimeDoc.Text = "Imprime documentos";
+            this.chkImprimeDoc.UseVisualStyleBackColor = true;
             // 
             // gbxHacienda
             // 
@@ -254,9 +268,9 @@
             this.gbxHacienda.Controls.Add(this.label3);
             this.gbxHacienda.Controls.Add(this.label16);
             this.gbxHacienda.Controls.Add(this.label4);
-            this.gbxHacienda.Location = new System.Drawing.Point(18, 121);
+            this.gbxHacienda.Location = new System.Drawing.Point(18, 136);
             this.gbxHacienda.Name = "gbxHacienda";
-            this.gbxHacienda.Size = new System.Drawing.Size(604, 313);
+            this.gbxHacienda.Size = new System.Drawing.Size(604, 291);
             this.gbxHacienda.TabIndex = 23;
             this.gbxHacienda.TabStop = false;
             this.gbxHacienda.Text = "Datos de Hacienda";
@@ -264,7 +278,7 @@
             // 
             // btnRutaComprasXML
             // 
-            this.btnRutaComprasXML.Location = new System.Drawing.Point(556, 212);
+            this.btnRutaComprasXML.Location = new System.Drawing.Point(556, 203);
             this.btnRutaComprasXML.Name = "btnRutaComprasXML";
             this.btnRutaComprasXML.Size = new System.Drawing.Size(41, 23);
             this.btnRutaComprasXML.TabIndex = 35;
@@ -274,7 +288,7 @@
             // 
             // btnRutaXML
             // 
-            this.btnRutaXML.Location = new System.Drawing.Point(556, 183);
+            this.btnRutaXML.Location = new System.Drawing.Point(556, 174);
             this.btnRutaXML.Name = "btnRutaXML";
             this.btnRutaXML.Size = new System.Drawing.Size(41, 23);
             this.btnRutaXML.TabIndex = 34;
@@ -284,7 +298,7 @@
             // 
             // btnCertificado
             // 
-            this.btnCertificado.Location = new System.Drawing.Point(556, 130);
+            this.btnCertificado.Location = new System.Drawing.Point(556, 121);
             this.btnCertificado.Name = "btnCertificado";
             this.btnCertificado.Size = new System.Drawing.Size(41, 23);
             this.btnCertificado.TabIndex = 33;
@@ -295,7 +309,7 @@
             // chkAmbienteDesa
             // 
             this.chkAmbienteDesa.AutoSize = true;
-            this.chkAmbienteDesa.Location = new System.Drawing.Point(174, 29);
+            this.chkAmbienteDesa.Location = new System.Drawing.Point(174, 20);
             this.chkAmbienteDesa.Name = "chkAmbienteDesa";
             this.chkAmbienteDesa.Size = new System.Drawing.Size(184, 21);
             this.chkAmbienteDesa.TabIndex = 32;
@@ -304,35 +318,35 @@
             // 
             // txtFechaResolucion
             // 
-            this.txtFechaResolucion.Location = new System.Drawing.Point(174, 266);
+            this.txtFechaResolucion.Location = new System.Drawing.Point(174, 257);
             this.txtFechaResolucion.Name = "txtFechaResolucion";
             this.txtFechaResolucion.Size = new System.Drawing.Size(376, 22);
             this.txtFechaResolucion.TabIndex = 31;
             // 
             // txtResolucion
             // 
-            this.txtResolucion.Location = new System.Drawing.Point(174, 239);
+            this.txtResolucion.Location = new System.Drawing.Point(174, 230);
             this.txtResolucion.Name = "txtResolucion";
             this.txtResolucion.Size = new System.Drawing.Size(376, 22);
             this.txtResolucion.TabIndex = 30;
             // 
             // txtXMLCompras
             // 
-            this.txtXMLCompras.Location = new System.Drawing.Point(174, 212);
+            this.txtXMLCompras.Location = new System.Drawing.Point(174, 203);
             this.txtXMLCompras.Name = "txtXMLCompras";
             this.txtXMLCompras.Size = new System.Drawing.Size(376, 22);
             this.txtXMLCompras.TabIndex = 29;
             // 
             // txtRutaXML
             // 
-            this.txtRutaXML.Location = new System.Drawing.Point(174, 184);
+            this.txtRutaXML.Location = new System.Drawing.Point(174, 175);
             this.txtRutaXML.Name = "txtRutaXML";
             this.txtRutaXML.Size = new System.Drawing.Size(376, 22);
             this.txtRutaXML.TabIndex = 28;
             // 
             // txtPinCertificado
             // 
-            this.txtPinCertificado.Location = new System.Drawing.Point(174, 157);
+            this.txtPinCertificado.Location = new System.Drawing.Point(174, 148);
             this.txtPinCertificado.Name = "txtPinCertificado";
             this.txtPinCertificado.PasswordChar = '*';
             this.txtPinCertificado.Size = new System.Drawing.Size(376, 22);
@@ -340,21 +354,21 @@
             // 
             // txtCertificado
             // 
-            this.txtCertificado.Location = new System.Drawing.Point(174, 130);
+            this.txtCertificado.Location = new System.Drawing.Point(174, 121);
             this.txtCertificado.Name = "txtCertificado";
             this.txtCertificado.Size = new System.Drawing.Size(376, 22);
             this.txtCertificado.TabIndex = 26;
             // 
             // txtConstrasenaHacienda
             // 
-            this.txtConstrasenaHacienda.Location = new System.Drawing.Point(174, 83);
+            this.txtConstrasenaHacienda.Location = new System.Drawing.Point(174, 74);
             this.txtConstrasenaHacienda.Name = "txtConstrasenaHacienda";
             this.txtConstrasenaHacienda.Size = new System.Drawing.Size(376, 22);
             this.txtConstrasenaHacienda.TabIndex = 25;
             // 
             // txtUsuarioHacienda
             // 
-            this.txtUsuarioHacienda.Location = new System.Drawing.Point(174, 56);
+            this.txtUsuarioHacienda.Location = new System.Drawing.Point(174, 47);
             this.txtUsuarioHacienda.Name = "txtUsuarioHacienda";
             this.txtUsuarioHacienda.Size = new System.Drawing.Size(376, 22);
             this.txtUsuarioHacienda.TabIndex = 24;
@@ -362,7 +376,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(19, 83);
+            this.label5.Location = new System.Drawing.Point(19, 74);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(149, 17);
             this.label5.TabIndex = 4;
@@ -371,7 +385,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(46, 59);
+            this.label6.Location = new System.Drawing.Point(46, 50);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(125, 17);
             this.label6.TabIndex = 5;
@@ -380,7 +394,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 133);
+            this.label1.Location = new System.Drawing.Point(28, 124);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(140, 17);
             this.label1.TabIndex = 0;
@@ -389,7 +403,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(63, 157);
+            this.label7.Location = new System.Drawing.Point(63, 148);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(105, 17);
             this.label7.TabIndex = 6;
@@ -398,7 +412,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(48, 187);
+            this.label8.Location = new System.Drawing.Point(48, 178);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(120, 17);
             this.label8.TabIndex = 7;
@@ -407,7 +421,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(34, 212);
+            this.label15.Location = new System.Drawing.Point(34, 203);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(134, 17);
             this.label15.TabIndex = 14;
@@ -416,7 +430,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(43, 266);
+            this.label3.Location = new System.Drawing.Point(43, 257);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(125, 17);
             this.label3.TabIndex = 2;
@@ -434,7 +448,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(32, 239);
+            this.label4.Location = new System.Drawing.Point(32, 230);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(136, 17);
             this.label4.TabIndex = 3;
@@ -579,15 +593,22 @@
             // 
             this.sp_FacturaElectronicaTableAdapter1.ClearBeforeFill = true;
             // 
-            // chkImprimeDoc
+            // txtActEconomica
             // 
-            this.chkImprimeDoc.AutoSize = true;
-            this.chkImprimeDoc.Location = new System.Drawing.Point(187, 696);
-            this.chkImprimeDoc.Name = "chkImprimeDoc";
-            this.chkImprimeDoc.Size = new System.Drawing.Size(160, 21);
-            this.chkImprimeDoc.TabIndex = 36;
-            this.chkImprimeDoc.Text = "Imprime documentos";
-            this.chkImprimeDoc.UseVisualStyleBackColor = true;
+            this.txtActEconomica.Location = new System.Drawing.Point(192, 104);
+            this.txtActEconomica.MaxLength = 6;
+            this.txtActEconomica.Name = "txtActEconomica";
+            this.txtActEconomica.Size = new System.Drawing.Size(376, 22);
+            this.txtActEconomica.TabIndex = 38;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(29, 104);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(157, 17);
+            this.label14.TabIndex = 37;
+            this.label14.Text = "Código Act. Económica:";
             // 
             // frmEmpresa
             // 
@@ -668,5 +689,7 @@
         private System.Windows.Forms.Button btnRutaComprasXML;
         private System.Windows.Forms.Button btnRutaXML;
         private System.Windows.Forms.CheckBox chkImprimeDoc;
+        private System.Windows.Forms.TextBox txtActEconomica;
+        private System.Windows.Forms.Label label14;
     }
 }

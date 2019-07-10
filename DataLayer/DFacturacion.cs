@@ -14,7 +14,9 @@ namespace DataLayer
     public class DFacturacion:IDataGeneric<tbDocumento>
     {
         DProductos productoIns = new DProductos();
+        DCategoriaProducto cateIns = new DCategoriaProducto();
         DInventario inventarioIns = new DInventario();
+        DClientes clienteIns = new DClientes();
         DEliminarFactura detalleFacturaIns = new DEliminarFactura();
        
 
@@ -252,19 +254,39 @@ namespace DataLayer
             {
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
                 {
+                   
                     if (cargaEntAnexas)
                     {
-                        return (from p in context.tbDocumento.Include("tbClientes.tbPersona").Include("tbDetalleDocumento.tbProducto.tbImpuestos")
+                        var doc= (from p in context.tbDocumento.Include("tbClientes").Include("tbDetalleDocumento.tbProducto.tbImpuestos")
                                 where p.id == entity.id && p.tipoDocumento==entity.tipoDocumento
                                 select p).FirstOrDefault();
 
+                        if (doc.idCliente!=null)
+                        {
+                            doc.tbClientes = clienteIns.GetClienteById((int)doc.tipoIdCliente, doc.idCliente);
+                        }
+                        foreach (var item in doc.tbDetalleDocumento)
+                        {
+
+                            item.tbProducto.tbCategoriaProducto = cateIns.GetEntityById(item.tbProducto.id_categoria);
+
+                        }
+
+                        return doc;
 
                     }
                     else
                     {
-                        return (from p in context.tbDocumento.Include("tbClientes.tbPersona").Include("tbDetalleDocumento.tbProducto")
+                        var doc= (from p in context.tbDocumento.Include("tbClientes").Include("tbDetalleDocumento.tbProducto")
                                 where p.id == entity.id && p.tipoDocumento == entity.tipoDocumento
                                 select p).FirstOrDefault();
+
+                        if (doc.idCliente != null)
+                        {
+                            doc.tbClientes = clienteIns.GetClienteById((int)doc.tipoIdCliente, doc.idCliente);
+                        }
+
+                        return doc;
 
                     }
                 }
@@ -282,9 +304,17 @@ namespace DataLayer
             {
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
                 {
-                    return (from p in context.tbDocumento.Include("tbClientes.tbPersona").Include("tbDetalleDocumento.tbProducto").Include("tbDetalleDocumento.tbProducto.tbImpuestos")
+                    var doc= (from p in context.tbDocumento.Include("tbClientes").Include("tbDetalleDocumento.tbProducto").Include("tbDetalleDocumento.tbProducto.tbImpuestos")
                             where p.clave == entity.clave
                             select p).FirstOrDefault();
+                    if (doc.idCliente!=null)
+                    {
+                        doc.tbClientes = clienteIns.GetClienteById((int)doc.tipoIdCliente, doc.idCliente);
+
+                    }
+
+                    return doc;
+
                 }
 
             }
@@ -300,9 +330,15 @@ namespace DataLayer
             {
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
                 {
-                    return (from p in context.tbDocumento.Include("tbClientes.tbPersona").Include("tbDetalleDocumento.tbProducto").Include("tbDetalleDocumento.tbProducto.tbImpuestos")
+                    var doc= (from p in context.tbDocumento.Include("tbClientes").Include("tbDetalleDocumento.tbProducto").Include("tbDetalleDocumento.tbProducto.tbImpuestos")
                             where p.clave == clave
                             select p).FirstOrDefault();
+                    if (doc.idCliente != null)
+                    {
+                        doc.tbClientes = clienteIns.GetClienteById((int)doc.tipoIdCliente, doc.idCliente);
+
+                    }
+                    return doc;
                 }
 
             }
@@ -318,10 +354,20 @@ namespace DataLayer
             {
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
                 {
-                    return (from p in context.tbDocumento.Include("tbDetalleDocumento").Include("tbClientes.tbPersona").Include("tbDetalleDocumento.tbProducto")
+                    var list= (from p in context.tbDocumento.Include("tbDetalleDocumento").Include("tbClientes").Include("tbDetalleDocumento.tbProducto")
                             where (p.reporteAceptaHacienda == true && p.mensajeReporteHacienda.Contains("Accepted") && p.EstadoFacturaHacienda.Contains("aceptado") || p.EstadoFacturaHacienda.Contains("rechazado"))
                             select p).ToList();
 
+                    foreach (var item in list)
+                    {
+                        if (item.idCliente != null)
+                        {
+                            item.tbClientes = clienteIns.GetClienteById((int)item.tipoIdCliente, item.idCliente);
+
+                        }
+
+                    }
+                    return list;
 
                 }
 
@@ -404,15 +450,27 @@ namespace DataLayer
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
                 {
                    
-                        return (from p in context.tbDocumento.Include("tbDetalleDocumento").Include("tbDetalleDocumento.tbProducto").Include("tbClientes.tbPersona")
+                        var list= (from p in context.tbDocumento.Include("tbDetalleDocumento").Include("tbDetalleDocumento.tbProducto").Include("tbClientes")
                                 where p.estadoFactura != (int)Enums.EstadoFactura.Eliminada
                                 && (p.EstadoFacturaHacienda == null || p.EstadoFacturaHacienda == "procesando" || p.EstadoFacturaHacienda == "rechazado")
                       && p.reporteElectronic==true
                                 select p).ToList();
 
-                  
-               
+                    foreach (var item in list)
+                    {
+                        if (item.idCliente!=null)
+                        {
+           item.tbClientes = clienteIns.GetClienteById((int)item.tipoIdCliente, item.idCliente.Trim());
+                
+                        }
+                 }
+                    return list;
+
+
+
                 }
+
+                
 
             }
             catch (Exception ex)
@@ -528,8 +586,7 @@ namespace DataLayer
             {
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
                 {
-      
-
+            
                     context.tbReporteHacienda.Add(entity);
                     context.SaveChanges();
 

@@ -30,12 +30,17 @@ public partial class tbClientes
     public string nombreTributario { get; set; }
     public string encargadoConta { get; set; }
     public string correoElectConta { get; set; }
+    public Nullable<bool> exonera { get; set; }
     public Nullable<int> idExonercion { get; set; }
+    public string numeroDocumentoExo { get; set; }
+    public string institucionExo { get; set; }
+    public Nullable<System.DateTime> FechaEmisionExo { get; set; }
     public System.DateTime fecha_crea { get; set; }
     public System.DateTime fecha_ult_mod { get; set; }
     public string usuario_crea { get; set; }
     public string usuario_ult_crea { get; set; }
     public string contacto { get; set; }
+    public bool contribuyente { get; set; }
 
     public virtual tbExoneraciones tbExoneraciones { get; set; }
     public virtual tbPersona tbPersona { get; set; }

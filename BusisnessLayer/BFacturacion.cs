@@ -60,7 +60,7 @@ namespace BusinessLayer
                 item.idTipoDoc = facturaGlobal.tipoDocumento;
 
             }
-            facturaGlobal = DFacturaIns.Guardar(facturaGlobal);
+           return DFacturaIns.Guardar(facturaGlobal);
             //if (facturaGlobal.tipoDocumento==(int)Enums.TipoDocumento.NotaCreditoElectronica || facturaGlobal.tipoDocumento == (int)Enums.TipoDocumento.NotaDebitoElectronica)
             //{
             //    if (facturaGlobal.claveRef!=null)
@@ -96,7 +96,7 @@ namespace BusinessLayer
 
             //    }
             //}
-           return DFacturaIns.getById(facturaGlobal.id, facturaGlobal.tipoDocumento);
+           //return DFacturaIns.getById(facturaGlobal.id, facturaGlobal.tipoDocumento);
    
         }
 
@@ -486,7 +486,7 @@ namespace BusinessLayer
 
 
 
-                _emisor = new Emisor(NombreEmpresa, tipoId, id, _empresa.tbPersona.provincia.Trim(), _empresa.tbPersona.canton.Trim().PadLeft(2, '0'), _empresa.tbPersona.distrito.Trim().PadLeft(2, '0'), _empresa.tbPersona.barrio.Trim().PadLeft(2, '0'), _empresa.tbPersona.otrasSenas.Trim().ToUpper(), _empresa.tbPersona.codigoPaisTel.Trim(), _empresa.tbPersona.telefono, _empresa.tbPersona.correoElectronico.Trim());
+                _emisor = new Emisor(NombreEmpresa, tipoId, id, _empresa.tbPersona.provincia.Trim(), _empresa.tbPersona.canton.Trim().PadLeft(2, '0'), _empresa.tbPersona.distrito.Trim().PadLeft(2, '0'), _empresa.tbPersona.barrio.Trim().PadLeft(2, '0'), _empresa.tbPersona.otrasSenas.Trim().ToUpper(), _empresa.tbPersona.codigoPaisTel.Trim(), _empresa.tbPersona.telefono, _empresa.tbPersona.correoElectronico.Trim(), _empresa.codigoActComercial);
 
                 //recepetor al cliente al cual se factura
 
@@ -508,8 +508,16 @@ namespace BusinessLayer
                     tipoId = cliente.tipoId.ToString().PadLeft(2, '0');
                     id = cliente.id.ToString().Trim();
 
+                    if ((bool)cliente.exonera)
+                    {
+                        _receptor = new Receptor(NombreEmpresa, tipoId, id, cliente.tbPersona.provincia.Trim(), cliente.tbPersona.canton.Trim().PadLeft(2, '0'), cliente.tbPersona.distrito.Trim().PadLeft(2, '0'), cliente.tbPersona.barrio.Trim().PadLeft(2, '0'), cliente.tbPersona.otrasSenas.ToUpper(), cliente.tbPersona.codigoPaisTel.Trim(), cliente.tbPersona.telefono, cliente.tbPersona.correoElectronico.Trim(), cliente.idExonercion.ToString(), (DateTime)cliente.FechaEmisionExo, cliente.institucionExo,(int)cliente.tbExoneraciones.valor, cliente.numeroDocumentoExo);
 
-                    _receptor = new Receptor(NombreEmpresa, tipoId, id, cliente.tbPersona.provincia.Trim(), cliente.tbPersona.canton.Trim().PadLeft(2, '0'), cliente.tbPersona.distrito.Trim().PadLeft(2, '0'), cliente.tbPersona.barrio.Trim().PadLeft(2, '0'), cliente.tbPersona.otrasSenas.ToUpper(), cliente.tbPersona.codigoPaisTel.Trim(), cliente.tbPersona.telefono, cliente.tbPersona.correoElectronico.Trim());
+                    }
+                    else
+                    {
+                        _receptor = new Receptor(NombreEmpresa, tipoId, id, cliente.tbPersona.provincia.Trim(), cliente.tbPersona.canton.Trim().PadLeft(2, '0'), cliente.tbPersona.distrito.Trim().PadLeft(2, '0'), cliente.tbPersona.barrio.Trim().PadLeft(2, '0'), cliente.tbPersona.otrasSenas.ToUpper(), cliente.tbPersona.codigoPaisTel.Trim(), cliente.tbPersona.telefono, cliente.tbPersona.correoElectronico.Trim(), null, DateTime.MinValue, null, int.MinValue, null);
+
+                    }
 
                 }
                 FacturaElectronicaCR factura = null;

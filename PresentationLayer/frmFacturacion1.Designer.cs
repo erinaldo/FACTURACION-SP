@@ -116,7 +116,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtCodigo);
             this.groupBox1.Controls.Add(this.dtgvDetalleFactura);
-            this.groupBox1.Location = new System.Drawing.Point(5, 182);
+            this.groupBox1.Location = new System.Drawing.Point(9, 182);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1002, 499);
             this.groupBox1.TabIndex = 0;
@@ -368,7 +368,7 @@
             this.gbxMontos.Controls.Add(this.lblDescuento);
             this.gbxMontos.Controls.Add(this.txtIva);
             this.gbxMontos.Controls.Add(this.lblTotal);
-            this.gbxMontos.Location = new System.Drawing.Point(1024, 182);
+            this.gbxMontos.Location = new System.Drawing.Point(1023, 183);
             this.gbxMontos.Margin = new System.Windows.Forms.Padding(4);
             this.gbxMontos.Name = "gbxMontos";
             this.gbxMontos.Padding = new System.Windows.Forms.Padding(4);

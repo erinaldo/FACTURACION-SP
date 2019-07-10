@@ -167,7 +167,40 @@ namespace PresentationLayer
 
                 txtPlazoMaxInt.Text = "0";
             }
+            if (chkAplicaExo.Checked)
+            {
 
+                if (cboExoneracion.Text==string.Empty)
+                {
+                    MessageBox.Show("Debe indicar un tipo de exoneración");
+                    cboExoneracion.Focus();
+                    return false;
+
+                }
+
+                if (txtDocExo.Text == string.Empty)
+                {
+                    MessageBox.Show("Debe indicar el número de documento de exoneración");
+                    txtDocExo.Focus();
+                    return false;
+
+                }
+                if (txtInstitucionExo.Text == string.Empty)
+                {
+                    MessageBox.Show("Debe indicar la institución que emitió la exoneración");
+                    txtInstitucionExo.Focus();
+                    return false;
+
+                }
+                if (dtpFechaEmisionExo.Text == string.Empty)
+                {
+                    MessageBox.Show("Debe indicar la fecha de emisión de la exoneración");
+                    dtpFechaEmisionExo.Focus();
+                    return false;
+
+                }
+
+            }
 
 
 
@@ -190,7 +223,7 @@ namespace PresentationLayer
                 {//SE VALIDAN LOS CAMPOS OBLIGATORIOS...
                  // SE LLENAN LOS DATOS DE PERSONA PRIMERO... PRIMERO SE ES PERSONA Y LUEGO CLIENTE...
                     persona.tipoId = (int)cbotipoId.SelectedValue;
-
+                
 
                     if ((int)cbotipoId.SelectedValue != (int)Enums.TipoId.Juridica)
                     {
@@ -226,17 +259,26 @@ namespace PresentationLayer
 
                     // AQUI ES DONDE QUE ESA PERSONA TAMBIEN ES CLIENTE...
                     cliente.tbPersona = persona;
+                    cliente.contribuyente = chkContribuyente.Checked;
                     cliente.id = persona.identificacion;
                     cliente.tipoId = persona.tipoId;
                     cliente.tipoCliente = (int)cbotipoCliente.SelectedValue;
                     cliente.tbPersona.otrasSenas = txtOtrasSenas.Text.ToUpper().Trim();
-                   
-
-                    if (cboExoneracion.SelectedText != string.Empty)
+                    cliente.exonera = chkAplicaExo.Checked;
+                 
+                    if (chkAplicaExo.Checked)
                     {
-                        cliente.idExonercion = (int)cboExoneracion.SelectedValue;
+                        cliente.institucionExo = txtInstitucionExo.Text.ToUpper().Trim();
+                        if (cboExoneracion.SelectedText != string.Empty)
+                        {
+                            cliente.idExonercion = (int)cboExoneracion.SelectedValue;
 
+                        }
+                        cliente.FechaEmisionExo = dtpFechaEmisionExo.Value;
+                        cliente.numeroDocumentoExo = txtDocExo.Text;
                     }
+
+                  
                     cliente.correoElectConta = txtCorreoContabilidad.Text;
                     cliente.creditoMax = int.Parse(txtCreditoMaxInt.Text);
                     cliente.descuentoMax = int.Parse(txtDescMaxInt.Text);
@@ -400,6 +442,8 @@ namespace PresentationLayer
                     btnBuscarCliente.Enabled = true;
                     rbtmasc.Checked = true;
                     rbtfem.Checked = false;
+                    gbxExoneracion.Enabled = false;
+                    chkContribuyente.Checked = true;
                     break;
 
                 case "Modificar":
@@ -412,6 +456,15 @@ namespace PresentationLayer
                     txtidentificacion.Enabled = false;
                     mskidentificacion.Enabled = false;
                     btnBuscarCliente.Enabled = false;
+                    if ((bool)clienteGlobal.exonera)
+                    {
+
+                        gbxExoneracion.Enabled = true;
+                    }
+                    else
+                    {
+                        gbxExoneracion.Enabled = false;
+                    }
                     break;
                 case "Eliminar":
                     bandera = 3;
@@ -507,7 +560,7 @@ namespace PresentationLayer
                                 rbtfem.Checked = true;
                             }
                             cbotipoCliente.Text = clienteGlobal.tbTipoClientes.nombre.ToString().Trim();//////////////
-
+                            chkContribuyente.Checked = cliente.contribuyente;
                             dtpfechaNa.Text = clienteGlobal.tbPersona.fechaNac.ToString().Trim();
                             txtcorreo.Text = clienteGlobal.tbPersona.correoElectronico.ToString().Trim();
                             msktelefono.Text = clienteGlobal.tbPersona.telefono.ToString().Trim();
@@ -518,16 +571,27 @@ namespace PresentationLayer
                             cboDistrito.SelectedValue = clienteGlobal.tbPersona.distrito;
                             cboBarrios.SelectedValue = clienteGlobal.tbPersona.barrio;
                             cboPrecioAplicar.SelectedIndex = clienteGlobal.precioAplicar - 1;
-
-                            if (clienteGlobal.idExonercion != null)
+                            chkAplicaExo.Checked =(bool) clienteGlobal.exonera;
+                            if (chkAplicaExo.Checked)
                             {
+                                gbxExoneracion.Enabled = true;
+                                txtInstitucionExo.Text = clienteGlobal.institucionExo.ToUpper().Trim();
                                 cboExoneracion.SelectedValue = clienteGlobal.idExonercion;
+                                dtpFechaEmisionExo.Value = clienteGlobal.FechaEmisionExo.Value;
+                                cliente.numeroDocumentoExo = clienteGlobal.numeroDocumentoExo.Trim();
+
 
                             }
-                            else {
-
+                            else
+                            {
+                                gbxExoneracion.Enabled = false;
+                                txtInstitucionExo.Text = string.Empty;
                                 cboExoneracion.ResetText();
+                                dtpFechaEmisionExo.ResetText();
+                                txtDocExo.Text = string.Empty;
                             }
+
+                           
                              cboPrecioAplicar.SelectedValue = clienteGlobal.precioAplicar;
                             txtCreditoMaxInt.Text = clienteGlobal.creditoMax.ToString();
                             txtDescMaxInt.Text = clienteGlobal.descuentoMax.ToString();
@@ -605,20 +669,32 @@ namespace PresentationLayer
                     clienteGlobal.tbPersona.otrasSenas = txtOtrasSenas.Text.Trim();
                     clienteGlobal.tbPersona.barrio = cboBarrios.SelectedValue.ToString();
 
-         
+                    clienteGlobal.contribuyente = chkContribuyente.Checked;
                     clienteGlobal.tipoCliente = (int)cbotipoCliente.SelectedValue;
                     clienteGlobal.tbPersona.otrasSenas = txtOtrasSenas.Text.ToUpper().Trim();
 
 
-                    if (cboExoneracion.SelectedText != string.Empty)
+                    clienteGlobal.exonera = chkAplicaExo.Checked;
+                    if (chkAplicaExo.Checked)
                     {
-                        clienteGlobal.idExonercion = (int)cboExoneracion.SelectedValue;
+                        clienteGlobal.institucionExo = txtInstitucionExo.Text.ToUpper().Trim();
+                        if (cboExoneracion.SelectedText != string.Empty)
+                        {
+                            clienteGlobal.idExonercion = (int)cboExoneracion.SelectedValue;
 
-                    }
-                    else {
-                        clienteGlobal.idExonercion = null;
+                        }
+                        else
+                        {
+                            clienteGlobal.idExonercion = null;
 
+                        }
+                        clienteGlobal.FechaEmisionExo = dtpFechaEmisionExo.Value;
+                        clienteGlobal.numeroDocumentoExo = txtDocExo.Text.Trim();
                     }
+
+
+
+                   
                     clienteGlobal.correoElectConta = txtCorreoContabilidad.Text.Trim();
                     clienteGlobal.creditoMax = int.Parse(txtCreditoMaxInt.Text.Trim());
                     clienteGlobal.descuentoMax = int.Parse(txtDescMaxInt.Text.Trim());
@@ -839,6 +915,49 @@ namespace PresentationLayer
         }
 
         private void cboBarrios_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtOtrasSenas_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAplicaExo.Checked)
+            {
+
+                gbxExoneracion.Enabled = true;
+                cboExoneracion.SelectedIndex = 0;
+            }
+            else
+            {
+                gbxExoneracion.Enabled = false;
+                cboExoneracion.SelectedIndex = 0;
+                txtInstitucionExo.Text = string.Empty;
+                dtpFechaEmisionExo.ResetText();
+
+            }
+        }
+
+        private void label19_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gbxExoneracion_Enter(object sender, EventArgs e)
         {
 
         }

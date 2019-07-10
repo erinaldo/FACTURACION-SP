@@ -746,6 +746,7 @@ namespace PresentationLayer
                 txtDireccion.Text = cliente.tbPersona.otrasSenas.Trim().ToUpper();
                 txtTel.Text = cliente.tbPersona.telefono.ToString().Trim().ToUpper();
                 txtCorreo.Text = cliente.tbPersona.correoElectronico.Trim();
+              
                 calcularMontosT();
 
             }
@@ -1032,6 +1033,7 @@ namespace PresentationLayer
             documento.observaciones = txtObservaciones.Text.ToUpper().Trim();
             documento.idEmpresa = Global.Usuario.tbEmpresa.id;
             documento.tipoIdEmpresa = Global.Usuario.tbEmpresa.tipoId;
+            //en caso que no tenga cliente asignado, sera no contribuyente
 
             //si no marco el check de enviar correo, deja los campos de correo electronico a notificar null
             if ((bool)documento.notificarCorreo)
@@ -1045,6 +1047,8 @@ namespace PresentationLayer
             {
                 documento.idCliente = clienteGlo.id;
                 documento.tipoIdCliente = clienteGlo.tipoId;
+                //asigna el valor que tenga el cliente si es contribuyente o no
+        
                 documento.tbClientes = clienteGlo;
             }
 
@@ -1144,7 +1148,7 @@ namespace PresentationLayer
                 {
                     try
                     {
-                        clienteGlo = BCliente.GetClienteById(txtIdCliente.Text.Trim());
+                        clienteGlo = BCliente.GetClienteById( txtIdCliente.Text.Trim());
                         if (clienteGlo != null)
                         {
                             dataBuscar(clienteGlo);
@@ -1327,5 +1331,7 @@ namespace PresentationLayer
             }
 
         }
+
+      
     }
 }

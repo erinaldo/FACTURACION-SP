@@ -4,56 +4,56 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c9bce00158a74fbf882b10a681c55b59" Name="Diagram1" ZoomLevel="111">
+      <Diagram DiagramId="c9bce00158a74fbf882b10a681c55b59" Name="Diagram1" ZoomLevel="69">
         <EntityTypeShape EntityType="dbSisSodInaModel.publishers" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="dbSisSodInaModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbAbonos" Width="1.5" PointX="32.25" PointY="39.875" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbBarrios" Width="1.5" PointX="7.5" PointY="26.5" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbCajas" Width="1.5" PointX="20.25" PointY="29" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbCajaUsuario" Width="1.5" PointX="22.5" PointY="36.25" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbCajaUsuMonedas" Width="1.5" PointX="24.75" PointY="40.125" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbCanton" Width="1.5" PointX="3" PointY="26.625" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbCategoriaProducto" Width="1.5" PointX="12" PointY="53.25" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbClientes" Width="1.5" PointX="12" PointY="24" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbCreditos" Width="1.5" PointX="30" PointY="39.5" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbDetalleDocumento" Width="1.5" PointX="25.5" PointY="34.875" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbAbonos" Width="1.5" PointX="29.25" PointY="35.125" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbBarrios" Width="1.5" PointX="7.5" PointY="26.75" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbCajas" Width="1.5" PointX="20.25" PointY="23.25" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbCajaUsuario" Width="1.5" PointX="22.5" PointY="30.375" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbCajaUsuMonedas" Width="1.5" PointX="27.75" PointY="31.375" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbCanton" Width="1.5" PointX="3" PointY="26.875" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbCategoriaProducto" Width="1.5" PointX="12" PointY="45.75" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbClientes" Width="1.5" PointX="15" PointY="23.75" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbCreditos" Width="1.5" PointX="27" PointY="34.75" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbDetalleDocumento" Width="1.5" PointX="22.5" PointY="39.875" />
         <EntityTypeShape EntityType="dbSisSodInaModel.tbDetalleImpresion" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbDetalleMovimiento" Width="1.5" PointX="30" PointY="36.125" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbDetalleProducto" Width="1.5" PointX="30" PointY="44" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbDistrito" Width="1.5" PointX="5.25" PointY="26.625" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbDocumento" Width="1.5" PointX="20.25" PointY="33" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbEmpleado" Width="1.5" PointX="15" PointY="25.75" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbEmpresa" Width="1.5" PointX="12" PointY="46" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbExoneraciones" Width="1.5" PointX="9.75" PointY="21.875" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbHorarioProveedor" Width="1.5" PointX="14.25" PointY="38.875" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbImpuestos" Width="1.5" PointX="12" PointY="39.75" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbIngredienteProveedor" Width="1.5" PointX="30" PointY="46.75" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbIngredientes" Width="1.5" PointX="27.75" PointY="43.375" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbInventario" Width="1.5" PointX="12" PointY="36.125" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbMonedas" Width="1.5" PointX="22.5" PointY="41.125" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbMovimientos" Width="1.5" PointX="27.75" PointY="36.25" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbPagos" Width="1.5" PointX="17.25" PointY="25.75" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbParametrosEmpresa" Width="1.5" PointX="14.25" PointY="48.25" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbPersona" Width="1.5" PointX="9.75" PointY="24.875" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbDetalleMovimiento" Width="1.5" PointX="27" PointY="28.25" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbDetalleProducto" Width="1.5" PointX="27" PointY="15.75" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbDistrito" Width="1.5" PointX="5.25" PointY="26.75" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbDocumento" Width="1.5" PointX="20.25" PointY="27" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbEmpleado" Width="1.5" PointX="12" PointY="25.875" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbEmpresa" Width="1.5" PointX="12" PointY="34.125" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbExoneraciones" Width="1.5" PointX="12.75" PointY="18.625" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbHorarioProveedor" Width="1.5" PointX="14.25" PointY="58.25" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbImpuestos" Width="1.5" PointX="12" PointY="59.125" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbIngredienteProveedor" Width="1.5" PointX="27" PointY="19.25" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbIngredientes" Width="1.5" PointX="24.75" PointY="19.625" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbInventario" Width="1.5" PointX="12" PointY="55.5" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbMonedas" Width="1.5" PointX="25.5" PointY="24.375" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbMovimientos" Width="1.5" PointX="24.75" PointY="30.5" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbPagos" Width="1.5" PointX="17.25" PointY="24.875" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbParametrosEmpresa" Width="1.5" PointX="14.25" PointY="31.125" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbPersona" Width="1.5" PointX="9.75" PointY="25.125" />
         <EntityTypeShape EntityType="dbSisSodInaModel.tbPersonasTribunalS" Width="1.5" PointX="2.75" PointY="3.75" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbProducto" Width="1.5" PointX="14.25" PointY="30.625" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbProveedores" Width="1.5" PointX="12" PointY="30.125" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbProvincia" Width="1.5" PointX="0.75" PointY="26.875" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbProducto" Width="1.5" PointX="14.25" PointY="49" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbProveedores" Width="1.5" PointX="12" PointY="49.5" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbProvincia" Width="1.5" PointX="0.75" PointY="27.125" />
         <EntityTypeShape EntityType="dbSisSodInaModel.tbPRUEBA2" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbReporteHacienda" Width="1.5" PointX="14.25" PointY="52.75" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbRequerimientos" Width="1.5" PointX="12.75" PointY="60.875" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbRoles" Width="1.5" PointX="15" PointY="60.75" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoClientes" Width="1.5" PointX="9.75" PointY="31.625" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoDocumento" Width="1.5" PointX="18" PointY="41.25" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoId" Width="1.5" PointX="7.5" PointY="23.875" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoIngrediente" Width="1.5" PointX="25.5" PointY="43.875" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoMedidas" Width="1.5" PointX="12" PointY="19.375" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoMoneda" Width="1.5" PointX="18" PointY="32.125" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoMovimiento" Width="1.5" PointX="25.5" PointY="30.25" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoPago" Width="1.5" PointX="18" PointY="46" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoPuesto" Width="1.5" PointX="12.75" PointY="15.125" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoVenta" Width="1.5" PointX="18" PointY="43.625" />
-        <EntityTypeShape EntityType="dbSisSodInaModel.tbUsuarios" Width="1.5" PointX="17.25" PointY="36.125" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbReporteHacienda" Width="1.5" PointX="14.25" PointY="40.625" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbRequerimientos" Width="1.5" PointX="12.75" PointY="14.125" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbRoles" Width="1.5" PointX="15" PointY="14" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoClientes" Width="1.5" PointX="12.75" PointY="22.125" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoDocumento" Width="1.5" PointX="18" PointY="38.625" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoId" Width="1.5" PointX="7.5" PointY="24.125" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoIngrediente" Width="1.5" PointX="22.5" PointY="20.125" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoMedidas" Width="1.5" PointX="12" PointY="62.625" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoMoneda" Width="1.5" PointX="18" PointY="35.5" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoMovimiento" Width="1.5" PointX="22.5" PointY="26.375" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoPago" Width="1.5" PointX="18" PointY="22.125" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoPuesto" Width="1.5" PointX="9.75" PointY="20.375" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbTipoVenta" Width="1.5" PointX="18" PointY="41" />
+        <EntityTypeShape EntityType="dbSisSodInaModel.tbUsuarios" Width="1.5" PointX="17.25" PointY="30.375" />
         <AssociationConnector Association="dbSisSodInaModel.FK_tbAbonos_tbCreditos" />
         <AssociationConnector Association="dbSisSodInaModel.FK_tbBarrios_tbDistrito" />
         <AssociationConnector Association="dbSisSodInaModel.FK_tbPersona_tbBarrios" />

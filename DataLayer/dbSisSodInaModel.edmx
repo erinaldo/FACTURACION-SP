@@ -132,12 +132,17 @@
           <Property Name="nombreTributario" Type="nchar" MaxLength="50" />
           <Property Name="encargadoConta" Type="nchar" MaxLength="50" />
           <Property Name="correoElectConta" Type="nchar" MaxLength="50" />
+          <Property Name="exonera" Type="bit" />
           <Property Name="idExonercion" Type="int" />
+          <Property Name="numeroDocumentoExo" Type="nvarchar" MaxLength="40" />
+          <Property Name="institucionExo" Type="nchar" MaxLength="160" />
+          <Property Name="FechaEmisionExo" Type="datetime" />
           <Property Name="fecha_crea" Type="datetime" Nullable="false" />
           <Property Name="fecha_ult_mod" Type="datetime" Nullable="false" />
           <Property Name="usuario_crea" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="usuario_ult_crea" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="contacto" Type="nchar" MaxLength="50" />
+          <Property Name="contribuyente" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tbCreditos">
           <Key>
@@ -305,6 +310,7 @@
           <Property Name="ambientePruebas" Type="bit" />
           <Property Name="rutaXMLCompras" Type="nchar" MaxLength="500" />
           <Property Name="imprimeDoc" Type="bit" />
+          <Property Name="codigoActComercial" Type="nchar" MaxLength="6" Nullable="false" />
         </EntityType>
         <EntityType Name="tbExoneraciones">
           <Key>
@@ -572,8 +578,9 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="consecutivoReceptor" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="codigoActividadEmisor" Type="nchar" MaxLength="6" />
           <Property Name="claveReceptor" Type="nchar" MaxLength="50" Nullable="false" />
-          <Property Name="claveDocEmisor" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="claveDocEmisor" Type="nchar" MaxLength="50" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
           <Property Name="fechaEmision" Type="datetime" Nullable="false" />
           <Property Name="tipoIdEmisor" Type="int" Nullable="false" />
@@ -592,6 +599,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="totalImp" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="totalFactura" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="idEmpresa" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="nombreReceptor" Type="nchar" MaxLength="160" />
           <Property Name="tipoIdEmpresa" Type="int" Nullable="false" />
           <Property Name="nombreArchivo" Type="nchar" MaxLength="500" />
           <Property Name="rutaRespuestaHacienda" Type="nchar" MaxLength="500" />
@@ -2037,12 +2045,17 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="nombreTributario" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="encargadoConta" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="correoElectConta" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="exonera" Type="Boolean" />
           <Property Name="idExonercion" Type="Int32" />
+          <Property Name="numeroDocumentoExo" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="institucionExo" Type="String" MaxLength="160" FixedLength="true" Unicode="true" />
+          <Property Name="FechaEmisionExo" Type="DateTime" Precision="3" />
           <Property Name="fecha_crea" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="fecha_ult_mod" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="usuario_crea" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="usuario_ult_crea" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="contacto" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="contribuyente" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="tbExoneraciones" Relationship="dbSisSodInaModel.FK_tbClientes_tbExoneraciones" FromRole="tbClientes" ToRole="tbExoneraciones" />
           <NavigationProperty Name="tbPersona" Relationship="dbSisSodInaModel.FK_tbClientes_tbPersona" FromRole="tbClientes" ToRole="tbPersona" />
           <NavigationProperty Name="tbTipoClientes" Relationship="dbSisSodInaModel.FK_tbClientes_tbTipoClientes" FromRole="tbClientes" ToRole="tbTipoClientes" />
@@ -2233,6 +2246,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="ambientePruebas" Type="Boolean" />
           <Property Name="rutaXMLCompras" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
           <Property Name="imprimeDoc" Type="Boolean" />
+          <Property Name="codigoActComercial" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="tbDocumento" Relationship="dbSisSodInaModel.FK_tbDocumento_tbEmpresa" FromRole="tbEmpresa" ToRole="tbDocumento" />
           <NavigationProperty Name="tbPersona" Relationship="dbSisSodInaModel.FK_tbEmpresa_tbPersona" FromRole="tbEmpresa" ToRole="tbPersona" />
           <NavigationProperty Name="tbParametrosEmpresa" Relationship="dbSisSodInaModel.FK_tbParametrosEmpresa_tbEmpresa" FromRole="tbEmpresa" ToRole="tbParametrosEmpresa" />
@@ -2520,8 +2534,9 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="consecutivoReceptor" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="codigoActividadEmisor" Type="String" MaxLength="6" FixedLength="true" Unicode="true" />
           <Property Name="claveReceptor" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="claveDocEmisor" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="claveDocEmisor" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="fechaEmision" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="tipoIdEmisor" Type="Int32" Nullable="false" />
@@ -2540,6 +2555,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="totalImp" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="totalFactura" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="idEmpresa" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="nombreReceptor" Type="String" MaxLength="160" FixedLength="true" Unicode="true" />
           <Property Name="tipoIdEmpresa" Type="Int32" Nullable="false" />
           <Property Name="nombreArchivo" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
           <Property Name="rutaRespuestaHacienda" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
@@ -3444,12 +3460,17 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <EntitySetMapping Name="tbClientes">
             <EntityTypeMapping TypeName="dbSisSodInaModel.tbClientes">
               <MappingFragment StoreEntitySet="tbClientes">
+                <ScalarProperty Name="contribuyente" ColumnName="contribuyente" />
                 <ScalarProperty Name="contacto" ColumnName="contacto" />
                 <ScalarProperty Name="usuario_ult_crea" ColumnName="usuario_ult_crea" />
                 <ScalarProperty Name="usuario_crea" ColumnName="usuario_crea" />
                 <ScalarProperty Name="fecha_ult_mod" ColumnName="fecha_ult_mod" />
                 <ScalarProperty Name="fecha_crea" ColumnName="fecha_crea" />
+                <ScalarProperty Name="FechaEmisionExo" ColumnName="FechaEmisionExo" />
+                <ScalarProperty Name="institucionExo" ColumnName="institucionExo" />
+                <ScalarProperty Name="numeroDocumentoExo" ColumnName="numeroDocumentoExo" />
                 <ScalarProperty Name="idExonercion" ColumnName="idExonercion" />
+                <ScalarProperty Name="exonera" ColumnName="exonera" />
                 <ScalarProperty Name="correoElectConta" ColumnName="correoElectConta" />
                 <ScalarProperty Name="encargadoConta" ColumnName="encargadoConta" />
                 <ScalarProperty Name="nombreTributario" ColumnName="nombreTributario" />
@@ -3610,6 +3631,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <EntitySetMapping Name="tbEmpresa">
             <EntityTypeMapping TypeName="dbSisSodInaModel.tbEmpresa">
               <MappingFragment StoreEntitySet="tbEmpresa">
+                <ScalarProperty Name="codigoActComercial" ColumnName="codigoActComercial" />
                 <ScalarProperty Name="imprimeDoc" ColumnName="imprimeDoc" />
                 <ScalarProperty Name="rutaXMLCompras" ColumnName="rutaXMLCompras" />
                 <ScalarProperty Name="ambientePruebas" ColumnName="ambientePruebas" />
@@ -3891,6 +3913,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
                 <ScalarProperty Name="rutaRespuestaHacienda" ColumnName="rutaRespuestaHacienda" />
                 <ScalarProperty Name="nombreArchivo" ColumnName="nombreArchivo" />
                 <ScalarProperty Name="tipoIdEmpresa" ColumnName="tipoIdEmpresa" />
+                <ScalarProperty Name="nombreReceptor" ColumnName="nombreReceptor" />
                 <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />
                 <ScalarProperty Name="totalFactura" ColumnName="totalFactura" />
                 <ScalarProperty Name="totalImp" ColumnName="totalImp" />
@@ -3911,6 +3934,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="claveDocEmisor" ColumnName="claveDocEmisor" />
                 <ScalarProperty Name="claveReceptor" ColumnName="claveReceptor" />
+                <ScalarProperty Name="codigoActividadEmisor" ColumnName="codigoActividadEmisor" />
                 <ScalarProperty Name="consecutivoReceptor" ColumnName="consecutivoReceptor" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

@@ -188,8 +188,7 @@ catch (Exception EX)
 
         }
 
-
-        public tbClientes GetClienteById(string id)
+        public tbClientes GetClienteById( string id)
         {
 
             try
@@ -197,7 +196,28 @@ catch (Exception EX)
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
                 {
                     return (from p in context.tbClientes.Include("tbPersona")
-                        where p.estado == true && p.id == id
+                            where p.estado == true && p.id == id 
+                            select p).SingleOrDefault();
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public tbClientes GetClienteById(int tipo, string id)
+        {
+
+            try
+            {
+                using (dbSisSodInaEntities context = new dbSisSodInaEntities())
+                {
+                    return (from p in context.tbClientes.Include("tbPersona")
+                        where p.estado == true && p.id == id.Trim() && p.tipoId==tipo
                         select p).SingleOrDefault();
 
                 }

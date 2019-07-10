@@ -206,6 +206,33 @@ namespace DataLayer
 
         }
 
+        public tbCategoriaProducto GetEntityById(int id)
+        {
+
+            try
+            {
+
+                using (dbSisSodInaEntities context = new dbSisSodInaEntities())
+                {
+
+
+                    return (from p in context.tbCategoriaProducto
+                              where p.id == id
+                              select p).SingleOrDefault();
+
+                    
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new SaveEntityException(ex.Message);
+            }
+
+
+        }
+
         public List<tbIngredientes> GetListIngrediente(int idBuscar)
         {
             try

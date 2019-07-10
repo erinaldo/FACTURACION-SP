@@ -71,11 +71,13 @@ namespace PresentationLayer
 
                 }
                 txtNombreComercial.Text = empresa.nombreComercial.Trim();
+                txtActEconomica.Text = empresa.codigoActComercial;
 
                 //datos hacienda
                 chkAmbienteDesa.Checked = (bool)!empresa.ambientePruebas;
                 txtUsuarioHacienda.Text = empresa.usuarioApiHacienda.Trim();
                 txtConstrasenaHacienda.Text = empresa.claveApiHacienda.Trim();
+              
 
                 txtCertificado.Text = empresa.certificadoInstalado.Trim();
                 txtPinCertificado.Text = empresa.pin.ToString().Trim();
@@ -265,7 +267,7 @@ namespace PresentationLayer
                         empresaGlobal.ambientePruebas=!chkAmbienteDesa.Checked ;
                         empresaGlobal.usuarioApiHacienda= txtUsuarioHacienda.Text;
                         empresaGlobal.claveApiHacienda= txtConstrasenaHacienda.Text;
-
+                        empresaGlobal.codigoActComercial = txtActEconomica.Text;
                         empresaGlobal.certificadoInstalado = txtCertificado.Text;
                         empresaGlobal.pin = int.Parse(txtPinCertificado.Text);
 
@@ -320,8 +322,14 @@ namespace PresentationLayer
         private bool validarDatos()
         {
 
+             if (txtActEconomica.Text.Trim() == string.Empty)
+            {
 
-            if (txtUsuarioHacienda.Text.Trim()==string.Empty)
+                MessageBox.Show("Debe indicar el código de la actividad económica de la empresa", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtActEconomica.Focus();
+                return false;
+            }
+            else if (txtUsuarioHacienda.Text.Trim()==string.Empty)
             {
 
                 MessageBox.Show("Debe completar el campo de Usuario Hacienda","Faltan datos", MessageBoxButtons.OK,MessageBoxIcon.Error);

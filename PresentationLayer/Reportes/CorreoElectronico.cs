@@ -12,6 +12,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Configuration;
 
 namespace PresentationLayer.Reportes
 {
@@ -227,8 +228,8 @@ namespace PresentationLayer.Reportes
                 string pdf = string.Empty;
                 string tipoDoc = Utility.getPrefixTypeDoc(_doc.tipoDocumento);
                 string directorio = Global.Usuario.tbEmpresa.rutaCertificado.Trim();
-
-                SqlConnection _SqlConnection = new SqlConnection(Utility.stringConexionReportes());
+                //string conec=Properties.Settings.Default.dbSISSODINAConnectionString1.ToString();
+            SqlConnection _SqlConnection = new SqlConnection(Utility.stringConexionReportes());
                 dtReporteHacienda ds = new dtReporteHacienda();
                 if (_doc.idCliente == null)
                 {

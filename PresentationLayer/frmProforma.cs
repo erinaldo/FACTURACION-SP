@@ -42,7 +42,7 @@ namespace PresentationLayer
 
         private void cargarDatos()
         {
-            tbClientes cliente = clienteB.GetClienteById(facturaGlobal.idCliente);
+            tbClientes cliente = clienteB.GetClienteById((int)facturaGlobal.tipoIdCliente, facturaGlobal.idCliente);
 
 
             if (facturaGlobal.tipoIdCliente == 1)

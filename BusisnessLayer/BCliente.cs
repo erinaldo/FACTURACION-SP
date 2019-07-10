@@ -61,9 +61,16 @@ namespace BusinessLayer
         {
             return DClientes.getTipoCliente();
         }
-        public  tbClientes GetClienteById(string id)
+       
+
+        public tbClientes GetClienteById(int tipo, string id)
         {
-            return clienteIns.GetClienteById(id);
+            return clienteIns.GetClienteById(tipo,id);
+        }
+
+        public tbClientes GetClienteById( string id)
+        {
+            return clienteIns.GetClienteById( id);
         }
         public tbPersonasTribunalS GetClienteByIdTribunal(string id)
         {

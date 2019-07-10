@@ -16,6 +16,7 @@ namespace PresentationLayer
     public partial class frmValidacionDocumentosHacienda : Form
     {
         BFacturacion facturaIns = new BFacturacion();
+        Bcliente clienteIns = new Bcliente();
         IEnumerable<tbDocumento> facturas = new List<tbDocumento>();
         public frmValidacionDocumentosHacienda()
         {
@@ -24,9 +25,18 @@ namespace PresentationLayer
 
         private void frmValidacionDocumentosHacienda_Load(object sender, EventArgs e)
         {
-            formatoGrid();
-            cargarDatos();
-            progressBar1.Visible = false;
+            try
+            {
+                formatoGrid();
+                cargarDatos();
+                progressBar1.Visible  = false;
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Error al cargar los datos","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+       
 
 
         }
@@ -49,6 +59,7 @@ namespace PresentationLayer
 
                 facturas = facturas.Where(x => x.fecha >= fechaInicio && x.fecha <= fechaFin);
             }
+            
 
             cargarGRID(facturas);
 
