@@ -47,6 +47,7 @@
             this.colFecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colMontoTotal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnTrasnferir = new System.Windows.Forms.Button();
+            this.btnEnviarCorreo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label9
@@ -206,11 +207,27 @@
             this.btnTrasnferir.UseVisualStyleBackColor = true;
             this.btnTrasnferir.Click += new System.EventHandler(this.btnTrasnferir_Click);
             // 
+            // btnEnviarCorreo
+            // 
+            this.btnEnviarCorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEnviarCorreo.Image = global::PresentationLayer.Properties.Resources.correoEnvio;
+            this.btnEnviarCorreo.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnEnviarCorreo.Location = new System.Drawing.Point(918, 496);
+            this.btnEnviarCorreo.Margin = new System.Windows.Forms.Padding(4);
+            this.btnEnviarCorreo.Name = "btnEnviarCorreo";
+            this.btnEnviarCorreo.Size = new System.Drawing.Size(80, 64);
+            this.btnEnviarCorreo.TabIndex = 85;
+            this.btnEnviarCorreo.Text = "Enviar Correo";
+            this.btnEnviarCorreo.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnEnviarCorreo.UseVisualStyleBackColor = true;
+            this.btnEnviarCorreo.Click += new System.EventHandler(this.btnEnviarCorreo_Click);
+            // 
             // frmBusquedaProforma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1097, 569);
+            this.Controls.Add(this.btnEnviarCorreo);
             this.Controls.Add(this.btnTrasnferir);
             this.Controls.Add(this.lsvFacturas);
             this.Controls.Add(this.btnBuscar);
@@ -252,5 +269,6 @@
         private System.Windows.Forms.ColumnHeader colFecha;
         private System.Windows.Forms.ColumnHeader colMontoTotal;
         private System.Windows.Forms.Button btnTrasnferir;
+        private System.Windows.Forms.Button btnEnviarCorreo;
     }
 }

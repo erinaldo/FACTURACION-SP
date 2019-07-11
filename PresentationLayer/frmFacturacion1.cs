@@ -1209,6 +1209,16 @@ namespace PresentationLayer
                     tbDocumento documento = crearDocumento();
                     documento.tipoDocumento = tipoDoc;
                     documento.reporteElectronic = false;
+                    if (txtCorreo.Text!=string.Empty)
+                    {
+                        documento.correo1 = txtCorreo.Text.Trim();
+                    }
+
+                    if (txtCorreo2.Text != string.Empty)
+                    {
+                        documento.correo2 = txtCorreo2.Text.Trim();
+                    }
+                    documento.notificarCorreo = chkEnviar.Checked;
                     frmProforma form = new frmProforma();
                     form.recuperarTotal += respuesta;
                     form.facturaGlobal = documento;

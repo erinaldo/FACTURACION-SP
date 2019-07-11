@@ -1,5 +1,7 @@
 ﻿using BusinessLayer;
 using CommonLayer;
+using CommonLayer.Exceptions.PresentationsExceptions;
+using PresentationLayer.Reportes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -66,7 +68,7 @@ namespace PresentationLayer
 
                 }
 
-
+                fact = fact.OrderByDescending(x => x.id);
                 cargarLista(fact);
 
 
@@ -186,5 +188,83 @@ namespace PresentationLayer
                 throw ex;
             }
         }
+
+        private void btnEnviarCorreo_Click(object sender, EventArgs e)
+        {
+            if (lsvFacturas.SelectedItems.Count > 0)
+            {
+
+                int idProforma = int.Parse(lsvFacturas.SelectedItems[0].Text);
+
+                IEnumerable<tbDocumento> fact = factIns.getListAllDocumentos();
+                tbDocumento proforma = fact.Where(x => x.id == idProforma && x.tipoDocumento == (int)Enums.TipoDocumento.Proforma).SingleOrDefault();
+
+                if (proforma!=null)
+                {
+                    enviarCorreo(proforma);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe de seleccionar alguna proforma", "Proforma", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+
+           
+        }
+
+        private void enviarCorreo(tbDocumento proforma)
+        {
+            if (Utility.AccesoInternet())
+            {
+                DialogResult result = MessageBox.Show("Se enviará por correo electrónico la factura seleccionada, Desea continuar?", "Envio de correo electrónico", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    List<string> correos = new List<string>();
+                    if (proforma.correo1!=null)
+                    {
+                        correos.Add(proforma.correo1.Trim());
+                    }
+                    if (proforma.correo2 != null)
+                    {
+                        correos.Add(proforma.correo2.Trim());
+                    }
+
+
+                    bool enviado = false;
+                    try
+                    {
+                        CorreoElectronico correo = new CorreoElectronico(proforma, correos, true);
+                        enviado = correo.enviarCorreo();
+                    }
+                    catch (CorreoSinDestinatarioException ex)
+                    {
+
+                        MessageBox.Show(ex.Message, "Correo Electrónico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+
+                    if (enviado)
+                    {
+                        MessageBox.Show("Se envió correctamente el correo electrónico", "Correo Electrónico", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Se produjo un error al enviar el Correo Electrónico", "Correo Electrónico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    }
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("No hay acceso a internet", "Sin Internet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+        }
+
+        
     }
 }

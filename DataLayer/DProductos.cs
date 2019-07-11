@@ -64,7 +64,7 @@ namespace DataLayer
 
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
                 {
-
+                    productoNuevo.tbImpuestos = null;
                     context.Entry(productoNuevo).State = System.Data.Entity.EntityState.Modified;
                     context.Entry(productoNuevo.tbInventario).State = System.Data.Entity.EntityState.Modified;
 

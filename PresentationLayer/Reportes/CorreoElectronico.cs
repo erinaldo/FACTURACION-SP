@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Configuration;
+using CommonLayer.Exceptions.PresentationsExceptions;
 
 namespace PresentationLayer.Reportes
 {
@@ -55,7 +56,10 @@ namespace PresentationLayer.Reportes
 
         public bool enviarCorreo()
         {
-
+            if (_destinoCorreo.Count==0)
+            {
+                throw new CorreoSinDestinatarioException("No hay destinatarios a quien enviar el correo");
+            }
             bool enviado = false;
 
             try

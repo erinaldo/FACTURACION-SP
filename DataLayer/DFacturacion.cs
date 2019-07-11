@@ -387,9 +387,22 @@ namespace DataLayer
             {
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
                 {
-                    return (from p in context.tbDocumento.Include("tbDetalleDocumento").Include("tbClientes.tbPersona").Include("tbDetalleDocumento.tbProducto.tbImpuestos")
+                    var list= (from p in context.tbDocumento.Include("tbDetalleDocumento").Include("tbClientes").Include("tbDetalleDocumento.tbProducto.tbImpuestos")
                             select p).ToList();
+
+                    foreach (var doc in list)
+                    {
+                        if (doc.idCliente != null)
+                        {
+                            doc.tbClientes = clienteIns.GetClienteById((int)doc.tipoIdCliente, doc.idCliente);
+                        }
+                    }
+                    return list;
+
                 }
+
+
+                
 
             }
             catch (Exception ex)

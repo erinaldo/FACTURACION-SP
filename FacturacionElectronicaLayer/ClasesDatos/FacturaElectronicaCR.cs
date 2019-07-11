@@ -263,9 +263,11 @@ namespace FacturacionElectronicaLayer.ClasesDatos
 
                     writer.WriteElementString("NumeroLinea", detalle.numLinea.ToString().Trim());
 
-            
+                    writer.WriteStartElement("CodigoComercial");
+                    writer.WriteElementString("Tipo", "01");
                     writer.WriteElementString("Codigo", detalle.idProducto.ToString().Trim());
-                  
+                    writer.WriteEndElement(); // 'codigo comercial
+
                     int cant = (int)detalle.cantidad;//convierte entero, elimina decimales
                     writer.WriteElementString("Cantidad", String.Format("{0:N3}", cant.ToString()));
                     // 'Para las unidades de medida ver la tabla correspondiente
@@ -380,7 +382,7 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                     {
                         impuestos += detalle.montoTotalImp;
 
-                        if (detalle.tbProducto.tbCategoriaProducto.nombre.Trim().ToUpper() == "SERVICIOS PROFESIONALES")
+                        if (Enum.GetName(typeof(Enums.TipoMedida), detalle.tbProducto.idMedida).Trim().ToUpper() == "SP")
                         {//si tiene impuesto y es un servicio
                             totalServExonerado += detalle.montoTotalExo;
                             totalSevGravados += detalle.montoTotal;
@@ -899,200 +901,199 @@ namespace FacturacionElectronicaLayer.ClasesDatos
 
 
                         writer.WriteElementString("MedioPago", _medioPago);
-                        // '01: Efectivo
-                        // '02: Tarjeta
-                        // '03: Cheque
-                        // '04: Transferecia - deposito bancario
-                        // '05: Recaudado por terceros            
-                        // '99: Otros
+                // '01: Efectivo
+                // '02: Tarjeta
+                // '03: Cheque
+                // '04: Transferecia - deposito bancario
+                // '05: Recaudado por terceros            
+                // '99: Otros
 
-                        writer.WriteStartElement("DetalleServicio");
-                        //-----variables resumes de montos pagados
+                writer.WriteStartElement("DetalleServicio");
+
+                foreach (tbDetalleDocumento detalle in _listaDetalle)
+                {
+                    writer.WriteStartElement("LineaDetalle");
+
+                    writer.WriteElementString("NumeroLinea", detalle.numLinea.ToString().Trim());
+
+                    writer.WriteStartElement("CodigoComercial");
+                    writer.WriteElementString("Tipo", "01");
+                    writer.WriteElementString("Codigo", detalle.idProducto.ToString().Trim());
+                    writer.WriteEndElement(); // 'codigo comercial
+
+                    int cant = (int)detalle.cantidad;//convierte entero, elimina decimales
+                    writer.WriteElementString("Cantidad", String.Format("{0:N3}", cant.ToString()));
+                    // 'Para las unidades de medida ver la tabla correspondiente
+                    writer.WriteElementString("UnidadMedida", Enum.GetName(typeof(Enums.TipoMedida), detalle.tbProducto.idMedida));//nomenlatura kg etc
+
+                    writer.WriteElementString("Detalle", detalle.tbProducto.nombre.ToString().Trim());
 
 
-                        // '-------------------------------------
-                        foreach (tbDetalleDocumento detalle in _listaDetalle)
+                    writer.WriteElementString("PrecioUnitario", String.Format("{0:N3}", detalle.precio.ToString().Trim()));
+                    writer.WriteElementString("MontoTotal", String.Format("{0:N3}", detalle.montoTotal.ToString().Trim()));
+
+                    if (detalle.montoTotalDesc != 0)
+                    {
+
+
+                        writer.WriteStartElement("Descuento");
+                        writer.WriteElementString("MontoDescuento", String.Format("{0:N3}", detalle.montoTotalDesc.ToString().Trim()));
+                        writer.WriteElementString("NaturalezaDescuento", "Descuento aplicado al cliente");//agregar naturaleza desc                        
+                        writer.WriteEndElement(); // 'descuento
+
+                    }
+                    writer.WriteElementString("SubTotal", String.Format("{0:N3}", (detalle.montoTotal - detalle.montoTotalDesc).ToString().Trim()));
+
+                    if (detalle.montoTotalImp != 0)
+                    {
+
+                        writer.WriteStartElement("Impuesto");
+                        writer.WriteElementString("Codigo", detalle.tbProducto.tbImpuestos.id.ToString().PadLeft(2, '0'));// impueto aplicado codigo
+                        writer.WriteElementString("CodigoTarifa", "08");
+                        writer.WriteElementString("Tarifa", String.Format("{0:N3}", detalle.tbProducto.tbImpuestos.valor.ToString()));// %aplicado valor
+                        writer.WriteElementString("Monto", String.Format("{0:N3}", (detalle.montoTotalImp).ToString().Trim()));
+
+                        if (detalle.montoTotalExo != 0)
                         {
-                            writer.WriteStartElement("LineaDetalle");
+                            writer.WriteStartElement("Exoneracion");
+                            writer.WriteElementString("TipoDocuento", _receptor.tipoExoneracion.PadLeft(2, '0'));// impueto aplicado codigo
+                            writer.WriteElementString("NumeroDocumento", _receptor.institucionExo);// impueto aplicado codigo
 
-                            writer.WriteElementString("NumeroLinea", detalle.numLinea.ToString().Trim());
+                            writer.WriteElementString("NombreInstitucion", _receptor.institucionExo);// impueto aplicado codigo
+                            writer.WriteElementString("FechaEmision", _receptor.fechaEmisionExo.ToString("yyyy-MM-ddTHH:mm:sszzz"));// impueto aplicado codigo
+                            writer.WriteElementString("PorcentajeExoneracion", _receptor.valorExo.ToString());// impueto aplicado codigo
 
-                            //writer.WriteStartElement("Codigo");
-                            //writer.WriteElementString("Tipo", "01");//codigo del prodcuto del vendedor nota 12.
-                            writer.WriteElementString("Codigo", detalle.idProducto.ToString().Trim());
-                            //writer.WriteEndElement(); // 'Codigo
+                            writer.WriteElementString("MontoExoneracion", String.Format("{0:N3}", detalle.montoTotalExo.ToString().Trim()));// impueto aplicado codigo
 
-                            int cant = (int)detalle.cantidad;//convierte entero, elimina decimales
-                            writer.WriteElementString("Cantidad", cant.ToString());
-                            // 'Para las unidades de medida ver la tabla correspondiente
-                            writer.WriteElementString("UnidadMedida", Enum.GetName(typeof(Enums.TipoMedida), detalle.tbProducto.idMedida));//nomenlatura kg etc
-
-                            writer.WriteElementString("Detalle", detalle.tbProducto.nombre.ToString().Trim());
-
-
-                            writer.WriteElementString("PrecioUnitario", String.Format("{0:N3}", detalle.precio.ToString().Trim()));
-                            writer.WriteElementString("MontoTotal", String.Format("{0:N3}", detalle.montoTotal.ToString().Trim()));
-
-                            if (detalle.montoTotalDesc != 0)
-                            {
-
-
-                                writer.WriteStartElement("Descuento");
-                                writer.WriteElementString("MontoDescuento", String.Format("{0:N3}", detalle.montoTotalDesc.ToString().Trim()));
-                                writer.WriteElementString("NaturalezaDescuento", "Descuento aplicado al cliente");//agregar naturaleza desc                        
-                                writer.WriteEndElement(); // 'descuento
-
-                            }
-                            writer.WriteElementString("SubTotal", String.Format("{0:N3}", (detalle.montoTotal - detalle.montoTotalDesc).ToString().Trim()));
-                            //writer.WriteElementString("BaseImponible", String.Format("{0:N3}", detalle.xxxx.ToString().Trim()));
-
-
-
-
-                            if (detalle.montoTotalImp != 0)
-                            {
-
-                                writer.WriteStartElement("Impuesto");
-                                writer.WriteElementString("Codigo", detalle.tbProducto.tbImpuestos.id.ToString().PadLeft(2, '0'));// impueto aplicado codigo
-                                writer.WriteElementString("CodigoTarifa", "08");
-                                writer.WriteElementString("Tarifa", detalle.tbProducto.tbImpuestos.valor.ToString());// %aplicado valor
-                                writer.WriteElementString("Monto", String.Format("{0:N3}", (detalle.montoTotalImp).ToString().Trim()));
-
-                                if (detalle.montoTotalExo != 0)
-                                {
-                                    writer.WriteStartElement("Exoneracion");
-                                    writer.WriteElementString("TipoDocuento", _receptor.tipoExoneracion.PadLeft(2, '0'));// impueto aplicado codigo
-                                    writer.WriteElementString("NumeroDocumento", _receptor.institucionExo);// impueto aplicado codigo
-
-                                    writer.WriteElementString("NombreInstitucion", _receptor.institucionExo);// impueto aplicado codigo
-                                    writer.WriteElementString("FechaEmision", _receptor.fechaEmisionExo.ToString("yyyy-MM-ddTHH:mm:sszzz"));// impueto aplicado codigo
-                                    writer.WriteElementString("PorcentajeExoneracion", _receptor.valorExo.ToString());// impueto aplicado codigo
-
-                                    writer.WriteElementString("MontoExoneracion", String.Format("{0:N3}", detalle.montoTotalExo.ToString().Trim()));// impueto aplicado codigo
-
-                                    writer.WriteEndElement(); // exoneracion
-
-
-
-                                }
-
-                                writer.WriteEndElement(); // Impuesto
-                                writer.WriteElementString("ImpuestoNeto", String.Format("{0:N3}", (detalle.montoTotalImp).ToString().Trim()));
-
-                            }
-
-                            writer.WriteElementString("MontoTotalLinea", String.Format("{0:N3}", detalle.totalLinea.ToString().Trim()));
-
-                            writer.WriteEndElement(); // LineaDetalle
+                            writer.WriteEndElement(); // exoneracion
                         }
-                        // '-------------------------------------
 
-                        writer.WriteEndElement(); // DetalleServicio
+                        writer.WriteEndElement(); // Impuesto
+                        writer.WriteElementString("ImpuestoNeto", String.Format("{0:N3}", (detalle.montoTotalImp).ToString().Trim()));
+                    }
+
+                    writer.WriteElementString("MontoTotalLinea", String.Format("{0:N3}", detalle.totalLinea.ToString().Trim()));
+                    writer.WriteEndElement(); // LineaDetalle
+                }
+                // '-------------------------------------
+
+                writer.WriteEndElement(); // DetalleServicio
+
+                writer.WriteStartElement("ResumenFactura");
+
+                writer.WriteStartElement("CodigoTipoMoneda");
+                writer.WriteElementString("CodigoMoneda", _codigoMoneda);
+
+                if (_codigoMoneda.ToUpper().Trim() == "USD")
+                {
+                    writer.WriteElementString("TipoCambio", String.Format("{0:N3}", _empresa.tbParametrosEmpresa.First().cambioDolar.ToString().Trim()));
+
+                }
+                else
+                {
+                    writer.WriteElementString("TipoCambio", String.Format("{0:N3}", "1"));
+
+                }
+                writer.WriteEndElement(); // CodigoTipoMoneda
 
 
-                        writer.WriteStartElement("ResumenFactura");
 
-                        writer.WriteStartElement("CodigoTipoMoneda");
-                        writer.WriteElementString("CodigoMoneda", _codigoMoneda);
+                decimal totalProdGravados = 0;
+                decimal totalProdExcentos = 0;
+                decimal totalSevGravados = 0;
+                decimal totalServExcentos = 0;
+                decimal totalServExonerado = 0;
+                decimal totalProdExonerado = 0;
 
-                        if (_codigoMoneda.ToUpper().Trim() == "USD")
+                decimal totalDescuento = 0;
+                decimal totalComprobante = 0;
+                decimal impuestos = 0;
+
+                foreach (tbDetalleDocumento detalle in _listaDetalle)
+                {
+                    totalDescuento += detalle.montoTotalDesc;//total de decuento
+                    totalComprobante += detalle.totalLinea;//total de comprobante
+
+
+                    if (detalle.montoTotalImp == 0)//valida si exonera es 0, si tiene valor de impuesto no exonera
+                    {//acumulo monto total, sin descuento. monto total es precio*cantidad
+                        if (Enum.GetName(typeof(Enums.TipoMedida), detalle.tbProducto.idMedida).Trim().ToUpper() == "SP")//valida si es producto o servicio y acumula en su respectiva variable
                         {
-                            writer.WriteElementString("TipoCambio", String.Format("{0:N3}", _empresa.tbParametrosEmpresa.First().cambioDolar.ToString().Trim()));
+                            totalServExonerado += detalle.montoTotalExo;
+                            totalServExcentos += detalle.montoTotal;
+                        }
+                        else//si es producto
+                        {
+                            totalProdExonerado += detalle.montoTotalExo;
+                            totalProdExcentos += detalle.montoTotal;
 
+                        }
+
+
+                    }
+                    else
+                    {
+                        impuestos += detalle.montoTotalImp;
+
+                        if (Enum.GetName(typeof(Enums.TipoMedida), detalle.tbProducto.idMedida).Trim().ToUpper() == "SP")
+                        {//si tiene impuesto y es un servicio
+                            totalServExonerado += detalle.montoTotalExo;
+                            totalSevGravados += detalle.montoTotal;
                         }
                         else
                         {
-                            writer.WriteElementString("TipoCambio", String.Format("{0:N3}", "1"));
+                            totalProdExonerado += detalle.montoTotalExo;
+                            totalProdGravados += detalle.montoTotal;//si es un prodcuto
 
                         }
-                        writer.WriteEndElement(); // CodigoTipoMoneda
+                    }
+
+                }
+
+                writer.WriteElementString("TotalServGravados", String.Format("{0:N3}", totalSevGravados.ToString()));
+
+                writer.WriteElementString("TotalServExentos", String.Format("{0:N3}", totalServExcentos.ToString()));
+
+                writer.WriteElementString("TotalServExonerado", String.Format("{0:N3}", totalServExonerado.ToString()));
+
+                writer.WriteElementString("TotalMercanciasGravadas", String.Format("{0:N3}", totalProdGravados.ToString()));
+
+                writer.WriteElementString("TotalMercanciasExentas", String.Format("{0:N3}", totalProdExcentos.ToString()));
+
+                writer.WriteElementString("TotalMercExonerada", String.Format("{0:N3}", totalProdExonerado.ToString()));
+
+                decimal totalGravados = totalSevGravados + totalProdGravados;
+                decimal totalExentos = totalProdExcentos + totalServExcentos;
+                decimal totalExo = totalProdExonerado + totalServExonerado;
+
+                writer.WriteElementString("TotalGravado", String.Format("{0:N3}", totalGravados.ToString()));
+
+                writer.WriteElementString("TotalExento", String.Format("{0:N3}", totalExentos.ToString()));
+
+                writer.WriteElementString("TotalExonerado", String.Format("{0:N3}", totalExo.ToString()));
+
+                decimal totalVenta = totalGravados + totalExentos + totalExo;//total de venta, gravados y exonerados
+                decimal totalVentaNeta = totalVenta - totalDescuento;//calula el monto de descuento
+
+                writer.WriteElementString("TotalVenta", String.Format("{0:N3}", totalVenta.ToString()));
+
+                writer.WriteElementString("TotalDescuentos", String.Format("{0:N3}", totalDescuento.ToString()));
+
+                writer.WriteElementString("TotalVentaNeta", String.Format("{0:N3}", totalVentaNeta.ToString()));
+
+                writer.WriteElementString("TotalImpuesto", String.Format("{0:N3}", impuestos.ToString()));
+
+                writer.WriteElementString("TotalComprobante", String.Format("{0:N3}", totalComprobante.ToString()));
+                writer.WriteEndElement(); // ResumenFactura
 
 
+                // 'Estos datos te los tiene que brindar los encargados del area financiera
+                //writer.WriteStartElement("Normativa");
+                //writer.WriteElementString("NumeroResolucion", _empresa.numeroResolucion.Trim());
+                //writer.WriteElementString("FechaResolucion", ((DateTime)_empresa.fechaResolucio).ToString("dd-MM-yyyy HH:MM:ss"));
+                //writer.WriteEndElement(); // Normativa
 
-                        decimal totalProdGravados = 0;
-                        decimal totalProdExcentos = 0;
-                        decimal totalSevGravados = 0;
-                        decimal totalServExcentos = 0;
-                        decimal totalServExonerado = 0;
-                        decimal totalProdExonerado = 0;
-
-                        decimal totalDescuento = 0;
-                        decimal totalComprobante = 0;
-                        decimal impuestos = 0;
-
-                        foreach (tbDetalleDocumento detalle in _listaDetalle)
-                        {
-                            totalDescuento += detalle.montoTotalDesc;//total de decuento
-                            totalComprobante += detalle.totalLinea;//total de comprobante
-
-
-                            if (detalle.montoTotalImp == 0)//valida si exonera es 0, si tiene valor de impuesto no exonera
-                            {//acumulo monto total, sin descuento. monto total es precio*cantidad
-                                if (Enum.GetName(typeof(Enums.TipoMedida), detalle.tbProducto.idMedida).Trim().ToUpper() == "SP")//valida si es producto o servicio y acumula en su respectiva variable
-                                {
-                                    totalServExonerado += detalle.montoTotalExo;
-                                    totalServExcentos += detalle.montoTotal;
-                                }
-                                else//si es producto
-                                {
-                                    totalProdExonerado += detalle.montoTotalExo;
-                                    totalProdExcentos += detalle.montoTotal;
-                                }
-                            }
-                            else
-                            {
-                                impuestos += detalle.montoTotalImp;
-
-                                if (detalle.tbProducto.tbCategoriaProducto.nombre.Trim().ToUpper() == "SERVICIOS PROFESIONALES")
-                                {//si tiene impuesto y es un servicio
-                                    totalServExonerado += detalle.montoTotalExo;
-                                    totalSevGravados += detalle.montoTotal;
-                                }
-                                else
-                                {
-                                    totalProdExonerado += detalle.montoTotalExo;
-                                    totalProdGravados += detalle.montoTotal;//si es un prodcuto
-
-                                }
-                            }
-                        }
-                        writer.WriteElementString("TotalServGravados", String.Format("{0:N3}", totalSevGravados.ToString()));
-                        writer.WriteElementString("TotalServExentos", String.Format("{0:N3}", totalServExcentos.ToString()));
-                        writer.WriteElementString("TotalServExonerado", String.Format("{0:N3}", totalServExonerado.ToString()));
-
-                        writer.WriteElementString("TotalMercanciasGravadas", String.Format("{0:N3}", totalProdGravados.ToString()));
-                        writer.WriteElementString("TotalMercanciasExentas", String.Format("{0:N3}", totalProdExcentos.ToString()));
-                        writer.WriteElementString("TotalMercExonerada", String.Format("{0:N3}", totalProdExonerado.ToString()));
-
-                        decimal totalGravados = totalSevGravados + totalProdGravados;
-                        decimal totalExentos = totalProdExcentos + totalServExcentos;
-                        decimal totalExo = totalProdExonerado + totalServExonerado;
-                        writer.WriteElementString("TotalGravado", String.Format("{0:N3}", totalGravados.ToString()));
-                        writer.WriteElementString("TotalExento", String.Format("{0:N3}", totalExentos.ToString()));
-                        writer.WriteElementString("TotalExonerado", String.Format("{0:N3}", totalExo.ToString()));
-
-
-
-
-                        decimal totalVenta = totalGravados + totalExentos + totalExo;//total de venta, gravados y exonerados
-                        decimal totalVentaNeta = totalVenta - totalDescuento;//calula el monto de descuento
-                        writer.WriteElementString("TotalVenta", String.Format("{0:N3}", totalVenta.ToString()));
-                        writer.WriteElementString("TotalDescuentos", String.Format("{0:N3}", totalDescuento.ToString()));
-                        writer.WriteElementString("TotalVentaNeta", String.Format("{0:N3}", totalVentaNeta.ToString()));
-                     
-                            writer.WriteElementString("TotalImpuesto", String.Format("{0:N3}", impuestos.ToString()));
-                        
-
-                        writer.WriteElementString("TotalComprobante", String.Format("{0:N3}", totalComprobante.ToString()));
-                        writer.WriteEndElement(); // ResumenFactura
-
-                        // 'Estos datos te los tiene que brindar los encargados del area financiera
-                        //writer.WriteStartElement("Normativa");
-                        //writer.WriteElementString("NumeroResolucion", _empresa.numeroResolucion.Trim());
-                        //writer.WriteElementString("FechaResolucion", ((DateTime)_empresa.fechaResolucio).ToString("dd-MM-yyyy HH:MM:ss"));
-                        //writer.WriteEndElement(); // Normativa
-
-                        writer.WriteStartElement("InformacionReferencia");//referencia
+                writer.WriteStartElement("InformacionReferencia");//referencia
                         writer.WriteElementString("TipoDoc", _doc.tipoDocRef.ToString().PadLeft(2, '0'));
                         writer.WriteElementString("Numero", _doc.claveRef);
                         writer.WriteElementString("FechaEmision", _doc.fechaRef.Value.ToString("yyyy-MM-ddTHH:mm:sszzz"));
