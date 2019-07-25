@@ -1,6 +1,8 @@
 ﻿using BusinessLayer;
 using CommonLayer;
+using CommonLayer.Exceptions.BussinessExceptions;
 using EntityLayer;
+using PresentationLayer.Reportes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,32 +18,35 @@ using System.Windows.Forms;
 namespace PresentationLayer
 {
     public partial class frmFacturacion : Form
-    {
-        BUsuario usuBins = new BUsuario();
-        tbUsuarios usua = new tbUsuarios();
+    {       
+        List<tbCategoriaProducto> listaCategorias;  
         BCategoriaProducto categoriaIns = new BCategoriaProducto();
+        bTipoMedidas medidaIns = new bTipoMedidas();
+        tbTipoMedidas medida = new tbTipoMedidas();
+
         BProducto productoIns = new BProducto();
         BFacturacion facturaIns = new BFacturacion();
         BInventario invetnarioIns = new BInventario();
         tbCategoriaProducto categoriaProducGlo = new tbCategoriaProducto();
+        CorreoElectronico correoIns;
+        BProducto BProducto = new BProducto();
+        Bcliente BCliente = new Bcliente();
+        BUsuario usuarioIns = new BUsuario();
+        List<tbProducto> listaProductos= new List<tbProducto>();
+        List<tbDetalleDocumento> listaDetalleDocumento = new List<tbDetalleDocumento>();
+        tbClientes clienteGlo = null; 
+        tbDocumento documentoGlo = null;
+        bool exoneracionClie = false;
+        bool respuestaAprobaDesc = false;
+        decimal porcDesc = 0;
+        int tipoDoc = 1;
+        decimal peso = decimal.MinValue;
 
+        bool existeRespuesta = false;
 
-        //bool banderaPendiente;
+        const float sizeText = 6;
+        const int sizeCuadro = 75;
 
-
-        //globales
-        List<tbCategoriaProducto> listaCategorias;
-        List<tbProducto> listaProductos = new List<tbProducto>();
-        ICollection<tbDetalleDocumento> listDetalleFactura = new List<tbDetalleDocumento>();
-
-        //Lista alterna para solucion tipo McGyver
-        //ICollection<tbDetalleDocumento> listaDetalleFacturaPendiente = new List<tbDetalleDocumento>();
-        List<FacturasPendientes> listaFacturaPendientes = new List<FacturasPendientes>();
-
-
-
-
-        tbDocumento facturaGlobal;
 
         public delegate void FacturaGuardar(tbDocumento entity);
         public event FacturaGuardar detalleFacturacion;
@@ -49,81 +54,38 @@ namespace PresentationLayer
         public frmFacturacion()
         {
             InitializeComponent();
-        }
-        public void cargarListaPendientes() {
+        }       
 
-        List<tbDocumento> listaFacturaPendientes = facturaIns.getListFactPendiente();
-        foreach (tbDocumento fact in listaFacturaPendientes)
+        private void formatoGrid()
         {
+            dtgvDetalleFactura.BorderStyle = BorderStyle.None;
+            dtgvDetalleFactura.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 239, 249);
+            dtgvDetalleFactura.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dtgvDetalleFactura.DefaultCellStyle.SelectionBackColor = Color.OrangeRed;
+            dtgvDetalleFactura.DefaultCellStyle.SelectionForeColor = Color.WhiteSmoke;
+            dtgvDetalleFactura.BackgroundColor = Color.White;
 
-            cargarListViewPendientes(fact);
+            dtgvDetalleFactura.EnableHeadersVisualStyles = false;
+            dtgvDetalleFactura.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dtgvDetalleFactura.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(20, 25, 72);
+            dtgvDetalleFactura.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+
         }
-        }
+
         //Se crean los metodos necesarios para cargar el usuario y sus requerimientos segun el permiso que posea.
         private void frmFacturacion_Load(object sender, EventArgs e)
         {
-            //cargarLogeo();
-            cargarListaPendientes();
-            tbUsuarios usua = new tbUsuarios();
-            usua.nombreUsuario = "walpizar";
-            usua.contraseña = "123";
-
-            Global.Usuario = usua;
-            Global.NumeroCaja = 1;
-
-            //cargarPermisos(usua);
-        }
-
-        //El metodo siguiente permite el acceso a un usuario previamente ingresado al sistema.
-        private  void cargarLogeo()
-        {
-            frmLogin login = new frmLogin();
-            login.cerrarFact += cerrarForm;
-           
-            login.permisosEvent += cargarPermisos;
-            login.ShowDialog();
-
-
-           
-          
-
-
+            btnReImprimir.Enabled = (bool)Global.Usuario.tbEmpresa.imprimeDoc;
+            formatoGrid();         
             cargarDatos();
-            cargarDatosLogin();
-            if (string.IsNullOrWhiteSpace(Global.Usuario.foto_url))
+            txtCodigo.Focus();
+            if (!Utility.AccesoInternet())
             {
-                ptbImaUsu.Image = null;
+                MessageBox.Show("No hay acceso a internet", "Sin Internet", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-    
-        }
-        
-        // Se registra que los datos ingresados por el usuario correspondan a datos de un usuario existente.
-        private void cargarDatosLogin()
-        {
+            //cargarListaPendientes();
 
-            try
-            {
-
-                lblNombreUsu.Text = Global.Usuario.tbPersona.nombre;
-                lblNumCaja.Text = Global.NumeroCaja.ToString();
-                if ( Global.Usuario.foto_url != null)
-                {
-
-                    Image imagen = new Bitmap(Global.Usuario.foto_url);
-                    ptbImaUsu.Image = imagen;
-                }
-
-                
-                
-            }
-            catch (Exception)
-            {
-
-                MessageBox.Show("No se pudo cargar la información del usuario");
-            }
-
-
-        }
+        }       
 
         private void cargarDatos()
         {
@@ -135,220 +97,10 @@ namespace PresentationLayer
 
         }
 
-        //Con este metodo deshabilitamos el formulario(botones)
-        private void BloquearForm() {
-
-            btnPagosProveedor.Enabled = false;
-            btnEntradas.Enabled = false;
-            btnSalidas.Enabled = false;
-            btnInventario.Enabled = false;
-            btnCreditos.Enabled = false;
-            btnPagoSalario.Enabled = false;
-            btnInicioYCierreDeCaja.Enabled = false;
-
-            btnCliente.Enabled = false;
-            btnEmpleado.Enabled = false;
-            btnProveedor.Enabled = false;
-            btnProducto.Enabled = false;
-            btnIngredientes.Enabled = false;
-            btnUsuarios.Enabled = false;
-            btnTipoCategorias.Enabled = false;
-            btnPuestos.Enabled = false;
-            btnCajas.Enabled = false;
-            btnRoles.Enabled = false;
-            btnRequerimientos.Enabled = false;
-
-            btnTipoMov.Enabled = false;
-            btnTipoCliente.Enabled = false;
-            btnTipoIngrediente.Enabled = false;
-            btnTipoMedidas.Enabled = false;
-
-            btnBuscarCliente.Enabled = false;
-
-            btnCancelarFactura.Enabled = false;
-
-            btnCancelarDetalle.Enabled = false;
-
-        }
-
-        //Este metodo permite cargar el rol y sus respectivos requerimientos segun lo permita el usuario.
-        private void cargarPermisos(tbUsuarios us)
-        {
-            BloquearForm();
-          //Con este ciclo se cargaran los permisos (requerimientos) que correspondan al usuario logueado
-            foreach (tbRequerimientos re in us.tbRoles.tbRequerimientos)
-                {
-                if (re.idReq == (byte)Enums.requerimientos.Transacion)
-                    {
-                        btnPagosProveedor.Enabled = true;
-                        btnEntradas.Enabled = true;
-                        btnSalidas.Enabled = true;
-                        btnInventario.Enabled = true;
-                        btnCreditos.Enabled = true;
-                        btnPagoSalario.Enabled = true;
-                        btnInicioYCierreDeCaja.Enabled = true;
-
-                    }
-                    if (re.idReq == (byte)Enums.requerimientos.Mantenimiento)
-                    {
-
-                        btnCliente.Enabled = true;
-                        btnEmpleado.Enabled = true;
-                        btnProveedor.Enabled = true;
-                        btnProducto.Enabled = true;
-                        btnIngredientes.Enabled = true;
-                        btnUsuarios.Enabled = true;
-                        btnTipoCategorias.Enabled = true;
-                        btnPuestos.Enabled = true;
-                        btnCajas.Enabled = true;
-                        btnRoles.Enabled = true;
-                        btnRequerimientos.Enabled = true;
-
-                    }
-                    if (re.idReq == (byte)Enums.requerimientos.Tipos)
-                    {
-                        btnTipoMov.Enabled = true;
-                        btnTipoCliente.Enabled = true;
-                        btnTipoIngrediente.Enabled = true;
-                        btnTipoMedidas.Enabled = true;
-                    }
-
-
-                    if (re.idReq == (byte)Enums.requerimientos.Buscar_Cliente)
-                    {
-                        btnBuscarCliente.Enabled = true;
-                    }
-
-                    if (re.idReq == (byte)Enums.requerimientos.Cancelar_Factura)
-                    {
-                        btnCancelarFactura.Enabled = true;
-                    }
-                    if (re.idReq == (byte)Enums.requerimientos.Cancelar_Detalle)
-                    {
-                        btnCancelarDetalle.Enabled = true;
-                    }
-                }
-            //}
-            //else if (usua.idRol == (byte)Enums.roles.Cajero_Adm)
-            //{
-            //    //Este ciclo se encargara de recorrer la lista de requerimientos.
-            //    foreach (tbRequerimientos re in reque)
-            //    {
-            //        if (re.idReq == (byte)Enums.requerimientos.Transacion)
-            //        {
-            //            btnPagosProveedor.Enabled = false;
-            //            btnEntradas.Enabled = false;
-            //            btnSalidas.Enabled = false;
-            //            btnInventario.Enabled = false;
-            //            btnCreditos.Enabled = false;
-            //            btnPagoSalario.Enabled = false;
-            //            btnInicioYCierreDeCaja.Enabled = true;
-            //        }
-
-            //            if (re.idReq == (byte)Enums.requerimientos.Mantenimiento)
-            //            {
-
-            //                btnCliente.Enabled = true;
-            //                btnEmpleado.Enabled = true;
-            //                btnProveedor.Enabled = true;
-            //                btnProducto.Enabled = true;
-            //                btnIngredientes.Enabled = true;
-            //                btnUsuarios.Enabled = true;
-            //                btnTipoCategorias.Enabled = true;
-            //                btnPuestos.Enabled = true;
-            //                btnCajas.Enabled = true;
-            //                btnRoles.Enabled = true;
-            //                btnRequerimientos.Enabled = true;
-
-            //            }
-            //            if (re.idReq == (byte)Enums.requerimientos.Tipos)
-            //            {
-            //                btnTipoMov.Enabled = true;
-            //                btnTipoCliente.Enabled = true;
-            //                btnTipoIngrediente.Enabled = true;
-            //                btnTipoMedidas.Enabled = true;
-            //            }
-
-
-            //            if (re.idReq == (byte)Enums.requerimientos.Buscar_Cliente)
-            //            {
-            //                btnBuscarCliente.Enabled = true;
-            //            }
-            //            if (re.idReq == (byte)Enums.requerimientos.Cancelar_Factura)
-            //            {
-            //                btnCancelarFactura.Enabled = true;
-            //            }
-            //            if (re.idReq == (byte)Enums.requerimientos.Cancelar_Detalle)
-            //            {
-            //                btnCancelarDetalle.Enabled = true;
-            //            }
-            //        }
-            //    }
-
-            //else if (usua.idRol == (byte)Enums.roles.Cajero)
-            //{
-            //    //Este ciclo se encargara de recorrer la lista de requerimientos.
-            //    foreach (tbRequerimientos re in reque)
-            //    {
-            //        if (re.idReq == (byte)Enums.requerimientos.Transacion)
-            //        {
-            //            btnPagosProveedor.Enabled = false;
-            //            btnEntradas.Enabled = false;
-            //            btnSalidas.Enabled = false;
-            //            btnInventario.Enabled = false;
-            //            btnCreditos.Enabled = false;
-            //            btnPagoSalario.Enabled = false;
-            //            btnInicioYCierreDeCaja.Enabled = true;
-            //        }
-
-            //        if (re.idReq == (byte)Enums.requerimientos.Mantenimiento)
-            //        {
-
-            //            btnCliente.Enabled = false;
-            //            btnEmpleado.Enabled = false;
-            //            btnProveedor.Enabled = false;
-            //            btnProducto.Enabled = false;
-            //            btnIngredientes.Enabled = false;
-            //            btnUsuarios.Enabled = false;
-            //            btnTipoCategorias.Enabled = false;
-            //            btnPuestos.Enabled = false;
-            //            btnCajas.Enabled = false;
-            //            btnRoles.Enabled = false;
-            //            btnRequerimientos.Enabled = false;
-
-            //        }
-            //        if (re.idReq == (byte)Enums.requerimientos.Tipos)
-            //        {
-            //            btnTipoMov.Enabled = true;
-            //            btnTipoCliente.Enabled = true;
-            //            btnTipoIngrediente.Enabled = true;
-            //            btnTipoMedidas.Enabled = true;
-            //        }
-
-
-            //        if (re.idReq == (byte)Enums.requerimientos.Buscar_Cliente)
-            //        {
-            //            btnBuscarCliente.Enabled = true;
-            //        }
-            //        if (re.idReq == (byte)Enums.requerimientos.Cancelar_Factura)
-            //        {
-            //            btnCancelarFactura.Enabled = false;
-            //        }
-            //        if (re.idReq == (byte)Enums.requerimientos.Cancelar_Detalle)
-            //        {
-            //            btnCancelarDetalle.Enabled = true;
-            //        }
-            //    }
-            //}
-        }
-
         private void cerrarForm()
         {
             this.Close();
-
-
         }
-
 
         private void cargarProductos(List<tbCategoriaProducto> listaCategorias)
         {
@@ -385,12 +137,12 @@ namespace PresentationLayer
                 btn = new Button();
                 btn.Name = "cat"+categoria.id.ToString();
                 btn.Text = categoria.nombre.Trim();
-                btn.Location = new System.Drawing.Point(100 * x, 100 * y);
-                btn.Size = new System.Drawing.Size(100, 100);
+                btn.Location = new System.Drawing.Point(sizeCuadro * x, sizeCuadro * y);
+                btn.Size = new System.Drawing.Size(sizeCuadro, sizeCuadro);
                 btn.BackColor = Color.Gray;
-                btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                btn.Font = new System.Drawing.Font("Microsoft Sans Serif", sizeText, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 btn.ForeColor = Color.White;
-                btn.TextAlign = ContentAlignment.BottomCenter;
+                btn.TextAlign = ContentAlignment.MiddleCenter;
                 if (File.Exists(categoria.fotocategoria))
                 {
 
@@ -406,7 +158,7 @@ namespace PresentationLayer
                 gbxCategorias.Controls.Add(btn);
                 x++;
 
-                if(x == 3)
+                if(x == 4)
                 {
                     x = 0;
                     y++;
@@ -448,12 +200,12 @@ namespace PresentationLayer
                         btn = new Button();
                         btn.Name = "pro" + pro.idProducto.ToString();
                         btn.Text = pro.nombre.Trim();
-                        btn.Location = new System.Drawing.Point(100 * x, 100 * y);
-                        btn.Size = new System.Drawing.Size(100, 100);
+                        btn.Location = new System.Drawing.Point(sizeCuadro * x, sizeCuadro * y);
+                        btn.Size = new System.Drawing.Size(sizeCuadro, sizeCuadro);
                         btn.BackColor = Color.MediumPurple;
-                        btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        btn.Font = new System.Drawing.Font("Microsoft Sans Serif", sizeText, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         btn.ForeColor = Color.White;
-                        btn.TextAlign = ContentAlignment.BottomCenter;
+                        btn.TextAlign = ContentAlignment.MiddleCenter;
                         if (File.Exists(pro.foto))
                         {
 
@@ -471,7 +223,7 @@ namespace PresentationLayer
                         gbxProductos.Controls.Add(btn);
                         x++;
 
-                        if (x == 13)
+                        if (x == 10)
                         {
                             x = 0;
                             y++;
@@ -496,1065 +248,1110 @@ namespace PresentationLayer
 
                     if (pro.idProducto == producto)
                     {
-                                        
-                        cargarDetalleFactura(pro, 1, 0);
+
+                        agregarProductoDetalleFactura(pro);
 
                         break;
 
                     }
-                    
+                }
+            }
+        }        
 
+        private void txtIdCliente_TextChanged(object sender, EventArgs e)
+        {
+            if (txtIdCliente.Text == string.Empty)
+            {
+                txtIdCliente.Text = string.Empty;
+                txtCliente.Text = string.Empty;            
+                txtTel.Text = string.Empty;
+                txtCorreo.Text = string.Empty;
+                exoneracionClie = false;
+
+                calcularMontosT();
+
+            }
+        }
+
+        private void calcularMontosT()
+        {
+            asignarLineasNumero();
+            calcularDescuentos();
+            calcularImpuestos();
+            calcularTotales();
+        }
+
+        private void asignarLineasNumero()
+        {
+            int linea = 0;
+            foreach (tbDetalleDocumento det in listaDetalleDocumento)
+            {
+                linea++;
+                det.numLinea = linea;
+            }
+
+        }
+
+        private void calcularTotales()
+        {
+            decimal total = 0, desc = 0, iva = 0, subtotal = 0, exo = 0;
+
+            foreach (tbDetalleDocumento detalle in listaDetalleDocumento)
+            {
+                detalle.totalLinea = (detalle.montoTotal - detalle.montoTotalDesc) + detalle.montoTotalImp;
+                total += detalle.totalLinea;
+                desc += detalle.montoTotalDesc;
+                iva += detalle.montoTotalImp;
+                exo += detalle.montoTotalExo;
+                subtotal += detalle.montoTotal;
+
+            }
+            txtSubtotal.Text = subtotal.ToString("#.##");
+            txtDescuento.Text = desc.ToString("#.##");
+            txtIva.Text = iva.ToString("#.##");
+            txtTotal.Text = total.ToString("#.##");
+            txtExoneracion.Text = exo.ToString("#.##");
+
+            if (txtSubtotal.Text == string.Empty)
+            {
+                txtSubtotal.Text = "0";
+
+            }
+            if (txtTotal.Text == string.Empty)
+            {
+                txtTotal.Text = "0";
+
+            }
+
+            if (txtPorcetaje.Text == string.Empty)
+            {
+                txtPorcetaje.Text = "0";
+
+            }
+            if (txtDescuento.Text == string.Empty)
+            {
+                txtDescuento.Text = "0";
+
+            }
+            if (txtIva.Text == string.Empty)
+            {
+                txtIva.Text = "0";
+
+            }
+            if (txtExoneracion.Text == string.Empty)
+            {
+                txtExoneracion.Text = "0";
+
+            }
+        }
+
+        private void calcularImpuestos()
+        {
+
+            foreach (tbDetalleDocumento detalle in listaDetalleDocumento)
+            {
+                //sino es excento el producto
+                if (!detalle.tbProducto.esExento)
+                {
+                    //aplica exoneracion al cliente
+                    if (exoneracionClie)
+                    {
+                        detalle.montoTotalExo = (detalle.montoTotal - detalle.montoTotalDesc) * (((decimal)detalle.tbProducto.tbImpuestos.valor) / 100);
+                        detalle.montoTotalImp = 0;
+                    }
+                    else
+                    {
+                        //aplica el impuesto
+                        detalle.montoTotalExo = 0;
+                        detalle.montoTotalImp = (detalle.montoTotal - detalle.montoTotalDesc) * (((decimal)detalle.tbProducto.tbImpuestos.valor) / 100);
+                    }
 
                 }
-                
+                else
+                {//no aplica impuesto ya que el producto es excento.
+                    detalle.montoTotalImp = 0;
+                    detalle.montoTotalExo = 0;
+
+                }
 
             }
 
         }
 
-        private void cargarDetalleFactura(tbProducto pro, int tipoAumento , int cantidad)
+        private void calcularDescuentos()
         {
-            bool bandera = false;
 
-            if (facturaGlobal == null) {
+            decimal descMaxEmp = ((decimal)Global.Usuario.tbEmpresa.tbParametrosEmpresa.First().descuentoBase) / 100;
+            bool aprobDescEmp = (bool)Global.Usuario.tbEmpresa.tbParametrosEmpresa.First().aprobacionDescuento;
+            bool validaDesc = true;
+            decimal porc = 0;
 
-                facturaGlobal = new tbDocumento();
+            if (txtPorcetaje.Text != string.Empty)
+            {
+
+                porc = decimal.Parse(txtPorcetaje.Text) / 100;
+
             }
+            else
+            {
 
-
-
-            foreach (tbDetalleDocumento detalle in facturaGlobal.tbDetalleDocumento)
-                { //validar si es null o no para 
-                    if (detalle.idProducto == pro.idProducto)
+                txtDescuento.Text = "0";
+            }
+            //verifica si el descuento es mayoral porcentaje permitido en la empresa, de lo contrario que aplique
+            if (porc > descMaxEmp)
+            {//se debe de solicitar aprobacion en caso que la empresa lo requiera, segun el parametro de la empresa
+                if (aprobDescEmp)
+                {
+                    if (!respuestaAprobaDesc && porcDesc != decimal.Parse(txtPorcetaje.Text.Trim()))
                     {
-                        bandera = true;
-                        if(tipoAumento == 1)
+
+                        //form para aprobacion de un administrador true aprueba, false no aprueba
+                        frmAprobacion aprobacionForm = new frmAprobacion();
+                        aprobacionForm.pasarDatosEvent += respuestaAprobacion;
+                        aprobacionForm.ShowDialog();
+                        validaDesc = respuestaAprobaDesc;
+                    }
+                    else
+                    {
+                        validaDesc = true;
+                    }
+                }
+                else
+                {
+
+                    validaDesc = true;
+
+                }
+            }
+            if (validaDesc)
+            {
+
+                foreach (tbDetalleDocumento detalle in listaDetalleDocumento)
+                {
+
+                    if ((bool)detalle.tbProducto.aplicaDescuento)
+                    {
+                        if (porc > ((detalle.tbProducto.descuento_max) / 100))
                         {
-
-                            detalle.cantidad = detalle.cantidad + 1;
-
+                            detalle.descuento = (decimal)detalle.tbProducto.descuento_max;
+                            detalle.montoTotalDesc = detalle.montoTotal * ((decimal)detalle.tbProducto.descuento_max / 100);
                         }
                         else
                         {
-
-                            detalle.cantidad = cantidad;
-
+                            detalle.descuento = (decimal)porc * 100;
+                            detalle.montoTotalDesc = detalle.montoTotal * porc;
                         }
-                    
-                        detalle.totalLinea = detalle.cantidad * detalle.precio;
-                        break;
+                    }
+                    else
+                    {
+                        detalle.descuento = 0;
+                        detalle.montoTotalDesc = 0;
+
+                    }
+                }
+
+            }
+            else
+            {
+                porcDesc = 0;
+                txtPorcetaje.Text = porcDesc.ToString();
+                calcularMontosT();
+            }
+            respuestaAprobaDesc = false;
+
+        }
+
+        private void respuestaAprobacion(bool aprob)
+        {
+            respuestaAprobaDesc = aprob;
+            porcDesc = decimal.Parse(txtPorcetaje.Text.Trim());
+        }      
+
+        private void btnBuscarCliente_Click_1(object sender, EventArgs e)
+        {
+            FrmBuscar buscar = new FrmBuscar();
+            buscar.pasarDatosEvent += dataBuscar;
+            buscar.ShowDialog();
+        }
+
+        private void dataBuscar(tbClientes cliente)
+        {
+            exoneracionClie = false;
+            if (cliente != null)
+            {
+                clienteGlo = cliente;
+                if (cliente.idExonercion != null)
+                {
+                    DialogResult result = MessageBox.Show("El cliente seleccionado aplica para exoneración de impuesto, ¿Desea aplicar la exoneración de impuestos?", "Exoneración de Impuestos", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        exoneracionClie = true;
+
+                    }
+                    else
+                    {
+                        exoneracionClie = false;
                     }
 
                 }
-
-                if (!bandera)
+                txtIdCliente.Text = cliente.id.Trim();
+                if (cliente.tipoId == 1)
                 {
-                    tbDetalleDocumento detalle = new tbDetalleDocumento();
-                    detalle.idDoc = facturaGlobal.id;
-                    detalle.idTipoDoc = facturaGlobal.tipoDocumento;
-                    detalle.idProducto = pro.idProducto;
-                    detalle.precio = (decimal)pro.precioVenta1;
-                    detalle.cantidad = 1;
-                    detalle.totalLinea = (decimal)pro.precioVenta1*1;
-                    detalle.tbProducto = pro;
-                    facturaGlobal.tbDetalleDocumento.Add(detalle);
-                    
-                    //  listDetalleFactura.Add(detalle);
-                    //pro.tbCategoriaProducto = null;
-                
+                    txtCliente.Text = cliente.tbPersona.nombre.Trim().ToUpper() + " " + cliente.tbPersona.apellido1.Trim().ToUpper() + " " + cliente.tbPersona.apellido2.Trim().ToUpper();
 
                 }
-
-
-
-
-
-            //si1 existe en la lista para no agregar un linea nueva
-           
-        cargarGridDetalleFactura(facturaGlobal.tbDetalleDocumento);
-        calculaMontos(facturaGlobal.tbDetalleDocumento);
-
-
-        }
-
-        /// <summary>
-        /// Calculamos los montos de la factura.
-        /// </summary>
-        /// <param name="listaDetalle"></param>
-        private void calculaMontos(ICollection<tbDetalleDocumento> listaDetalle)
-        {
-            double totalLinea = 0;
-            double descuento = 0;
-   
-
-
-            try
-            {
-                foreach (tbDetalleDocumento detalle in listaDetalle)
+                else
                 {
-                    totalLinea = totalLinea + (double)detalle.totalLinea;
+                    txtCliente.Text = cliente.tbPersona.nombre.Trim().ToUpper();
 
+                }         
+                txtTel.Text = cliente.tbPersona.telefono.ToString().Trim().ToUpper();
+                txtCorreo.Text = cliente.tbPersona.correoElectronico.Trim();
 
-                }
+                calcularMontosT();
 
-                double porc = 0;
-                if (txtPorcetaje.Text != string.Empty)
-                {
-
-                    porc = double.Parse(txtPorcetaje.Text) / 100;
-
-
-                }
-                //obtener 3 decimales
-
-                descuento = totalLinea * porc;
-
-
-                txtDescuento.Text = descuento.ToString();
-                txtSubtotal.Text = totalLinea.ToString();
-
-
-                txtTotal.Text = (totalLinea - descuento).ToString();
-            }
-            catch (Exception)
-            {
-
-
-                MessageBox.Show("Se produjo un error al ingresar el producto, corrija los datos", "Calcular montos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        /// <summary>
-        /// Cargamos los productos seleccionados en el GridView de Detalle Factura
-        /// </summary>
-        /// <param name="listaDetalle"></param>
-        private void cargarGridDetalleFactura(ICollection<tbDetalleDocumento> listaDetalle)
+        private void btnBuscar_Click(object sender, EventArgs e)
         {
-            dtgvDetalleFactura.Rows.Clear();
-            foreach (tbDetalleDocumento detalle in listaDetalle)
-            {
-                DataGridViewRow row = (DataGridViewRow)dtgvDetalleFactura.Rows[0].Clone();
-
-                row.Cells[0].Value = detalle.tbProducto.nombre;
-                row.Cells[1].Value = detalle.precio.ToString();
-                row.Cells[2].Value = detalle.cantidad.ToString();
-                row.Cells[3].Value = detalle.totalLinea.ToString();
-                row.Cells[4].Value = detalle.idProducto.ToString();
-                dtgvDetalleFactura.Rows.Add(row);
-            }
+            buscarProducto();
         }
 
-        private void resetForm()
+        private void buscarProducto()
         {
 
-            dtgvDetalleFactura.Rows.Clear();
-            
-            listDetalleFactura.Clear();
+            //bool isOK = false;
 
-            txtCliente.Text = "";
-            facturaGlobal = null;
-                
-            //facturaGlobal = new tbFactura();
-            txtSubtotal.Text = "0";
-            txtIva.Text = "0";
-            txtDescuento.Text = "0";
-            txtPorcetaje.Text = "0";
-            txtTotal.Text = "0";
-            txtDescuento.Text = "0";
-            lstvPendiente.Items.Clear();
-            cargarListaPendientes();
-
-        }
-
-        private void abrirFormulario(object sender, EventArgs e)
-        {
-            abrirFormulario(((Button)sender).Name);
-        }
-
-        /// <summary>
-        /// Abrimos los distintos formularios de la aplicacion
-        /// </summary>
-        /// <param name="formulario"></param>
-        private void abrirFormulario(string formulario)
-        {
-
-            if (formulario == "btnTipoMov")
-            {
-                frmTiposMovimiento form = new frmTiposMovimiento();
-                form.ShowDialog();
-
-            }
-            else if(formulario == "btnPagoSalario")
-            {
-                frmPagosSalario form = new frmPagosSalario();
-                form.ShowDialog();
-            }
-            else if(formulario == "btnCajas")
-            {
-                frmCajas form = new frmCajas();
-                form.ShowDialog();
-            }
-            else if(formulario == "btnPagoSalario")
-            {
-                frmPagosSalario form = new frmPagosSalario();
-                form.ShowDialog();
-            }
-            else if (formulario == "btnTipoCliente")
-            {
-                frmTipoCliente form = new frmTipoCliente();
-                form.ShowDialog();
-
-            }
-            else if (formulario == "btnTipoIngrediente")
-            {
-                frmTipoIngrediente form = new frmTipoIngrediente();
-                form.ShowDialog();
-            }
-            else if (formulario == "btnTipoMedidas")
-            {
-                frmTipoMedida form = new frmTipoMedida();
-                form.ShowDialog();
-            }
-            else if (formulario == "btnCliente")
-            {
-                frmClientes form = new frmClientes();
-                form.ShowDialog();
-
-            }
-            else if (formulario == "btnProveedor")
-            {
-                frmProveedores form = new frmProveedores();
-                form.ShowDialog();
-
-            }
-            else if (formulario == "btnEmpleado")
-            {
-                frmEmpleado form = new frmEmpleado();
-                form.ShowDialog();
-            }
-            else if (formulario == "btnProducto")
-            {
-                frmProductos form = new frmProductos();
-                form.ShowDialog();
-
-                cargarDatos();
-            }
-            else if (formulario == "btnIngredientes")
-            {
-                frmIngredientes form = new frmIngredientes();
-                form.ShowDialog();
-
-
-            }
-            else if (formulario == "btnUsuarios")
-            {
-                frmUsuario form = new frmUsuario();
-                form.ShowDialog();
-            }
-            else if (formulario == "btnTipoCategorias")
-            {
-                frmCategoriaProducto form = new frmCategoriaProducto();
-                form.ShowDialog();
-
-                cargarDatos();
-
-            }
-            else if (formulario == "btnPuestos")
-            {
-                frmPuestos form = new frmPuestos();
-                form.ShowDialog();
-            }
-            else if (formulario == "btnPagosProveedor")
-            {
-                frmMovimiento form = new frmMovimiento();
-                form.TipoMovimiento = (int) Enums.tipoMovimiento.PagoProveedor;
-
-                form.ShowDialog();
-            }
-            else if (formulario == "btnEntradas")
-            {
-                frmMovimiento form = new frmMovimiento();
-                form.TipoMovimiento = (int)Enums.tipoMovimiento.EntradaDinero;
-                form.ShowDialog();
-            }      
-            else if (formulario == "btnSalidas")
-            {
-                frmMovimiento form = new frmMovimiento();
-                form.TipoMovimiento = (int)Enums.tipoMovimiento.SalidaDinero;
-                form.ShowDialog();
-            }
-
-            else if (formulario == "btnInventario")
-            {
-                frmInventario form = new frmInventario();
-                form.ShowDialog();
-            }
-            else if (formulario == "btnCreditos")
-            {
-                frmAbonoCredito form = new frmAbonoCredito();
-                form.ShowDialog();
-            }
-            else if (formulario == "btnCobrar")
-            {
-                if (txtTotal.Text!="0") {
-
-                    //facturaGlobal.total = float.Parse(txtTotal.Text.Trim());
-                    frmCobrar form = new frmCobrar();
-
-                        form.facturaGlobal = facturaGlobal;
-
-                        //form.recuperarTotal += crearFactura;
-
-                        form.ShowDialog();
-
-
-
-
-
-                }
-               
-
-     
-            }
-            else if (formulario == "btnPendiente")
-            {
-
-            }
-            else if (formulario == "btnCancelar")
-            {
-
-            }
-            else if (formulario == "btnTipoMoneda")
-            {
-                frmMoneda2 form = new frmMoneda2();
-                form.ShowDialog();
-            }
-            else if (formulario == "btnRequerimientos")
-            {
-                frmRequerimientos form = new frmRequerimientos();
-                form.ShowDialog();
-            }
-            else if(formulario == "btnRoles")
-            {
-                frmRoles form = new frmRoles();
-                form.ShowDialog();
-            }
-          
-
-
-
-        }
-
-        private void guardarFactura(tbDocumento entidad) {
-
-            guardarFactura(entidad, (int)Enums.EstadoFactura.Cancelada);
-
-        }
-        
-        /// <summary>
-        /// Guardamos la factura en el sistema.
-        /// </summary>
-        /// <param name="entidad"></param>
-        private void guardarFactura(tbDocumento entidad,int estado)
-        {
-            try
-            {
-                //facturaGlobal.iva = float.Parse(txtIva.Text.Trim());
-                //facturaGlobal.descuento = float.Parse(txtDescuento.Text.Trim());
-                //facturaGlobal.total = float.Parse(txtTotal.Text.Trim());
-                facturaGlobal.fecha = Utility.getDate();
-
-                //LIMPIO LA ENTIDAD PRODFUTO DEL DETALLE PARA QUE NO ME LA GUARDE Y DUPLIQUE
-                foreach (tbDetalleDocumento detalle in entidad.tbDetalleDocumento)
-                {
-                    detalle.tbProducto = null;
-
-                }
-
-
-                //facturaGlobal.tbDetalleDocumento = listDetalleFactura;
-                
-                //Auditoria 
-                facturaGlobal.estado = true;
-                facturaGlobal.fecha_crea = Utility.getDate();
-                facturaGlobal.fecha_ult_mod = Utility.getDate();
-                facturaGlobal.usuario_crea = Global.Usuario.nombreUsuario;
-                facturaGlobal.usuario_ult_mod = Global.Usuario.nombreUsuario;
-                facturaGlobal.estadoFactura = estado;
-
-
-
-                facturaGlobal = facturaIns.guadar(facturaGlobal);
-                if (facturaGlobal.estadoFactura == (int)Enums.EstadoFactura.Cancelada)
-                {
-
-                       // clsImpresionFactura imprimir = new clsImpresionFactura();
-                        //imprimir.obtenerEntidades += cargarImpresion;
-
-                        //imprimir.print();
-
-                        //Enviamos a actualizar el inventario.
-                       // invetnarioIns.ActualizarInventario(facturaGlobal, listaProductos, 0);
-
-                }
-                //Aqui llamamos a la impresion.
-                //Creamos una instancia de la clase de impresion.
-               
-
-
-
-                resetForm();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Se produjo un error al almacenar la entidad", "Error al guardar");
-            }
-
-
-        }
-
-        /// <summary>
-        /// Cargaremo los datos requeridos para realizar la impresion de la factura.
-        /// </summary>
-        private void cargarImpresion(ref tbDocumento factura,ref  List<tbProducto> Productos)
-        {
-
-            factura = facturaGlobal;
-            Productos = listaProductos; 
-
-        }
-
-        private bool eliminaFactura(tbDocumento fact)
-        {
-            try {
-
-                    fact.estadoFactura = (int)Enums.EstadoFactura.Eliminada;
-
-                    fact.fecha_ult_mod = Utility.getDate();
-                    fact.usuario_ult_mod = Global.Usuario.nombreUsuario;
-                    fact = facturaIns.modificar(fact);
-                    return true;
-
-            }catch( Exception ex){
-
-
-                return false;
-            }
-
-        }
+            frmBuscarProducto buscarProduct = new frmBuscarProducto();
 
        
+            buscarProduct.recuperarEntidad += recuperarEntidad;
 
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            if (txtTotal.Text == "0")
-            {
-                DialogResult = MessageBox.Show("No hay datos que eliminar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
+            buscarProduct.ShowDialog();
 
-            DialogResult = MessageBox.Show("Esta Seguro que desea eliminar la orden ", "Eliminar Orden", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (DialogResult == DialogResult.Yes)
-            {
-                txtDescuento.Text = "0";
-                listDetalleFactura.Clear();
-                if (eliminaFactura(facturaGlobal)) {
-                    facturaGlobal = null;
-
-                }
-
-                resetForm();
-            }
-
-                
-        }
-
-        private void btnBuscarCliente_Click(object sender, EventArgs e)
-        {
-            FrmBuscar frmBuscarCliente = new FrmBuscar();
-            frmBuscarCliente.pasarDatosEvent += agregarCliente;
-            frmBuscarCliente.ShowDialog();
-        }
-
-        private void agregarCliente(tbClientes cliente) {
-            if(cliente != null){
-
-                facturaGlobal.idCliente = cliente.id;
-                facturaGlobal.tipoIdCliente = cliente.tipoCliente;
-                facturaGlobal.tbClientes = cliente;
-                txtCliente.Text = cliente.tbPersona.nombre.Trim() + " " + cliente.tbPersona.apellido1.Trim() + " " + cliente.tbPersona.apellido2.Trim();
-            }
             
 
         }
 
-        private void dtgvDetalleFactura_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void recuperarEntidad(tbProducto entidad)
         {
-            double totalLinea = 0;
-            int cantidad = 0;
+
+            //Cargamos los valores a la entidad.
+
+            if (entidad != null)
+            {
+
+                agregarProductoDetalleFactura(entidad);
+
+            }
+
+        }
+
+        private void agregarProductoDetalleFactura(tbProducto pro)
+        {
+
+            agregarProductoDetalleFactura(pro, 1, 1, true);
+        }
+
+        private void agregarProductoDetalleFactura(tbProducto pro, int tipo, decimal cantidad, bool acumular)
+        {
+
+            bool banderaExitProd = false;
+            medida.idTipoMedida = pro.idMedida;
+            medida = medidaIns.GetEnityById(medida);
+            if (medida.nomenclatura.Trim().ToUpper() == Enum.GetName(typeof(Enums.TipoMedida), Enums.TipoMedida.kg).Trim().ToUpper())
+            {
+                frmCantidad cantidadfrm = new frmCantidad();
+                cantidadfrm.pasarDatosEvent += cantidadPasarDatos;
+                cantidadfrm.ShowDialog();
+
+                cantidad = peso;
+            }
+            
+
+            if (tipo == 1)
+            {
+
+                bool banderaInventario = verificarInventario(pro, cantidad, acumular);
+                if (banderaInventario)
+                {
+                    foreach (tbDetalleDocumento det in listaDetalleDocumento)
+                    {
+
+                        if (det.idProducto == pro.idProducto)
+                        {
+                            if (acumular)
+                            {
+                                det.cantidad += cantidad;
+                                //det.precio = buscarPrecioProducto(pro);
+                            }
+                            else
+                            {
+                                det.cantidad = cantidad;
+
+                            }
+
+                            det.montoTotal = det.precio * det.cantidad;
+                            det.descuento = 0;
+
+                            banderaExitProd = true;
+                            break;
+                        }
+                    }
+                    //prodcuto nuevo
+                    if (!banderaExitProd)
+                    {
+
+                        tbDetalleDocumento detalle = new tbDetalleDocumento();
+                        detalle.cantidad = cantidad;
+                        detalle.idProducto = pro.idProducto;
+                        detalle.precio = buscarPrecioProducto(pro);
+                        detalle.montoTotal = detalle.precio*detalle.cantidad;
+                        detalle.montoTotalDesc = 0;
+                        detalle.montoTotalExo = 0;
+                        detalle.montoTotalImp = 0;
+                        detalle.tbProducto = pro;
+                        listaDetalleDocumento.Add(detalle);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El producto ingresado ya no cuenta con existencia en inventario. Cantidad existencia (" + pro.tbInventario.cantidad + ")", "Inexistencia Inventario", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+
+            }
+            else
+            {
+                foreach (tbDetalleDocumento det in listaDetalleDocumento)
+                {
+                    if (det.idProducto == pro.idProducto)
+                    {
+
+
+                        det.precio = cantidad;
+                        det.montoTotal = det.precio * det.cantidad;
+                        det.descuento = 0;
+
+                        break;
+                    }
+                }
+
+            }
+
+            calcularMontosT();
+            agregarProductoGrid();
+
+        }
+
+        private void cantidadPasarDatos(decimal peso)
+        {
+           this.peso = peso;
+        }
+
+        private void agregarProductoGrid()
+        {
+            decimal cantidadProd = 0;
+            dtgvDetalleFactura.Rows.Clear();
+            foreach (tbDetalleDocumento detalle in listaDetalleDocumento)
+            {
+                cantidadProd += detalle.cantidad;
+                DataGridViewRow row = (DataGridViewRow)dtgvDetalleFactura.Rows[0].Clone();
+
+                row.Cells[0].Value = detalle.tbProducto.nombre.Trim();
+                if (detalle.precio == 0)
+                {
+                    row.Cells[1].Value = "0.00";
+                }
+                else
+                {
+                    row.Cells[1].Value = detalle.precio.ToString("#.##").Trim();
+                }
+
+
+                row.Cells[2].Value = detalle.cantidad.ToString("#.##").Trim();
+                row.Cells[3].Value = (decimal)detalle.tbProducto.descuento_max;
+                row.Cells[4].Value = detalle.montoTotal.ToString("#.##").Trim();
+                row.Cells[5].Value = detalle.idProducto.ToString().Trim();
+
+                dtgvDetalleFactura.Rows.Add(row);
+                // dtgvDetalleFactura.Rows[listaDetalleDocumento.Count-1].Selected=true;
+            }
+            lblTotalProducto.Text = cantidadProd.ToString("#.#");
+            lblCantidadLineas.Text = listaDetalleDocumento.Count.ToString();
+            if (listaDetalleDocumento.Count != 0)
+            {
+                dtgvDetalleFactura.Rows[listaDetalleDocumento.Count - 1].Selected = true;
+            }
+
+
+        }
+
+        private decimal buscarPrecioProducto(tbProducto pro)
+        {
+            decimal precioPro = 0;
+
+            //Global.Usuario = usuarioIns.getLoginUsuario(Global.Usuario);
+            int preciobase = (int)Global.Usuario.tbEmpresa.tbParametrosEmpresa.First().precioBase;
+
+
+            if (clienteGlo != null)
+            {
+                precioPro = clienteGlo.precioAplicar;
+
+            }
+
+            if (preciobase == 1)
+            {
+                precioPro = (decimal)pro.precioUtilidad1;
+            }
+            else if (preciobase == 2)
+            {
+                precioPro = (decimal)pro.precioUtilidad2;
+            }
+            else
+            {
+                precioPro = (decimal)pro.precioUtilidad3;
+            }
+
+
+            return precioPro;
+        }
+
+        private bool verificarInventario(tbProducto pro, decimal cantidadSolic, bool acumular)
+        {
+            bool verificar = true;
+            decimal cantidad = 0;
+
+            bool verificaInventario = (bool)Global.Usuario.tbEmpresa.tbParametrosEmpresa.First().manejaInventario;
+            decimal cantidadInventario = (decimal)pro.tbInventario.cantidad;
+            if (verificaInventario)
+            {
+                foreach (tbDetalleDocumento det in listaDetalleDocumento)
+                {
+
+                    if (det.idProducto == pro.idProducto)
+                    {
+                        cantidad = det.cantidad;
+                        break;
+                    }
+                }
+                if (acumular)
+                {
+                    cantidad += cantidadSolic;
+                }
+                else
+                {
+                    cantidad = cantidadSolic;
+                }
+
+
+                if (pro.tbInventario.cantidad >= cantidad)
+                {
+                    verificar = true;
+                }
+                else
+                {
+                    verificar = false;
+                }
+
+            }
+
+
+            return verificar;
+
+        }
+
+        private void txtCodigo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            tbProducto prod = null;
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                string codigo = txtCodigo.Text;
+                if (codigo != string.Empty)
+                {
+                    prod = buscarProducto(codigo);
+                    if (prod != null)
+                    {
+                        agregarProductoDetalleFactura(prod);
+                    }
+
+                }
+                txtCodigo.Text = string.Empty;
+                txtCodigo.Focus();
+            }
+        }
+
+        private tbProducto buscarProducto(string idProd)
+        {
+            tbProducto producto = new tbProducto();
+            if (idProd != string.Empty)
+            {
+                producto.idProducto = idProd;
+
+                Global.Usuario = usuarioIns.getLoginUsuario(Global.Usuario);
+                producto = BProducto.GetEntity(producto);
+
+                if (producto == null)
+                {
+
+                    producto = null;
+                    MessageBox.Show("El producto digitado no se encuentra en la base datos.", "Producto Inexistente", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+
+                }
+            }
+            else
+            {
+                producto = null;
+
+
+            }
+            return producto;
+
+        }
+
+        private void txtIdCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                if (txtIdCliente.Text != string.Empty)
+                {
+                    try
+                    {
+                        clienteGlo = BCliente.GetClienteById(txtIdCliente.Text.Trim());
+                        if (clienteGlo != null)
+                        {
+                            dataBuscar(clienteGlo);
+                        }
+                        else
+                        {
+                            MessageBox.Show($"No se encontró el Cliente con el ID: {txtIdCliente.Text.Trim()}", "Buscar Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                            clienteGlo = null;
+                            txtIdCliente.Text = string.Empty;
+                            txtCliente.Text = string.Empty;
+             
+                            txtTel.Text = string.Empty;
+                            txtCorreo.Text = string.Empty;
+                            txtCorreo2.Text = string.Empty;
+
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        txtCliente.Text = string.Empty;
+                        MessageBox.Show("No se pudo obtener el Cliente, verifique los datos", "Buscar Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    }
+                }
+            }
+
+        }
+
+        private void dtgvDetalleFactura_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 6)
+            {
+                string codigoProducto = dtgvDetalleFactura.Rows[e.RowIndex].Cells[5].Value.ToString();
+                if (codigoProducto != string.Empty)
+                {
+
+                    DialogResult result = MessageBox.Show("¿Desea eliminar el producto " + dtgvDetalleFactura.Rows[e.RowIndex].Cells[0].Value.ToString().Trim() + " de la factura?", "Eliminar linea", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        eliminarProducto(codigoProducto);
+
+                    }
+                }
+            }
+        }
+
+        private void eliminarProducto(string codigoProducto)
+        {
+
+
+            foreach (tbDetalleDocumento detalle in listaDetalleDocumento)
+            {
+                if (detalle.idProducto == codigoProducto)
+                {
+                    listaDetalleDocumento.Remove(detalle);
+                    break;
+                }
+
+            }
+
+
+            calcularMontosT();
+            agregarProductoGrid();
+        }
+
+        private void dtgvDetalleFactura_CellValueChanged_1(object sender, DataGridViewCellEventArgs e)        {
+            
+            decimal cantidad = 0;
+            string codigoProducto = string.Empty;
+            decimal precioProd = 0;
+
             try
             {
+                //cuando cambia la cantidad
                 if (dtgvDetalleFactura.Columns[e.ColumnIndex].Name == "colCant")
                 {
-                    if (dtgvDetalleFactura.Rows[e.RowIndex].Cells[4].Value != null)
+                    if (dtgvDetalleFactura.Rows[e.RowIndex].Cells[5].Value != null)
                     {
+                        tbProducto prod;
+                        codigoProducto = dtgvDetalleFactura.Rows[e.RowIndex].Cells[5].Value.ToString();
 
                         if (dtgvDetalleFactura.Rows[e.RowIndex].Cells[2].Value != null)
                         {
 
-                            cantidad = int.Parse(dtgvDetalleFactura.Rows[e.RowIndex].Cells[2].Value.ToString());
-                            //totalLinea = double.Parse(dtgvDetalleFactura.Rows[e.RowIndex].Cells[1].Value.ToString()) * cantidad;
-                            //dtgvDetalleFactura.Rows[e.RowIndex].Cells[3].Value = totalLinea.ToString();
+                            cantidad = decimal.Parse(dtgvDetalleFactura.Rows[e.RowIndex].Cells[2].Value.ToString());
 
-                            foreach (tbProducto pro in listaProductos)
+                            prod = buscarProducto(codigoProducto);
+                            if (prod != null)
                             {
-
-                                if (pro.idProducto == dtgvDetalleFactura.Rows[e.RowIndex].Cells[4].Value.ToString())
-                                {
-                                    cargarDetalleFactura(pro, 2, cantidad);
-                                    break;
-
-                                }
-
+                                agregarProductoDetalleFactura(prod, 1, cantidad, false);
                             }
-
-
                         }
 
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show("Se produjo un error al ingresar el producto, corrija los datos","Ingreso de datos",MessageBoxButtons.OK,MessageBoxIcon.Error);
-            }
-        }
-
-        private void txtPorcetaje_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (txtPorcetaje.Text != string.Empty)
+                //cuando cambia el precio
+                if (dtgvDetalleFactura.Columns[e.ColumnIndex].Name == "colPrec")
                 {
+                    if (dtgvDetalleFactura.Rows[e.RowIndex].Cells[5].Value != null)
+                    {
+                        tbProducto prod;
+                        codigoProducto = dtgvDetalleFactura.Rows[e.RowIndex].Cells[5].Value.ToString();
 
-                    calculaMontos(listDetalleFactura);
-                }
-                else
-                {
+                        if (dtgvDetalleFactura.Rows[e.RowIndex].Cells[1].Value != null)
+                        {
 
-                    txtDescuento.Text = "0";
+                            precioProd = decimal.Parse(dtgvDetalleFactura.Rows[e.RowIndex].Cells[1].Value.ToString());
+
+                            prod = buscarProducto(codigoProducto);
+                            if (prod != null)
+                            {
+                                if ((bool)prod.precioVariable)
+                                {//el valor de 2 es para actualizar el precio y 1 para cantidad
+
+                                    agregarProductoDetalleFactura(prod, 2, precioProd, false);
+                                }
+                                else
+                                {
+                                    agregarProductoGrid();
+                                    MessageBox.Show("El precio de este producto no puede ser actualizado", "Precio Producto", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                }
+
+                            }
+                        }
+
+                    }
+
                 }
             }
             catch (Exception)
             {
 
-
-                MessageBox.Show("Se produjo un error al ingresar el producto, corrija los datos", "Calcular descuento", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Se produjo un error al cambiar los datos del producto, corrija los datos", "Ingreso de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        
-        private void btnCancelarDetalle_Click(object sender, EventArgs e)
+        private void btnCobrar_Click(object sender, EventArgs e)
         {
-            DataGridViewSelectedRowCollection rowSelected = dtgvDetalleFactura.SelectedRows;
-
-            if (rowSelected.Count > 0)
+            tipoDoc = (int)Enums.TipoDocumento.FacturaElectronica;
+            dtgvDetalleFactura.EndEdit();
+            calcularMontosT();
+            agregarProductoGrid();
+            if (listaDetalleDocumento.Count != 0 && txtTotal.Text != "0")
             {
-                if (rowSelected[0].Cells[3].Value != null)
-                {
-                    DialogResult = MessageBox.Show("Esta Seguro que desea eliminar el producto: " + rowSelected[0].Cells[0].Value.ToString(), "Eliminar producto de lista", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                    if(DialogResult == DialogResult.Yes)
-                    {
-                        
-                         eliminarDetalle(facturaGlobal.tbDetalleDocumento.First().idProducto);
-
-                    }
-
-
-                }
-                else
+                if (validarCampos())
                 {
 
-                    MessageBox.Show("Debe de seleccionar una producto de la lista", "Eliminar producto Lista", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                }
-
-
-
-            }
-
-        }
-
-        /// <summary>
-        /// Elimnamos un producto de la factura.
-        /// </summary>
-        /// <param name="idProducto"></param>
-        private void eliminarDetalle(string idProducto)
-        {
-
-            foreach (tbDetalleDocumento detalle in facturaGlobal.tbDetalleDocumento)
-            {
-               if( detalle.idProducto == idProducto)
-                {
-                    facturaGlobal.tbDetalleDocumento.Remove(detalle);
-                    break;
-
-                }
-
-            }
-
-            cargarGridDetalleFactura(facturaGlobal.tbDetalleDocumento);
-            calculaMontos(facturaGlobal.tbDetalleDocumento);
-
-        }
-
-        private void dtgvDetalleFactura_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void gbxProductos_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnRefrescaar_Click(object sender, EventArgs e)
-        {
-            cargarDatos();
-        }
-
-        private void btnPendiente_Click(object sender, EventArgs e)
-        {
-            crearFactura();
-        }
-        private string buscarAlias(int id) {
- 
-            foreach (FacturasPendientes factPend in listaFacturaPendientes) {
-
-                if (factPend.FacturaPendiente.id == id) {
-
-
-                    return factPend.Alias;
-
-
-                }
-
-            }
-
-            return null;
-        }
-        private void crearFactura() {
-
-            crearFactura((int)Enums.EstadoFactura.Pendiente);
-        }
-
-        private void crearFactura(tbDocumento entity)
-        {
-
-            facturaGlobal = entity;
-            crearFactura((int)Enums.EstadoFactura.Cancelada);
-
-        }
-
-        private void crearFactura(int estadoFact) {
-
-           // tbFactura factura = new tbFactura();
-
-            //Validamos que la lista de detalle factura no este vacia.
-            if (facturaGlobal != null)
-            {
-                //Cambiamos a la pestaña de facturacion a pendientes, 
-
-                facturaGlobal.estadoFactura = estadoFact;
-
-
-                string Alias = "";
-                if (facturaGlobal.estadoFactura == (int)Enums.EstadoFactura.Pendiente)
-                {
-                    tabFacturacion.SelectedIndex = 1;
-                  
-                    DialogResult resultado;
-
-                    //if (facturaGlobal.alias == null)
-                    //{
-                    //  resultado = ShowInputDialog(out Alias);
-
-                    //}
-                    //else {
-
-                    //    Alias = facturaGlobal.alias;
-                    //}
-
-                }
-                
-
-
-         
-                foreach (tbDetalleDocumento detalle in facturaGlobal.tbDetalleDocumento)
-                {
-                    detalle.tbProducto = null;
-
-                }
-
-
-                if (facturaGlobal.id==0)
-                {
-                    
-                    //Problema se encuentra en factura, este sobreescribe  en dicha entidad
-                    facturaGlobal.fecha = Utility.getDate();
-                    facturaGlobal.estadoFactura = estadoFact;
-                    //facturaGlobal.descuento = float.Parse(txtDescuento.Text);
-                    //facturaGlobal.total = float.Parse(txtTotal.Text);
-                    //facturaGlobal.iva = float.Parse(txtIva.Text);
-                    //facturaGlobal.tbClientes = facturaGlobal.tbClientes;
-
-
-                    //facturaGlobal.idCaja = int.Parse(Global.NumeroCaja.ToString());
-                    ////instanciamos una variable que almacene el alias, la factura, y el detalle factura
-                    //facturaGlobal.alias = Alias;
-
-                 //   lstvPendiente.Items.Clear();
-                    guardarFactura(facturaGlobal, estadoFact);
-
-                    //Almacenar la factura pendiente.
-
-
-
-                }
-                else//actualizar factura
-                {
-                    facturaGlobal.fecha_ult_mod = Utility.getDate();
-                    facturaGlobal.usuario_ult_mod = Global.Usuario.nombreUsuario;
-                    facturaGlobal.estadoFactura = estadoFact;
-                       
-                    facturaGlobal= facturaIns.modificar(facturaGlobal);
-
-                }
-
-            //cargarListViewPendientes(facturaGlobal);
-
-
-
-            resetForm();
-            
-            tabFacturacion.SelectedIndex = 0;
-            }
-
-            else
-            {
-                MessageBox.Show("Falta informacion", "Error");
-                tabFacturacion.SelectedIndex = 0;
-            }
-
-        
-        }
-
-        /// <summary>
-        /// Carga datos de factura al listview de pendientes
-        /// </summary>
-        /// <param name="listaFacturaPendientes"></param>
-        private void cargarListViewPendientes(tbDocumento fact)
-        {
-            
-                ListViewItem item = new ListViewItem();
-                item.Text = fact.id.ToString();
-                //item.SubItems.Add(fact.alias);  
-                //item.SubItems.Add(fact.fecha.ToString());     
-                //item.SubItems.Add(fact.descuento.ToString());
-                //item.SubItems.Add(fact.iva.ToString());
-                //item.SubItems.Add(fact.total.ToString());
-
-                lstvPendiente.Items.Add(item);
-            
-        }
-
-        /// <summary>
-        /// Elimina la factura pediente seleccionada del listview
-        /// </summary>
-        /// <param name="listaFacturaPendientes"></param>
-        private void eliminarListViewPendientes(List<FacturasPendientes> listaFacturaPendientes)
-        {
-            foreach (FacturasPendientes factura in listaFacturaPendientes)
-            {
-                ListViewItem item = new ListViewItem();
-                item.Text = "";
-                item.SubItems.Clear();
-                item.SubItems.Clear();
-                item.SubItems.Clear();
-                item.SubItems.Clear();
-
-                lstvPendiente.Items.Remove(item);
-            }
-        }
-        
-        /// <summary>
-        /// Mostramos un cuadro de dialogo para agregar el pendiente.
-        /// </summary>
-        /// <returns></returns>
-        private DialogResult ShowInputDialog(out string Pendient)
-        {
-            string valor = "";
-            DialogResult result;
-
-            System.Drawing.Size size = new System.Drawing.Size(250, 70);
-            Form inputBox = new Form();
-
-            inputBox.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            inputBox.ClientSize = size;
-            inputBox.Text = "Digite un alias";
-            inputBox.StartPosition = FormStartPosition.CenterScreen;
-             
-
-            System.Windows.Forms.TextBox textBox = new TextBox();
-            textBox.Size = new System.Drawing.Size(size.Width - 10, 23);
-            textBox.Location = new System.Drawing.Point(5, 5);
-            
-            textBox.Text = "";
-            inputBox.Controls.Add(textBox);
-
-            Button okButton = new Button();
-            okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            okButton.Name = "okButton";
-            okButton.Size = new System.Drawing.Size(75, 23);
-            okButton.Text = "&Aceptar";
-            okButton.Location = new System.Drawing.Point(size.Width - 80 - 80, 39);
-            inputBox.Controls.Add(okButton);
-
-            Button cancelButton = new Button();
-            cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            cancelButton.Name = "cancelButton";
-            cancelButton.Size = new System.Drawing.Size(75, 23);
-            cancelButton.Text = "&Cancelar";
-            cancelButton.Location = new System.Drawing.Point(size.Width - 80, 39);
-            inputBox.Controls.Add(cancelButton);
-
-            inputBox.AcceptButton = okButton;
-            inputBox.CancelButton = cancelButton;
-            inputBox.StartPosition = FormStartPosition.CenterScreen;
-
-             result = inputBox.ShowDialog();
-            if (result == DialogResult.OK) 
-            {
-
-                if (textBox.Text == String.Empty)
-                {
-                    MessageBox.Show("Error, ingrese un alias para agregar a la lista de pendientes.", "Error al ingresar datos.");
-                    
-                }
-                else
-                {
-                    valor = textBox.Text.Trim();
-                }
-   
-            }
-            Pendient = valor;
-            return result;
-
-        }
-
-        public List<tbDocumento> obtnerFacturaPendiente() {
-
-
-
-
-            return facturaIns.getListFactPendiente();
-
-
-
-        }
-        
-        private void lstvPendiente_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            tabFacturacion.SelectedIndex = 0;
-
-            if (lstvPendiente.SelectedItems.Count > 0)
-            {
-
-                //Recuperamos el Alias de la factura seleccionada.
-                int id = int.Parse(lstvPendiente.SelectedItems[0].Text);
-
-                List<tbDocumento> listaFacturas = obtnerFacturaPendiente();
-
-                foreach (tbDocumento factura in listaFacturas)
-                {
-                    if (factura.id == id)
-                    {
-
-                        //banderaPendiente = true;
-                        //Aqui recuperamos la entidad en cuestion, con toda su informacion pendiente.
-                        facturaGlobal = factura;
-                        //txtCliente.Text = facturaGlobal.alias;
-                        cargarPendientes(facturaGlobal.tbDetalleDocumento);
-                        break;
-                    }
-                    
-                }
-                //eliminar seleccion de la lista Pendientes
-                for (int i = lstvPendiente.SelectedItems.Count - 1; i >= 0; i += -1)
-                {
-                    lstvPendiente.SelectedItems[i].Remove();
-                    
-                }
-            }
-            
-
-        }
-
-        void cargarGridDetalleFacturaPendiente(tbDocumento entidad)
-        {
-            cargarPendientes(entidad.tbDetalleDocumento);
-        }
-        
-        /// <summary>
-        /// Recuperamos la entidad Factura.
-        /// </summary>
-        /// <param name="factura"></param>
-        private void cargarPendientes(ICollection<tbDetalleDocumento> facturaPendiente)
-        {
-
-            foreach(tbDetalleDocumento detalleFactura in facturaPendiente)
-            {
-                //Aqui recuperamos los distintos productos de la factura pendiente.
-                DataGridViewRow row = (DataGridViewRow)dtgvDetalleFactura.Rows[0].Clone();
-
-                row.Cells[0].Value = detalleFactura.tbProducto.nombre.Trim();
-                row.Cells[1].Value = detalleFactura.precio.ToString();
-                row.Cells[2].Value = detalleFactura.cantidad.ToString();
-                row.Cells[3].Value = detalleFactura.totalLinea.ToString();
-
-                dtgvDetalleFactura.Rows.Add(row);
-            }
-            calculaMontos(facturaPendiente);
-        }
-
-        private void btnCambioUsu_Click(object sender, EventArgs e)
-        {
-            DialogResult resul = MessageBox.Show("¿Desea cambiar de Usuario?", "Cambio de Usuario", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if(resul == DialogResult.Yes)
-            {
-                cargarLogeo();
-                //Vuelvo a utilizar este metodo para cargar los requerimientos segun el permiso que posea, cada vez que un usuario se loguea.
-                //cargarPermisos(usua);
-            }
-        }
-
-        private void btnCancelarFactura_Click(object sender, EventArgs e)
-        {
-            frmCancelarFactura factura = new frmCancelarFactura();
-            factura.recuperarProductosLista += pasarProdcutos;
-
-            factura.ShowDialog();
-        }
-
-        private void pasarProdcutos(List<tbProducto> productos)
-        {
-            productos = listaProductos;
-        }
-
-        private void btnSalir_Click(object sender, EventArgs e)
-        {
-            if (lstvPendiente.Items.Count == 0)
-            {
-                DialogResult resul = MessageBox.Show("¿Seguro que desea salir del Sistema?", "Cierre del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (resul == DialogResult.Yes)
-                {
-                    this.Close();
+                    tbDocumento documento = crearDocumento();
+                    frmCobrar form = new frmCobrar();
+                    form.recuperarTotal += respuesta;
+                    form.facturaGlobal = documento;
+                    form.ShowDialog();
                 }
             }
             else
             {
-                DialogResult resul = MessageBox.Show("Hay facturas pendientes. ¿Desea salir del Sistema?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-                if (resul == DialogResult.Yes)
+                MessageBox.Show("No hay productos o el TOTAL a cobrar es 0.", "Cobrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private bool validarCampos()
+        {
+            bool validaCliente = (bool)Global.Usuario.tbEmpresa.tbParametrosEmpresa.First().clienteObligatorioFact;
+
+            if (validaCliente || tipoDoc == (int)Enums.TipoDocumento.Proforma)
+            {
+                if (clienteGlo == null)
                 {
-                    this.Close();
+                    MessageBox.Show("Debe indicar un cliente", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    btnBuscarCliente.Focus();
+                    return false;
+                }
+
+            }
+            if (chkEnviar.Checked)
+            {
+                if (txtCorreo.Text == string.Empty)
+                {
+                    MessageBox.Show("Debe Ingresar un correo electrónico", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtCorreo.Focus();
+                    return false;
+
+                }
+                if (!Utility.isValidEmail(txtCorreo.Text))
+                {
+                    MessageBox.Show("El formato del correo es incorrecto", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtCorreo.Focus();
+                    return false;
+                }
+                if (txtCorreo2.Text != string.Empty)
+                {
+                    if (!Utility.isValidEmail(txtCorreo2.Text))
+                    {
+                        MessageBox.Show("El formato del correo es incorrecto", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txtCorreo2.Focus();
+                        return false;
+                    }
+
                 }
             }
-        }            
-
-        private void btnInicioYCierreDeCaja_Click(object sender, EventArgs e)
-        {
-            frmInicioCierreCaja inicioCierre = new frmInicioCierreCaja();
-            inicioCierre.ShowDialog();
+            return true;
         }
 
-        private void btnTipoMoneda_Click(object sender, EventArgs e)
+        private tbDocumento crearDocumento()
         {
-            abrirFormulario(((Button)sender).Name);
+            tbDocumento documento = new tbDocumento();
+
+            documento.tipoDocumento = (int)Enums.TipoDocumento.FacturaElectronica;
+            documento.fecha = Utility.getDate();
+            documento.tipoMoneda = (int)Enums.TipoMoneda.CRC;
+            documento.tipoCambio = 0;
+            documento.reporteElectronic = (bool)Global.Usuario.tbEmpresa.tbParametrosEmpresa.First().facturacionElectronica;
+            documento.tipoVenta = (int)Enums.tipoVenta.Contado;
+            documento.plazo = 0;
+            documento.tipoPago = (int)Enums.TipoPago.Efectivo;
+            documento.refPago = string.Empty;
+            documento.estadoFactura = (int)Enums.EstadoFactura.Cancelada;
+            documento.reporteAceptaHacienda = false;
+            documento.notificarCorreo = chkEnviar.Checked;
+            documento.observaciones = txtObservaciones.Text.ToUpper().Trim();
+            documento.idEmpresa = Global.Usuario.tbEmpresa.id;
+            documento.tipoIdEmpresa = Global.Usuario.tbEmpresa.tipoId;
+            //en caso que no tenga cliente asignado, sera no contribuyente
+
+            //si no marco el check de enviar correo, deja los campos de correo electronico a notificar null
+            if ((bool)documento.notificarCorreo)
+            {
+                documento.correo1 = txtCorreo.Text == string.Empty ? null : txtCorreo.Text.Trim();
+                documento.correo2 = txtCorreo2.Text == string.Empty ? null : txtCorreo2.Text.Trim();
+
+            }
+            //cliente
+            if (clienteGlo != null)
+            {
+                documento.idCliente = clienteGlo.id;
+                documento.tipoIdCliente = clienteGlo.tipoId;
+                //asigna el valor que tenga el cliente si es contribuyente o no
+
+                documento.tbClientes = clienteGlo;
+            }
+
+            documento.estado = true;
+
+            //foreach (tbDetalleDocumento detalle in listaDetalleDocumento)
+            //{
+            //    detalle.tbProducto = null;
+            //}
+
+            documento.tbDetalleDocumento = listaDetalleDocumento;
+
+            //Atributos de Auditoria
+
+            documento.fecha_crea = Utility.getDate();
+            documento.fecha_ult_mod = Utility.getDate();
+            documento.usuario_crea = Global.Usuario.nombreUsuario.Trim().ToUpper();   // Global.Usuario.nombreUsuario;
+            documento.usuario_ult_mod = Global.Usuario.nombreUsuario.Trim().ToUpper();   // Global.Usuario.nombreUsuario;
+
+            return documento;
         }
 
-        private void btnRoles_Click(object sender, EventArgs e)
+        private void respuesta(tbDocumento doc)
         {
-            abrirFormulario(((Button)sender).Name);
+            try
+            {
+
+                if (doc != null)
+                {
+                    existeRespuesta = true;
+                    if (doc.reporteElectronic == true)
+                    {
+
+                        if (Utility.AccesoInternet())
+                        {
+
+                            BackgroundWorker tarea = new BackgroundWorker();
+                            documentoGlo = doc;
+                            tarea.DoWork += reportarFacturacionElectronica;
+                            tarea.RunWorkerAsync();
+
+                            if (doc.id != 0)
+                            {
+                                MessageBox.Show("El documento ha sido emitido correctamente, el reporte de hacienda se generará en segundo plano", "Documento creado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+                            }
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No hay acceso a internet", "Sin Internet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+                        }
+
+                    }
+                    else
+                    {
+                        if (doc.id != 0)
+                        {
+                            MessageBox.Show("El documento ha sido emitido correctamente", "Documento creado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            bool enviado = false;
+                            //se solicita respuesta, y se confecciona el correo a enviar
+                            if ((bool)doc.notificarCorreo)
+                            {
+
+                                List<string> correos = new List<string>();
+                                if (doc.correo1 != null)
+                                {
+                                    correos.Add(doc.correo1.Trim());
+
+                                }
+                                if (doc.correo2 != null)
+                                {
+                                    correos.Add(doc.correo2.Trim());
+
+                                }
+                                CorreoElectronico correo = new CorreoElectronico(doc, correos, true);
+                                enviado = correo.enviarCorreo();
+                            }
+
+                        }
+
+                    }
+                    limpiarFactura();
+                }
+                else
+                {
+                    MessageBox.Show("El documento no se ha guardado, intente nuevamente, de lo contrario contacte con el administrador.", "Error al crear Documento", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Error en el sistema, contacte al administrador", "Error general", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
-        private void btnRequerimientos_Click(object sender, EventArgs e)
+        public void reportarFacturacionElectronica(object o, DoWorkEventArgs e)
         {
-            abrirFormulario(((Button)sender).Name);
+            tbDocumento doc = documentoGlo;
+            try
+            {
+                //envio la factura a hacienda
+                doc = facturaIns.FacturarElectronicamente(doc);
+
+                System.Threading.Thread.Sleep(3000);
+                //consulto a hacienda el estado de la factura
+                try
+                {
+                    string mensaje = facturaIns.consultarFacturaElectronicaPorClave(doc.clave);
+                }
+                catch (Exception)
+                {
+
+                    MessageBox.Show("Error al consultar el estado del documento en Hacienda, valida el estado del documento", "Error al consultar el estado del documento", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+
+                bool enviado = false;
+                //se solicita respuesta, y se confecciona el correo a enviar
+                if ((bool)doc.notificarCorreo)
+                {
+                    List<string> correos = new List<string>();
+                    if (doc.correo1 != null)
+                    {
+                        correos.Add(doc.correo1.Trim());
+
+                    }
+                    if (doc.correo2 != null)
+                    {
+                        correos.Add(doc.correo2.Trim());
+
+                    }
+                    CorreoElectronico correo = new CorreoElectronico(doc, correos, true);
+                    enviado = correo.enviarCorreo();
+
+                }
+            }
+            catch (FacturacionElectronicaException ex)
+            {
+                MessageBox.Show("Error al realizar la facturación electronica", "Factura Electrónica", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (EnvioCorreoException ex)
+            {
+                MessageBox.Show("Error al enviar la facturación por correo electrónico", "Correo electrónico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (TokenException ex)
+            {
+                MessageBox.Show("Error al obtener el Token en Hacienda", "Facturación electrónica", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (ConsultaHaciendaExcpetion ex)
+            {
+                MessageBox.Show("Error al consultar hacienda la factura electrónica", "Facturación electrónica", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (generarXMLException ex)
+            {
+                MessageBox.Show("Error al generar el XML de la factura", "Facturación electrónica", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error general de facturación electrónica", "Facturación electrónica", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void btnCantidadInventario_Click(object sender, EventArgs e)
+        private void limpiarFactura()
         {
-            // Creamos la instancia del reporte Cantidad en Inventario.
-            //Reportes.frmReporteInventario reporte = new Reportes.frmReporteInventario();
-            //reporte.ShowDialog();
-        }
+            dtgvDetalleFactura.Rows.Clear();
+            listaDetalleDocumento.Clear();
+            txtCodigo.Text = string.Empty;
+            clienteGlo = null;
+            exoneracionClie = false;
+            existeRespuesta = false;
 
-        private void btnCantidadMinima_Click(object sender, EventArgs e)
-        {
-            // Creamos la instancia del reporte Cantidad Minima.
-            //Reportes.frmReporteCantidadMinima reporte = new Reportes.frmReporteCantidadMinima();
-            //reporte.ShowDialog();
-        }
+            chkEnviar.Checked = false;
+            txtCorreo2.Text = string.Empty;
 
-        private void btnPlanillaEmpleados_Click(object sender, EventArgs e)
-        {
-            // Creamos la instancia del reporte Planilla de empleados.
-            ////Reportes.frmReportePlanilla reporte = new Reportes.frmReportePlanilla();
-            ////reporte.ShowDialog();
+            txtIdCliente.Text = string.Empty;
+            txtCliente.Text = string.Empty;           
+            txtTel.Text = string.Empty;
+            txtCorreo.Text = string.Empty;
+            txtCorreo2.Text = string.Empty;
+
+            txtSubtotal.Text = "0";
+            txtIva.Text = "0";
+            txtPorcetaje.Text = "0";
+            txtDescuento.Text = "0";
+            txtTotal.Text = "0";
+            lblTotalProducto.Text = "0";
+            txtExoneracion.Text = "0";
+            lblCantidadLineas.Text = "0";
+
+            txtObservaciones.Text = string.Empty;
+
+            respuestaAprobaDesc = false;
+            porcDesc = 0;
+
         }
 
         private void btnLimpiarForm_Click(object sender, EventArgs e)
         {
+            DialogResult result = MessageBox.Show("Desea limpiar por completo lo facturado?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            DialogResult result = MessageBox.Show("Desea limpiar el formulario", "Limpiar formulario", MessageBoxButtons.YesNo);
-            if(result == DialogResult.Yes)
+            if (result == DialogResult.Yes)
+            {
+                limpiarFactura();
+            }
+        }
+
+        private void btnReImprimir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (documentoGlo != null)
+                {
+
+                    DialogResult dialogResult = MessageBox.Show("Desea imprimir el documento?", "Imprimir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+
+                        clsImpresionFactura imprimir = new clsImpresionFactura(documentoGlo, Global.Usuario.tbEmpresa);
+                        imprimir.print();
+
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No hay documentos que imprimir", "Imprimir", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+            }
+            catch (Exception)
             {
 
-                resetForm();
+                MessageBox.Show("Error al imprimir el último documento.", "Re-Imprimir", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
         }
 
-        private void lblProductos_Click(object sender, EventArgs e)
+        private void btnBuscarFactura_Click(object sender, EventArgs e)
         {
-
+            frmBuscarDocumentos form = new frmBuscarDocumentos();
+            form.ShowDialog();
         }
 
-        private void gbxCategorias_Enter(object sender, EventArgs e)
+        private void btnProductos_Click(object sender, EventArgs e)
         {
-
-
+            frmProductos2 form = new frmProductos2();
+            form.ShowDialog();
         }
 
-        //private void Form1_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    if (e.KeyCode == Keys.Escape)
-        //    {
-        //        DialogResult result = MessageBox.Show("Desea limpiar el formulario", "Limpiar formulario", MessageBoxButtons.YesNo);
-        //        if (result == DialogResult.Yes)
-        //        {
+        private void btnClientes_Click(object sender, EventArgs e)
+        {
+            frmClientes form = new frmClientes();
+            form.ShowDialog();
+        }
 
-        //            resetForm();
-        //        }
+        private void btnValidacion_Click(object sender, EventArgs e)
+        {
+            frmValidacionDocumentosHacienda form = new frmValidacionDocumentosHacienda();
+            form.ShowDialog();
+        }
+
+        private void txtPorcetaje_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+
+                try
+                {
+                    if (txtPorcetaje.Text == string.Empty)
+                    {
 
 
-        //        // prevent child controls from handling this event as well
-        //        e.SuppressKeyPress = true;
-        //    }
-        //}
+                        txtDescuento.Text = "0";
+                    }
+
+                    calcularMontosT();
+                }
+                catch (Exception)
+                {
 
 
+                    MessageBox.Show("Se produjo un error al ingresar el producto, corrija los datos", "Calcular descuento", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
+
+
 }

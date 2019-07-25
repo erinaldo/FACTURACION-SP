@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace PresentationLayer
 {
@@ -77,6 +78,8 @@ namespace PresentationLayer
             listaRespHacienda.Clear();
             txtMensaje.Text = string.Empty;
             DialogResult dr = this.openFileDialog1.ShowDialog();
+            XPathNavigator nav; XPathDocument docNav;
+      
             if (dr == System.Windows.Forms.DialogResult.OK)
             {
                 // Read the files
@@ -91,65 +94,83 @@ namespace PresentationLayer
                         if (File.Exists(file))
                         {
 
+                            XmlDocument xmlDoc = new XmlDocument();
+                            xmlDoc.Load(file);
+                            tbReporteHacienda compra = new tbReporteHacienda();
+
+
+
+
+                            var fecha = xmlDoc.GetElementsByTagName("FechaEmision").Item(0).InnerText;
+                            var actividad = xmlDoc.GetElementsByTagName("CodigoActividad").Item(0).InnerText;
+                            //var emisor = xmlDoc.GetElementsByTagName("Emisor");
+
+                            XmlNodeList dataNodes = xmlDoc.SelectNodes("//Fac");
                            
-                            XmlDocument xDoc = new XmlDocument();
-                            xDoc.Load(file);
-                           
-                            var fecha = xDoc.GetElementsByTagName("FechaEmision").Item(0).InnerText;
-                            var actividad= xDoc.GetElementsByTagName("CodigoActividad").Item(0).InnerText;
-                            var emisor=xDoc.GetElementsByTagName("Emisor");
-                            var identificacion = ((XmlElement)emisor[0]).GetElementsByTagName("Identificacion");
-                            var correo = ((XmlElement)emisor[0]).GetElementsByTagName("CorreoElectronico").Item(0).InnerText;
 
-                            var recepetor = xDoc.GetElementsByTagName("Receptor");
-                            var IdentidicacionRecept= ((XmlElement)recepetor[0]).GetElementsByTagName("Identificacion");
-                        
-                            //emisor
-                            var numeroId = ((XmlElement)identificacion[0]).GetElementsByTagName("Numero").Item(0).InnerText;
-                            var tipoId = ((XmlElement)identificacion[0]).GetElementsByTagName("Tipo").Item(0).InnerText;
-                            var nombreEmisor = ((XmlElement)emisor[0]).GetElementsByTagName("Nombre").Item(0).InnerText;
+                            foreach (XmlNode node in dataNodes)
+                            {
+                                int Count = 0;
+                                //int Max = node.ChildNodes.Count;
+                                
+
+                                var c=node.Name;
+                                var u= node.SelectSingleNode("Identificacion").InnerText;
+                                Count = Count + 1;
+                            }
+
+                            //var identificacion = ((XmlElement)emisor[0]).GetElementsByTagName("Identificacion");
+                            //var correo = ((XmlElement)emisor[0]).GetElementsByTagName("CorreoElectronico").Item(0).InnerText;
+
+                            //var recepetor = xDoc.GetElementsByTagName("Receptor");
+                            //var IdentidicacionRecept= ((XmlElement)recepetor[0]).GetElementsByTagName("Identificacion");
+
+                            ////emisor
+                            //var numeroId = ((XmlElement)identificacion[0]).GetElementsByTagName("Numero").Item(0).InnerText;
+                            //var tipoId = ((XmlElement)identificacion[0]).GetElementsByTagName("Tipo").Item(0).InnerText;
+                            //var nombreEmisor = ((XmlElement)emisor[0]).GetElementsByTagName("Nombre").Item(0).InnerText;
 
 
-                            //receptor
-                            var nombreRecepetor = ((XmlElement)recepetor[0]).GetElementsByTagName("Nombre").Item(0).InnerText;
-                            var idRecept = ((XmlElement)IdentidicacionRecept[0]).GetElementsByTagName("Numero").Item(0).InnerText;
-                            var tipoIdRecept = ((XmlElement)IdentidicacionRecept[0]).GetElementsByTagName("Tipo").Item(0).InnerText;
+                            ////receptor
+                            //var nombreRecepetor = ((XmlElement)recepetor[0]).GetElementsByTagName("Nombre").Item(0).InnerText;
+                            //var idRecept = ((XmlElement)IdentidicacionRecept[0]).GetElementsByTagName("Numero").Item(0).InnerText;
+                            //var tipoIdRecept = ((XmlElement)IdentidicacionRecept[0]).GetElementsByTagName("Tipo").Item(0).InnerText;
 
 
-                            var total = xDoc.GetElementsByTagName("ResumenFactura");
-                            var imp = ((XmlElement)total[0]).GetElementsByTagName("TotalImpuesto").Item(0).InnerText;
-                            var totalComprobante = ((XmlElement)total[0]).GetElementsByTagName("TotalComprobante").Item(0).InnerText;
+                            //var total = xDoc.GetElementsByTagName("ResumenFactura");
+                            //var imp = ((XmlElement)total[0]).GetElementsByTagName("TotalImpuesto").Item(0).InnerText;
+                            //var totalComprobante = ((XmlElement)total[0]).GetElementsByTagName("TotalComprobante").Item(0).InnerText;
 
-                            
 
-                            tbReporteHacienda resp = new tbReporteHacienda();
-                            resp.fecha = Utility.getDate();
-                            resp.codigoActividadEmisor = actividad;
-                            resp.claveDocEmisor = xDoc.GetElementsByTagName("Clave").Item(0).InnerText;
-                            resp.idEmisor = numeroId;
-                            resp.nombreEmisor = nombreEmisor;
-                            resp.tipoIdEmisor = int.Parse(tipoId);
-                            resp.fechaEmision =  DateTime.Parse( fecha);
-                            resp.totalImp = decimal.Parse(imp);
-                            resp.totalFactura = decimal.Parse(totalComprobante);
-                            resp.correoElectronico = correo;
-                            //por defecto se indica como aceptado
-                            resp.estadoRecibido = 1;
 
-                            resp.mensajeRespHacienda = false;
-                            resp.reporteAceptaHacienda = false;
+                            //tbReporteHacienda resp = new tbReporteHacienda();
+                            //resp.fecha = Utility.getDate();
+                            //resp.codigoActividadEmisor = actividad;
+                            //resp.claveDocEmisor = xDoc.GetElementsByTagName("Clave").Item(0).InnerText;
+                            //resp.idEmisor = numeroId;
+                            //resp.nombreEmisor = nombreEmisor;
+                            //resp.tipoIdEmisor = int.Parse(tipoId);
+                            //resp.fechaEmision =  DateTime.Parse( fecha);
+                            //resp.totalImp = decimal.Parse(imp);
+                            //resp.totalFactura = decimal.Parse(totalComprobante);
+                            //resp.correoElectronico = correo;
+                            ////por defecto se indica como aceptado
+                            //resp.estadoRecibido = 1;
 
-                            resp.fecha_crea = Utility.getDate();
-                            resp.fecha_ult_mod = Utility.getDate();
-                            resp.usuario_crea = Global.Usuario.nombreUsuario;
-                            resp.usuario_ult_mod = Global.Usuario.nombreUsuario;
+                            //resp.mensajeRespHacienda = false;
+                            //resp.reporteAceptaHacienda = false;
 
-                            resp.idEmpresa= idRecept;
-                            resp.tipoIdEmpresa = int.Parse(tipoIdRecept);
-                            resp.nombreReceptor = nombreRecepetor;
+                            //resp.fecha_crea = Utility.getDate();
+                            //resp.fecha_ult_mod = Utility.getDate();
+                            //resp.usuario_crea = Global.Usuario.nombreUsuario;
+                            //resp.usuario_ult_mod = Global.Usuario.nombreUsuario;
 
-                            resp.nombreArchivo = file.Substring(file.LastIndexOf('\\'));
-                            listaRespHacienda.Add(resp);     
+                            //resp.idEmpresa= idRecept;
+                            //resp.tipoIdEmpresa = int.Parse(tipoIdRecept);
+                            //resp.nombreReceptor = nombreRecepetor;
+
+                            //resp.nombreArchivo = file.Substring(file.LastIndexOf('\\'));
+                            //listaRespHacienda.Add(resp);     
 
                         }
 

@@ -44,6 +44,7 @@
             this.txtDescuentoMax = new System.Windows.Forms.TextBox();
             this.lblPrecioPromo = new System.Windows.Forms.Label();
             this.gbxImpuestos = new System.Windows.Forms.GroupBox();
+            this.btnCalcular = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -280,6 +281,7 @@
             // 
             // gbxImpuestos
             // 
+            this.gbxImpuestos.Controls.Add(this.btnCalcular);
             this.gbxImpuestos.Controls.Add(this.label18);
             this.gbxImpuestos.Controls.Add(this.label19);
             this.gbxImpuestos.Controls.Add(this.label20);
@@ -297,6 +299,16 @@
             this.gbxImpuestos.TabIndex = 49;
             this.gbxImpuestos.TabStop = false;
             this.gbxImpuestos.Text = "Impuestos";
+            // 
+            // btnCalcular
+            // 
+            this.btnCalcular.Location = new System.Drawing.Point(246, 21);
+            this.btnCalcular.Name = "btnCalcular";
+            this.btnCalcular.Size = new System.Drawing.Size(75, 23);
+            this.btnCalcular.TabIndex = 46;
+            this.btnCalcular.Text = "Calcular";
+            this.btnCalcular.UseVisualStyleBackColor = true;
+            this.btnCalcular.Click += new System.EventHandler(this.btnCalcular_Click);
             // 
             // label18
             // 
@@ -351,6 +363,7 @@
             this.txtPrecioVenta1.Name = "txtPrecioVenta1";
             this.txtPrecioVenta1.Size = new System.Drawing.Size(72, 22);
             this.txtPrecioVenta1.TabIndex = 40;
+            this.txtPrecioVenta1.TextChanged += new System.EventHandler(this.txtPrecioVenta1_TextChanged);
             // 
             // chkExento
             // 
@@ -903,5 +916,6 @@
         private System.Windows.Forms.TextBox txtPrecioVenta2;
         private System.Windows.Forms.TextBox txtPrecioVenta1;
         private System.Windows.Forms.CheckBox chkPrecioVariable;
+        private System.Windows.Forms.Button btnCalcular;
     }
 }

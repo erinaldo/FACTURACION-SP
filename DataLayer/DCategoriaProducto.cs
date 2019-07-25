@@ -31,14 +31,14 @@ namespace DataLayer
                     if (estado == (int)Enums.EstadoBusqueda.Activo)
                     {
                         //Recuperamos los datos de la tabla con el estado en activo.
-                        return (from p in context.tbCategoriaProducto.Include("tbProducto")
+                        return (from p in context.tbCategoriaProducto.Include("tbProducto.tbInventario").Include("tbProducto.tbImpuestos")
                                 where p.estado == true
                                 select p).ToList();
                     }
                     else if (estado == (int)Enums.EstadoBusqueda.Inactivos)
                     {
                         //Recuperamos los valores con el estado en inactivo
-                        return (from p in context.tbCategoriaProducto.Include("tbProducto")
+                        return (from p in context.tbCategoriaProducto.Include("tbProducto.tbInventario").Include("tbProducto.tbImpuestos")
                                 where p.estado == false
                                 select p).ToList();
 

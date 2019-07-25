@@ -356,7 +356,7 @@ namespace PresentationLayer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frmFacturacion1 form = new frmFacturacion1();
+            frmFacturacion form = new frmFacturacion();
             form.ShowDialog();
         }
 

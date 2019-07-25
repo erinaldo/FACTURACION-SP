@@ -16,6 +16,9 @@ namespace PresentationLayer
     public partial class frmConsultaFacturaElectronica : Form
     {
         BFacturacion facturacion = new BFacturacion();
+        public string clave { get; set; }
+
+
         public frmConsultaFacturaElectronica()
         {
             InitializeComponent();
@@ -26,9 +29,27 @@ namespace PresentationLayer
             cboTipoDoc.DataSource = Enum.GetValues(typeof(Enums.TipoDocumento));
 
             cboTipoBusqueda.DataSource = Enum.GetValues(typeof(Enums.ConsultarHacienda));
+            if (clave!=null)
+            {
+              if (clave!=string.Empty)
+                        {
+                            txtClave.Text = clave;
+                            consultar();
+
+                        }
+            }
+          
+
+
         }
 
         private void btnConsultar_Click(object sender, EventArgs e)
+        {
+    
+            consultar();
+        }
+
+        private void consultar()
         {
             try
             {
@@ -98,9 +119,6 @@ namespace PresentationLayer
 
                 MessageBox.Show("Error al consultar los datos a haceinda, verifique y vuelva a intentarlo", "Error en la consulta.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-           
-     
-
         }
 
         private void cboTipoBusqueda_SelectedIndexChanged(object sender, EventArgs e)

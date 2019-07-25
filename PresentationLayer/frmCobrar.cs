@@ -307,7 +307,7 @@ namespace PresentationLayer
 
                 txtTipoPago.Text = "Tarjeta";
             }
-            else if (tipoPago == (int)Enums.TipoPago.NoAplica)
+            else if (tipoPago == (int)Enums.TipoPago.Otros)
             {
                 bandera = 3;
 
@@ -584,7 +584,7 @@ namespace PresentationLayer
 
         private void btnCredito_Click(object sender, EventArgs e)
         {
-            botonesTipoPagoEstado((int)Enums.TipoPago.NoAplica);
+            botonesTipoPagoEstado((int)Enums.TipoPago.Otros);
         }
 
         private void txtPago_Enter(object sender, EventArgs e)

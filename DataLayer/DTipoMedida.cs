@@ -15,24 +15,40 @@ namespace DataLayer
 
     public tbTipoMedidas GetEnity(tbTipoMedidas NombreTipoMedida)
         {
-            tbTipoMedidas Tipo;
+           
             try
             {
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities()) 
 
-                Tipo = (from T in context.tbTipoMedidas
+                return (from T in context.tbTipoMedidas
                         where T.nombre == NombreTipoMedida.nombre
                         select T).SingleOrDefault();
-                return Tipo;
+              
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-       
 
-    public bool Guardar(tbTipoMedidas tipoMedidas)
+        public tbTipoMedidas GetEnityById(tbTipoMedidas medida)
+        {
+            
+            try
+            {
+                using (dbSisSodInaEntities context = new dbSisSodInaEntities())
+
+                    return  (from T in context.tbTipoMedidas
+                            where T.idTipoMedida == medida.idTipoMedida
+                            select T).SingleOrDefault();
+              
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public bool Guardar(tbTipoMedidas tipoMedidas)
         {
             try
             {

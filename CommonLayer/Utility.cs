@@ -131,8 +131,8 @@ namespace CommonLayer
             decimal res = 0;
             if (valor!=string.Empty)
             {
-
-                if (decimal.TryParse(valor, out res))
+                decimal.TryParse(valor, out res);
+                if (res!=0)
                 {
                     return true;
                 }

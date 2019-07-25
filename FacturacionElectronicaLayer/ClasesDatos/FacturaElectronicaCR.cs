@@ -268,8 +268,8 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                     writer.WriteElementString("Codigo", detalle.idProducto.ToString().Trim());
                     writer.WriteEndElement(); // 'codigo comercial
 
-                    int cant = (int)detalle.cantidad;//convierte entero, elimina decimales
-                    writer.WriteElementString("Cantidad", String.Format("{0:N3}", cant.ToString()));
+                   // int cant = (int)detalle.cantidad;//convierte entero, elimina decimales
+                    writer.WriteElementString("Cantidad", String.Format("{0:N3}", detalle.cantidad.ToString()));
                     // 'Para las unidades de medida ver la tabla correspondiente
                     writer.WriteElementString("UnidadMedida", Enum.GetName(typeof(Enums.TipoMedida), detalle.tbProducto.idMedida));//nomenlatura kg etc
 
@@ -921,8 +921,8 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                     writer.WriteElementString("Codigo", detalle.idProducto.ToString().Trim());
                     writer.WriteEndElement(); // 'codigo comercial
 
-                    int cant = (int)detalle.cantidad;//convierte entero, elimina decimales
-                    writer.WriteElementString("Cantidad", String.Format("{0:N3}", cant.ToString()));
+                   // int cant = (int)detalle.cantidad;//convierte entero, elimina decimales
+                    writer.WriteElementString("Cantidad", String.Format("{0:N3}", detalle.cantidad.ToString()));
                     // 'Para las unidades de medida ver la tabla correspondiente
                     writer.WriteElementString("UnidadMedida", Enum.GetName(typeof(Enums.TipoMedida), detalle.tbProducto.idMedida));//nomenlatura kg etc
 

@@ -86,7 +86,6 @@
             this.lblnombre = new System.Windows.Forms.Label();
             this.lblapellid1 = new System.Windows.Forms.Label();
             this.mskidentificacion = new System.Windows.Forms.MaskedTextBox();
-            this.txtidentificacion = new System.Windows.Forms.TextBox();
             this.lblidentificacion = new System.Windows.Forms.Label();
             this.lblid = new System.Windows.Forms.Label();
             this.cbotipoCliente = new System.Windows.Forms.ComboBox();
@@ -109,6 +108,7 @@
             this.tlsBtnCancelar = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.tlsBtnSalir = new System.Windows.Forms.ToolStripButton();
+            this.txtIdentificacion = new System.Windows.Forms.MaskedTextBox();
             this.gbxCliente.SuspendLayout();
             this.gbxExoneracion.SuspendLayout();
             this.gboSexo.SuspendLayout();
@@ -117,6 +117,7 @@
             // 
             // gbxCliente
             // 
+            this.gbxCliente.Controls.Add(this.txtIdentificacion);
             this.gbxCliente.Controls.Add(this.chkContribuyente);
             this.gbxCliente.Controls.Add(this.gbxExoneracion);
             this.gbxCliente.Controls.Add(this.btnBuscarCliente);
@@ -163,7 +164,6 @@
             this.gbxCliente.Controls.Add(this.lblnombre);
             this.gbxCliente.Controls.Add(this.lblapellid1);
             this.gbxCliente.Controls.Add(this.mskidentificacion);
-            this.gbxCliente.Controls.Add(this.txtidentificacion);
             this.gbxCliente.Controls.Add(this.lblidentificacion);
             this.gbxCliente.Controls.Add(this.lblid);
             this.gbxCliente.Controls.Add(this.cbotipoCliente);
@@ -774,22 +774,13 @@
             // mskidentificacion
             // 
             this.mskidentificacion.Enabled = false;
-            this.mskidentificacion.Location = new System.Drawing.Point(199, 86);
+            this.mskidentificacion.Location = new System.Drawing.Point(199, 79);
             this.mskidentificacion.Margin = new System.Windows.Forms.Padding(4);
             this.mskidentificacion.Mask = "#-####-####";
             this.mskidentificacion.Name = "mskidentificacion";
             this.mskidentificacion.Size = new System.Drawing.Size(257, 22);
             this.mskidentificacion.TabIndex = 1;
             this.mskidentificacion.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
-            // 
-            // txtidentificacion
-            // 
-            this.txtidentificacion.Enabled = false;
-            this.txtidentificacion.Location = new System.Drawing.Point(199, 87);
-            this.txtidentificacion.Margin = new System.Windows.Forms.Padding(4);
-            this.txtidentificacion.Name = "txtidentificacion";
-            this.txtidentificacion.Size = new System.Drawing.Size(225, 22);
-            this.txtidentificacion.TabIndex = 24;
             // 
             // lblidentificacion
             // 
@@ -1000,6 +991,17 @@
             this.tlsBtnSalir.Size = new System.Drawing.Size(36, 36);
             this.tlsBtnSalir.Text = "Salir";
             // 
+            // txtIdentificacion
+            // 
+            this.txtIdentificacion.Enabled = false;
+            this.txtIdentificacion.Location = new System.Drawing.Point(199, 83);
+            this.txtIdentificacion.Margin = new System.Windows.Forms.Padding(4);
+            this.txtIdentificacion.Mask = "##########";
+            this.txtIdentificacion.Name = "txtIdentificacion";
+            this.txtIdentificacion.Size = new System.Drawing.Size(257, 22);
+            this.txtIdentificacion.TabIndex = 74;
+            this.txtIdentificacion.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
+            // 
             // frmClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1037,7 +1039,6 @@
         private System.Windows.Forms.Label lbltipoId;
         private System.Windows.Forms.Label lblidentificacion;
         private System.Windows.Forms.MaskedTextBox mskidentificacion;
-        private System.Windows.Forms.TextBox txtidentificacion;
         private System.Windows.Forms.Label lblapellido2;
         private System.Windows.Forms.Label lblnombre;
         private System.Windows.Forms.Label lblapellid1;
@@ -1107,5 +1108,6 @@
         private System.Windows.Forms.TextBox txtDocExo;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.CheckBox chkContribuyente;
+        private System.Windows.Forms.MaskedTextBox txtIdentificacion;
     }
 }

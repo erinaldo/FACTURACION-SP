@@ -15,6 +15,10 @@ namespace PresentationLayer
 {
     public partial class frmConsultasMensajesHacienda : Form
     {
+
+
+
+
         BFacturacion facturacion = new BFacturacion();
         public frmConsultasMensajesHacienda()
         {
@@ -29,6 +33,12 @@ namespace PresentationLayer
         private void btnConsultar_Click(object sender, EventArgs e)
         {
 
+
+            consultar();
+        }
+
+        private void consultar()
+        {
             if (Utility.AccesoInternet())
             {
                 try
@@ -91,13 +101,13 @@ namespace PresentationLayer
             {
                 MessageBox.Show("No hay acceso a internet", "Sin Internet", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-      
 
         }
 
         private void frmConsultasMensajesHacienda_Load(object sender, EventArgs e)
         {
             cboTipoBusqueda.DataSource = Enum.GetValues(typeof(Enums.ConsultarHacienda));
+          
         }
     }
 }

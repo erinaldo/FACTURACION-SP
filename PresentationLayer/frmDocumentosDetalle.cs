@@ -78,7 +78,7 @@ namespace PresentationLayer
         private  void cargarForm()
         {
             txtIdFactura.Text = _doc.id.ToString().Trim();
-            txtClave.Text = _doc.clave==null?string.Empty: _doc.clave.ToString().Trim();
+            likClave.Text = _doc.clave==null?string.Empty: _doc.clave.ToString().Trim();
             txtConsecutivo.Text = _doc.consecutivo==null?string.Empty: _doc.consecutivo.ToString().Trim();
             txtFecha.Text = _doc.fecha.ToString().Trim();
             txtTipoPago.Text = _doc.tipoPago==null?string.Empty: Enum.GetName(typeof(Enums.TipoPago), _doc.tipoPago).ToUpper();
@@ -444,6 +444,13 @@ namespace PresentationLayer
 
             }
 
+        }
+
+        private void likClave_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmConsultaFacturaElectronica consulta = new frmConsultaFacturaElectronica();
+            consulta.clave = likClave.Text;
+            consulta.ShowDialog();
         }
     }
 }

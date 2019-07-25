@@ -56,10 +56,21 @@ namespace PresentationLayer
             }
             else if ((int)cbotipoId.SelectedValue != (int)Enums.TipoId.Fisica)
             {
-                if (txtidentificacion.Text == string.Empty)
+                if (txtIdentificacion.Text == string.Empty)
                 {
-                    MessageBox.Show("Debe de ingresar su numero de Cedula");
-                    txtidentificacion.Focus();
+                    MessageBox.Show("Debe de ingresar su número de Cédula");
+                    txtIdentificacion.Focus();
+                    return false;
+                }
+
+            }
+
+            else if ((int)cbotipoId.SelectedValue != (int)Enums.TipoId.Fisica)
+            {
+                if (txtIdentificacion.Text.Length!=10)
+                {
+                    MessageBox.Show("La cédula jurídica no tiene el formato correcto");
+                    txtIdentificacion.Focus();
                     return false;
                 }
 
@@ -243,7 +254,7 @@ namespace PresentationLayer
                     }
                     else
                     {
-                        persona.identificacion = txtidentificacion.Text.Trim();
+                        persona.identificacion = txtIdentificacion.Text.Trim();
                     }
                     persona.nombre = txtnombre.Text.ToUpper().Trim();
 
@@ -382,19 +393,12 @@ namespace PresentationLayer
         {
             if (cbotipoId.SelectedValue != null)
             {
-                if ((int)cbotipoId.SelectedValue == 2)
+                if ((int)cbotipoId.SelectedValue != (int)Enums.TipoId.Fisica)
                 {
-
-
-
-
-                    txtapellido1.Enabled = false;
-                    txtapellido2.Enabled = false;
-                    dtpfechaNa.Enabled = false;
-                    gboSexo.Enabled = false;
+                    txtIdentificacion.Mask = (int)cbotipoId.SelectedValue == (int)Enums.TipoId.Juridica ? "##########" : "";
                     mskidentificacion.Visible = false;
-                    txtidentificacion.Visible = true;
-                    txtidentificacion.Enabled = true;
+                    txtIdentificacion.Visible = true;
+                    txtIdentificacion.Enabled = true;
 
 
                 }
@@ -402,15 +406,13 @@ namespace PresentationLayer
                 {
                     mskidentificacion.Enabled = true;
                     mskidentificacion.Visible = true;
-                    txtidentificacion.Visible = false;
-                    txtapellido1.Enabled = true;
-                    txtapellido2.Enabled = true;
-                    dtpfechaNa.Enabled = true;
-                    gboSexo.Enabled = true;
+                    txtIdentificacion.Visible = false;
+
                 }
 
             }
         }
+
 
 
         private void accionMenu(string accion)
@@ -450,10 +452,10 @@ namespace PresentationLayer
                     bandera = 2;
                     MenuGenerico.CambioEstadoMenu(ref tlsMenu, (int)EnumMenu.OpcionMenu.Guardar);
                     Utility.EnableDisableForm(ref gbxCliente, true);
-                    mskidentificacion.Enabled = false; txtidentificacion.Enabled = false;                             
+                    mskidentificacion.Enabled = false; txtIdentificacion.Enabled = false;                             
                     cambiarTiposId();
                     cbotipoId.Enabled = false;
-                    txtidentificacion.Enabled = false;
+                    txtIdentificacion.Enabled = false;
                     mskidentificacion.Enabled = false;
                     btnBuscarCliente.Enabled = false;
                     if ((bool)clienteGlobal.exonera)
@@ -469,7 +471,7 @@ namespace PresentationLayer
                 case "Eliminar":
                     bandera = 3;
                     MenuGenerico.CambioEstadoMenu(ref tlsMenu, (int)EnumMenu.OpcionMenu.Guardar);
-                    mskidentificacion.Enabled = false; txtidentificacion.Enabled = false;
+                    mskidentificacion.Enabled = false; txtIdentificacion.Enabled = false;
                     cbotipoId.Enabled = false;
                     btnBuscarCliente.Enabled = false;
                     break;
@@ -538,7 +540,7 @@ namespace PresentationLayer
                             if (cliente.tipoId != (int)Enums.TipoId.Fisica)
                             {
                                 
-                                txtidentificacion.Text = clienteGlobal.tbPersona.identificacion.ToString().Trim();
+                                txtIdentificacion.Text = clienteGlobal.tbPersona.identificacion.ToString().Trim();
                             }
                             else 
                             {

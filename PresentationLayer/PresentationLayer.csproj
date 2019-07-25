@@ -123,11 +123,23 @@
     <Compile Include="frmCambiarContrasena.Designer.cs">
       <DependentUpon>frmCambiarContrasena.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCantidad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCantidad.Designer.cs">
+      <DependentUpon>frmCantidad.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCertificado.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmCertificado.Designer.cs">
       <DependentUpon>frmCertificado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCompras.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCompras.Designer.cs">
+      <DependentUpon>frmCompras.cs</DependentUpon>
     </Compile>
     <Compile Include="frmConsultaFacturaElectronica.cs">
       <SubType>Form</SubType>
@@ -656,6 +668,9 @@
     <EmbeddedResource Include="frmCancelarFactura.resx">
       <DependentUpon>frmCancelarFactura.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmCantidad.resx">
+      <DependentUpon>frmCantidad.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCategoriaProducto.resx">
       <DependentUpon>frmCategoriaProducto.cs</DependentUpon>
     </EmbeddedResource>
@@ -667,6 +682,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCobrar.resx">
       <DependentUpon>frmCobrar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCompras.resx">
+      <DependentUpon>frmCompras.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmConsultaFacturaElectronica.resx">
       <DependentUpon>frmConsultaFacturaElectronica.cs</DependentUpon>

@@ -55,6 +55,10 @@ namespace BusinessLayer
         {
             return tipoMedidaD.GetEnity(NombreTipoMedida);
         }
+        public tbTipoMedidas GetEnityById(tbTipoMedidas medida)
+        {
+            return tipoMedidaD.GetEnityById(medida);
+        }
     }
 }
 

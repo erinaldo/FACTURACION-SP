@@ -60,7 +60,7 @@ namespace PresentationLayer
         private void cargarCombos()
         {
 
-           
+
 
             cboCategoriaProducto.ValueMember = "id";
             cboCategoriaProducto.DisplayMember = "nombre";
@@ -103,9 +103,9 @@ namespace PresentationLayer
             if (prove != null)
             {
                 proveedor = prove;
-                 txtIdProveedor.Text = prove.id;
+                txtIdProveedor.Text = prove.id;
             }
-            
+
 
         }
 
@@ -116,8 +116,15 @@ namespace PresentationLayer
                 cboImpuesto.SelectedIndex = 1;
                 cboImpuesto.Enabled = false;
 
+                txtPrecioVenta1.Enabled = true;
+                txtPrecioVenta2.Enabled = true;
+                txtPrecioVenta3.Enabled = true;
+
             }
             else {
+                txtPrecioVenta1.Enabled = false;
+                txtPrecioVenta2.Enabled = false;
+                txtPrecioVenta3.Enabled = false;
                 cboImpuesto.Enabled = true;
                 cboImpuesto.SelectedIndex = 0;
 
@@ -138,7 +145,7 @@ namespace PresentationLayer
                 txtUtilidad1.Text = utilidadBase.ToString();
 
             }
-            if (txtUtilidad2.Text == string.Empty || txtUtilidad2.Text=="0")
+            if (txtUtilidad2.Text == string.Empty || txtUtilidad2.Text == "0")
             {
                 txtUtilidad2.Text = utilidadBase.ToString();
 
@@ -149,64 +156,7 @@ namespace PresentationLayer
 
             }
         }
-        private void calcularMontos()
-        {
 
-     
-            decimal precio1 = 0, precio2 = 0, precio3 = 0, impuesto=0, costo=0;
-
-            if (txtCosto.Text == string.Empty) {
-                txtCosto.Text = "0";
-
-            }
-            costo = decimal.Parse(txtCosto.Text);
-            if (txtUtilidad1.Text==string.Empty) {
-                txtUtilidad1.Text = "0";
-            }
-            if (txtUtilidad2.Text == string.Empty)
-            {
-                txtUtilidad2.Text = "0";
-            }
-            if (txtUtilidad3.Text == string.Empty)
-            {
-                txtUtilidad3.Text = "0";
-            }
-            precio1 = (costo + (costo * (decimal.Parse(txtUtilidad1.Text)/100)));
-            precio2 = (costo + (costo * (decimal.Parse(txtUtilidad2.Text) / 100)));
-            precio3 = (costo + (costo * (decimal.Parse(txtUtilidad3.Text) / 100)));
-
-            //precio1 = Utility.redondearNumero(precio1);
-            //precio2 = Utility.redondearNumero(precio2);
-            //precio3 = Utility.redondearNumero(precio3);
-
-            if (cboImpuesto.SelectedIndex != -1)
-            {
-
-                impuesto = (decimal.Parse(cboImpuesto.Text))/100;
-
-
-            }
-
-
-            txtPrecio1.Text = precio1.ToString();
-            txtPrecio2.Text = precio2.ToString();
-            txtPrecio3.Text = precio3.ToString();
-
-            precio1 += (precio1 * impuesto);
-            precio2 += (precio2 * impuesto);
-            precio3 += (precio3 * impuesto);
-
-            //precio1 = Utility.redondearNumero(precio1);
-            //precio2 = Utility.redondearNumero(precio2);
-            //precio3 = Utility.redondearNumero(precio3);
-
-            txtPrecioVenta1.Text = precio1.ToString();
-            txtPrecioVenta2.Text = precio2.ToString();
-            txtPrecioVenta3.Text = precio3.ToString();
-
-
-
-        }
 
         private void txtUtilidad1_TextChanged(object sender, EventArgs e)
         {
@@ -291,14 +241,14 @@ namespace PresentationLayer
                 txtCodigoProducto.Focus();
                 isOK = false;
 
-            }else if (txtNombreProducto.Text == string.Empty)
+            } else if (txtNombreProducto.Text == string.Empty)
             {
                 MessageBox.Show("Debe ingresar un nombre del producto", "Error");
                 txtNombreProducto.Focus();
                 isOK = false;
 
             }
-            else if (txtCosto.Text == string.Empty || txtCosto.Text=="0")
+            else if (txtCosto.Text == string.Empty || txtCosto.Text == "0")
             {
 
                 MessageBox.Show("Debe ingresar el precio de costo del producto", "Error");
@@ -315,12 +265,12 @@ namespace PresentationLayer
                 MessageBox.Show("Debe ingresar una medida del producto.", "Error");
                 isOK = false;
             }
-            else if (!chkExento.Checked && (cboImpuesto.Text == string.Empty || cboImpuesto.Text=="0"))
+            else if (!chkExento.Checked && (cboImpuesto.Text == string.Empty || cboImpuesto.Text == "0"))
             {
                 MessageBox.Show("Debe ingresar los impuestos correspondientes del producto.", "Error");
                 isOK = false;
             }
-            else if ((txtUtilidad1.Text == string.Empty )&& (txtUtilidad2.Text == string.Empty ) && (txtUtilidad3.Text == string.Empty ))
+            else if ((txtUtilidad1.Text == string.Empty) && (txtUtilidad2.Text == string.Empty) && (txtUtilidad3.Text == string.Empty))
             {
 
                 MessageBox.Show("Debe ingresar utilidad al producto.", "Error");
@@ -344,7 +294,7 @@ namespace PresentationLayer
             {
 
                 tbProducto productoNuevo = new tbProducto();
-               
+
 
                 try
                 {
@@ -377,20 +327,20 @@ namespace PresentationLayer
                     productoNuevo.precioUtilidad3 = decimal.Parse(txtPrecio3.Text);
 
                     //precio utilidad+ impuestos**precio venta
-                    productoNuevo.esExento = chkExento.Checked;                  
+                    productoNuevo.esExento = chkExento.Checked;
                     productoNuevo.idTipoImpuesto = (int)cboImpuesto.SelectedValue;
 
                     productoNuevo.precioVenta1 = decimal.Parse(txtPrecioVenta1.Text);
                     productoNuevo.precioVenta2 = decimal.Parse(txtPrecioVenta2.Text);
                     productoNuevo.precioVenta2 = decimal.Parse(txtPrecioVenta3.Text);
-                  
-                    
+
+
                     //descuento
                     productoNuevo.aplicaDescuento = chkDescuento.Checked;
-                    productoNuevo.descuento_max = chkDescuento.Checked ? int.Parse(txtDescuentoMax.Text) : 0; 
+                    productoNuevo.descuento_max = chkDescuento.Checked ? int.Parse(txtDescuentoMax.Text) : 0;
 
-                   
-                    
+
+
 
                     //Atributos de Auditoria
                     productoNuevo.estado = true;
@@ -420,7 +370,7 @@ namespace PresentationLayer
                     tbInventario inventario = new tbInventario();
 
                     inventario.idProducto = productoNuevo.idProducto;
-                    inventario.cantidad = txtCantidadActual.Text == string.Empty ? 0: decimal.Parse(txtCantidadActual.Text);
+                    inventario.cantidad = txtCantidadActual.Text == string.Empty ? 0 : decimal.Parse(txtCantidadActual.Text);
                     inventario.cant_max = txtCantMax.Text == string.Empty ? 0 : decimal.Parse(txtCantMax.Text);
                     inventario.cant_min = txtCantMin.Text == string.Empty ? 0 : decimal.Parse(txtCantMin.Text);
 
@@ -733,7 +683,7 @@ namespace PresentationLayer
                     MenuGenerico.CambioEstadoMenu(ref tlsMenu, (int)EnumMenu.OpcionMenu.Guardar);
                     Utility.EnableDisableForm(ref gboDatosProducto, true);
                     txtCodigoProducto.Enabled = false;
-        
+
                     break;
                 case "Eliminar":
                     bandera = (int)Enums.accionGuardar.Eliminar;
@@ -767,7 +717,110 @@ namespace PresentationLayer
 
         }
 
+        private void txtPrecioVenta1_TextChanged(object sender, EventArgs e)
+        {
+            if (((TextBox)sender).Name== "txtPrecioVenta1")
+            {
+
+              
+
+            }
+            else
+            {
+
+            }
+        }
+
+        private void calcularMontos()
+        {
 
 
+            decimal precio1 = 0, precio2 = 0, precio3 = 0, impuesto = 0, costo = 0;
+
+            if (txtCosto.Text == string.Empty)
+            {
+                txtCosto.Text = "0";
+
+            }
+            costo = decimal.Parse(txtCosto.Text);
+            if (txtUtilidad1.Text == string.Empty)
+            {
+                txtUtilidad1.Text = "0";
+            }
+            if (txtUtilidad2.Text == string.Empty)
+            {
+                txtUtilidad2.Text = "0";
+            }
+            if (txtUtilidad3.Text == string.Empty)
+            {
+                txtUtilidad3.Text = "0";
+            }
+           
+
+
+            precio1 = (costo + (costo * (decimal.Parse(txtUtilidad1.Text) / 100)));
+            precio2 = (costo + (costo * (decimal.Parse(txtUtilidad2.Text) / 100)));
+            precio3 = (costo + (costo * (decimal.Parse(txtUtilidad3.Text) / 100)));
+
+            //precio1 = Utility.redondearNumero(precio1);
+            //precio2 = Utility.redondearNumero(precio2);
+            //precio3 = Utility.redondearNumero(precio3);
+
+            if (cboImpuesto.SelectedIndex != -1)
+            {
+
+                impuesto = (decimal.Parse(cboImpuesto.Text)) / 100;
+
+
+            }
+
+
+            txtPrecio1.Text = precio1.ToString();
+            txtPrecio2.Text = precio2.ToString();
+            txtPrecio3.Text = precio3.ToString();
+
+            precio1 += (precio1 * impuesto);
+            precio2 += (precio2 * impuesto);
+            precio3 += (precio3 * impuesto);
+
+            //precio1 = Utility.redondearNumero(precio1);
+            //precio2 = Utility.redondearNumero(precio2);
+            //precio3 = Utility.redondearNumero(precio3);
+
+            txtPrecioVenta1.Text = precio1.ToString();
+            txtPrecioVenta2.Text = precio2.ToString();
+            txtPrecioVenta3.Text = precio3.ToString();
+
+
+
+        }
+
+        private void btnCalcular_Click(object sender, EventArgs e)
+        {
+            if (txtPrecioVenta1.Text != string.Empty)
+            {
+
+                if (Utility.isNumeroDecimal(txtPrecioVenta1.Text))
+                {
+                    decimal precio = decimal.Parse(txtPrecioVenta1.Text);
+                    decimal impuesto = (decimal.Parse(cboImpuesto.Text));
+
+
+                    if (txtUtilidad1.Text != "0")
+                    {
+                        impuesto += decimal.Parse(txtUtilidad1.Text);
+
+
+
+                    }
+                    impuesto = impuesto / 100;
+
+                    txtCosto.Text = (precio / (1 + impuesto)).ToString("#.##");
+
+                }
+
+
+            }
+        }
     }
 }

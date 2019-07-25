@@ -57,14 +57,19 @@ namespace CommonLayer
             Contado = 1,
             Credito = 2,
             Consignacion=3,
-            Apartado=4
+            Apartado=4,
+            ArrendamientoOpcionCompra=5,
+            ArrendamientoFuncionFinanciera=6,
+            CobroAFavorTercero=7,
+            ServPrestadoEstadoCredito=8,
+            PagoServicioPrestadoEstado=9,
+            Otros=99
 
         }
 
 
         public enum TipoPago
         {
-            NoAplica=0,
             Efectivo = 1,
             Tarjeta = 2, 
             Cheque = 3,
@@ -80,7 +85,8 @@ namespace CommonLayer
             NotaDebitoElectronica=2,
             NotaCreditoElectronica=3,
             TiqueteElectronico=4, 
-            Proforma=5
+            Proforma=5, 
+            Compras=8
 
         }
 

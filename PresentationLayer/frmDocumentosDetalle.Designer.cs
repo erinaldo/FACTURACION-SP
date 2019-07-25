@@ -36,7 +36,6 @@
             this.txtCliente = new System.Windows.Forms.TextBox();
             this.txtIdFactura = new System.Windows.Forms.TextBox();
             this.txtConsecutivo = new System.Windows.Forms.TextBox();
-            this.txtClave = new System.Windows.Forms.TextBox();
             this.txtFecha = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -86,6 +85,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.txtEstadoHacienda = new System.Windows.Forms.TextBox();
             this.btnReImprimir = new System.Windows.Forms.Button();
+            this.likClave = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -139,7 +139,7 @@
             // 
             // txtIdFactura
             // 
-            this.txtIdFactura.Location = new System.Drawing.Point(107, 32);
+            this.txtIdFactura.Location = new System.Drawing.Point(106, 47);
             this.txtIdFactura.Margin = new System.Windows.Forms.Padding(4);
             this.txtIdFactura.Name = "txtIdFactura";
             this.txtIdFactura.ReadOnly = true;
@@ -148,25 +148,16 @@
             // 
             // txtConsecutivo
             // 
-            this.txtConsecutivo.Location = new System.Drawing.Point(107, 58);
+            this.txtConsecutivo.Location = new System.Drawing.Point(106, 73);
             this.txtConsecutivo.Margin = new System.Windows.Forms.Padding(4);
             this.txtConsecutivo.Name = "txtConsecutivo";
             this.txtConsecutivo.ReadOnly = true;
             this.txtConsecutivo.Size = new System.Drawing.Size(293, 22);
             this.txtConsecutivo.TabIndex = 64;
             // 
-            // txtClave
-            // 
-            this.txtClave.Location = new System.Drawing.Point(107, 84);
-            this.txtClave.Margin = new System.Windows.Forms.Padding(4);
-            this.txtClave.Name = "txtClave";
-            this.txtClave.ReadOnly = true;
-            this.txtClave.Size = new System.Drawing.Size(293, 22);
-            this.txtClave.TabIndex = 65;
-            // 
             // txtFecha
             // 
-            this.txtFecha.Location = new System.Drawing.Point(495, 59);
+            this.txtFecha.Location = new System.Drawing.Point(495, 69);
             this.txtFecha.Margin = new System.Windows.Forms.Padding(4);
             this.txtFecha.Name = "txtFecha";
             this.txtFecha.ReadOnly = true;
@@ -176,7 +167,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 34);
+            this.label1.Location = new System.Drawing.Point(27, 50);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 17);
             this.label1.TabIndex = 67;
@@ -185,7 +176,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 61);
+            this.label2.Location = new System.Drawing.Point(10, 76);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 17);
             this.label2.TabIndex = 68;
@@ -194,7 +185,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(52, 87);
+            this.label3.Location = new System.Drawing.Point(52, 21);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(47, 17);
             this.label3.TabIndex = 69;
@@ -203,7 +194,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(431, 62);
+            this.label4.Location = new System.Drawing.Point(437, 72);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(51, 17);
             this.label4.TabIndex = 70;
@@ -238,7 +229,7 @@
             // 
             // txtTipoVenta
             // 
-            this.txtTipoVenta.Location = new System.Drawing.Point(495, 86);
+            this.txtTipoVenta.Location = new System.Drawing.Point(495, 96);
             this.txtTipoVenta.Margin = new System.Windows.Forms.Padding(4);
             this.txtTipoVenta.Name = "txtTipoVenta";
             this.txtTipoVenta.ReadOnly = true;
@@ -247,7 +238,7 @@
             // 
             // txtTipoPago
             // 
-            this.txtTipoPago.Location = new System.Drawing.Point(495, 113);
+            this.txtTipoPago.Location = new System.Drawing.Point(495, 123);
             this.txtTipoPago.Margin = new System.Windows.Forms.Padding(4);
             this.txtTipoPago.Name = "txtTipoPago";
             this.txtTipoPago.ReadOnly = true;
@@ -257,7 +248,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(407, 116);
+            this.label9.Location = new System.Drawing.Point(411, 126);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(77, 17);
             this.label9.TabIndex = 77;
@@ -266,7 +257,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(403, 88);
+            this.label10.Location = new System.Drawing.Point(407, 99);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(81, 17);
             this.label10.TabIndex = 78;
@@ -274,6 +265,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.likClave);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.txtClaveRef);
             this.groupBox1.Controls.Add(this.label12);
@@ -287,7 +279,6 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtFecha);
-            this.groupBox1.Controls.Add(this.txtClave);
             this.groupBox1.Controls.Add(this.txtConsecutivo);
             this.groupBox1.Controls.Add(this.txtIdFactura);
             this.groupBox1.Location = new System.Drawing.Point(13, 39);
@@ -302,7 +293,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(27, 116);
+            this.label13.Location = new System.Drawing.Point(26, 101);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(73, 17);
             this.label13.TabIndex = 82;
@@ -310,7 +301,7 @@
             // 
             // txtClaveRef
             // 
-            this.txtClaveRef.Location = new System.Drawing.Point(107, 113);
+            this.txtClaveRef.Location = new System.Drawing.Point(106, 98);
             this.txtClaveRef.Margin = new System.Windows.Forms.Padding(4);
             this.txtClaveRef.Name = "txtClaveRef";
             this.txtClaveRef.ReadOnly = true;
@@ -320,7 +311,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(427, 37);
+            this.label12.Location = new System.Drawing.Point(432, 48);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(56, 17);
             this.label12.TabIndex = 80;
@@ -328,7 +319,7 @@
             // 
             // txtEstado
             // 
-            this.txtEstado.Location = new System.Drawing.Point(495, 33);
+            this.txtEstado.Location = new System.Drawing.Point(495, 43);
             this.txtEstado.Margin = new System.Windows.Forms.Padding(4);
             this.txtEstado.Name = "txtEstado";
             this.txtEstado.ReadOnly = true;
@@ -678,6 +669,17 @@
             this.btnReImprimir.UseVisualStyleBackColor = true;
             this.btnReImprimir.Click += new System.EventHandler(this.btnReImprimir_Click);
             // 
+            // likClave
+            // 
+            this.likClave.AutoSize = true;
+            this.likClave.Location = new System.Drawing.Point(105, 21);
+            this.likClave.Name = "likClave";
+            this.likClave.Size = new System.Drawing.Size(60, 17);
+            this.likClave.TabIndex = 83;
+            this.likClave.TabStop = true;
+            this.likClave.Text = "Sin dato";
+            this.likClave.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.likClave_LinkClicked);
+            // 
             // frmDocumentosDetalle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -720,7 +722,6 @@
         private System.Windows.Forms.TextBox txtCliente;
         private System.Windows.Forms.TextBox txtIdFactura;
         private System.Windows.Forms.TextBox txtConsecutivo;
-        private System.Windows.Forms.TextBox txtClave;
         private System.Windows.Forms.TextBox txtFecha;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -770,5 +771,6 @@
         private System.Windows.Forms.TextBox txtEstadoHacienda;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button btnReImprimir;
+        private System.Windows.Forms.LinkLabel likClave;
     }
 }

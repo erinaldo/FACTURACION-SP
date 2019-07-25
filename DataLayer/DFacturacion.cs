@@ -157,7 +157,11 @@ namespace DataLayer
 
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
                 {
-
+                    foreach (var detalle in entity.tbDetalleDocumento)
+                    {
+                        detalle.tbProducto = null;
+                        
+                    }
 
                     context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
   

@@ -122,6 +122,7 @@
             this.txtContraseña.PasswordChar = '*';
             this.txtContraseña.Size = new System.Drawing.Size(172, 30);
             this.txtContraseña.TabIndex = 7;
+            this.txtContraseña.Text = "moya2018";
             this.txtContraseña.TextChanged += new System.EventHandler(this.txtContraseña_TextChanged);
             // 
             // cboNumCaja
