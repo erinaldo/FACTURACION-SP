@@ -38,6 +38,11 @@ namespace PresentationLayer
         bool respuestaAprobaDesc = false;
         decimal porcDesc = 0;
         int tipoDoc = 1;
+        List<FacturasPendientes> facturasPendientes = new List<FacturasPendientes>();
+
+        tbTipoMedidas medida = new tbTipoMedidas();
+        bTipoMedidas medidaIns = new bTipoMedidas();
+        decimal peso = decimal.MinValue;
 
         bool existeRespuesta = false;
 
@@ -128,11 +133,22 @@ namespace PresentationLayer
         }
 
 
-
         private void agregarProductoDetalleFactura(tbProducto pro, int tipo, decimal cantidad, bool acumular)
         {
 
             bool banderaExitProd = false;
+            medida.idTipoMedida = pro.idMedida;
+            medida = medidaIns.GetEnityById(medida);
+            if (medida.nomenclatura.Trim().ToUpper() == Enum.GetName(typeof(Enums.TipoMedida), Enums.TipoMedida.kg).Trim().ToUpper())
+            {
+                frmCantidad cantidadfrm = new frmCantidad();
+                cantidadfrm.pasarDatosEvent += cantidadPasarDatos;
+                cantidadfrm.ShowDialog();
+
+                cantidad = peso;
+            }
+
+
             if (tipo == 1)
             {
 
@@ -170,30 +186,24 @@ namespace PresentationLayer
                         detalle.cantidad = cantidad;
                         detalle.idProducto = pro.idProducto;
                         detalle.precio = buscarPrecioProducto(pro);
-                        detalle.montoTotal = detalle.precio;
+                        detalle.montoTotal = detalle.precio * detalle.cantidad;
                         detalle.montoTotalDesc = 0;
                         detalle.montoTotalExo = 0;
                         detalle.montoTotalImp = 0;
                         detalle.tbProducto = pro;
                         listaDetalleDocumento.Add(detalle);
                     }
-
-
-
                 }
                 else
                 {
                     MessageBox.Show("El producto ingresado ya no cuenta con existencia en inventario. Cantidad existencia (" + pro.tbInventario.cantidad + ")", "Inexistencia Inventario", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
 
-
             }
             else
             {
-
                 foreach (tbDetalleDocumento det in listaDetalleDocumento)
                 {
-
                     if (det.idProducto == pro.idProducto)
                     {
 
@@ -208,11 +218,14 @@ namespace PresentationLayer
 
             }
 
-
-
             calcularMontosT();
             agregarProductoGrid();
 
+        }
+
+        private void cantidadPasarDatos(decimal peso)
+        {
+            this.peso = peso;
         }
 
         private void asignarLineasNumero()

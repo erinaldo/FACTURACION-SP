@@ -6,61 +6,47 @@ using System.Threading.Tasks;
 
 namespace EntityLayer
 {
+    public class DetalleFacturaPendiente
+    {
+
+        public DetalleFacturaPendiente()
+        {
+        }
+
+        public int idTipoDoc { get; set; }
+        public int idDoc { get; set; }
+        public string idProducto { get; set; }
+        public int numLinea { get; set; }
+        public decimal cantidad { get; set; }
+        public decimal precio { get; set; }
+        public decimal montoTotal { get; set; }
+        public decimal descuento { get; set; }
+        public decimal montoTotalDesc { get; set; }
+        public decimal montoTotalImp { get; set; }
+        public decimal montoTotalExo { get; set; }
+        public decimal totalLinea { get; set; }
+
+        public tbProducto tbProducto { get; set; }
+
+
+    }
+
+
     public class FacturasPendientes
     {
 
 
-       private tbDocumento facturaPendiente;
-       private string alias;
-       private ICollection<tbDetalleDocumento> listaDetalle;
-
+      
+     
 
 
         public FacturasPendientes()
         {
+            this.detalleFacturaPendiente  = new List<DetalleFacturaPendiente>();
         }
 
+        public string alias { get; set; }
 
-        public ICollection<tbDetalleDocumento> ListaDetalle
-        {
-
-            get
-            {
-                return listaDetalle;
-            }
-
-            set
-            {
-                listaDetalle = value;
-            }
-            
-        }
-
-
-        public tbDocumento FacturaPendiente
-        {
-            get
-            {
-                return facturaPendiente;
-            }
-
-            set
-            {
-                facturaPendiente = value;
-            }
-        }
-
-        public string Alias
-        {
-            get
-            {
-                return alias;
-            }
-
-            set
-            {
-                alias = value;
-            }
-        }
+        public List<DetalleFacturaPendiente> detalleFacturaPendiente { get; set; }
     }
 }

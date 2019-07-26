@@ -57,5 +57,11 @@ namespace PresentationLayer
                 aceptar();
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            pasarDatosEvent(decimal.MinValue);
+            this.Close();
+        }
     }
 }

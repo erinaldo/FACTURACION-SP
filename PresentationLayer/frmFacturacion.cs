@@ -24,6 +24,10 @@ namespace PresentationLayer
         bTipoMedidas medidaIns = new bTipoMedidas();
         tbTipoMedidas medida = new tbTipoMedidas();
 
+        bool isAlias = false;
+
+        List<FacturasPendientes> facturasPendientes = new List<FacturasPendientes>();
+
         BProducto productoIns = new BProducto();
         BFacturacion facturaIns = new BFacturacion();
         BInventario invetnarioIns = new BInventario();
@@ -41,7 +45,7 @@ namespace PresentationLayer
         decimal porcDesc = 0;
         int tipoDoc = 1;
         decimal peso = decimal.MinValue;
-
+        string alias = string.Empty;
         bool existeRespuesta = false;
 
         const float sizeText = 6;
@@ -83,6 +87,7 @@ namespace PresentationLayer
             {
                 MessageBox.Show("No hay acceso a internet", "Sin Internet", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            lblPendientes.Text = facturasPendientes.Count.ToString();
             //cargarListaPendientes();
 
         }       
@@ -139,7 +144,7 @@ namespace PresentationLayer
                 btn.Text = categoria.nombre.Trim();
                 btn.Location = new System.Drawing.Point(sizeCuadro * x, sizeCuadro * y);
                 btn.Size = new System.Drawing.Size(sizeCuadro, sizeCuadro);
-                btn.BackColor = Color.Gray;
+                btn.BackColor = Color.DarkBlue;
                 btn.Font = new System.Drawing.Font("Microsoft Sans Serif", sizeText, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 btn.ForeColor = Color.White;
                 btn.TextAlign = ContentAlignment.MiddleCenter;
@@ -202,7 +207,7 @@ namespace PresentationLayer
                         btn.Text = pro.nombre.Trim();
                         btn.Location = new System.Drawing.Point(sizeCuadro * x, sizeCuadro * y);
                         btn.Size = new System.Drawing.Size(sizeCuadro, sizeCuadro);
-                        btn.BackColor = Color.MediumPurple;
+                        btn.BackColor = Color.SeaGreen;
                         btn.Font = new System.Drawing.Font("Microsoft Sans Serif", sizeText, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         btn.ForeColor = Color.White;
                         btn.TextAlign = ContentAlignment.MiddleCenter;
@@ -565,7 +570,10 @@ namespace PresentationLayer
                 frmCantidad cantidadfrm = new frmCantidad();
                 cantidadfrm.pasarDatosEvent += cantidadPasarDatos;
                 cantidadfrm.ShowDialog();
-
+                if (peso==decimal.MinValue)
+                {
+                    return;
+                }
                 cantidad = peso;
             }
             
@@ -1090,6 +1098,12 @@ namespace PresentationLayer
                 if (doc != null)
                 {
                     existeRespuesta = true;
+                    if (isAlias)
+                    {
+                        var pend = facturasPendientes.Where(x => x.alias == lblAlias.Text.Trim()).SingleOrDefault();
+                        facturasPendientes.Remove(pend);
+                        cargarPendientes();
+                    }
                     if (doc.reporteElectronic == true)
                     {
 
@@ -1261,7 +1275,12 @@ namespace PresentationLayer
 
             respuestaAprobaDesc = false;
             porcDesc = 0;
+            peso = decimal.MinValue;
+            alias = string.Empty;
+            isAlias = false;
+            lblAlias.Text = string.Empty;
 
+            lblPendientes.Text = facturasPendientes.Count.ToString();
         }
 
         private void btnLimpiarForm_Click(object sender, EventArgs e)
@@ -1350,6 +1369,202 @@ namespace PresentationLayer
                     MessageBox.Show("Se produjo un error al ingresar el producto, corrija los datos", "Calcular descuento", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void btnPendiente_Click(object sender, EventArgs e)
+        {
+            if (listaDetalleDocumento.Count != 0 && txtTotal.Text != "0")
+            {
+                FacturasPendientes pendiente;
+                //verifica si exite ya ese alias, para agregar los cambios al detalle
+                if (isAlias && lblAlias.Text != string.Empty)
+                {
+                    //lo busca
+                    pendiente = facturasPendientes.Where(x => x.alias == lblAlias.Text.Trim()).SingleOrDefault();
+                    facturasPendientes.Remove(pendiente);
+                    pendiente.detalleFacturaPendiente.Clear();
+                    alias = pendiente.alias;
+
+                }
+                else
+                {
+                    pendiente = new FacturasPendientes();
+                    bool exist = false;
+                    do
+                    {
+                        frmAliasMesa aliasForm = new frmAliasMesa();
+                        aliasForm.pasarDatosEvent += aliasPasarDatos;
+                        aliasForm.ShowDialog();
+                        exist = facturasPendientes.Where(x => x.alias == alias).SingleOrDefault() != null;
+                        if (exist)
+                        {
+                            MessageBox.Show("Ya existe ese ALIAS/MESA, ingreso uno diferente", "ALIAS/MESA", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                    } while (exist);
+                 
+                }
+                
+                if (alias != string.Empty)
+                {
+                   
+                  //sgrega los detalles
+                    foreach (var detalle in listaDetalleDocumento)
+                    {
+                        DetalleFacturaPendiente detalleP = new DetalleFacturaPendiente();
+                        detalleP.idTipoDoc = detalle.idTipoDoc;
+                        detalleP.idProducto = detalle.idProducto;
+                        detalleP.cantidad = detalle.cantidad;
+                        detalleP.idDoc = detalle.idDoc;
+                        detalleP.descuento = detalle.descuento;
+                        detalleP.montoTotal = detalle.montoTotal;
+                        detalleP.montoTotalDesc = detalle.montoTotalDesc;
+                        detalleP.montoTotalExo = detalle.montoTotalExo;
+                        detalleP.montoTotalImp = detalle.montoTotalImp;
+                        detalleP.numLinea = detalle.numLinea;
+                        detalleP.precio = detalle.precio;
+                        detalleP.tbProducto = detalle.tbProducto;
+                        detalleP.totalLinea = detalle.totalLinea;
+
+                        pendiente.detalleFacturaPendiente.Add(detalleP);
+                    }
+                    pendiente.alias = alias;
+
+                    facturasPendientes.Add(pendiente);
+                    limpiarFactura();
+                    cargarPendientes();
+                    MessageBox.Show("Pendiente actualizado", "Pendiente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+
+
+            }
+            else
+            {
+                    MessageBox.Show("No hay productos o el TOTAL a cobrar es 0.", "Pendiente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+         
+                
+
+        }
+
+        
+
+        private void cargarPendientes()
+        {
+            Button btn;
+            int y = 0;
+            int x = 0;
+            gbxPendientes.Controls.Clear();
+            foreach (var pend in facturasPendientes)
+            {
+                btn = new Button();
+                btn.Name = pend.alias;
+                btn.Text = pend.alias;
+                btn.Location = new System.Drawing.Point(100 * x, 100 * y);
+                btn.Size = new System.Drawing.Size(100, 100);
+                btn.BackColor = Color.DarkOrange;
+                btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                btn.ForeColor = Color.White;
+                btn.TextAlign = ContentAlignment.MiddleCenter;
+               
+                btn.Click += new System.EventHandler(cargarAliasMesa);
+
+                gbxPendientes.Controls.Add(btn);
+                x++;
+
+                if (x == 10)
+                {
+                    x = 0;
+                    y++;
+
+                }  
+
+             }
+        }
+
+        private void cargarAliasMesa(object sender, EventArgs e)
+        {
+            limpiarFactura();
+            string alias = ((Button)sender).Name.Trim().ToUpper();
+            FacturasPendientes pendiente= facturasPendientes.Where(x=>x.alias==alias).SingleOrDefault();
+            lblAlias.Text = pendiente.alias;
+          
+            if (pendiente!=null)
+            {
+
+                foreach (var detalle in pendiente.detalleFacturaPendiente)
+                {
+                    tbDetalleDocumento detalleP = new tbDetalleDocumento();
+                    detalleP.idTipoDoc = detalle.idTipoDoc;
+                    detalleP.idProducto = detalle.idProducto;
+                    detalleP.cantidad = detalle.cantidad;
+                    detalleP.idDoc = detalle.idDoc;
+                    detalleP.descuento = detalle.descuento;
+                    detalleP.montoTotal = detalle.montoTotal;
+                    detalleP.montoTotalDesc = detalle.montoTotalDesc;
+                    detalleP.montoTotalExo = detalle.montoTotalExo;
+                    detalleP.montoTotalImp = detalle.montoTotalImp;
+                    detalleP.numLinea = detalle.numLinea;
+                    detalleP.precio = detalle.precio;
+                    detalleP.tbProducto = detalle.tbProducto;
+                    detalleP.totalLinea = detalle.totalLinea;
+
+                    listaDetalleDocumento.Add(detalleP);                  
+                  
+                }
+                calcularMontosT();
+                agregarProductoGrid();
+                tabFact.Show();tabFact.Focus();
+                isAlias = true;
+            }
+
+
+
+        }
+
+        private void aliasPasarDatos(string alias)
+        {
+            if (alias!=null)
+            {
+                this.alias = alias;
+            }
+            else
+            {
+                alias = string.Empty;
+            }         
+        }
+
+        private void frmFacturacion_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Esta seguro de cerrar el formulario? se PERDERÁN los documentos PENDIENTES!","Cerrar formulario", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                e.Cancel = false;
+
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+
+        }
+
+        private void btnDividir_Click(object sender, EventArgs e)
+        {
+
+            if (listaDetalleDocumento.Count != 0 && txtTotal.Text != "0")
+            {
+
+                frmDividirCuenta form = new frmDividirCuenta();
+                form.documentoTotal = crearDocumento();
+                form.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("No hay productos o el TOTAL a cobrar es 0.", "Pendiente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
     }
 

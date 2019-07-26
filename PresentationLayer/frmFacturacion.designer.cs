@@ -35,7 +35,7 @@
             this.gbxCategorias = new System.Windows.Forms.GroupBox();
             this.gbxProductos = new System.Windows.Forms.GroupBox();
             this.tabFacturacion = new System.Windows.Forms.TabControl();
-            this.lblProductos = new System.Windows.Forms.TabPage();
+            this.tabFact = new System.Windows.Forms.TabPage();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -59,6 +59,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.gbxMontos = new System.Windows.Forms.GroupBox();
+            this.btnPendiente = new System.Windows.Forms.Button();
             this.txtExoneracion = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -98,20 +99,18 @@
             this.btnBuscarCliente = new System.Windows.Forms.Button();
             this.lblCliente = new System.Windows.Forms.Label();
             this.txtCliente = new System.Windows.Forms.TextBox();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.lstvPendiente = new System.Windows.Forms.ListView();
-            this.colIdv = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colAlias = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Fecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Descuento = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.IVA = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Total = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPendientes = new System.Windows.Forms.TabPage();
+            this.gbxPendientes = new System.Windows.Forms.GroupBox();
             this.tbpReportes = new System.Windows.Forms.TabPage();
             this.btnCantidadMinima = new System.Windows.Forms.Button();
             this.btnPlanillaEmpleados = new System.Windows.Forms.Button();
             this.btnCantidadInventario = new System.Windows.Forms.Button();
+            this.lblAlias = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lblPendientes = new System.Windows.Forms.Label();
+            this.btnDividir = new System.Windows.Forms.Button();
             this.tabFacturacion.SuspendLayout();
-            this.lblProductos.SuspendLayout();
+            this.tabFact.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -119,7 +118,7 @@
             this.tabPage2.SuspendLayout();
             this.gbxMontos.SuspendLayout();
             this.gbxAcciones.SuspendLayout();
-            this.tabPage5.SuspendLayout();
+            this.tabPendientes.SuspendLayout();
             this.tbpReportes.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -150,8 +149,8 @@
             // 
             // tabFacturacion
             // 
-            this.tabFacturacion.Controls.Add(this.lblProductos);
-            this.tabFacturacion.Controls.Add(this.tabPage5);
+            this.tabFacturacion.Controls.Add(this.tabFact);
+            this.tabFacturacion.Controls.Add(this.tabPendientes);
             this.tabFacturacion.Controls.Add(this.tbpReportes);
             this.tabFacturacion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabFacturacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -159,37 +158,37 @@
             this.tabFacturacion.Margin = new System.Windows.Forms.Padding(4);
             this.tabFacturacion.Name = "tabFacturacion";
             this.tabFacturacion.SelectedIndex = 0;
-            this.tabFacturacion.Size = new System.Drawing.Size(1547, 912);
+            this.tabFacturacion.Size = new System.Drawing.Size(1547, 953);
             this.tabFacturacion.TabIndex = 23;
             // 
-            // lblProductos
+            // tabFact
             // 
-            this.lblProductos.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.lblProductos.Controls.Add(this.tabControl1);
-            this.lblProductos.Controls.Add(this.label15);
-            this.lblProductos.Controls.Add(this.label5);
-            this.lblProductos.Controls.Add(this.gbxMontos);
-            this.lblProductos.Controls.Add(this.chkEnviar);
-            this.lblProductos.Controls.Add(this.txtCorreo2);
-            this.lblProductos.Controls.Add(this.gbxAcciones);
-            this.lblProductos.Controls.Add(this.label6);
-            this.lblProductos.Controls.Add(this.txtCorreo);
-            this.lblProductos.Controls.Add(this.label4);
-            this.lblProductos.Controls.Add(this.txtTel);
-            this.lblProductos.Controls.Add(this.txtIdCliente);
-            this.lblProductos.Controls.Add(this.btnBuscarCliente);
-            this.lblProductos.Controls.Add(this.lblCliente);
-            this.lblProductos.Controls.Add(this.txtCliente);
-            this.lblProductos.Controls.Add(this.gbxProductos);
-            this.lblProductos.Controls.Add(this.gbxCategorias);
-            this.lblProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProductos.Location = new System.Drawing.Point(4, 34);
-            this.lblProductos.Margin = new System.Windows.Forms.Padding(4);
-            this.lblProductos.Name = "lblProductos";
-            this.lblProductos.Padding = new System.Windows.Forms.Padding(4);
-            this.lblProductos.Size = new System.Drawing.Size(1539, 874);
-            this.lblProductos.TabIndex = 0;
-            this.lblProductos.Text = "Facturación";
+            this.tabFact.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.tabFact.Controls.Add(this.tabControl1);
+            this.tabFact.Controls.Add(this.label15);
+            this.tabFact.Controls.Add(this.label5);
+            this.tabFact.Controls.Add(this.gbxMontos);
+            this.tabFact.Controls.Add(this.chkEnviar);
+            this.tabFact.Controls.Add(this.txtCorreo2);
+            this.tabFact.Controls.Add(this.gbxAcciones);
+            this.tabFact.Controls.Add(this.label6);
+            this.tabFact.Controls.Add(this.txtCorreo);
+            this.tabFact.Controls.Add(this.label4);
+            this.tabFact.Controls.Add(this.txtTel);
+            this.tabFact.Controls.Add(this.txtIdCliente);
+            this.tabFact.Controls.Add(this.btnBuscarCliente);
+            this.tabFact.Controls.Add(this.lblCliente);
+            this.tabFact.Controls.Add(this.txtCliente);
+            this.tabFact.Controls.Add(this.gbxProductos);
+            this.tabFact.Controls.Add(this.gbxCategorias);
+            this.tabFact.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabFact.Location = new System.Drawing.Point(4, 34);
+            this.tabFact.Margin = new System.Windows.Forms.Padding(4);
+            this.tabFact.Name = "tabFact";
+            this.tabFact.Padding = new System.Windows.Forms.Padding(4);
+            this.tabFact.Size = new System.Drawing.Size(1539, 915);
+            this.tabFact.TabIndex = 0;
+            this.tabFact.Text = "Facturación";
             // 
             // tabControl1
             // 
@@ -214,6 +213,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblPendientes);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.lblAlias);
             this.groupBox1.Controls.Add(this.btnBuscar);
             this.groupBox1.Controls.Add(this.lblCantidadLineas);
             this.groupBox1.Controls.Add(this.label2);
@@ -224,14 +226,14 @@
             this.groupBox1.Controls.Add(this.dtgvDetalleFactura);
             this.groupBox1.Location = new System.Drawing.Point(13, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1126, 345);
+            this.groupBox1.Size = new System.Drawing.Size(1117, 345);
             this.groupBox1.TabIndex = 54;
             this.groupBox1.TabStop = false;
             // 
             // btnBuscar
             // 
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
-            this.btnBuscar.Location = new System.Drawing.Point(585, 11);
+            this.btnBuscar.Location = new System.Drawing.Point(593, 33);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(36, 34);
             this.btnBuscar.TabIndex = 72;
@@ -242,7 +244,7 @@
             // 
             this.lblCantidadLineas.AutoSize = true;
             this.lblCantidadLineas.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCantidadLineas.Location = new System.Drawing.Point(979, 19);
+            this.lblCantidadLineas.Location = new System.Drawing.Point(990, 51);
             this.lblCantidadLineas.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCantidadLineas.Name = "lblCantidadLineas";
             this.lblCantidadLineas.Size = new System.Drawing.Size(17, 17);
@@ -253,7 +255,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(825, 18);
+            this.label2.Location = new System.Drawing.Point(836, 50);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(153, 17);
@@ -264,7 +266,7 @@
             // 
             this.lblTotalProducto.AutoSize = true;
             this.lblTotalProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalProducto.Location = new System.Drawing.Point(800, 18);
+            this.lblTotalProducto.Location = new System.Drawing.Point(811, 50);
             this.lblTotalProducto.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTotalProducto.Name = "lblTotalProducto";
             this.lblTotalProducto.Size = new System.Drawing.Size(17, 17);
@@ -275,7 +277,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(652, 17);
+            this.label3.Location = new System.Drawing.Point(663, 49);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(150, 17);
@@ -287,7 +289,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label9.Location = new System.Drawing.Point(7, 17);
+            this.label9.Location = new System.Drawing.Point(15, 39);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(73, 20);
@@ -297,7 +299,7 @@
             // txtCodigo
             // 
             this.txtCodigo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCodigo.Location = new System.Drawing.Point(96, 14);
+            this.txtCodigo.Location = new System.Drawing.Point(104, 36);
             this.txtCodigo.Margin = new System.Windows.Forms.Padding(4);
             this.txtCodigo.MaxLength = 20;
             this.txtCodigo.Name = "txtCodigo";
@@ -336,7 +338,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dtgvDetalleFactura.DefaultCellStyle = dataGridViewCellStyle2;
             this.dtgvDetalleFactura.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dtgvDetalleFactura.Location = new System.Drawing.Point(7, 47);
+            this.dtgvDetalleFactura.Location = new System.Drawing.Point(0, 71);
             this.dtgvDetalleFactura.Margin = new System.Windows.Forms.Padding(4);
             this.dtgvDetalleFactura.MultiSelect = false;
             this.dtgvDetalleFactura.Name = "dtgvDetalleFactura";
@@ -350,7 +352,7 @@
             this.dtgvDetalleFactura.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dtgvDetalleFactura.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dtgvDetalleFactura.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgvDetalleFactura.Size = new System.Drawing.Size(1099, 291);
+            this.dtgvDetalleFactura.Size = new System.Drawing.Size(1099, 269);
             this.dtgvDetalleFactura.TabIndex = 22;
             this.dtgvDetalleFactura.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvDetalleFactura_CellContentClick_1);
             this.dtgvDetalleFactura.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvDetalleFactura_CellValueChanged_1);
@@ -427,7 +429,7 @@
             this.txtObservaciones.MaxLength = 270;
             this.txtObservaciones.Multiline = true;
             this.txtObservaciones.Name = "txtObservaciones";
-            this.txtObservaciones.Size = new System.Drawing.Size(1003, 129);
+            this.txtObservaciones.Size = new System.Drawing.Size(1131, 129);
             this.txtObservaciones.TabIndex = 52;
             // 
             // label15
@@ -457,6 +459,8 @@
             // gbxMontos
             // 
             this.gbxMontos.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.gbxMontos.Controls.Add(this.btnDividir);
+            this.gbxMontos.Controls.Add(this.btnPendiente);
             this.gbxMontos.Controls.Add(this.txtExoneracion);
             this.gbxMontos.Controls.Add(this.label1);
             this.gbxMontos.Controls.Add(this.label8);
@@ -475,29 +479,47 @@
             this.gbxMontos.Margin = new System.Windows.Forms.Padding(4);
             this.gbxMontos.Name = "gbxMontos";
             this.gbxMontos.Padding = new System.Windows.Forms.Padding(4);
-            this.gbxMontos.Size = new System.Drawing.Size(329, 399);
+            this.gbxMontos.Size = new System.Drawing.Size(329, 371);
             this.gbxMontos.TabIndex = 69;
             this.gbxMontos.TabStop = false;
             // 
+            // btnPendiente
+            // 
+            this.btnPendiente.BackColor = System.Drawing.Color.DarkOrange;
+            this.btnPendiente.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnPendiente.FlatAppearance.BorderSize = 2;
+            this.btnPendiente.FlatAppearance.CheckedBackColor = System.Drawing.Color.Black;
+            this.btnPendiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPendiente.Image = ((System.Drawing.Image)(resources.GetObject("btnPendiente.Image")));
+            this.btnPendiente.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPendiente.Location = new System.Drawing.Point(168, 280);
+            this.btnPendiente.Margin = new System.Windows.Forms.Padding(4);
+            this.btnPendiente.Name = "btnPendiente";
+            this.btnPendiente.Size = new System.Drawing.Size(149, 61);
+            this.btnPendiente.TabIndex = 67;
+            this.btnPendiente.Text = "Pendiente";
+            this.btnPendiente.UseVisualStyleBackColor = false;
+            this.btnPendiente.Click += new System.EventHandler(this.btnPendiente_Click);
+            // 
             // txtExoneracion
             // 
-            this.txtExoneracion.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtExoneracion.Location = new System.Drawing.Point(163, 167);
+            this.txtExoneracion.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtExoneracion.Location = new System.Drawing.Point(141, 125);
             this.txtExoneracion.Margin = new System.Windows.Forms.Padding(4);
             this.txtExoneracion.Name = "txtExoneracion";
             this.txtExoneracion.ReadOnly = true;
-            this.txtExoneracion.Size = new System.Drawing.Size(154, 41);
+            this.txtExoneracion.Size = new System.Drawing.Size(174, 34);
             this.txtExoneracion.TabIndex = 66;
             this.txtExoneracion.Text = "0";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(5, 173);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(-6, 131);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(153, 29);
+            this.label1.Size = new System.Drawing.Size(139, 25);
             this.label1.TabIndex = 65;
             this.label1.Text = "Exoneración:";
             // 
@@ -505,7 +527,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(218, 131);
+            this.label8.Location = new System.Drawing.Point(188, 99);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(24, 20);
@@ -514,11 +536,11 @@
             // 
             // txtPorcetaje
             // 
-            this.txtPorcetaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPorcetaje.Location = new System.Drawing.Point(163, 121);
+            this.txtPorcetaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPorcetaje.Location = new System.Drawing.Point(141, 89);
             this.txtPorcetaje.Margin = new System.Windows.Forms.Padding(4);
             this.txtPorcetaje.Name = "txtPorcetaje";
-            this.txtPorcetaje.Size = new System.Drawing.Size(54, 41);
+            this.txtPorcetaje.Size = new System.Drawing.Size(47, 34);
             this.txtPorcetaje.TabIndex = 63;
             this.txtPorcetaje.Text = "0";
             this.txtPorcetaje.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPorcetaje_KeyPress);
@@ -529,13 +551,13 @@
             this.btnProforma.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnProforma.FlatAppearance.BorderSize = 2;
             this.btnProforma.FlatAppearance.CheckedBackColor = System.Drawing.Color.Black;
-            this.btnProforma.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProforma.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProforma.Image = ((System.Drawing.Image)(resources.GetObject("btnProforma.Image")));
             this.btnProforma.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProforma.Location = new System.Drawing.Point(19, 333);
+            this.btnProforma.Location = new System.Drawing.Point(13, 280);
             this.btnProforma.Margin = new System.Windows.Forms.Padding(4);
             this.btnProforma.Name = "btnProforma";
-            this.btnProforma.Size = new System.Drawing.Size(302, 61);
+            this.btnProforma.Size = new System.Drawing.Size(151, 61);
             this.btnProforma.TabIndex = 61;
             this.btnProforma.Text = "Proforma";
             this.btnProforma.UseVisualStyleBackColor = false;
@@ -550,10 +572,10 @@
             this.btnCobrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCobrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCobrar.Image")));
             this.btnCobrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCobrar.Location = new System.Drawing.Point(15, 263);
+            this.btnCobrar.Location = new System.Drawing.Point(13, 203);
             this.btnCobrar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCobrar.Name = "btnCobrar";
-            this.btnCobrar.Size = new System.Drawing.Size(302, 69);
+            this.btnCobrar.Size = new System.Drawing.Size(151, 69);
             this.btnCobrar.TabIndex = 60;
             this.btnCobrar.Text = "Cobrar";
             this.btnCobrar.UseVisualStyleBackColor = false;
@@ -562,88 +584,88 @@
             // lblSubtotal
             // 
             this.lblSubtotal.AutoSize = true;
-            this.lblSubtotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSubtotal.Location = new System.Drawing.Point(51, 28);
+            this.lblSubtotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSubtotal.Location = new System.Drawing.Point(34, 25);
             this.lblSubtotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSubtotal.Name = "lblSubtotal";
-            this.lblSubtotal.Size = new System.Drawing.Size(107, 29);
+            this.lblSubtotal.Size = new System.Drawing.Size(99, 25);
             this.lblSubtotal.TabIndex = 36;
             this.lblSubtotal.Text = "Subtotal:";
             // 
             // txtSubtotal
             // 
-            this.txtSubtotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSubtotal.Location = new System.Drawing.Point(163, 21);
+            this.txtSubtotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSubtotal.Location = new System.Drawing.Point(141, 16);
             this.txtSubtotal.Margin = new System.Windows.Forms.Padding(4);
             this.txtSubtotal.Name = "txtSubtotal";
             this.txtSubtotal.ReadOnly = true;
-            this.txtSubtotal.Size = new System.Drawing.Size(154, 41);
+            this.txtSubtotal.Size = new System.Drawing.Size(174, 34);
             this.txtSubtotal.TabIndex = 35;
             this.txtSubtotal.Text = "0";
             // 
             // txtTotal
             // 
-            this.txtTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotal.Location = new System.Drawing.Point(163, 214);
+            this.txtTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotal.Location = new System.Drawing.Point(141, 161);
             this.txtTotal.Margin = new System.Windows.Forms.Padding(4);
             this.txtTotal.Name = "txtTotal";
             this.txtTotal.ReadOnly = true;
-            this.txtTotal.Size = new System.Drawing.Size(154, 41);
+            this.txtTotal.Size = new System.Drawing.Size(174, 34);
             this.txtTotal.TabIndex = 34;
             this.txtTotal.Text = "0";
             // 
             // lblIva
             // 
             this.lblIva.AutoSize = true;
-            this.lblIva.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIva.Location = new System.Drawing.Point(103, 77);
+            this.lblIva.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIva.Location = new System.Drawing.Point(78, 55);
             this.lblIva.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblIva.Name = "lblIva";
-            this.lblIva.Size = new System.Drawing.Size(55, 29);
+            this.lblIva.Size = new System.Drawing.Size(55, 25);
             this.lblIva.TabIndex = 28;
             this.lblIva.Text = "IVA:";
             // 
             // txtDescuento
             // 
-            this.txtDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescuento.Location = new System.Drawing.Point(244, 121);
+            this.txtDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDescuento.Location = new System.Drawing.Point(212, 89);
             this.txtDescuento.Margin = new System.Windows.Forms.Padding(4);
             this.txtDescuento.Name = "txtDescuento";
             this.txtDescuento.ReadOnly = true;
-            this.txtDescuento.Size = new System.Drawing.Size(73, 41);
+            this.txtDescuento.Size = new System.Drawing.Size(103, 34);
             this.txtDescuento.TabIndex = 33;
             this.txtDescuento.Text = "0";
             // 
             // lblDescuento
             // 
             this.lblDescuento.AutoSize = true;
-            this.lblDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDescuento.Location = new System.Drawing.Point(24, 128);
+            this.lblDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDescuento.Location = new System.Drawing.Point(11, 94);
             this.lblDescuento.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDescuento.Name = "lblDescuento";
-            this.lblDescuento.Size = new System.Drawing.Size(134, 29);
+            this.lblDescuento.Size = new System.Drawing.Size(122, 25);
             this.lblDescuento.TabIndex = 29;
             this.lblDescuento.Text = "Descuento:";
             // 
             // txtIva
             // 
-            this.txtIva.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIva.Location = new System.Drawing.Point(163, 70);
+            this.txtIva.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIva.Location = new System.Drawing.Point(141, 53);
             this.txtIva.Margin = new System.Windows.Forms.Padding(4);
             this.txtIva.Name = "txtIva";
             this.txtIva.ReadOnly = true;
-            this.txtIva.Size = new System.Drawing.Size(154, 41);
+            this.txtIva.Size = new System.Drawing.Size(174, 34);
             this.txtIva.TabIndex = 0;
             this.txtIva.Text = "0";
             // 
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
-            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotal.Location = new System.Drawing.Point(82, 220);
+            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotal.Location = new System.Drawing.Point(65, 167);
             this.lblTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(74, 29);
+            this.lblTotal.Size = new System.Drawing.Size(68, 25);
             this.lblTotal.TabIndex = 30;
             this.lblTotal.Text = "Total:";
             // 
@@ -940,67 +962,30 @@
             this.txtCliente.Size = new System.Drawing.Size(463, 27);
             this.txtCliente.TabIndex = 55;
             // 
-            // tabPage5
+            // tabPendientes
             // 
-            this.tabPage5.Controls.Add(this.lstvPendiente);
-            this.tabPage5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage5.Location = new System.Drawing.Point(4, 34);
-            this.tabPage5.Margin = new System.Windows.Forms.Padding(4);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage5.Size = new System.Drawing.Size(1539, 874);
-            this.tabPage5.TabIndex = 1;
-            this.tabPage5.Text = "Pendientes";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.tabPendientes.Controls.Add(this.gbxPendientes);
+            this.tabPendientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPendientes.Location = new System.Drawing.Point(4, 34);
+            this.tabPendientes.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPendientes.Name = "tabPendientes";
+            this.tabPendientes.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPendientes.Size = new System.Drawing.Size(1539, 915);
+            this.tabPendientes.TabIndex = 1;
+            this.tabPendientes.Text = "Pendientes";
+            this.tabPendientes.UseVisualStyleBackColor = true;
             // 
-            // lstvPendiente
+            // gbxPendientes
             // 
-            this.lstvPendiente.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colIdv,
-            this.colAlias,
-            this.Fecha,
-            this.Descuento,
-            this.IVA,
-            this.Total});
-            this.lstvPendiente.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstvPendiente.FullRowSelect = true;
-            this.lstvPendiente.GridLines = true;
-            this.lstvPendiente.Location = new System.Drawing.Point(4, 4);
-            this.lstvPendiente.Margin = new System.Windows.Forms.Padding(4);
-            this.lstvPendiente.Name = "lstvPendiente";
-            this.lstvPendiente.Size = new System.Drawing.Size(1531, 866);
-            this.lstvPendiente.TabIndex = 0;
-            this.lstvPendiente.UseCompatibleStateImageBehavior = false;
-            this.lstvPendiente.View = System.Windows.Forms.View.Details;
-            // 
-            // colIdv
-            // 
-            this.colIdv.Text = "Id";
-            // 
-            // colAlias
-            // 
-            this.colAlias.Text = "Alias";
-            this.colAlias.Width = 238;
-            // 
-            // Fecha
-            // 
-            this.Fecha.Text = "Fecha";
-            this.Fecha.Width = 116;
-            // 
-            // Descuento
-            // 
-            this.Descuento.Text = "Descuento";
-            this.Descuento.Width = 115;
-            // 
-            // IVA
-            // 
-            this.IVA.Text = "IVA";
-            this.IVA.Width = 106;
-            // 
-            // Total
-            // 
-            this.Total.Text = "Total";
-            this.Total.Width = 120;
+            this.gbxPendientes.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.gbxPendientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbxPendientes.Location = new System.Drawing.Point(9, 8);
+            this.gbxPendientes.Margin = new System.Windows.Forms.Padding(4);
+            this.gbxPendientes.Name = "gbxPendientes";
+            this.gbxPendientes.Padding = new System.Windows.Forms.Padding(4);
+            this.gbxPendientes.Size = new System.Drawing.Size(1521, 751);
+            this.gbxPendientes.TabIndex = 19;
+            this.gbxPendientes.TabStop = false;
             // 
             // tbpReportes
             // 
@@ -1011,7 +996,7 @@
             this.tbpReportes.Margin = new System.Windows.Forms.Padding(4);
             this.tbpReportes.Name = "tbpReportes";
             this.tbpReportes.Padding = new System.Windows.Forms.Padding(4);
-            this.tbpReportes.Size = new System.Drawing.Size(1539, 874);
+            this.tbpReportes.Size = new System.Drawing.Size(1539, 915);
             this.tbpReportes.TabIndex = 2;
             this.tbpReportes.Text = "Reportes";
             this.tbpReportes.UseVisualStyleBackColor = true;
@@ -1046,21 +1031,73 @@
             this.btnCantidadInventario.Text = "Cantidad en Inventario";
             this.btnCantidadInventario.UseVisualStyleBackColor = true;
             // 
+            // lblAlias
+            // 
+            this.lblAlias.AutoSize = true;
+            this.lblAlias.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlias.ForeColor = System.Drawing.Color.Red;
+            this.lblAlias.Location = new System.Drawing.Point(834, 14);
+            this.lblAlias.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAlias.Name = "lblAlias";
+            this.lblAlias.Size = new System.Drawing.Size(0, 27);
+            this.lblAlias.TabIndex = 73;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(665, 24);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(94, 17);
+            this.label7.TabIndex = 74;
+            this.label7.Text = "Pendientes:";
+            // 
+            // lblPendientes
+            // 
+            this.lblPendientes.AutoSize = true;
+            this.lblPendientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPendientes.Location = new System.Drawing.Point(756, 24);
+            this.lblPendientes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPendientes.Name = "lblPendientes";
+            this.lblPendientes.Size = new System.Drawing.Size(17, 17);
+            this.lblPendientes.TabIndex = 75;
+            this.lblPendientes.Text = "0";
+            // 
+            // btnDividir
+            // 
+            this.btnDividir.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDividir.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.btnDividir.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnDividir.FlatAppearance.BorderSize = 2;
+            this.btnDividir.FlatAppearance.CheckedBackColor = System.Drawing.Color.Black;
+            this.btnDividir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDividir.Image = ((System.Drawing.Image)(resources.GetObject("btnDividir.Image")));
+            this.btnDividir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDividir.Location = new System.Drawing.Point(168, 203);
+            this.btnDividir.Margin = new System.Windows.Forms.Padding(4);
+            this.btnDividir.Name = "btnDividir";
+            this.btnDividir.Size = new System.Drawing.Size(151, 69);
+            this.btnDividir.TabIndex = 68;
+            this.btnDividir.Text = "Dividir cuenta";
+            this.btnDividir.UseVisualStyleBackColor = false;
+            this.btnDividir.Click += new System.EventHandler(this.btnDividir_Click);
+            // 
             // frmFacturacion
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(1547, 912);
+            this.ClientSize = new System.Drawing.Size(1547, 953);
             this.Controls.Add(this.tabFacturacion);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmFacturacion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Facturación";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmFacturacion_FormClosing);
             this.Load += new System.EventHandler(this.frmFacturacion_Load);
             this.tabFacturacion.ResumeLayout(false);
-            this.lblProductos.ResumeLayout(false);
-            this.lblProductos.PerformLayout();
+            this.tabFact.ResumeLayout(false);
+            this.tabFact.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -1072,7 +1109,7 @@
             this.gbxMontos.PerformLayout();
             this.gbxAcciones.ResumeLayout(false);
             this.gbxAcciones.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
+            this.tabPendientes.ResumeLayout(false);
             this.tbpReportes.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -1082,19 +1119,11 @@
         private System.Windows.Forms.GroupBox gbxCategorias;
         private System.Windows.Forms.GroupBox gbxProductos;
         private System.Windows.Forms.TabControl tabFacturacion;
-        private System.Windows.Forms.TabPage lblProductos;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.ListView lstvPendiente;
-        private System.Windows.Forms.ColumnHeader colAlias;
-        private System.Windows.Forms.ColumnHeader Fecha;
-        private System.Windows.Forms.ColumnHeader Descuento;
-        private System.Windows.Forms.ColumnHeader IVA;
-        private System.Windows.Forms.ColumnHeader Total;
+        private System.Windows.Forms.TabPage tabFact;
         private System.Windows.Forms.TabPage tbpReportes;
         private System.Windows.Forms.Button btnCantidadMinima;
         private System.Windows.Forms.Button btnPlanillaEmpleados;
         private System.Windows.Forms.Button btnCantidadInventario;
-        private System.Windows.Forms.ColumnHeader colIdv;
         private System.Windows.Forms.CheckBox chkEnviar;
         private System.Windows.Forms.TextBox txtCorreo2;
         private System.Windows.Forms.GroupBox gbxAcciones;
@@ -1157,5 +1186,12 @@
         private System.Windows.Forms.TextBox txtObservaciones;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnPendiente;
+        private System.Windows.Forms.TabPage tabPendientes;
+        private System.Windows.Forms.GroupBox gbxPendientes;
+        private System.Windows.Forms.Label lblAlias;
+        private System.Windows.Forms.Label lblPendientes;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnDividir;
     }
 }

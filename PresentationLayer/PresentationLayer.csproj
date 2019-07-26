@@ -81,6 +81,12 @@
     </Compile>
     <Compile Include="clsImpresionFactura.cs" />
     <Compile Include="EntityDisableStateException.cs" />
+    <Compile Include="frmAliasMesa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAliasMesa.Designer.cs">
+      <DependentUpon>frmAliasMesa.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAprobacion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +164,12 @@
     </Compile>
     <Compile Include="frmDetalleMensaje.Designer.cs">
       <DependentUpon>frmDetalleMensaje.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDividirCuenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDividirCuenta.Designer.cs">
+      <DependentUpon>frmDividirCuenta.cs</DependentUpon>
     </Compile>
     <Compile Include="frmEmpresa.cs">
       <SubType>Form</SubType>
@@ -602,6 +614,9 @@
     <EmbeddedResource Include="frmAgregarIngredieteProducto.resx">
       <DependentUpon>frmAgregarIngredieteProducto.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAliasMesa.resx">
+      <DependentUpon>frmAliasMesa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAprobacion.resx">
       <DependentUpon>frmAprobacion.cs</DependentUpon>
     </EmbeddedResource>
@@ -703,6 +718,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDetalleTiquete.resx">
       <DependentUpon>frmDetalleTiquete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDividirCuenta.resx">
+      <DependentUpon>frmDividirCuenta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmEmpleado.resx">
       <DependentUpon>frmEmpleado.cs</DependentUpon>
