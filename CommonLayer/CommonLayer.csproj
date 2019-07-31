@@ -63,6 +63,7 @@
     <Compile Include="Exceptions\DataExceptions\UpdateEntityException.cs" />
     <Compile Include="Exceptions\PresentationsExceptions\CorreoSinDestinatarioException.cs" />
     <Compile Include="Exceptions\PresentationsExceptions\IsNotANumberException.cs" />
+    <Compile Include="Factura.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Interfaces\IDataGeneric.cs" />
     <Compile Include="MenuGenerico.cs" />

@@ -10,7 +10,7 @@ namespace PresentationLayer.Reportes
     {
         string ticket = "";
         string parte1, parte2;
-        string impresora = "L4150 Series(Red)"; // nombre exacto de la impresora como esta en el panel de control
+        string impresora = "EPSON TM-U220 Receipt"; // nombre exacto de la impresora como esta en el panel de control
         int max, cort;
         public void LineasGuion()
         {

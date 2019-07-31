@@ -39,6 +39,9 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblPendientes = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lblAlias = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.lblCantidadLineas = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -59,6 +62,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.gbxMontos = new System.Windows.Forms.GroupBox();
+            this.btnDividir = new System.Windows.Forms.Button();
             this.btnPendiente = new System.Windows.Forms.Button();
             this.txtExoneracion = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -105,10 +109,6 @@
             this.btnCantidadMinima = new System.Windows.Forms.Button();
             this.btnPlanillaEmpleados = new System.Windows.Forms.Button();
             this.btnCantidadInventario = new System.Windows.Forms.Button();
-            this.lblAlias = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.lblPendientes = new System.Windows.Forms.Label();
-            this.btnDividir = new System.Windows.Forms.Button();
             this.tabFacturacion.SuspendLayout();
             this.tabFact.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -229,6 +229,39 @@
             this.groupBox1.Size = new System.Drawing.Size(1117, 345);
             this.groupBox1.TabIndex = 54;
             this.groupBox1.TabStop = false;
+            // 
+            // lblPendientes
+            // 
+            this.lblPendientes.AutoSize = true;
+            this.lblPendientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPendientes.Location = new System.Drawing.Point(756, 24);
+            this.lblPendientes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPendientes.Name = "lblPendientes";
+            this.lblPendientes.Size = new System.Drawing.Size(17, 17);
+            this.lblPendientes.TabIndex = 75;
+            this.lblPendientes.Text = "0";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(665, 24);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(94, 17);
+            this.label7.TabIndex = 74;
+            this.label7.Text = "Pendientes:";
+            // 
+            // lblAlias
+            // 
+            this.lblAlias.AutoSize = true;
+            this.lblAlias.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlias.ForeColor = System.Drawing.Color.Red;
+            this.lblAlias.Location = new System.Drawing.Point(834, 14);
+            this.lblAlias.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAlias.Name = "lblAlias";
+            this.lblAlias.Size = new System.Drawing.Size(0, 27);
+            this.lblAlias.TabIndex = 73;
             // 
             // btnBuscar
             // 
@@ -482,6 +515,25 @@
             this.gbxMontos.Size = new System.Drawing.Size(329, 371);
             this.gbxMontos.TabIndex = 69;
             this.gbxMontos.TabStop = false;
+            // 
+            // btnDividir
+            // 
+            this.btnDividir.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDividir.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.btnDividir.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnDividir.FlatAppearance.BorderSize = 2;
+            this.btnDividir.FlatAppearance.CheckedBackColor = System.Drawing.Color.Black;
+            this.btnDividir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDividir.Image = ((System.Drawing.Image)(resources.GetObject("btnDividir.Image")));
+            this.btnDividir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDividir.Location = new System.Drawing.Point(168, 203);
+            this.btnDividir.Margin = new System.Windows.Forms.Padding(4);
+            this.btnDividir.Name = "btnDividir";
+            this.btnDividir.Size = new System.Drawing.Size(151, 69);
+            this.btnDividir.TabIndex = 68;
+            this.btnDividir.Text = "Dividir cuenta";
+            this.btnDividir.UseVisualStyleBackColor = false;
+            this.btnDividir.Click += new System.EventHandler(this.btnDividir_Click);
             // 
             // btnPendiente
             // 
@@ -1030,58 +1082,6 @@
             this.btnCantidadInventario.TabIndex = 0;
             this.btnCantidadInventario.Text = "Cantidad en Inventario";
             this.btnCantidadInventario.UseVisualStyleBackColor = true;
-            // 
-            // lblAlias
-            // 
-            this.lblAlias.AutoSize = true;
-            this.lblAlias.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAlias.ForeColor = System.Drawing.Color.Red;
-            this.lblAlias.Location = new System.Drawing.Point(834, 14);
-            this.lblAlias.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblAlias.Name = "lblAlias";
-            this.lblAlias.Size = new System.Drawing.Size(0, 27);
-            this.lblAlias.TabIndex = 73;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(665, 24);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(94, 17);
-            this.label7.TabIndex = 74;
-            this.label7.Text = "Pendientes:";
-            // 
-            // lblPendientes
-            // 
-            this.lblPendientes.AutoSize = true;
-            this.lblPendientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPendientes.Location = new System.Drawing.Point(756, 24);
-            this.lblPendientes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblPendientes.Name = "lblPendientes";
-            this.lblPendientes.Size = new System.Drawing.Size(17, 17);
-            this.lblPendientes.TabIndex = 75;
-            this.lblPendientes.Text = "0";
-            // 
-            // btnDividir
-            // 
-            this.btnDividir.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDividir.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.btnDividir.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnDividir.FlatAppearance.BorderSize = 2;
-            this.btnDividir.FlatAppearance.CheckedBackColor = System.Drawing.Color.Black;
-            this.btnDividir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDividir.Image = ((System.Drawing.Image)(resources.GetObject("btnDividir.Image")));
-            this.btnDividir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDividir.Location = new System.Drawing.Point(168, 203);
-            this.btnDividir.Margin = new System.Windows.Forms.Padding(4);
-            this.btnDividir.Name = "btnDividir";
-            this.btnDividir.Size = new System.Drawing.Size(151, 69);
-            this.btnDividir.TabIndex = 68;
-            this.btnDividir.Text = "Dividir cuenta";
-            this.btnDividir.UseVisualStyleBackColor = false;
-            this.btnDividir.Click += new System.EventHandler(this.btnDividir_Click);
             // 
             // frmFacturacion
             // 

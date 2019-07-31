@@ -475,7 +475,7 @@ namespace PresentationLayer
                     }
                     facturaGlobal.tbClientes = null;
                     facturaGlobal = facturacionIns.guadar(facturaGlobal);
-
+                    facturaGlobal = facturacionIns.getEntity(facturaGlobal);
                     if (chkImprimir.Checked)
                     {
                         try
