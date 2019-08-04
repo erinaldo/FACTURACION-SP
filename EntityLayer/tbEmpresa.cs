@@ -41,6 +41,7 @@ public partial class tbEmpresa
     public string rutaXMLCompras { get; set; }
     public Nullable<bool> imprimeDoc { get; set; }
     public string codigoActComercial { get; set; }
+    public string nombreImpresora { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     public virtual ICollection<tbDocumento> tbDocumento { get; set; }

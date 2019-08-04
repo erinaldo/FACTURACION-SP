@@ -97,23 +97,42 @@ namespace PresentationLayer
             CreaTicket Ticket1 = new CreaTicket();
             Ticket1.AbreCajon();  //abre el cajon
             string nombreEmpresa = string.Empty;
-            if (_empresa.tipoId==(int)Enums.TipoId.Fisica)
+            string nombreComercial = string.Empty;
+            if (_empresa.nombreComercial!=null )
+            {
+                nombreComercial = _empresa.nombreComercial.Trim().ToUpper();
+            }
+           
+            if (_empresa.tipoId == (int)Enums.TipoId.Fisica)
             {
                 nombreEmpresa = _empresa.tbPersona.nombre.ToUpper().ToString().Trim() + " " +
-                      _empresa.tbPersona.apellido1.ToUpper().ToString().Trim() + " " + _empresa.tbPersona.apellido2.ToUpper().ToString().Trim();
+                        _empresa.tbPersona.apellido1.ToUpper().ToString().Trim() + " " + _empresa.tbPersona.apellido2.ToUpper().ToString().Trim();
             }
             else
             {
                 nombreEmpresa = _doc.tbClientes.tbPersona.nombre.ToUpper().ToString().Trim();
 
             }
-           Ticket1.TextoCentro(nombreEmpresa); 
-            Ticket1.TextoCentro(_canton.Nombre.Trim().ToUpper()+"-"+_canton.tbProvincia.Nombre.ToUpper().Trim());
+
+
+            if (nombreComercial != string.Empty)
+            {
+                Ticket1.TextoCentro(nombreComercial);
+            }
+            Ticket1.TextoCentro(nombreEmpresa); 
+            Ticket1.TextoCentro(_empresa.tbPersona.tbBarrios.tbDistrito.Nombre.Trim().ToUpper()+"-"+ _empresa.tbPersona.tbBarrios.tbDistrito.tbCanton.Nombre.Trim().ToUpper() + "-" + _empresa.tbPersona.tbBarrios.tbDistrito.tbCanton.tbProvincia.Nombre.Trim().ToUpper());
             Ticket1.TextoCentro((_empresa.tipoId==(int)Enums.TipoId.Fisica?"Ced Fisica:":"Ced Juridica:")+_empresa.tbPersona.identificacion.ToString().Trim());
             Ticket1.TextoCentro("Tel:" + _empresa.tbPersona.telefono.ToString());
-            Ticket1.TextoIzquierda("Factura:"+ _doc.id);
-            Ticket1.TextoIzquierda("Fecha:" + _doc.fecha);
+            Ticket1.TextoIzquierda("Factura #:"+ _doc.id);
+            Ticket1.TextoIzquierda("Fecha:" + _doc.fecha);       
+            Ticket1.TextoIzquierda("Tipo Venta:" + Enum.GetName(typeof(Enums.tipoVenta), _doc.tipoVenta));
+            Ticket1.TextoIzquierda("Forma Pago:" + Enum.GetName(typeof(Enums.TipoPago), _doc.tipoPago));
+            Ticket1.TextoCentro("");
+            Ticket1.TextoCentro("TIQUETE ELECTRONICO");
             Ticket1.TextoIzquierda("Consecutivo:" + _doc.consecutivo);
+            Ticket1.TextoCentro(_doc.clave.Substring(0,40));
+            Ticket1.TextoCentro(_doc.clave.Substring(40, 10));
+            Ticket1.TextoCentro(""); 
             if (_doc.idCliente!=null)
             {
                
@@ -156,6 +175,9 @@ namespace PresentationLayer
             Ticket1.AgregaTotales("Pago", _paga); // imprime linea con total
             Ticket1.AgregaTotales("Vuelto", _vuelto); // imprime linea con total
             Ticket1.LineasGuion();
+            Ticket1.TextoIzquierda("Autorizada mediante resolución No. DGT-R");
+            Ticket1.TextoIzquierda("-48-2016 del 7 de octubre del 2016");
+            
             Ticket1.TextoCentro("GRACIAS POR SU COMPRA");
 
             Ticket1.CortaTicket(); // corta el ticket

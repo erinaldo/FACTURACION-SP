@@ -1070,6 +1070,10 @@ namespace PresentationLayer
 
                 documento.tbClientes = clienteGlo;
             }
+            else
+            {
+                documento.reporteElectronic = false;
+            }
 
             documento.estado = true;
 
@@ -1373,6 +1377,17 @@ namespace PresentationLayer
 
         private void btnPendiente_Click(object sender, EventArgs e)
         {
+            agregarPendiente();
+            limpiarFactura();
+            cargarPendientes();
+
+
+
+
+        }
+
+        private void agregarPendiente()
+        {
             if (listaDetalleDocumento.Count != 0 && txtTotal.Text != "0")
             {
                 FacturasPendientes pendiente;
@@ -1402,13 +1417,15 @@ namespace PresentationLayer
                         }
 
                     } while (exist);
-                 
+                    lblAlias.Text = alias;
+                    isAlias = true;
+
                 }
-                
+
                 if (alias != string.Empty)
                 {
-                   
-                  //sgrega los detalles
+
+                    //sgrega los detalles
                     foreach (var detalle in listaDetalleDocumento)
                     {
                         DetalleFacturaPendiente detalleP = new DetalleFacturaPendiente();
@@ -1431,8 +1448,7 @@ namespace PresentationLayer
                     pendiente.alias = alias;
 
                     facturasPendientes.Add(pendiente);
-                    limpiarFactura();
-                    cargarPendientes();
+                   
                     MessageBox.Show("Pendiente actualizado", "Pendiente", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
@@ -1441,14 +1457,9 @@ namespace PresentationLayer
             }
             else
             {
-                    MessageBox.Show("No hay productos o el TOTAL a cobrar es 0.", "Pendiente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No hay productos o el TOTAL a cobrar es 0.", "Pendiente", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-         
-                
-
         }
-
-        
 
         private void cargarPendientes()
         {
@@ -1557,6 +1568,7 @@ namespace PresentationLayer
             {
 
                 frmDividirCuenta form = new frmDividirCuenta();
+                form.pasarDatosPendientes += pasarDatosPendientes;
                 form.documentoTotal = crearDocumento();
                 form.ShowDialog();
             }
@@ -1565,6 +1577,98 @@ namespace PresentationLayer
                 MessageBox.Show("No hay productos o el TOTAL a cobrar es 0.", "Pendiente", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+
+        private void pasarDatosPendientes(tbDocumento documento)
+        {
+            if (documento ==null)
+            {
+                if (lblAlias.Text!=string.Empty && isAlias)
+                {
+                    var fact = facturasPendientes.Where(x => x.alias == lblAlias.Text.Trim()).SingleOrDefault();
+                    facturasPendientes.Remove(fact);
+                    cargarPendientes();
+                }
+                limpiarFactura();
+                MessageBox.Show("Se realizó el cobro total de la factura", "Cobro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                listaDetalleDocumento = (List<tbDetalleDocumento>)documento.tbDetalleDocumento;
+                //actualizar si esta pendiente
+                agregarPendiente();
+                cargarPendientes();
+
+                calcularMontosT();
+                agregarProductoGrid();
+
+            }
+        }
+
+        private void btnProforma_Click(object sender, EventArgs e)
+        {
+            tipoDoc = (int)Enums.TipoDocumento.Proforma;
+            dtgvDetalleFactura.EndEdit();
+            calcularMontosT();
+            agregarProductoGrid();
+            if (listaDetalleDocumento.Count != 0 && txtTotal.Text != "0")
+            {
+                if (validarCampos())
+                {
+
+                    tbDocumento documento = crearDocumento();
+                    documento.tipoDocumento = tipoDoc;
+                    documento.reporteElectronic = false;
+                    if (txtCorreo.Text != string.Empty)
+                    {
+                        documento.correo1 = txtCorreo.Text.Trim();
+                    }
+
+                    if (txtCorreo2.Text != string.Empty)
+                    {
+                        documento.correo2 = txtCorreo2.Text.Trim();
+                    }
+                    documento.notificarCorreo = chkEnviar.Checked;
+                    frmProforma form = new frmProforma();
+                    form.recuperarTotal += respuesta;
+                    form.facturaGlobal = documento;
+                    form.ShowDialog();
+                }
+            }
+            else
+            {
+                MessageBox.Show("No hay productos o el TOTAL a cobrar es 0.", "Cobrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnBuscarProforma_Click(object sender, EventArgs e)
+        {
+            frmBusquedaProforma form = new frmBusquedaProforma();
+            form.pasarDatosEvent += datosProforma;
+            form.ShowDialog();
+        }
+        private void datosProforma(tbDocumento entity)
+        {
+            if (listaDetalleDocumento == null)
+            {
+                listaDetalleDocumento = new List<tbDetalleDocumento>();
+            }
+            listaDetalleDocumento.Clear();
+            foreach (var item in entity.tbDetalleDocumento)
+            {
+
+                item.tbDocumento = null;
+
+
+                listaDetalleDocumento.Add(item);
+            }
+            if (entity.tbClientes != null)
+            {
+                dataBuscar(entity.tbClientes);
+            }
+
+            calcularMontosT();
+            agregarProductoGrid();
         }
     }
 

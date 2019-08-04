@@ -896,6 +896,7 @@
             this.chkEnviar.TabIndex = 52;
             this.chkEnviar.Text = "Notificar Correo Electrónico";
             this.chkEnviar.UseVisualStyleBackColor = true;
+            this.chkEnviar.CheckedChanged += new System.EventHandler(this.chkEnviar_CheckedChanged);
             // 
             // label19
             // 

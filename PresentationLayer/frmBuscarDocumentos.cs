@@ -37,9 +37,12 @@ namespace PresentationLayer
             try
             {
                 IEnumerable<tbDocumento> fact=null;
-
+                if ((int)cboTipoDoc.SelectedValue == (int)Enums.TipoDocumento.Todos)
+                {
+                    fact = factIns.getListAllDocumentos();
+                }
           
-                if ((int)cboTipoDoc.SelectedValue != (int)Enums.TipoDocumento.Proforma)
+                else if ((int)cboTipoDoc.SelectedValue != (int)Enums.TipoDocumento.Proforma)
                 {
 
                     fact = factIns.getListFacturasAceptadasHacienda();
@@ -62,12 +65,15 @@ namespace PresentationLayer
 
 
 
-
-                if (cboTipoDoc.Text != string.Empty)
+                if ((int)cboTipoDoc.SelectedValue != (int)Enums.TipoDocumento.Todos)
                 {
-                    fact = fact.Where(x => x.tipoDocumento == (int)cboTipoDoc.SelectedValue);
+                    if (cboTipoDoc.Text != string.Empty)
+                    {
+                        fact = fact.Where(x => x.tipoDocumento == (int)cboTipoDoc.SelectedValue);
 
+                    }
                 }
+                
                 if (txtFactura.Text != string.Empty)
                 {
                     fact = fact.Where(x => x.id == int.Parse(txtFactura.Text.Trim()));

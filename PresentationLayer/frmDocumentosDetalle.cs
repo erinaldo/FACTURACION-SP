@@ -107,6 +107,7 @@ namespace PresentationLayer
             {
                 txtIdCliente.Text= "SIN CLIENTE";
                 txtCliente.Text = "SIN CLIENTE";
+                chkEnviar.Checked = false;
             }
             else if(_doc.tbClientes.tbPersona.tipoId == (int)Enums.TipoId.Fisica)
             {
@@ -277,7 +278,7 @@ namespace PresentationLayer
                 notaCredito.idCliente = _doc.idCliente;
                 notaCredito.reporteAceptaHacienda = false;
                 notaCredito.idEmpresa = _doc.idEmpresa;
-                notaCredito.reporteElectronic = (bool)Global.Usuario.tbEmpresa.tbParametrosEmpresa.First().facturacionElectronica;
+                notaCredito.reporteElectronic = _doc.reporteElectronic;
                 notaCredito.tipoVenta = _doc.tipoVenta;
                 notaCredito.tipoPago = _doc.tipoPago;
                 notaCredito.tipoMoneda = _doc.tipoMoneda;
@@ -433,6 +434,7 @@ namespace PresentationLayer
 
                 if (_doc != null)
                 {
+                    _doc = facturaIns.getEntity(_doc, true);
                     clsImpresionFactura imprimir = new clsImpresionFactura(_doc, Global.Usuario.tbEmpresa);
                     imprimir.print();
 

@@ -311,6 +311,7 @@
           <Property Name="rutaXMLCompras" Type="nchar" MaxLength="500" />
           <Property Name="imprimeDoc" Type="bit" />
           <Property Name="codigoActComercial" Type="nchar" MaxLength="6" Nullable="false" />
+          <Property Name="nombreImpresora" Type="nchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tbExoneraciones">
           <Key>
@@ -2247,6 +2248,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="rutaXMLCompras" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
           <Property Name="imprimeDoc" Type="Boolean" />
           <Property Name="codigoActComercial" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+          <Property Name="nombreImpresora" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="tbDocumento" Relationship="dbSisSodInaModel.FK_tbDocumento_tbEmpresa" FromRole="tbEmpresa" ToRole="tbDocumento" />
           <NavigationProperty Name="tbPersona" Relationship="dbSisSodInaModel.FK_tbEmpresa_tbPersona" FromRole="tbEmpresa" ToRole="tbPersona" />
           <NavigationProperty Name="tbParametrosEmpresa" Relationship="dbSisSodInaModel.FK_tbParametrosEmpresa_tbEmpresa" FromRole="tbEmpresa" ToRole="tbParametrosEmpresa" />
@@ -3631,6 +3633,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <EntitySetMapping Name="tbEmpresa">
             <EntityTypeMapping TypeName="dbSisSodInaModel.tbEmpresa">
               <MappingFragment StoreEntitySet="tbEmpresa">
+                <ScalarProperty Name="nombreImpresora" ColumnName="nombreImpresora" />
                 <ScalarProperty Name="codigoActComercial" ColumnName="codigoActComercial" />
                 <ScalarProperty Name="imprimeDoc" ColumnName="imprimeDoc" />
                 <ScalarProperty Name="rutaXMLCompras" ColumnName="rutaXMLCompras" />

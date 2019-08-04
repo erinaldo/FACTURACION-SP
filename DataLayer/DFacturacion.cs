@@ -395,7 +395,7 @@ namespace DataLayer
             {
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
                 {
-                    var list= (from p in context.tbDocumento.Include("tbDetalleDocumento").Include("tbClientes").Include("tbDetalleDocumento.tbProducto.tbImpuestos")
+                    var list= (from p in context.tbDocumento.Include("tbDetalleDocumento").Include("tbDetalleDocumento.tbProducto.tbImpuestos")
                             select p).ToList();
 
                     foreach (var doc in list)
@@ -654,44 +654,26 @@ namespace DataLayer
                         }
 
                     }
-
-
-
+                                       
                     if ( (bool)Global.Usuario.tbEmpresa.tbParametrosEmpresa.First().manejaInventario && entity.tipoDocumento!=(int)Enums.TipoDocumento.Proforma )
                     {
-
-
                         foreach (tbDetalleDocumento detalle in entity.tbDetalleDocumento)
                         {
-                            tbProducto producto = productoIns.GetEntityById(detalle.idProducto);
+                            tbInventario inven = new tbInventario();
+                            inven.idProducto = detalle.idProducto;
+                            inven = inventarioIns.GetEntity(inven);
                             //si guardo factura desde 0, y el estado es cancelado, actualizo el inventario
                             if (entity.tipoDocumento == (int)Enums.TipoDocumento.FacturaElectronica)
                             {
-
-
-                      
-
-                                producto.tbInventario.cantidad = producto.tbInventario.cantidad - detalle.cantidad;
-
-
-
-
-                            }
+                                      inven.cantidad = inven.cantidad - detalle.cantidad;
+   }
                             if (entity.tipoDocumento == (int)Enums.TipoDocumento.NotaCreditoElectronica || entity.tipoDocumento == (int)Enums.TipoDocumento.NotaDebitoElectronica)
                             {
-
-
-                       
-
-                                producto.tbInventario.cantidad = producto.tbInventario.cantidad + detalle.cantidad;
-
-
-
-
+                                inven.cantidad = inven.cantidad + detalle.cantidad;
 
                             }
-                            producto.tbImpuestos = null;
-                            context.Entry(producto.tbInventario).State = System.Data.Entity.EntityState.Modified;
+                 
+                            context.Entry(inven).State = System.Data.Entity.EntityState.Modified;
                         }
 
 

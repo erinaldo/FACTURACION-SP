@@ -44,6 +44,8 @@
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.tlsBtnSalir = new System.Windows.Forms.ToolStripButton();
             this.gbxDatos = new System.Windows.Forms.GroupBox();
+            this.txtActEconomica = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.chkImprimeDoc = new System.Windows.Forms.CheckBox();
             this.gbxHacienda = new System.Windows.Forms.GroupBox();
             this.btnRutaComprasXML = new System.Windows.Forms.Button();
@@ -83,8 +85,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.sp_FacturaElectronicaTableAdapter1 = new PresentationLayer.Reportes.dtReporteHaciendaTableAdapters.sp_FacturaElectronicaTableAdapter();
-            this.txtActEconomica = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
+            this.txtNombreImpresora = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.tlsMenu.SuspendLayout();
             this.gbxDatos.SuspendLayout();
             this.gbxHacienda.SuspendLayout();
@@ -217,6 +219,8 @@
             // 
             // gbxDatos
             // 
+            this.gbxDatos.Controls.Add(this.txtNombreImpresora);
+            this.gbxDatos.Controls.Add(this.label18);
             this.gbxDatos.Controls.Add(this.txtActEconomica);
             this.gbxDatos.Controls.Add(this.label14);
             this.gbxDatos.Controls.Add(this.chkImprimeDoc);
@@ -230,10 +234,27 @@
             this.gbxDatos.Controls.Add(this.label11);
             this.gbxDatos.Location = new System.Drawing.Point(14, 42);
             this.gbxDatos.Name = "gbxDatos";
-            this.gbxDatos.Size = new System.Drawing.Size(628, 723);
+            this.gbxDatos.Size = new System.Drawing.Size(628, 749);
             this.gbxDatos.TabIndex = 15;
             this.gbxDatos.TabStop = false;
             this.gbxDatos.Text = "Datos de Empresa";
+            // 
+            // txtActEconomica
+            // 
+            this.txtActEconomica.Location = new System.Drawing.Point(192, 104);
+            this.txtActEconomica.MaxLength = 6;
+            this.txtActEconomica.Name = "txtActEconomica";
+            this.txtActEconomica.Size = new System.Drawing.Size(376, 22);
+            this.txtActEconomica.TabIndex = 38;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(29, 104);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(157, 17);
+            this.label14.TabIndex = 37;
+            this.label14.Text = "Código Act. Económica:";
             // 
             // chkImprimeDoc
             // 
@@ -593,28 +614,28 @@
             // 
             this.sp_FacturaElectronicaTableAdapter1.ClearBeforeFill = true;
             // 
-            // txtActEconomica
+            // txtNombreImpresora
             // 
-            this.txtActEconomica.Location = new System.Drawing.Point(192, 104);
-            this.txtActEconomica.MaxLength = 6;
-            this.txtActEconomica.Name = "txtActEconomica";
-            this.txtActEconomica.Size = new System.Drawing.Size(376, 22);
-            this.txtActEconomica.TabIndex = 38;
+            this.txtNombreImpresora.Location = new System.Drawing.Point(187, 721);
+            this.txtNombreImpresora.MaxLength = 50;
+            this.txtNombreImpresora.Name = "txtNombreImpresora";
+            this.txtNombreImpresora.Size = new System.Drawing.Size(381, 22);
+            this.txtNombreImpresora.TabIndex = 37;
             // 
-            // label14
+            // label18
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(29, 104);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(157, 17);
-            this.label14.TabIndex = 37;
-            this.label14.Text = "Código Act. Económica:";
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(46, 724);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(129, 17);
+            this.label18.TabIndex = 36;
+            this.label18.Text = "Nombre Impresora:";
             // 
             // frmEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(663, 777);
+            this.ClientSize = new System.Drawing.Size(663, 815);
             this.Controls.Add(this.gbxDatos);
             this.Controls.Add(this.tlsMenu);
             this.Name = "frmEmpresa";
@@ -691,5 +712,7 @@
         private System.Windows.Forms.CheckBox chkImprimeDoc;
         private System.Windows.Forms.TextBox txtActEconomica;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtNombreImpresora;
+        private System.Windows.Forms.Label label18;
     }
 }

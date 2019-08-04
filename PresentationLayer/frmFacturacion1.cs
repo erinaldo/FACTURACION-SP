@@ -1064,6 +1064,10 @@ namespace PresentationLayer
         
                 documento.tbClientes = clienteGlo;
             }
+            else
+            {
+                documento.reporteElectronic = false;
+            }
 
             documento.estado = true;
 
@@ -1355,6 +1359,9 @@ namespace PresentationLayer
 
         }
 
-      
+        private void chkEnviar_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -225,6 +225,11 @@ namespace DataLayer
                     uslogin = (from us in context.tbUsuarios.Include("tbPersona").Include("tbEmpresa.tbParametrosEmpresa")
                                where us.nombreUsuario == usuario.nombreUsuario && us.contraseña == usuario.contraseña
                                select us).SingleOrDefault();
+
+
+                    uslogin.tbPersona = (from us in context.tbPersona.Include("tbBarrios.tbDistrito.tbCanton.tbProvincia")
+                                         where us.identificacion == uslogin.id && us.tipoId == uslogin.tipoId
+                                         select us).SingleOrDefault();
                 }
                 return uslogin;
             }

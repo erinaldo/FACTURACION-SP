@@ -1,4 +1,7 @@
-﻿using CommonLayer;
+﻿using BusinessLayer;
+using CommonLayer;
+using CommonLayer.Exceptions.BussinessExceptions;
+using PresentationLayer.Reportes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,11 +17,22 @@ namespace PresentationLayer
     public partial class frmDividirCuenta : Form
     {
 
+        public delegate void pasarDatos(tbDocumento documento);
+        public event pasarDatos pasarDatosPendientes;
+
+        BFacturacion facturaIns = new BFacturacion();
+
+        List<tbDetalleDocumento> detalleDocumentoParcial = new List<tbDetalleDocumento>();
+        Bcliente BCliente = new Bcliente();
+        public tbDocumento documentoTotal { get; set; }
+        tbClientes clienteGlo = null;
+        bool exoneracionClie = false;
         bool respuestaAprobaDesc = false;
         decimal porcDesc = 0;
         int tipoDoc = 1;
-        List<tbDetalleDocumento> detalleDocumentoParcial = new List<tbDetalleDocumento>();
-        public tbDocumento documentoTotal { get; set; }
+        bool existeRespuesta = false;
+        tbDocumento documentoGlo = null;
+
         public frmDividirCuenta()
         {
             InitializeComponent();
@@ -43,7 +57,7 @@ namespace PresentationLayer
             lstvTotal.Items.Clear();
             foreach (var detalle in documentoTotal.tbDetalleDocumento)
             {
-                for (int i = 0; i < detalle.cantidad; i++)
+                if (detalle.tbProducto.idMedida==(int)Enums.TipoMedida.kg)
                 {
                     ListViewItem item = new ListViewItem();
                     // Place a check mark next to the item.
@@ -53,6 +67,20 @@ namespace PresentationLayer
                     item.SubItems.Add(detalle.precio.ToString());
                     lstvTotal.Items.Add(item);
                 }
+                else
+                {
+                    for (int i = 0; i < detalle.cantidad; i++)
+                    {
+                        ListViewItem item = new ListViewItem();
+                        // Place a check mark next to the item.
+                        item.Checked = false;
+                        item.SubItems.Add(detalle.idProducto);
+                        item.SubItems.Add(detalle.tbProducto.nombre.Trim().ToUpper());
+                        item.SubItems.Add(detalle.precio.ToString());
+                        lstvTotal.Items.Add(item);
+                    }
+                }
+               
             }
         }
 
@@ -78,6 +106,10 @@ namespace PresentationLayer
                 item.SubItems.Add(detalle.tbProducto.nombre.Trim().ToUpper());
                 item.SubItems.Add(detalle.cantidad.ToString().Trim());
                 item.SubItems.Add(detalle.precio.ToString());
+                item.SubItems.Add(detalle.montoTotal.ToString());
+                item.SubItems.Add(detalle.montoTotalDesc.ToString());
+                item.SubItems.Add(detalle.montoTotalImp.ToString());
+                item.SubItems.Add(detalle.totalLinea.ToString());
                 lstvListaParcial.Items.Add(item);
 
             }
@@ -90,19 +122,26 @@ namespace PresentationLayer
                 if (e.Item.Checked)
                 {
                     string prod = e.Item.SubItems[1].Text;
-                    var detalle = documentoTotal.tbDetalleDocumento.Where(a => a.idProducto == prod.Trim()).SingleOrDefault();
-                    documentoTotal.tbDetalleDocumento.Where(b => b.idProducto == prod.Trim()).SingleOrDefault().cantidad = documentoTotal.tbDetalleDocumento.Where(c => c.idProducto == prod.Trim()).SingleOrDefault().cantidad - 1;
+
 
                     var x = detalleDocumentoParcial.Where(v => v.idProducto == prod.Trim()).SingleOrDefault();
                     if (x == null)
                     {
                         tbDetalleDocumento detalleParcial = new tbDetalleDocumento();
-                        detalleParcial.cantidad = 1;
-                        detalleParcial.idProducto = detalle.idProducto;
-                        detalleParcial.precio = detalle.precio;
+                        if (documentoTotal.tbDetalleDocumento.Where(b => b.idProducto == prod.Trim()).SingleOrDefault().tbProducto.idMedida==(int)Enums.TipoMedida.kg)
+                        {
+                            detalleParcial.cantidad = documentoTotal.tbDetalleDocumento.Where(b => b.idProducto == prod.Trim()).SingleOrDefault().cantidad;
+                        }
+                        else
+                        {
+                            detalleParcial.cantidad = 1;
+                        }
+                       
+                        detalleParcial.idProducto = documentoTotal.tbDetalleDocumento.Where(b => b.idProducto == prod.Trim()).SingleOrDefault().idProducto;
+                        detalleParcial.precio = documentoTotal.tbDetalleDocumento.Where(b => b.idProducto == prod.Trim()).SingleOrDefault().precio;
                         detalleParcial.montoTotal = detalleParcial.cantidad * detalleParcial.precio;
 
-                        detalleParcial.tbProducto = detalle.tbProducto;
+                        detalleParcial.tbProducto = documentoTotal.tbDetalleDocumento.Where(b => b.idProducto == prod.Trim()).SingleOrDefault().tbProducto;
                         detalleDocumentoParcial.Add(detalleParcial);
                     }
                     else
@@ -111,7 +150,25 @@ namespace PresentationLayer
                         detalleDocumentoParcial.Where(c => c.idProducto == prod.Trim()).SingleOrDefault().montoTotal = detalleDocumentoParcial.Where(y => y.idProducto == prod.Trim()).SingleOrDefault().cantidad *
                             detalleDocumentoParcial.Where(f => f.idProducto == prod.Trim()).SingleOrDefault().precio;
                     }
+                    if (documentoTotal.tbDetalleDocumento.Where(b => b.idProducto == prod.Trim()).SingleOrDefault().tbProducto.idMedida == (int)Enums.TipoMedida.kg)
+                    {
 
+                        documentoTotal.tbDetalleDocumento.Where(b => b.idProducto == prod.Trim()).SingleOrDefault().cantidad = 0;
+                    }
+                    else
+                    {
+                        documentoTotal.tbDetalleDocumento.Where(b => b.idProducto == prod.Trim()).SingleOrDefault().cantidad--;
+                    }
+
+             
+                    documentoTotal.tbDetalleDocumento.Where(b => b.idProducto == prod.Trim()).SingleOrDefault().montoTotal = documentoTotal.tbDetalleDocumento.Where(b => b.idProducto == prod.Trim()).SingleOrDefault().precio *
+                        documentoTotal.tbDetalleDocumento.Where(b => b.idProducto == prod.Trim()).SingleOrDefault().cantidad;
+                    var detalle = documentoTotal.tbDetalleDocumento.Where(a => a.idProducto == prod.Trim()).SingleOrDefault();
+                    if (detalle.cantidad==0)
+                    {
+                        documentoTotal.tbDetalleDocumento.Remove(detalle);
+
+                    }
 
 
                     refrescarListas();
@@ -133,21 +190,34 @@ namespace PresentationLayer
                 {
                     string prod = e.Item.SubItems[1].Text;
                     var detalle = documentoTotal.tbDetalleDocumento.Where(x => x.idProducto == prod.Trim()).SingleOrDefault();
-                    documentoTotal.tbDetalleDocumento.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().cantidad = documentoTotal.tbDetalleDocumento.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().cantidad + 1;
-
-                    detalleDocumentoParcial.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().cantidad--;
-                    detalleDocumentoParcial.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().montoTotal = detalleDocumentoParcial.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().cantidad * detalleDocumentoParcial.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().precio;
-
-                    if (detalleDocumentoParcial.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().cantidad == 0)
+                    if (detalle==null)
                     {
-                        detalleDocumentoParcial.Remove(detalleDocumentoParcial.Where(x => x.idProducto == prod.Trim()).SingleOrDefault());
+                        documentoTotal.tbDetalleDocumento.Add(detalleDocumentoParcial.Where(x => x.idProducto == prod).SingleOrDefault());
                     }
-                    detalleDocumentoParcial.Remove(detalle);
+                    else
+                    {
+                        documentoTotal.tbDetalleDocumento.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().cantidad+=decimal.Parse(e.Item.SubItems[3].Text);
+                        documentoTotal.tbDetalleDocumento.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().montoTotal = documentoTotal.tbDetalleDocumento.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().cantidad *
+                            documentoTotal.tbDetalleDocumento.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().precio;
+                    }
+                  
+
+
+
+
+                    detalleDocumentoParcial.Remove(detalleDocumentoParcial.Where(x => x.idProducto == prod).SingleOrDefault());
+                    //detalleDocumentoParcial.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().montoTotal = detalleDocumentoParcial.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().cantidad * detalleDocumentoParcial.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().precio;
+
+                    //if (detalleDocumentoParcial.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().cantidad == 0)
+                    //{
+                    //    detalleDocumentoParcial.Remove(detalleDocumentoParcial.Where(x => x.idProducto == prod.Trim()).SingleOrDefault());
+                    //}
+                    //detalleDocumentoParcial.Remove(detalle);
                     refrescarListas();
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 MessageBox.Show("Error");
@@ -173,6 +243,7 @@ namespace PresentationLayer
             {
                 linea++;
                 det.numLinea = linea;
+              
             }
             return lista;
 
@@ -184,6 +255,7 @@ namespace PresentationLayer
 
             foreach (tbDetalleDocumento detalle in lista)
             {
+                detalle.montoTotal = detalle.cantidad * detalle.precio;
                 detalle.totalLinea = (detalle.montoTotal - detalle.montoTotalDesc) + detalle.montoTotalImp;
                 total += detalle.totalLinea;
                 desc += detalle.montoTotalDesc;
@@ -385,20 +457,249 @@ namespace PresentationLayer
         {
             tipoDoc = (int)Enums.TipoDocumento.FacturaElectronica;
 
-
-
+            
             if (detalleDocumentoParcial.Count != 0 && txtTotal.Text != "0")
             {
+                if (validarCampos())
+                {
 
-
-                tbDocumento documento = crearDocumento();
-                frmCobrar form = new frmCobrar();
-                // form.recuperarTotal += respuesta;
-                form.facturaGlobal = documento;
-                form.ShowDialog();
-
+                    tbDocumento documento = crearDocumento();
+                    frmCobrar form = new frmCobrar();
+                    form.recuperarTotal += respuesta;
+                    form.facturaGlobal = documento;
+                    form.ShowDialog();
+                }
+            }
+            else
+            {
+                MessageBox.Show("No hay productos o el TOTAL a cobrar es 0.", "Cobrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void respuesta(tbDocumento doc)
+        {
+            try
+            {
+
+                if (doc != null)
+                {
+                    existeRespuesta = true;
+                    if (doc.reporteElectronic == true)
+                    {
+
+                        if (Utility.AccesoInternet())
+                        {
+
+                            BackgroundWorker tarea = new BackgroundWorker();
+                            documentoGlo = doc;
+                            tarea.DoWork += reportarFacturacionElectronica;
+                            tarea.RunWorkerAsync();
+
+                            if (doc.id != 0)
+                            {
+                                MessageBox.Show("El documento ha sido emitido correctamente, el reporte de hacienda se generará en segundo plano", "Documento creado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+                            }
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No hay acceso a internet", "Sin Internet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+                        }
+
+                    }
+                    else
+                    {
+                        if (doc.id != 0)
+                        {
+                            MessageBox.Show("El documento ha sido emitido correctamente", "Documento creado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            bool enviado = false;
+                            //se solicita respuesta, y se confecciona el correo a enviar
+                            if ((bool)doc.notificarCorreo)
+                            {
+
+                                List<string> correos = new List<string>();
+                                if (doc.correo1 != null)
+                                {
+                                    correos.Add(doc.correo1.Trim());
+
+                                }
+                                if (doc.correo2 != null)
+                                {
+                                    correos.Add(doc.correo2.Trim());
+
+                                }
+                                CorreoElectronico correo = new CorreoElectronico(doc, correos, true);
+                                enviado = correo.enviarCorreo();
+                            }
+
+                        }
+
+                    }
+                    limpiar();
+                }
+                else
+                {
+                    MessageBox.Show("El documento no se ha guardado, intente nuevamente, de lo contrario contacte con el administrador.", "Error al crear Documento", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Error en el sistema, contacte al administrador", "Error general", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void reportarFacturacionElectronica(object sender, DoWorkEventArgs e)
+        {
+            tbDocumento doc = documentoGlo;
+            try
+            {
+                //envio la factura a hacienda
+                doc = facturaIns.FacturarElectronicamente(doc);
+
+                System.Threading.Thread.Sleep(3000);
+                //consulto a hacienda el estado de la factura
+                try
+                {
+                    string mensaje = facturaIns.consultarFacturaElectronicaPorClave(doc.clave);
+                }
+                catch (Exception)
+                {
+
+                    MessageBox.Show("Error al consultar el estado del documento en Hacienda, valida el estado del documento", "Error al consultar el estado del documento", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+
+                bool enviado = false;
+                //se solicita respuesta, y se confecciona el correo a enviar
+                if ((bool)doc.notificarCorreo)
+                {
+                    List<string> correos = new List<string>();
+                    if (doc.correo1 != null)
+                    {
+                        correos.Add(doc.correo1.Trim());
+
+                    }
+                    if (doc.correo2 != null)
+                    {
+                        correos.Add(doc.correo2.Trim());
+
+                    }
+                    CorreoElectronico correo = new CorreoElectronico(doc, correos, true);
+                    enviado = correo.enviarCorreo();
+
+                }
+            }
+            catch (FacturacionElectronicaException ex)
+            {
+                MessageBox.Show("Error al realizar la facturación electronica", "Factura Electrónica", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (EnvioCorreoException ex)
+            {
+                MessageBox.Show("Error al enviar la facturación por correo electrónico", "Correo electrónico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (TokenException ex)
+            {
+                MessageBox.Show("Error al obtener el Token en Hacienda", "Facturación electrónica", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (ConsultaHaciendaExcpetion ex)
+            {
+                MessageBox.Show("Error al consultar hacienda la factura electrónica", "Facturación electrónica", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (generarXMLException ex)
+            {
+                MessageBox.Show("Error al generar el XML de la factura", "Facturación electrónica", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error general de facturación electrónica", "Facturación electrónica", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void  limpiar()
+        {
+            detalleDocumentoParcial.Clear();
+          
+            clienteGlo = null;
+            exoneracionClie = false;
+            existeRespuesta = false;
+
+            chkEnviar.Checked = false;
+            txtCorreo2.Text = string.Empty;
+
+            txtIdCliente.Text = string.Empty;
+            txtCliente.Text = string.Empty;
+     
+            txtTel.Text = string.Empty;
+            txtCorreo.Text = string.Empty;
+            txtCorreo2.Text = string.Empty;
+
+            txtSubtotal.Text = "0";
+            txtIva.Text = "0";
+            txtPorcetaje.Text = "0";
+            txtDescuento.Text = "0";
+            txtTotal.Text = "0";
+       
+            txtExoneracion.Text = "0";
+
+            lstvListaParcial.Items.Clear();
+            respuestaAprobaDesc = false;
+            porcDesc = 0;
+
+        
+        }
+
+        private bool validarCampos()
+        {
+            bool validaCliente = (bool)Global.Usuario.tbEmpresa.tbParametrosEmpresa.First().clienteObligatorioFact;
+
+            if (validaCliente || tipoDoc == (int)Enums.TipoDocumento.Proforma)
+            {
+                if (clienteGlo == null)
+                {
+                    MessageBox.Show("Debe indicar un cliente", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    btnBuscarCliente.Focus();
+                    return false;
+                }
+
+            }
+            if (chkEnviar.Checked)
+            {
+                if (txtCorreo.Text == string.Empty)
+                {
+                    MessageBox.Show("Debe Ingresar un correo electrónico", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtCorreo.Focus();
+                    return false;
+
+                }
+                if (!Utility.isValidEmail(txtCorreo.Text))
+                {
+                    MessageBox.Show("El formato del correo es incorrecto", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtCorreo.Focus();
+                    return false;
+                }
+                if (txtCorreo2.Text != string.Empty)
+                {
+                    if (!Utility.isValidEmail(txtCorreo2.Text))
+                    {
+                        MessageBox.Show("El formato del correo es incorrecto", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txtCorreo2.Focus();
+                        return false;
+                    }
+
+                }
+            }
+            return true;
+        }
+
+
         private tbDocumento crearDocumento()
         {
             tbDocumento documento = new tbDocumento();
@@ -427,24 +728,29 @@ namespace PresentationLayer
                 documento.correo2 = txtCorreo2.Text == string.Empty ? null : txtCorreo2.Text.Trim();
 
             }
-            //cliente
-            //if (clienteGlo != null)
-            //{
-            //    documento.idCliente = clienteGlo.id;
-            //    documento.tipoIdCliente = clienteGlo.tipoId;
-            //    //asigna el valor que tenga el cliente si es contribuyente o no
+            
+            if (clienteGlo != null)
+            {
+                documento.idCliente = clienteGlo.id;
+                documento.tipoIdCliente = clienteGlo.tipoId;
+                //asigna el valor que tenga el cliente si es contribuyente o no
 
-            //    documento.tbClientes = clienteGlo;
-            //}
+                documento.tbClientes = clienteGlo;
+            }
+            else
+            {
+                documento.reporteElectronic = false;
 
-            //documento.estado = true;
+            }
 
-            //foreach (tbDetalleDocumento detalle in listaDetalleDocumento)
-            //{
-            //    detalle.tbProducto = null;
-            //}
+            documento.estado = true;
 
-            //documento.tbDetalleDocumento = listaDetalleDocumento;
+            foreach (tbDetalleDocumento detalle in detalleDocumentoParcial)
+            {
+                detalle.tbProducto = null;
+            }
+
+            documento.tbDetalleDocumento = detalleDocumentoParcial;
 
             //Atributos de Auditoria
 
@@ -454,6 +760,156 @@ namespace PresentationLayer
             documento.usuario_ult_mod = Global.Usuario.nombreUsuario.Trim().ToUpper();   // Global.Usuario.nombreUsuario;
 
             return documento;
+        }
+
+        private void btnBuscarCliente_Click(object sender, EventArgs e)
+        {
+            FrmBuscar buscar = new FrmBuscar();
+            buscar.pasarDatosEvent += dataBuscarCliente;
+            buscar.ShowDialog();
+
+        }
+
+        private void dataBuscarCliente(tbClientes cliente)
+        {
+            exoneracionClie = false;
+            if (cliente != null)
+            {
+                clienteGlo = cliente;
+                if (cliente.idExonercion != null)
+                {
+                    DialogResult result = MessageBox.Show("El cliente seleccionado aplica para exoneración de impuesto, ¿Desea aplicar la exoneración de impuestos?", "Exoneración de Impuestos", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        exoneracionClie = true;
+
+                    }
+                    else
+                    {
+                        exoneracionClie = false;
+                    }
+
+                }
+                txtIdCliente.Text = cliente.id.Trim();
+                if (cliente.tipoId == 1)
+                {
+                    txtCliente.Text = cliente.tbPersona.nombre.Trim().ToUpper() + " " + cliente.tbPersona.apellido1.Trim().ToUpper() + " " + cliente.tbPersona.apellido2.Trim().ToUpper();
+
+                }
+                else
+                {
+                    txtCliente.Text = cliente.tbPersona.nombre.Trim().ToUpper();
+
+                }
+             
+                txtTel.Text = cliente.tbPersona.telefono.ToString().Trim().ToUpper();
+                txtCorreo.Text = cliente.tbPersona.correoElectronico.Trim();
+
+                
+            }
+        }
+
+        private void txtIdCliente_TextChanged(object sender, EventArgs e)
+        {
+            if (txtIdCliente.Text == string.Empty)
+            {
+                txtIdCliente.Text = string.Empty;
+                txtCliente.Text = string.Empty;
+               
+                txtTel.Text = string.Empty;
+                txtCorreo.Text = string.Empty;
+                exoneracionClie = false;
+
+                detalleDocumentoParcial= calcularMontosT(detalleDocumentoParcial);
+
+            }
+        }
+
+        private void txtIdCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                if (txtIdCliente.Text != string.Empty)
+                {
+                    try
+                    {
+                        clienteGlo = BCliente.GetClienteById(txtIdCliente.Text.Trim());
+                        if (clienteGlo != null)
+                        {
+                            dataBuscarCliente(clienteGlo);
+                        }
+                        else
+                        {
+                            MessageBox.Show($"No se encontró el Cliente con el ID: {txtIdCliente.Text.Trim()}", "Buscar Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                            clienteGlo = null;
+                            txtIdCliente.Text = string.Empty;
+                            txtCliente.Text = string.Empty;
+                          
+                            txtTel.Text = string.Empty;
+                            txtCorreo.Text = string.Empty;
+                            txtCorreo2.Text = string.Empty;
+
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        txtCliente.Text = string.Empty;
+                        MessageBox.Show("No se pudo obtener el Cliente, verifique los datos", "Buscar Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    }
+                }
+            }
+        }
+
+        private void frmDividirCuenta_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            foreach (ListViewItem item in lstvListaParcial.Items)
+            {
+
+                string prod = item.SubItems[1].Text;
+                decimal cant = decimal.Parse(item.SubItems[3].Text);
+
+                var detalle = documentoTotal.tbDetalleDocumento.Where(a => a.idProducto == prod.Trim()).SingleOrDefault();
+               
+                var x = detalleDocumentoParcial.Where(v => v.idProducto == prod.Trim()).SingleOrDefault();
+                if (detalle == null)
+                {
+                    tbDetalleDocumento detalleParcial = new tbDetalleDocumento();
+                    detalleParcial.cantidad = cant;
+                    detalleParcial.idProducto = x.idProducto;
+                    detalleParcial.precio = x.precio;
+                    detalleParcial.montoTotal = detalleParcial.cantidad * detalleParcial.precio;
+
+                    detalleParcial.tbProducto = x.tbProducto;
+                    documentoTotal.tbDetalleDocumento.Add(detalleParcial);
+                }
+                else
+                {
+                    documentoTotal.tbDetalleDocumento.Where(c => c.idProducto == prod.Trim()).SingleOrDefault().cantidad+= cant ;
+                    documentoTotal.tbDetalleDocumento.Where(c => c.idProducto == prod.Trim()).SingleOrDefault().montoTotal = detalleDocumentoParcial.Where(y => y.idProducto == prod.Trim()).SingleOrDefault().cantidad *
+                     documentoTotal.tbDetalleDocumento.Where(f => f.idProducto == prod.Trim()).SingleOrDefault().precio;
+                }
+            }
+           
+
+
+            if (lstvTotal.Items.Count==0 && lstvListaParcial.Items.Count==0)
+            {
+                
+                pasarDatosPendientes(null);
+            }
+            else
+            {
+                
+                documentoTotal.tbDetalleDocumento = calcularMontosT((List<tbDetalleDocumento>)documentoTotal.tbDetalleDocumento);
+                pasarDatosPendientes(documentoTotal);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace PresentationLayer.Reportes
     {
         string ticket = "";
         string parte1, parte2;
-        string impresora = "EPSON TM-U220 Receipt"; // nombre exacto de la impresora como esta en el panel de control
+        string impresora = Global.Usuario.tbEmpresa.nombreImpresora.Trim(); // nombre exacto de la impresora como esta en el panel de control
         int max, cort;
         public void LineasGuion()
         {
@@ -34,7 +35,7 @@ namespace PresentationLayer.Reportes
         }
         public void EncabezadoVenta()
         {
-            ticket = "Articulo        Can    P.Unit    Importe\n";   // agrega lineas de  encabezados
+            ticket = "Producto        Cant   P.Unit    Importe\n";   // agrega lineas de  encabezados
             RawPrinterHelper.SendStringToPrinter(impresora, ticket); // imprime texto
         }
         public void TextoIzquierda(string par1)                          // agrega texto a la izquierda

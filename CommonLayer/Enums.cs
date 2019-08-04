@@ -86,7 +86,8 @@ namespace CommonLayer
             NotaCreditoElectronica=3,
             TiqueteElectronico=4, 
             Proforma=5, 
-            Compras=8
+            Compras=8, 
+            Todos=0
 
         }
 

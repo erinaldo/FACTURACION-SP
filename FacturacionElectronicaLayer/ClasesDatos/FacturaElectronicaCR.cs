@@ -217,19 +217,24 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                 writer.WriteElementString("CorreoElectronico", _emisor.CorreoElectronico);
 
                 writer.WriteEndElement(); // Emisor
-                                            // '------------------------------------
-                writer.WriteStartElement("Receptor");                      // 'Receptor es similar con emisor, los datos opcionales siempre siempre siempre omitirlos.
-                       
-                writer.WriteElementString("Nombre", _receptor.Nombre);
-                writer.WriteStartElement("Identificacion");
-                // 'Los tipos de identificacion los puede ver en la tabla de datos
-                writer.WriteElementString("Tipo", _receptor.Identificacion_Tipo);
-                writer.WriteElementString("Numero", _receptor.Identificacion_Numero);
-                writer.WriteEndElement(); // 'Identificacion
+             
+                    writer.WriteStartElement("Receptor");                      // 'Receptor es similar con emisor, los datos opcionales siempre siempre siempre omitirlos.
 
-                writer.WriteElementString("CorreoElectronico", _receptor.CorreoElectronico);
-                    
-                writer.WriteEndElement(); // Receptor
+                    writer.WriteElementString("Nombre", _receptor.Nombre);
+                    writer.WriteStartElement("Identificacion");
+                    // 'Los tipos de identificacion los puede ver en la tabla de datos
+                    writer.WriteElementString("Tipo", _receptor.Identificacion_Tipo);
+                    writer.WriteElementString("Numero", _receptor.Identificacion_Numero);
+                    writer.WriteEndElement(); // 'Identificacion
+
+                    writer.WriteElementString("CorreoElectronico", _receptor.CorreoElectronico);
+
+                    writer.WriteEndElement(); // Receptor
+                                  // '------------------------------------
+                
+
+
+
                                             // 'Loa datos estan en la tabla correspondiente
                 writer.WriteElementString("CondicionVenta", _condicionVenta);
                 // '01: Contado

@@ -94,6 +94,10 @@ namespace PresentationLayer
                 txtAsuntoCorreo.Text = empresa.subjectCorreo.Trim();
                 txtCuerpoCorreo.Text = empresa.cuerpoCorreo.Trim();
                 chkImprimeDoc.Checked = (bool)empresa.imprimeDoc;
+                if (chkImprimeDoc.Checked)
+                {
+                    txtNombreImpresora.Text = empresa.nombreImpresora.Trim();
+                }
 
             }
             catch (Exception)
@@ -285,6 +289,10 @@ namespace PresentationLayer
 
 
                         empresaGlobal.imprimeDoc = chkImprimeDoc.Checked;
+                        empresaGlobal.nombreImpresora = txtNombreImpresora.Text;
+
+
+
                         try
                         {
                             if (isNuevo)
@@ -420,6 +428,14 @@ namespace PresentationLayer
                 txtCuerpoCorreo.Focus();
                 return false;
             }
+            else if (chkImprimeDoc.Checked && txtNombreImpresora.Text.Trim() == string.Empty)
+            {
+
+                MessageBox.Show("Debe indicar el nombre de la impresora.", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtNombreImpresora.Focus();
+                return false;
+            }
+
 
             return true;
 
