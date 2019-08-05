@@ -144,7 +144,8 @@ namespace CommonLayer
             inventarioGeneral = 1,
             inventarioBajo = 2,
             inventarioSobre = 3,
-            inventarioCategoria=4
+            inventarioCategoria=4,
+            reporteGeneralVenta
            
         }
 

@@ -38,15 +38,16 @@ namespace PresentationLayer
                 dsReportes ds = new dsReportes();
                 _SqlConnection.Open();
                 object Reporte = new object();
-                if (reporte == (int)Enums.reportes.inventarioCategoria)
+                if (reporte == (int)Enums.reportes.inventarioGeneral)
                 {
-                    Reporte = new rptInventarioGeneral();
+                    Reporte = new rptInventarioCategoria();
                     Reportes.dsReportesTableAdapters.sp_InventarioGeneralTableAdapter dt = new Reportes.dsReportesTableAdapters.sp_InventarioGeneralTableAdapter();
                     dt.Connection = _SqlConnection;
                     dt.Fill(ds.sp_InventarioGeneral);
 
 
                 }
+               
                 else if (reporte == (int)Enums.reportes.inventarioBajo)
                 {
 
@@ -60,17 +61,24 @@ namespace PresentationLayer
                 }
                 else if (reporte == (int)Enums.reportes.inventarioSobre)
                 {
-                    // Reporte = new rpt();
+                    Reporte = new rptInventarioSobre();
                     Reportes.dsReportesTableAdapters.sp_InventarioSobreTableAdapter dt = new Reportes.dsReportesTableAdapters.sp_InventarioSobreTableAdapter();
                     dt.Connection = _SqlConnection;
                     dt.Fill(ds.sp_InventarioSobre);
                 }
                 else if (reporte == (int)Enums.reportes.inventarioCategoria)
                 {
-                    // Reporte = new rpt();
-                    Reportes.dsReportesTableAdapters.sp_InventarioByCategoriaTableAdapter dt = new Reportes.dsReportesTableAdapters.sp_InventarioByCategoriaTableAdapter();
+                    Reporte = new rptInventarioGeneral();
+                    Reportes.dsReportesTableAdapters.sp_InventarioGeneralTableAdapter dt = new Reportes.dsReportesTableAdapters.sp_InventarioGeneralTableAdapter();
                     dt.Connection = _SqlConnection;
-                   // dt.Fill(ds.sp_InventarioByCategoria,parametro);
+                    dt.Fill(ds.sp_InventarioGeneral);
+                }
+                else if (reporte == (int)Enums.reportes.reporteGeneralVenta)
+                {
+                    Reporte = new rptVentasGeneral();
+                    Reportes.dsReportesTableAdapters.spReporteVentasGeneralTableAdapter dt = new Reportes.dsReportesTableAdapters.spReporteVentasGeneralTableAdapter();
+                    dt.Connection = _SqlConnection;
+                    dt.Fill(ds.spReporteVentasGeneral);
                 }
 
 
@@ -79,7 +87,7 @@ namespace PresentationLayer
                 crvReporte.ReportSource = Reporte;
                 crvReporte.Refresh();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 MessageBox.Show("Error al cargar el reporte.","Error reporte",MessageBoxButtons.OK,MessageBoxIcon.Error);

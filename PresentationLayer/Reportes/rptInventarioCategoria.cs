@@ -16,14 +16,14 @@ namespace PresentationLayer.Reportes {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class CrystalReport1 : ReportClass {
+    public class rptInventarioCategoria : ReportClass {
         
-        public CrystalReport1() {
+        public rptInventarioCategoria() {
         }
         
         public override string ResourceName {
             get {
-                return "CrystalReport1.rpt";
+                return "rptInventarioCategoria.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace PresentationLayer.Reportes {
         
         public override string FullResourceName {
             get {
-                return "PresentationLayer.Reportes.CrystalReport1.rpt";
+                return "PresentationLayer.Reportes.rptInventarioCategoria.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace PresentationLayer.Reportes {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedCrystalReport1 : Component, ICachedReport {
+    public class CachedrptInventarioCategoria : Component, ICachedReport {
         
-        public CachedCrystalReport1() {
+        public CachedrptInventarioCategoria() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace PresentationLayer.Reportes {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            CrystalReport1 rpt = new CrystalReport1();
+            rptInventarioCategoria rpt = new rptInventarioCategoria();
             rpt.Site = this.Site;
             return rpt;
         }

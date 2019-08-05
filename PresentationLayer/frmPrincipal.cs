@@ -329,8 +329,13 @@ namespace PresentationLayer
                 reporte = (int)Enums.reportes.inventarioCategoria;
 
             }
+            else if (((ToolStripMenuItem)sender).Name == "mnuRptGeneralVenta")
+            {
+                reporte = (int)Enums.reportes.reporteGeneralVenta;
 
- 
+            }
+
+
 
             frmReportes frm = new frmReportes(reporte);         
             frm.ShowDialog();
@@ -424,6 +429,9 @@ namespace PresentationLayer
             form.ShowDialog();
         }
 
-        
+        private void generalVentasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
