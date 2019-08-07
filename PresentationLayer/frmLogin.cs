@@ -70,12 +70,17 @@ namespace PresentationLayer
         //El numero de caja lo cargamos dinamicamente desde base de datos
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            //CargarNumCaja(); //= Global.NumeroCaja.ToString();
-            //cboNumCaja.Text = Global.NumeroCaja.ToString();
+            ingresar();
         }
 
         //Con este metodo verificamos la auteticidad de que el usuario ya existe
         private void btnEntrar_Click(object sender, EventArgs e)
+        {
+           
+            ingresar();
+        }
+
+        private void ingresar()
         {
             if (Validar())
             {
@@ -83,11 +88,11 @@ namespace PresentationLayer
                 login.nombreUsuario = txtUsuario.Text.ToString();
                 login.contraseña = txtContraseña.Text.Trim();
                 login = insBUsuario.getLoginUsuario(login);
-                
+
 
                 if (login != null)
                 {
-                    if (login.tbEmpresa.fechaCaducidad>Utility.getDate())
+                    if (login.tbEmpresa.fechaCaducidad > Utility.getDate())
                     {
                         Global.Usuario = login;
                         // Global.NumeroCaja = (int)cboNumCaja.SelectedValue;
@@ -97,13 +102,13 @@ namespace PresentationLayer
                     }
                     else
                     {
-                        MessageBox.Show("El licenciamiento del producto ha caducado, favor contactar con la empresa","Vencimiento licenciamiento",MessageBoxButtons.OK,MessageBoxIcon.Stop);
+                        MessageBox.Show("El licenciamiento del producto ha caducado, favor contactar con la empresa", "Vencimiento licenciamiento", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         cerrarFact();
                         this.Close();
 
                     }
 
-                 
+
 
                 }
                 else
@@ -129,6 +134,8 @@ namespace PresentationLayer
 
             }
         }
+
+
 
         //Limpiamos el formulario de login
         private void limpiar()

@@ -602,10 +602,10 @@
       <DependentUpon>rptInventarioSobre.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="rptVentasGeneral.cs">
+    <Compile Include="Reportes\rptVentasGeneral1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>rptVentasGeneral.rpt</DependentUpon>
+      <DependentUpon>rptVentasGeneral1.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <EmbeddedResource Include="Acerca.resx">
@@ -878,9 +878,9 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptInventarioSobre.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="rptVentasGeneral.rpt">
+    <EmbeddedResource Include="Reportes\rptVentasGeneral1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>rptVentasGeneral.cs</LastGenOutput>
+      <LastGenOutput>rptVentasGeneral1.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\BusinessLayer.BCategoriaProducto.datasource" />

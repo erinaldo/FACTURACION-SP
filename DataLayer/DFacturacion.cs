@@ -18,7 +18,7 @@ namespace DataLayer
         DInventario inventarioIns = new DInventario();
         DClientes clienteIns = new DClientes();
         DEliminarFactura detalleFacturaIns = new DEliminarFactura();
-       
+        DExoneraciones exoIns = new DExoneraciones();
 
         public int getNewID(int tipoDoc)
         {
@@ -268,6 +268,10 @@ namespace DataLayer
                         if (doc.idCliente!=null)
                         {
                             doc.tbClientes = clienteIns.GetClienteById((int)doc.tipoIdCliente, doc.idCliente);
+                            if (doc.tbClientes.idExonercion!=null)
+                            {
+                                doc.tbClientes.tbExoneraciones = exoIns.GetEntity((int)doc.tbClientes.idExonercion);
+                            }
                         }
                         foreach (var item in doc.tbDetalleDocumento)
                         {
@@ -275,7 +279,7 @@ namespace DataLayer
                             item.tbProducto.tbCategoriaProducto = cateIns.GetEntityById(item.tbProducto.id_categoria);
 
                         }
-
+                     
 
                         
 
@@ -292,6 +296,10 @@ namespace DataLayer
                         if (doc.idCliente != null)
                         {
                             doc.tbClientes = clienteIns.GetClienteById((int)doc.tipoIdCliente, doc.idCliente);
+                            if (doc.tbClientes.idExonercion != null)
+                            {
+                                doc.tbClientes.tbExoneraciones = exoIns.GetEntity((int)doc.tbClientes.idExonercion);
+                            }
                         }
 
                         return doc;

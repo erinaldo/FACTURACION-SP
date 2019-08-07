@@ -75,7 +75,7 @@ namespace PresentationLayer
                 }
                 else if (reporte == (int)Enums.reportes.reporteGeneralVenta)
                 {
-                    Reporte = new rptVentasGeneral();
+                    Reporte = new rptVentasGeneral1();
                     Reportes.dsReportesTableAdapters.spReporteVentasGeneralTableAdapter dt = new Reportes.dsReportesTableAdapters.spReporteVentasGeneralTableAdapter();
                     dt.Connection = _SqlConnection;
                     dt.Fill(ds.spReporteVentasGeneral);

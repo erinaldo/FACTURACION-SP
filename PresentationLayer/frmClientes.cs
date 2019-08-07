@@ -581,7 +581,7 @@ namespace PresentationLayer
                                 cboExoneracion.SelectedValue = clienteGlobal.idExonercion;
                                 dtpFechaEmisionExo.Value = clienteGlobal.FechaEmisionExo.Value;
                                 cliente.numeroDocumentoExo = clienteGlobal.numeroDocumentoExo.Trim();
-
+                          
 
                             }
                             else
@@ -680,7 +680,7 @@ namespace PresentationLayer
                     if (chkAplicaExo.Checked)
                     {
                         clienteGlobal.institucionExo = txtInstitucionExo.Text.ToUpper().Trim();
-                        if (cboExoneracion.SelectedText != string.Empty)
+                        if (cboExoneracion.Text != string.Empty)
                         {
                             clienteGlobal.idExonercion = (int)cboExoneracion.SelectedValue;
 

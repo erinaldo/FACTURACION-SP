@@ -1896,27 +1896,29 @@ namespace PresentationLayer.Reportes {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class spReporteVentasGeneralDataTable : global::System.Data.TypedTableBase<spReporteVentasGeneralRow> {
             
+            private global::System.Data.DataColumn columnCodigoProducto;
+            
             private global::System.Data.DataColumn _column_Factura;
             
-            private global::System.Data.DataColumn columnFecha;
+            private global::System.Data.DataColumn columnCant;
             
-            private global::System.Data.DataColumn columnnombre;
+            private global::System.Data.DataColumn columnPrecioUnitario;
             
-            private global::System.Data.DataColumn columncantidad;
+            private global::System.Data.DataColumn columnImporte;
             
-            private global::System.Data.DataColumn columnmontoTotal;
+            private global::System.Data.DataColumn columnDescuento;
             
-            private global::System.Data.DataColumn columnmontoTotalDesc;
+            private global::System.Data.DataColumn columnImpuestos;
             
-            private global::System.Data.DataColumn columnmontoTotalImp;
+            private global::System.Data.DataColumn columnExonerado;
             
-            private global::System.Data.DataColumn columnmontoTotalExo;
+            private global::System.Data.DataColumn columnTotalLinea;
             
-            private global::System.Data.DataColumn columntotalLinea;
-            
-            private global::System.Data.DataColumn columnTipoPago;
+            private global::System.Data.DataColumn columnProducto;
             
             private global::System.Data.DataColumn columnTipoVenta;
+            
+            private global::System.Data.DataColumn columnTipoPago;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
@@ -1953,6 +1955,14 @@ namespace PresentationLayer.Reportes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn CodigoProductoColumn {
+                get {
+                    return this.columnCodigoProducto;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public global::System.Data.DataColumn @__FacturaColumn {
                 get {
                     return this._column_Factura;
@@ -1961,73 +1971,65 @@ namespace PresentationLayer.Reportes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn FechaColumn {
+            public global::System.Data.DataColumn CantColumn {
                 get {
-                    return this.columnFecha;
+                    return this.columnCant;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn nombreColumn {
+            public global::System.Data.DataColumn PrecioUnitarioColumn {
                 get {
-                    return this.columnnombre;
+                    return this.columnPrecioUnitario;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn cantidadColumn {
+            public global::System.Data.DataColumn ImporteColumn {
                 get {
-                    return this.columncantidad;
+                    return this.columnImporte;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn montoTotalColumn {
+            public global::System.Data.DataColumn DescuentoColumn {
                 get {
-                    return this.columnmontoTotal;
+                    return this.columnDescuento;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn montoTotalDescColumn {
+            public global::System.Data.DataColumn ImpuestosColumn {
                 get {
-                    return this.columnmontoTotalDesc;
+                    return this.columnImpuestos;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn montoTotalImpColumn {
+            public global::System.Data.DataColumn ExoneradoColumn {
                 get {
-                    return this.columnmontoTotalImp;
+                    return this.columnExonerado;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn montoTotalExoColumn {
+            public global::System.Data.DataColumn TotalLineaColumn {
                 get {
-                    return this.columnmontoTotalExo;
+                    return this.columnTotalLinea;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn totalLineaColumn {
+            public global::System.Data.DataColumn ProductoColumn {
                 get {
-                    return this.columntotalLinea;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn TipoPagoColumn {
-                get {
-                    return this.columnTipoPago;
+                    return this.columnProducto;
                 }
             }
             
@@ -2036,6 +2038,14 @@ namespace PresentationLayer.Reportes {
             public global::System.Data.DataColumn TipoVentaColumn {
                 get {
                     return this.columnTipoVenta;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn TipoPagoColumn {
+                get {
+                    return this.columnTipoPago;
                 }
             }
             
@@ -2076,20 +2086,21 @@ namespace PresentationLayer.Reportes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public spReporteVentasGeneralRow AddspReporteVentasGeneralRow(int @__Factura, System.DateTime Fecha, string nombre, decimal cantidad, decimal montoTotal, decimal montoTotalDesc, decimal montoTotalImp, decimal montoTotalExo, decimal totalLinea, string TipoPago, string TipoVenta) {
+            public spReporteVentasGeneralRow AddspReporteVentasGeneralRow(string CodigoProducto, int @__Factura, decimal Cant, decimal PrecioUnitario, decimal Importe, decimal Descuento, decimal Impuestos, decimal Exonerado, decimal TotalLinea, string Producto, string TipoVenta, string TipoPago) {
                 spReporteVentasGeneralRow rowspReporteVentasGeneralRow = ((spReporteVentasGeneralRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        CodigoProducto,
                         @__Factura,
-                        Fecha,
-                        nombre,
-                        cantidad,
-                        montoTotal,
-                        montoTotalDesc,
-                        montoTotalImp,
-                        montoTotalExo,
-                        totalLinea,
-                        TipoPago,
-                        TipoVenta};
+                        Cant,
+                        PrecioUnitario,
+                        Importe,
+                        Descuento,
+                        Impuestos,
+                        Exonerado,
+                        TotalLinea,
+                        Producto,
+                        TipoVenta,
+                        TipoPago};
                 rowspReporteVentasGeneralRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowspReporteVentasGeneralRow);
                 return rowspReporteVentasGeneralRow;
@@ -2112,59 +2123,64 @@ namespace PresentationLayer.Reportes {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal void InitVars() {
+                this.columnCodigoProducto = base.Columns["CodigoProducto"];
                 this._column_Factura = base.Columns["#Factura"];
-                this.columnFecha = base.Columns["Fecha"];
-                this.columnnombre = base.Columns["nombre"];
-                this.columncantidad = base.Columns["cantidad"];
-                this.columnmontoTotal = base.Columns["montoTotal"];
-                this.columnmontoTotalDesc = base.Columns["montoTotalDesc"];
-                this.columnmontoTotalImp = base.Columns["montoTotalImp"];
-                this.columnmontoTotalExo = base.Columns["montoTotalExo"];
-                this.columntotalLinea = base.Columns["totalLinea"];
-                this.columnTipoPago = base.Columns["TipoPago"];
+                this.columnCant = base.Columns["Cant"];
+                this.columnPrecioUnitario = base.Columns["PrecioUnitario"];
+                this.columnImporte = base.Columns["Importe"];
+                this.columnDescuento = base.Columns["Descuento"];
+                this.columnImpuestos = base.Columns["Impuestos"];
+                this.columnExonerado = base.Columns["Exonerado"];
+                this.columnTotalLinea = base.Columns["TotalLinea"];
+                this.columnProducto = base.Columns["Producto"];
                 this.columnTipoVenta = base.Columns["TipoVenta"];
+                this.columnTipoPago = base.Columns["TipoPago"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             private void InitClass() {
+                this.columnCodigoProducto = new global::System.Data.DataColumn("CodigoProducto", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCodigoProducto);
                 this._column_Factura = new global::System.Data.DataColumn("#Factura", typeof(int), null, global::System.Data.MappingType.Element);
                 this._column_Factura.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "_column_Factura");
                 this._column_Factura.ExtendedProperties.Add("Generator_UserColumnName", "#Factura");
                 base.Columns.Add(this._column_Factura);
-                this.columnFecha = new global::System.Data.DataColumn("Fecha", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnFecha);
-                this.columnnombre = new global::System.Data.DataColumn("nombre", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnnombre);
-                this.columncantidad = new global::System.Data.DataColumn("cantidad", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncantidad);
-                this.columnmontoTotal = new global::System.Data.DataColumn("montoTotal", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmontoTotal);
-                this.columnmontoTotalDesc = new global::System.Data.DataColumn("montoTotalDesc", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmontoTotalDesc);
-                this.columnmontoTotalImp = new global::System.Data.DataColumn("montoTotalImp", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmontoTotalImp);
-                this.columnmontoTotalExo = new global::System.Data.DataColumn("montoTotalExo", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmontoTotalExo);
-                this.columntotalLinea = new global::System.Data.DataColumn("totalLinea", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columntotalLinea);
-                this.columnTipoPago = new global::System.Data.DataColumn("TipoPago", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTipoPago);
+                this.columnCant = new global::System.Data.DataColumn("Cant", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCant);
+                this.columnPrecioUnitario = new global::System.Data.DataColumn("PrecioUnitario", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPrecioUnitario);
+                this.columnImporte = new global::System.Data.DataColumn("Importe", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnImporte);
+                this.columnDescuento = new global::System.Data.DataColumn("Descuento", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDescuento);
+                this.columnImpuestos = new global::System.Data.DataColumn("Impuestos", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnImpuestos);
+                this.columnExonerado = new global::System.Data.DataColumn("Exonerado", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnExonerado);
+                this.columnTotalLinea = new global::System.Data.DataColumn("TotalLinea", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTotalLinea);
+                this.columnProducto = new global::System.Data.DataColumn("Producto", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnProducto);
                 this.columnTipoVenta = new global::System.Data.DataColumn("TipoVenta", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTipoVenta);
+                this.columnTipoPago = new global::System.Data.DataColumn("TipoPago", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTipoPago);
+                this.columnCodigoProducto.AllowDBNull = false;
+                this.columnCodigoProducto.MaxLength = 50;
                 this._column_Factura.AllowDBNull = false;
-                this.columnFecha.AllowDBNull = false;
-                this.columnnombre.AllowDBNull = false;
-                this.columnnombre.MaxLength = 160;
-                this.columncantidad.AllowDBNull = false;
-                this.columnmontoTotal.AllowDBNull = false;
-                this.columnmontoTotalDesc.AllowDBNull = false;
-                this.columnmontoTotalImp.AllowDBNull = false;
-                this.columnmontoTotalExo.AllowDBNull = false;
-                this.columntotalLinea.AllowDBNull = false;
+                this.columnCant.AllowDBNull = false;
+                this.columnPrecioUnitario.AllowDBNull = false;
+                this.columnImporte.AllowDBNull = false;
+                this.columnDescuento.AllowDBNull = false;
+                this.columnImpuestos.AllowDBNull = false;
+                this.columnExonerado.AllowDBNull = false;
+                this.columnTotalLinea.AllowDBNull = false;
+                this.columnProducto.AllowDBNull = false;
+                this.columnProducto.MaxLength = 160;
+                this.columnTipoVenta.MaxLength = 30;
                 this.columnTipoPago.AllowDBNull = false;
                 this.columnTipoPago.MaxLength = 30;
-                this.columnTipoVenta.MaxLength = 30;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2868,6 +2884,17 @@ namespace PresentationLayer.Reportes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string CodigoProducto {
+                get {
+                    return ((string)(this[this.tablespReporteVentasGeneral.CodigoProductoColumn]));
+                }
+                set {
+                    this[this.tablespReporteVentasGeneral.CodigoProductoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public int @__Factura {
                 get {
                     return ((int)(this[this.tablespReporteVentasGeneral.@__FacturaColumn]));
@@ -2879,100 +2906,89 @@ namespace PresentationLayer.Reportes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public System.DateTime Fecha {
+            public decimal Cant {
                 get {
-                    return ((global::System.DateTime)(this[this.tablespReporteVentasGeneral.FechaColumn]));
+                    return ((decimal)(this[this.tablespReporteVentasGeneral.CantColumn]));
                 }
                 set {
-                    this[this.tablespReporteVentasGeneral.FechaColumn] = value;
+                    this[this.tablespReporteVentasGeneral.CantColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string nombre {
+            public decimal PrecioUnitario {
                 get {
-                    return ((string)(this[this.tablespReporteVentasGeneral.nombreColumn]));
+                    return ((decimal)(this[this.tablespReporteVentasGeneral.PrecioUnitarioColumn]));
                 }
                 set {
-                    this[this.tablespReporteVentasGeneral.nombreColumn] = value;
+                    this[this.tablespReporteVentasGeneral.PrecioUnitarioColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public decimal cantidad {
+            public decimal Importe {
                 get {
-                    return ((decimal)(this[this.tablespReporteVentasGeneral.cantidadColumn]));
+                    return ((decimal)(this[this.tablespReporteVentasGeneral.ImporteColumn]));
                 }
                 set {
-                    this[this.tablespReporteVentasGeneral.cantidadColumn] = value;
+                    this[this.tablespReporteVentasGeneral.ImporteColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public decimal montoTotal {
+            public decimal Descuento {
                 get {
-                    return ((decimal)(this[this.tablespReporteVentasGeneral.montoTotalColumn]));
+                    return ((decimal)(this[this.tablespReporteVentasGeneral.DescuentoColumn]));
                 }
                 set {
-                    this[this.tablespReporteVentasGeneral.montoTotalColumn] = value;
+                    this[this.tablespReporteVentasGeneral.DescuentoColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public decimal montoTotalDesc {
+            public decimal Impuestos {
                 get {
-                    return ((decimal)(this[this.tablespReporteVentasGeneral.montoTotalDescColumn]));
+                    return ((decimal)(this[this.tablespReporteVentasGeneral.ImpuestosColumn]));
                 }
                 set {
-                    this[this.tablespReporteVentasGeneral.montoTotalDescColumn] = value;
+                    this[this.tablespReporteVentasGeneral.ImpuestosColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public decimal montoTotalImp {
+            public decimal Exonerado {
                 get {
-                    return ((decimal)(this[this.tablespReporteVentasGeneral.montoTotalImpColumn]));
+                    return ((decimal)(this[this.tablespReporteVentasGeneral.ExoneradoColumn]));
                 }
                 set {
-                    this[this.tablespReporteVentasGeneral.montoTotalImpColumn] = value;
+                    this[this.tablespReporteVentasGeneral.ExoneradoColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public decimal montoTotalExo {
+            public decimal TotalLinea {
                 get {
-                    return ((decimal)(this[this.tablespReporteVentasGeneral.montoTotalExoColumn]));
+                    return ((decimal)(this[this.tablespReporteVentasGeneral.TotalLineaColumn]));
                 }
                 set {
-                    this[this.tablespReporteVentasGeneral.montoTotalExoColumn] = value;
+                    this[this.tablespReporteVentasGeneral.TotalLineaColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public decimal totalLinea {
+            public string Producto {
                 get {
-                    return ((decimal)(this[this.tablespReporteVentasGeneral.totalLineaColumn]));
+                    return ((string)(this[this.tablespReporteVentasGeneral.ProductoColumn]));
                 }
                 set {
-                    this[this.tablespReporteVentasGeneral.totalLineaColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string TipoPago {
-                get {
-                    return ((string)(this[this.tablespReporteVentasGeneral.TipoPagoColumn]));
-                }
-                set {
-                    this[this.tablespReporteVentasGeneral.TipoPagoColumn] = value;
+                    this[this.tablespReporteVentasGeneral.ProductoColumn] = value;
                 }
             }
             
@@ -2990,6 +3006,17 @@ namespace PresentationLayer.Reportes {
                 }
                 set {
                     this[this.tablespReporteVentasGeneral.TipoVentaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string TipoPago {
+                get {
+                    return ((string)(this[this.tablespReporteVentasGeneral.TipoPagoColumn]));
+                }
+                set {
+                    this[this.tablespReporteVentasGeneral.TipoPagoColumn] = value;
                 }
             }
             
@@ -3316,7 +3343,7 @@ namespace PresentationLayer.Reportes.dsReportesTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::PresentationLayer.Properties.Settings.Default.dbSISSODINAConnectionString1;
+            this._connection.ConnectionString = global::PresentationLayer.Properties.Settings.Default.dbSISSODINAConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3491,7 +3518,7 @@ namespace PresentationLayer.Reportes.dsReportesTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::PresentationLayer.Properties.Settings.Default.dbSISSODINAConnectionString1;
+            this._connection.ConnectionString = global::PresentationLayer.Properties.Settings.Default.dbSISSODINAConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3666,7 +3693,7 @@ namespace PresentationLayer.Reportes.dsReportesTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::PresentationLayer.Properties.Settings.Default.dbSISSODINAConnectionString1;
+            this._connection.ConnectionString = global::PresentationLayer.Properties.Settings.Default.dbSISSODINAConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3842,7 +3869,7 @@ namespace PresentationLayer.Reportes.dsReportesTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::PresentationLayer.Properties.Settings.Default.dbSISSODINAConnectionString1;
+            this._connection.ConnectionString = global::PresentationLayer.Properties.Settings.Default.dbSISSODINAConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4015,17 +4042,18 @@ namespace PresentationLayer.Reportes.dsReportesTableAdapters {
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "spReporteVentasGeneral";
+            tableMapping.ColumnMappings.Add("CodigoProducto", "CodigoProducto");
             tableMapping.ColumnMappings.Add("#Factura", "#Factura");
-            tableMapping.ColumnMappings.Add("Fecha", "Fecha");
-            tableMapping.ColumnMappings.Add("nombre", "nombre");
-            tableMapping.ColumnMappings.Add("cantidad", "cantidad");
-            tableMapping.ColumnMappings.Add("montoTotal", "montoTotal");
-            tableMapping.ColumnMappings.Add("montoTotalDesc", "montoTotalDesc");
-            tableMapping.ColumnMappings.Add("montoTotalImp", "montoTotalImp");
-            tableMapping.ColumnMappings.Add("montoTotalExo", "montoTotalExo");
-            tableMapping.ColumnMappings.Add("totalLinea", "totalLinea");
-            tableMapping.ColumnMappings.Add("TipoPago", "TipoPago");
+            tableMapping.ColumnMappings.Add("Cant", "Cant");
+            tableMapping.ColumnMappings.Add("PrecioUnitario", "PrecioUnitario");
+            tableMapping.ColumnMappings.Add("Importe", "Importe");
+            tableMapping.ColumnMappings.Add("Descuento", "Descuento");
+            tableMapping.ColumnMappings.Add("Impuestos", "Impuestos");
+            tableMapping.ColumnMappings.Add("Exonerado", "Exonerado");
+            tableMapping.ColumnMappings.Add("TotalLinea", "TotalLinea");
+            tableMapping.ColumnMappings.Add("Producto", "Producto");
             tableMapping.ColumnMappings.Add("TipoVenta", "TipoVenta");
+            tableMapping.ColumnMappings.Add("TipoPago", "TipoPago");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -4033,7 +4061,7 @@ namespace PresentationLayer.Reportes.dsReportesTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::PresentationLayer.Properties.Settings.Default.dbSISSODINAConnectionString1;
+            this._connection.ConnectionString = global::PresentationLayer.Properties.Settings.Default.dbSISSODINAConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

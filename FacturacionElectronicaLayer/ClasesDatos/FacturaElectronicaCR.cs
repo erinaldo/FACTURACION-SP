@@ -296,8 +296,7 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                     }
                     writer.WriteElementString("SubTotal", String.Format("{0:N3}", (detalle.montoTotal - detalle.montoTotalDesc).ToString().Trim()));
                    
-                    if (detalle.montoTotalImp != 0)
-                    {
+                  
 
                         writer.WriteStartElement("Impuesto");
                         writer.WriteElementString("Codigo", detalle.tbProducto.tbImpuestos.id.ToString().PadLeft(2, '0'));// impueto aplicado codigo
@@ -309,11 +308,11 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                         {
                             writer.WriteStartElement("Exoneracion");
                             writer.WriteElementString("TipoDocuento", _receptor.tipoExoneracion.PadLeft(2, '0'));// impueto aplicado codigo
-                            writer.WriteElementString("NumeroDocumento", _receptor.institucionExo);// impueto aplicado codigo
+                            writer.WriteElementString("NumeroDocumento", _receptor.institucionExo.Trim());// impueto aplicado codigo
 
-                            writer.WriteElementString("NombreInstitucion",_receptor.institucionExo);// impueto aplicado codigo
+                            writer.WriteElementString("NombreInstitucion",_receptor.institucionExo.Trim());// impueto aplicado codigo
                             writer.WriteElementString("FechaEmision", _receptor.fechaEmisionExo.ToString("yyyy-MM-ddTHH:mm:sszzz"));// impueto aplicado codigo
-                            writer.WriteElementString("PorcentajeExoneracion", _receptor.valorExo.ToString());// impueto aplicado codigo
+                            writer.WriteElementString("PorcentajeExoneracion","100");// impueto aplicado codigo
 
                             writer.WriteElementString("MontoExoneracion", String.Format("{0:N3}", detalle.montoTotalExo.ToString().Trim()));// impueto aplicado codigo
 
@@ -322,7 +321,7 @@ namespace FacturacionElectronicaLayer.ClasesDatos
 
                         writer.WriteEndElement(); // Impuesto
                         writer.WriteElementString("ImpuestoNeto", String.Format("{0:N3}", (detalle.montoTotalImp).ToString().Trim()));
-                    }      
+                     
 
                     writer.WriteElementString("MontoTotalLinea", String.Format("{0:N3}", detalle.totalLinea.ToString().Trim()));
                     writer.WriteEndElement(); // LineaDetalle

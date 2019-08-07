@@ -28,7 +28,7 @@ namespace PresentationLayer.Properties {
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source==localhost\\SQLEXPRESS;Initial Catalog=dbSISSODINA;User ID=sa;Password=" +
             "crpp")]
-        public string dbSISSODINAConnectionString1
+        public string dbSISSODINAConnectionString
         {
             get {
                 return ((string)(this["dbSisSodInaConnectionString"]));

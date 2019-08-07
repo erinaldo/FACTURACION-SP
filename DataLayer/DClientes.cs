@@ -15,6 +15,7 @@ namespace DataLayer
     {// LLAMA A LAS INTERFACES Y SE CREAN LOS METODOS CON LOS MISMOS PARAMETROS QUE FUERON DECLARADOS...
 
         DPersona persona = new DPersona();
+        DExoneraciones impExo = new DExoneraciones();
         public tbClientes GetEntity(tbClientes clientes)
         {
             tbClientes cliente;
@@ -150,8 +151,8 @@ catch (Exception EX)
 
         public List<tbClientes> GetListEntities(int estado)
         {
-            
 
+            List<tbClientes> list = new List<tbClientes>();
                 try
                 {
                 // SE AGREGA EL USING
@@ -159,27 +160,36 @@ catch (Exception EX)
                     if (estado == (int)Enums.EstadoBusqueda.Activo)
                     {
                         //PARA JALAR LOS DATOS DE LAS TABLAS RELACIONADAS SE USA LA PALABRA RESERVADA INCLUDE....Y ENTRE("")EL NOMBRE DE LAS TABLAS RELACIONADAS.
-                        return (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbDocumento.tbDetalleDocumento")
-                                //.Include("tbDocumento.tbAbonos")
+                        list = (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbDocumento.tbDetalleDocumento")                          
                                 where p.estado == true
                                 select p).ToList();
+                      
+
+
 
                     }
                     else if (estado == (int)Enums.EstadoBusqueda.Inactivos)
                     {
-                        return (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbDocumento.tbDetalleDocumento")
-                                //.Include("tbDocumento.tbAbonos")
+                        list = (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbDocumento.tbDetalleDocumento").Include("tbImpuestos")
+                                  
                                 where p.estado == false
                                 select p).ToList();
                     }
                     else
                     {
-                        return (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbDocumento.tbDetalleDocumento")
-                                //.Include("tbDocumento.tbAbonos")
+                        list = (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbDocumento.tbDetalleDocumento").Include("tbImpuestos")                                 
                                 select p).ToList();
                     }
 
+                    foreach (var item in list)
+                    {
+                        if (item.idExonercion!=null)
+                        {
+                            item.tbExoneraciones = impExo.GetEntity((int)item.idExonercion);
+                        }
+                    }
 
+                return list;
                 }
                 catch (Exception ex)
                 {

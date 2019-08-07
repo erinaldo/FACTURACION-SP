@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PresentationLayer {
+namespace PresentationLayer.Reportes {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
@@ -16,14 +16,14 @@ namespace PresentationLayer {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class rptVentasGeneral : ReportClass {
+    public class rptVentasGeneral1 : ReportClass {
         
-        public rptVentasGeneral() {
+        public rptVentasGeneral1() {
         }
         
         public override string ResourceName {
             get {
-                return "rptVentasGeneral.rpt";
+                return "rptVentasGeneral1.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace PresentationLayer {
         
         public override string FullResourceName {
             get {
-                return "PresentationLayer.rptVentasGeneral.rpt";
+                return "PresentationLayer.Reportes.rptVentasGeneral1.rpt";
             }
             set {
                 // Do nothing
@@ -66,7 +66,7 @@ namespace PresentationLayer {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupHeaderSection1 {
             get {
                 return this.ReportDefinition.Sections[2];
             }
@@ -74,7 +74,7 @@ namespace PresentationLayer {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
             get {
                 return this.ReportDefinition.Sections[3];
             }
@@ -82,17 +82,33 @@ namespace PresentationLayer {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection1 {
             get {
                 return this.ReportDefinition.Sections[4];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
+            get {
+                return this.ReportDefinition.Sections[5];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
+            get {
+                return this.ReportDefinition.Sections[6];
             }
         }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedrptVentasGeneral : Component, ICachedReport {
+    public class CachedrptVentasGeneral1 : Component, ICachedReport {
         
-        public CachedrptVentasGeneral() {
+        public CachedrptVentasGeneral1() {
         }
         
         [Browsable(false)]
@@ -129,7 +145,7 @@ namespace PresentationLayer {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            rptVentasGeneral rpt = new rptVentasGeneral();
+            rptVentasGeneral1 rpt = new rptVentasGeneral1();
             rpt.Site = this.Site;
             return rpt;
         }
