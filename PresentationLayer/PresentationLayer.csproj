@@ -195,6 +195,12 @@
     <Compile Include="frmFacturasInfo.Designer.cs">
       <DependentUpon>frmFacturasInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmFechaInicoFin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFechaInicoFin.Designer.cs">
+      <DependentUpon>frmFechaInicoFin.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMensajesHacienda.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -602,10 +608,16 @@
       <DependentUpon>rptInventarioSobre.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reportes\rptVentasGeneral1.cs">
+    <Compile Include="Reportes\rptVentasFechasInicioFin.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>rptVentasGeneral1.rpt</DependentUpon>
+      <DependentUpon>rptVentasFechasInicioFin.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\rptVentasGeneral.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptVentasGeneral.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <EmbeddedResource Include="Acerca.resx">
@@ -747,6 +759,9 @@
     <EmbeddedResource Include="frmFacturasInfo.resx">
       <DependentUpon>frmFacturasInfo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmFechaInicoFin.resx">
+      <DependentUpon>frmFechaInicoFin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmIngredientes.resx">
       <DependentUpon>frmIngredientes.cs</DependentUpon>
     </EmbeddedResource>
@@ -878,9 +893,13 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptInventarioSobre.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reportes\rptVentasGeneral1.rpt">
+    <EmbeddedResource Include="Reportes\rptVentasFechasInicioFin.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>rptVentasGeneral1.cs</LastGenOutput>
+      <LastGenOutput>rptVentasFechasInicioFin.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\rptVentasGeneral.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptVentasGeneral.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\BusinessLayer.BCategoriaProducto.datasource" />

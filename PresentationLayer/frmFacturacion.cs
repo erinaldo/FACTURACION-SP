@@ -194,13 +194,9 @@ namespace PresentationLayer
                 int x = 0;
 
                 foreach (tbProducto pro in listaProductos)
-                {
-
-
+                {                    
                     if (pro.id_categoria == idCategoria)
                     {
-
-
 
                         btn = new Button();
                         btn.Name = "pro" + pro.idProducto.ToString();
@@ -213,18 +209,13 @@ namespace PresentationLayer
                         btn.TextAlign = ContentAlignment.MiddleCenter;
                         if (File.Exists(pro.foto))
                         {
-
-
                             Image imagen = new Bitmap(pro.foto);
                             Image final = new Bitmap(imagen,90 , 70);
-
                             btn.Image = final;
                             btn.ImageAlign = ContentAlignment.TopCenter;
-
                         }
 
                         btn.Click += new System.EventHandler(agregarProductoFacturacion);
-
                         gbxProductos.Controls.Add(btn);
                         x++;
 
@@ -232,15 +223,9 @@ namespace PresentationLayer
                         {
                             x = 0;
                             y++;
-
-                        }
-
-                        
+                        }                        
                     }
-
-
-                }
-                
+                }               
 
             }
             else
@@ -303,7 +288,7 @@ namespace PresentationLayer
 
             foreach (tbDetalleDocumento detalle in listaDetalleDocumento)
             {
-                detalle.totalLinea = (detalle.montoTotal - detalle.montoTotalDesc) + detalle.montoTotalImp;
+                detalle.totalLinea = (detalle.montoTotal - detalle.montoTotalDesc) + detalle.montoTotalImp-detalle.montoTotalExo;
                 total += detalle.totalLinea;
                 desc += detalle.montoTotalDesc;
                 iva += detalle.montoTotalImp;
@@ -358,19 +343,15 @@ namespace PresentationLayer
                 //sino es excento el producto
                 if (!detalle.tbProducto.esExento)
                 {
+                    detalle.montoTotalExo = 0;
                     //aplica exoneracion al cliente
                     if (exoneracionClie)
                     {
                         detalle.montoTotalExo = (detalle.montoTotal - detalle.montoTotalDesc) * (((decimal)detalle.tbProducto.tbImpuestos.valor) / 100);
-                        detalle.montoTotalImp = 0;
+                      
                     }
-                    else
-                    {
-                        //aplica el impuesto
-                        detalle.montoTotalExo = 0;
-                        detalle.montoTotalImp = (detalle.montoTotal - detalle.montoTotalDesc) * (((decimal)detalle.tbProducto.tbImpuestos.valor) / 100);
-                    }
-
+                    
+                    detalle.montoTotalImp = (detalle.montoTotal - detalle.montoTotalDesc) * (((decimal)detalle.tbProducto.tbImpuestos.valor) / 100);
                 }
                 else
                 {//no aplica impuesto ya que el producto es excento.

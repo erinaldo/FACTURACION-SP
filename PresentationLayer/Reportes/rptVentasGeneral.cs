@@ -16,14 +16,14 @@ namespace PresentationLayer.Reportes {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class rptVentasGeneral1 : ReportClass {
+    public class rptVentasGeneral : ReportClass {
         
-        public rptVentasGeneral1() {
+        public rptVentasGeneral() {
         }
         
         public override string ResourceName {
             get {
-                return "rptVentasGeneral1.rpt";
+                return "rptVentasGeneral.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace PresentationLayer.Reportes {
         
         public override string FullResourceName {
             get {
-                return "PresentationLayer.Reportes.rptVentasGeneral1.rpt";
+                return "PresentationLayer.Reportes.rptVentasGeneral.rpt";
             }
             set {
                 // Do nothing
@@ -106,9 +106,9 @@ namespace PresentationLayer.Reportes {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedrptVentasGeneral1 : Component, ICachedReport {
+    public class CachedrptVentasGeneral : Component, ICachedReport {
         
-        public CachedrptVentasGeneral1() {
+        public CachedrptVentasGeneral() {
         }
         
         [Browsable(false)]
@@ -145,7 +145,7 @@ namespace PresentationLayer.Reportes {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            rptVentasGeneral1 rpt = new rptVentasGeneral1();
+            rptVentasGeneral rpt = new rptVentasGeneral();
             rpt.Site = this.Site;
             return rpt;
         }

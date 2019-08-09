@@ -37,7 +37,7 @@ namespace PresentationLayer
         private void cargarLista()
         {
 
-            listaCategoriaProducto = CatProductIns.getCategorias(3);
+            listaCategoriaProducto = CatProductIns.getCategorias(1);
             foreach (tbCategoriaProducto p in listaCategoriaProducto)
             {
                     

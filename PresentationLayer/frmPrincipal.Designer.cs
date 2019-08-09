@@ -74,6 +74,8 @@
             this.mnuInventarioBajo = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuInventarioSobre = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuGeneralByCat = new System.Windows.Forms.ToolStripMenuItem();
+            this.ventasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuRptGeneralVenta = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAcercaDe = new System.Windows.Forms.ToolStripMenuItem();
             this.btnConsultaHac = new System.Windows.Forms.Button();
             this.btnDocEmitidos = new System.Windows.Forms.Button();
@@ -85,8 +87,7 @@
             this.btnMensajesCompras = new System.Windows.Forms.Button();
             this.btnConsultaMensajeHacienda = new System.Windows.Forms.Button();
             this.btnValidarCompras = new System.Windows.Forms.Button();
-            this.ventasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuRptGeneralVenta = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuReporteFechaIncioFin = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -102,8 +103,8 @@
             this.mnuAcercaDe});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1611, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1289, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -117,7 +118,7 @@
             this.mnuCambiarContrasena,
             this.mnuSalir});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
-            this.archivoToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
+            this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.archivoToolStripMenuItem.Text = "Archivo";
             // 
             // mnuSeguridad
@@ -127,39 +128,39 @@
             this.mnuRoles,
             this.mnuPermisos});
             this.mnuSeguridad.Name = "mnuSeguridad";
-            this.mnuSeguridad.Size = new System.Drawing.Size(224, 26);
+            this.mnuSeguridad.Size = new System.Drawing.Size(187, 22);
             this.mnuSeguridad.Text = "Seguridad";
             // 
             // mnuUsuarios
             // 
             this.mnuUsuarios.Name = "mnuUsuarios";
-            this.mnuUsuarios.Size = new System.Drawing.Size(142, 26);
+            this.mnuUsuarios.Size = new System.Drawing.Size(122, 22);
             this.mnuUsuarios.Text = "Usuarios";
             this.mnuUsuarios.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuRoles
             // 
             this.mnuRoles.Name = "mnuRoles";
-            this.mnuRoles.Size = new System.Drawing.Size(142, 26);
+            this.mnuRoles.Size = new System.Drawing.Size(122, 22);
             this.mnuRoles.Text = "Roles";
             this.mnuRoles.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuPermisos
             // 
             this.mnuPermisos.Name = "mnuPermisos";
-            this.mnuPermisos.Size = new System.Drawing.Size(142, 26);
+            this.mnuPermisos.Size = new System.Drawing.Size(122, 22);
             this.mnuPermisos.Text = "Permisos";
             this.mnuPermisos.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(221, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(184, 6);
             // 
             // mnuParametrosSistema
             // 
             this.mnuParametrosSistema.Name = "mnuParametrosSistema";
-            this.mnuParametrosSistema.Size = new System.Drawing.Size(224, 26);
+            this.mnuParametrosSistema.Size = new System.Drawing.Size(187, 22);
             this.mnuParametrosSistema.Text = "Configuración";
             this.mnuParametrosSistema.Visible = false;
             this.mnuParametrosSistema.Click += new System.EventHandler(this.OpcionMenu_Click);
@@ -170,34 +171,34 @@
             this.mnuEmpresa,
             this.mnuParametros});
             this.empresaToolStripMenuItem.Name = "empresaToolStripMenuItem";
-            this.empresaToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.empresaToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.empresaToolStripMenuItem.Text = "Empresa";
             // 
             // mnuEmpresa
             // 
             this.mnuEmpresa.Name = "mnuEmpresa";
-            this.mnuEmpresa.Size = new System.Drawing.Size(158, 26);
+            this.mnuEmpresa.Size = new System.Drawing.Size(134, 22);
             this.mnuEmpresa.Text = "Empresa";
             this.mnuEmpresa.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuParametros
             // 
             this.mnuParametros.Name = "mnuParametros";
-            this.mnuParametros.Size = new System.Drawing.Size(158, 26);
+            this.mnuParametros.Size = new System.Drawing.Size(134, 22);
             this.mnuParametros.Text = "Parámetros";
             this.mnuParametros.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuCambiarContrasena
             // 
             this.mnuCambiarContrasena.Name = "mnuCambiarContrasena";
-            this.mnuCambiarContrasena.Size = new System.Drawing.Size(224, 26);
+            this.mnuCambiarContrasena.Size = new System.Drawing.Size(187, 22);
             this.mnuCambiarContrasena.Text = "Cambiar Constraseña";
             this.mnuCambiarContrasena.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuSalir
             // 
             this.mnuSalir.Name = "mnuSalir";
-            this.mnuSalir.Size = new System.Drawing.Size(224, 26);
+            this.mnuSalir.Size = new System.Drawing.Size(187, 22);
             this.mnuSalir.Text = "Salir";
             // 
             // mantenimientosToolStripMenuItem
@@ -210,7 +211,7 @@
             this.toolStripSeparator1,
             this.mnuTipoMovimientos});
             this.mantenimientosToolStripMenuItem.Name = "mantenimientosToolStripMenuItem";
-            this.mantenimientosToolStripMenuItem.Size = new System.Drawing.Size(128, 24);
+            this.mantenimientosToolStripMenuItem.Size = new System.Drawing.Size(106, 20);
             this.mantenimientosToolStripMenuItem.Text = "Mantenimientos";
             // 
             // mnuProductosPrincipal
@@ -220,28 +221,28 @@
             this.mnuCategoriaProductos,
             this.mnuMedidasProductos});
             this.mnuProductosPrincipal.Name = "mnuProductosPrincipal";
-            this.mnuProductosPrincipal.Size = new System.Drawing.Size(225, 26);
+            this.mnuProductosPrincipal.Size = new System.Drawing.Size(187, 22);
             this.mnuProductosPrincipal.Text = "Productos";
             // 
             // mnuProductos
             // 
             this.mnuProductos.Name = "mnuProductos";
             this.mnuProductos.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.mnuProductos.Size = new System.Drawing.Size(246, 26);
+            this.mnuProductos.Size = new System.Drawing.Size(203, 22);
             this.mnuProductos.Text = "Productos";
             this.mnuProductos.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuCategoriaProductos
             // 
             this.mnuCategoriaProductos.Name = "mnuCategoriaProductos";
-            this.mnuCategoriaProductos.Size = new System.Drawing.Size(246, 26);
+            this.mnuCategoriaProductos.Size = new System.Drawing.Size(203, 22);
             this.mnuCategoriaProductos.Text = "Categorias de Productos";
             this.mnuCategoriaProductos.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuMedidasProductos
             // 
             this.mnuMedidasProductos.Name = "mnuMedidasProductos";
-            this.mnuMedidasProductos.Size = new System.Drawing.Size(246, 26);
+            this.mnuMedidasProductos.Size = new System.Drawing.Size(203, 22);
             this.mnuMedidasProductos.Text = "Medidas de Productos";
             this.mnuMedidasProductos.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
@@ -251,21 +252,21 @@
             this.mnuClientes,
             this.mnuTipoClientes});
             this.mnuClientesPrincipal.Name = "mnuClientesPrincipal";
-            this.mnuClientesPrincipal.Size = new System.Drawing.Size(225, 26);
+            this.mnuClientesPrincipal.Size = new System.Drawing.Size(187, 22);
             this.mnuClientesPrincipal.Text = "Clientes";
             // 
             // mnuClientes
             // 
             this.mnuClientes.Name = "mnuClientes";
             this.mnuClientes.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.mnuClientes.Size = new System.Drawing.Size(176, 26);
+            this.mnuClientes.Size = new System.Drawing.Size(148, 22);
             this.mnuClientes.Text = "Clientes";
             this.mnuClientes.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuTipoClientes
             // 
             this.mnuTipoClientes.Name = "mnuTipoClientes";
-            this.mnuTipoClientes.Size = new System.Drawing.Size(176, 26);
+            this.mnuTipoClientes.Size = new System.Drawing.Size(148, 22);
             this.mnuTipoClientes.Text = "Tipos Clientes";
             this.mnuTipoClientes.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
@@ -276,41 +277,41 @@
             this.mnuPuestos});
             this.personalToolStripMenuItem.Enabled = false;
             this.personalToolStripMenuItem.Name = "personalToolStripMenuItem";
-            this.personalToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
+            this.personalToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.personalToolStripMenuItem.Text = "Personal";
             this.personalToolStripMenuItem.Visible = false;
             // 
             // mnuEmpleados
             // 
             this.mnuEmpleados.Name = "mnuEmpleados";
-            this.mnuEmpleados.Size = new System.Drawing.Size(158, 26);
+            this.mnuEmpleados.Size = new System.Drawing.Size(132, 22);
             this.mnuEmpleados.Text = "Empleados";
             this.mnuEmpleados.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuPuestos
             // 
             this.mnuPuestos.Name = "mnuPuestos";
-            this.mnuPuestos.Size = new System.Drawing.Size(158, 26);
+            this.mnuPuestos.Size = new System.Drawing.Size(132, 22);
             this.mnuPuestos.Text = "Puestos";
             this.mnuPuestos.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuProveedores
             // 
             this.mnuProveedores.Name = "mnuProveedores";
-            this.mnuProveedores.Size = new System.Drawing.Size(225, 26);
+            this.mnuProveedores.Size = new System.Drawing.Size(187, 22);
             this.mnuProveedores.Text = "Proveedores";
             this.mnuProveedores.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(222, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(184, 6);
             // 
             // mnuTipoMovimientos
             // 
             this.mnuTipoMovimientos.Enabled = false;
             this.mnuTipoMovimientos.Name = "mnuTipoMovimientos";
-            this.mnuTipoMovimientos.Size = new System.Drawing.Size(225, 26);
+            this.mnuTipoMovimientos.Size = new System.Drawing.Size(187, 22);
             this.mnuTipoMovimientos.Text = "Tipo de Movimientos";
             this.mnuTipoMovimientos.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
@@ -322,14 +323,14 @@
             this.mnuInventario,
             this.mnuAbonos});
             this.procesosToolStripMenuItem.Name = "procesosToolStripMenuItem";
-            this.procesosToolStripMenuItem.Size = new System.Drawing.Size(79, 24);
+            this.procesosToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.procesosToolStripMenuItem.Text = "Procesos";
             // 
             // mnuFacturacion
             // 
             this.mnuFacturacion.Name = "mnuFacturacion";
             this.mnuFacturacion.ShortcutKeys = System.Windows.Forms.Keys.F6;
-            this.mnuFacturacion.Size = new System.Drawing.Size(229, 26);
+            this.mnuFacturacion.Size = new System.Drawing.Size(189, 22);
             this.mnuFacturacion.Text = "Facturacion";
             this.mnuFacturacion.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
@@ -337,21 +338,21 @@
             // 
             this.mnuReporteHacienda.Name = "mnuReporteHacienda";
             this.mnuReporteHacienda.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.mnuReporteHacienda.Size = new System.Drawing.Size(229, 26);
+            this.mnuReporteHacienda.Size = new System.Drawing.Size(189, 22);
             this.mnuReporteHacienda.Text = "Reportar Compras";
             this.mnuReporteHacienda.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuInventario
             // 
             this.mnuInventario.Name = "mnuInventario";
-            this.mnuInventario.Size = new System.Drawing.Size(229, 26);
+            this.mnuInventario.Size = new System.Drawing.Size(189, 22);
             this.mnuInventario.Text = "Inventario";
             this.mnuInventario.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuAbonos
             // 
             this.mnuAbonos.Name = "mnuAbonos";
-            this.mnuAbonos.Size = new System.Drawing.Size(229, 26);
+            this.mnuAbonos.Size = new System.Drawing.Size(189, 22);
             this.mnuAbonos.Text = "Abonos";
             this.mnuAbonos.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
@@ -363,13 +364,13 @@
             this.comprasToolStripMenuItem,
             this.mnuDocumentosEmitidos});
             this.consultasToolStripMenuItem.Name = "consultasToolStripMenuItem";
-            this.consultasToolStripMenuItem.Size = new System.Drawing.Size(84, 24);
+            this.consultasToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.consultasToolStripMenuItem.Text = "Consultas";
             // 
             // mnuConsultarFacHac
             // 
             this.mnuConsultarFacHac.Name = "mnuConsultarFacHac";
-            this.mnuConsultarFacHac.Size = new System.Drawing.Size(369, 26);
+            this.mnuConsultarFacHac.Size = new System.Drawing.Size(300, 22);
             this.mnuConsultarFacHac.Text = "Documentos en Hacienda";
             this.mnuConsultarFacHac.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
@@ -377,7 +378,7 @@
             // 
             this.mnuValidacionHacienda.Name = "mnuValidacionHacienda";
             this.mnuValidacionHacienda.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.mnuValidacionHacienda.Size = new System.Drawing.Size(369, 26);
+            this.mnuValidacionHacienda.Size = new System.Drawing.Size(300, 22);
             this.mnuValidacionHacienda.Text = "Validar documentos emitidos Hacienda";
             this.mnuValidacionHacienda.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
@@ -387,14 +388,14 @@
             this.mnuConsultaMensajes,
             this.mnuValidarMensajes});
             this.comprasToolStripMenuItem.Name = "comprasToolStripMenuItem";
-            this.comprasToolStripMenuItem.Size = new System.Drawing.Size(369, 26);
+            this.comprasToolStripMenuItem.Size = new System.Drawing.Size(300, 22);
             this.comprasToolStripMenuItem.Text = "Compras";
             this.comprasToolStripMenuItem.Click += new System.EventHandler(this.comprasToolStripMenuItem_Click);
             // 
             // mnuConsultaMensajes
             // 
             this.mnuConsultaMensajes.Name = "mnuConsultaMensajes";
-            this.mnuConsultaMensajes.Size = new System.Drawing.Size(368, 26);
+            this.mnuConsultaMensajes.Size = new System.Drawing.Size(298, 22);
             this.mnuConsultaMensajes.Text = "Mensajes compras Hacienda";
             this.mnuConsultaMensajes.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
@@ -402,7 +403,7 @@
             // 
             this.mnuValidarMensajes.Name = "mnuValidarMensajes";
             this.mnuValidarMensajes.ShortcutKeys = System.Windows.Forms.Keys.F9;
-            this.mnuValidarMensajes.Size = new System.Drawing.Size(368, 26);
+            this.mnuValidarMensajes.Size = new System.Drawing.Size(298, 22);
             this.mnuValidarMensajes.Text = "Validar Mensajes de compras Hacienda";
             this.mnuValidarMensajes.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
@@ -410,7 +411,7 @@
             // 
             this.mnuDocumentosEmitidos.Name = "mnuDocumentosEmitidos";
             this.mnuDocumentosEmitidos.ShortcutKeys = System.Windows.Forms.Keys.F3;
-            this.mnuDocumentosEmitidos.Size = new System.Drawing.Size(369, 26);
+            this.mnuDocumentosEmitidos.Size = new System.Drawing.Size(300, 22);
             this.mnuDocumentosEmitidos.Text = "Documentos Emitidos";
             this.mnuDocumentosEmitidos.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
@@ -420,7 +421,7 @@
             this.inventarioToolStripMenuItem,
             this.ventasToolStripMenuItem});
             this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
-            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
+            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.reportesToolStripMenuItem.Text = "Reportes";
             // 
             // inventarioToolStripMenuItem
@@ -431,41 +432,57 @@
             this.mnuInventarioSobre,
             this.mnuGeneralByCat});
             this.inventarioToolStripMenuItem.Name = "inventarioToolStripMenuItem";
-            this.inventarioToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.inventarioToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.inventarioToolStripMenuItem.Text = "Inventario";
             // 
             // mnuInventarioGeneral
             // 
             this.mnuInventarioGeneral.Name = "mnuInventarioGeneral";
-            this.mnuInventarioGeneral.Size = new System.Drawing.Size(149, 26);
+            this.mnuInventarioGeneral.Size = new System.Drawing.Size(125, 22);
             this.mnuInventarioGeneral.Text = "General";
             this.mnuInventarioGeneral.Click += new System.EventHandler(this.ReporteMenu_Click);
             // 
             // mnuInventarioBajo
             // 
             this.mnuInventarioBajo.Name = "mnuInventarioBajo";
-            this.mnuInventarioBajo.Size = new System.Drawing.Size(149, 26);
+            this.mnuInventarioBajo.Size = new System.Drawing.Size(125, 22);
             this.mnuInventarioBajo.Text = "Bajo";
             this.mnuInventarioBajo.Click += new System.EventHandler(this.ReporteMenu_Click);
             // 
             // mnuInventarioSobre
             // 
             this.mnuInventarioSobre.Name = "mnuInventarioSobre";
-            this.mnuInventarioSobre.Size = new System.Drawing.Size(149, 26);
+            this.mnuInventarioSobre.Size = new System.Drawing.Size(125, 22);
             this.mnuInventarioSobre.Text = "Sobre";
             this.mnuInventarioSobre.Click += new System.EventHandler(this.ReporteMenu_Click);
             // 
             // mnuGeneralByCat
             // 
             this.mnuGeneralByCat.Name = "mnuGeneralByCat";
-            this.mnuGeneralByCat.Size = new System.Drawing.Size(149, 26);
+            this.mnuGeneralByCat.Size = new System.Drawing.Size(125, 22);
             this.mnuGeneralByCat.Text = "Categoría";
             this.mnuGeneralByCat.Click += new System.EventHandler(this.ReporteMenu_Click);
+            // 
+            // ventasToolStripMenuItem
+            // 
+            this.ventasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuRptGeneralVenta,
+            this.mnuReporteFechaIncioFin});
+            this.ventasToolStripMenuItem.Name = "ventasToolStripMenuItem";
+            this.ventasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ventasToolStripMenuItem.Text = "Ventas";
+            // 
+            // mnuRptGeneralVenta
+            // 
+            this.mnuRptGeneralVenta.Name = "mnuRptGeneralVenta";
+            this.mnuRptGeneralVenta.Size = new System.Drawing.Size(180, 22);
+            this.mnuRptGeneralVenta.Text = "General hoy";
+            this.mnuRptGeneralVenta.Click += new System.EventHandler(this.ReporteMenu_Click);
             // 
             // mnuAcercaDe
             // 
             this.mnuAcercaDe.Name = "mnuAcercaDe";
-            this.mnuAcercaDe.Size = new System.Drawing.Size(87, 24);
+            this.mnuAcercaDe.Size = new System.Drawing.Size(71, 20);
             this.mnuAcercaDe.Text = "Acerca de";
             this.mnuAcercaDe.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
@@ -479,10 +496,10 @@
             this.btnConsultaHac.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConsultaHac.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnConsultaHac.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaHac.Image")));
-            this.btnConsultaHac.Location = new System.Drawing.Point(555, 319);
-            this.btnConsultaHac.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnConsultaHac.Location = new System.Drawing.Point(444, 255);
+            this.btnConsultaHac.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnConsultaHac.Name = "btnConsultaHac";
-            this.btnConsultaHac.Size = new System.Drawing.Size(256, 256);
+            this.btnConsultaHac.Size = new System.Drawing.Size(205, 205);
             this.btnConsultaHac.TabIndex = 9;
             this.btnConsultaHac.Text = "Consultar emitidos Hacienda";
             this.btnConsultaHac.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -499,10 +516,10 @@
             this.btnDocEmitidos.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDocEmitidos.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnDocEmitidos.Image = ((System.Drawing.Image)(resources.GetObject("btnDocEmitidos.Image")));
-            this.btnDocEmitidos.Location = new System.Drawing.Point(819, 57);
-            this.btnDocEmitidos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnDocEmitidos.Location = new System.Drawing.Point(655, 46);
+            this.btnDocEmitidos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnDocEmitidos.Name = "btnDocEmitidos";
-            this.btnDocEmitidos.Size = new System.Drawing.Size(256, 256);
+            this.btnDocEmitidos.Size = new System.Drawing.Size(205, 205);
             this.btnDocEmitidos.TabIndex = 8;
             this.btnDocEmitidos.Text = "Documentos Emitidos";
             this.btnDocEmitidos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -519,10 +536,10 @@
             this.btnValidacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnValidacion.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnValidacion.Image = ((System.Drawing.Image)(resources.GetObject("btnValidacion.Image")));
-            this.btnValidacion.Location = new System.Drawing.Point(556, 57);
-            this.btnValidacion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnValidacion.Location = new System.Drawing.Point(445, 46);
+            this.btnValidacion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnValidacion.Name = "btnValidacion";
-            this.btnValidacion.Size = new System.Drawing.Size(256, 256);
+            this.btnValidacion.Size = new System.Drawing.Size(205, 205);
             this.btnValidacion.TabIndex = 7;
             this.btnValidacion.Text = "Validar emitidos Hacienda";
             this.btnValidacion.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -539,10 +556,10 @@
             this.btnProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProductos.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnProductos.Image = ((System.Drawing.Image)(resources.GetObject("btnProductos.Image")));
-            this.btnProductos.Location = new System.Drawing.Point(12, 494);
-            this.btnProductos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnProductos.Location = new System.Drawing.Point(10, 395);
+            this.btnProductos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnProductos.Name = "btnProductos";
-            this.btnProductos.Size = new System.Drawing.Size(256, 256);
+            this.btnProductos.Size = new System.Drawing.Size(205, 205);
             this.btnProductos.TabIndex = 5;
             this.btnProductos.Text = "Productos";
             this.btnProductos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -559,10 +576,10 @@
             this.btnProveedores.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProveedores.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnProveedores.Image = ((System.Drawing.Image)(resources.GetObject("btnProveedores.Image")));
-            this.btnProveedores.Location = new System.Drawing.Point(275, 231);
-            this.btnProveedores.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnProveedores.Location = new System.Drawing.Point(220, 185);
+            this.btnProveedores.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnProveedores.Name = "btnProveedores";
-            this.btnProveedores.Size = new System.Drawing.Size(256, 256);
+            this.btnProveedores.Size = new System.Drawing.Size(205, 205);
             this.btnProveedores.TabIndex = 4;
             this.btnProveedores.Text = "Proveedores";
             this.btnProveedores.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -579,10 +596,10 @@
             this.btnClientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClientes.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnClientes.Image = ((System.Drawing.Image)(resources.GetObject("btnClientes.Image")));
-            this.btnClientes.Location = new System.Drawing.Point(12, 231);
-            this.btnClientes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnClientes.Location = new System.Drawing.Point(10, 185);
+            this.btnClientes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnClientes.Name = "btnClientes";
-            this.btnClientes.Size = new System.Drawing.Size(256, 256);
+            this.btnClientes.Size = new System.Drawing.Size(205, 205);
             this.btnClientes.TabIndex = 3;
             this.btnClientes.Text = "Clientes";
             this.btnClientes.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -596,10 +613,10 @@
             this.btnFacturacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFacturacion.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnFacturacion.Image = ((System.Drawing.Image)(resources.GetObject("btnFacturacion.Image")));
-            this.btnFacturacion.Location = new System.Drawing.Point(12, 55);
-            this.btnFacturacion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnFacturacion.Location = new System.Drawing.Point(10, 44);
+            this.btnFacturacion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnFacturacion.Name = "btnFacturacion";
-            this.btnFacturacion.Size = new System.Drawing.Size(517, 171);
+            this.btnFacturacion.Size = new System.Drawing.Size(414, 137);
             this.btnFacturacion.TabIndex = 2;
             this.btnFacturacion.Text = "Facturación";
             this.btnFacturacion.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -616,10 +633,10 @@
             this.btnMensajesCompras.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMensajesCompras.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnMensajesCompras.Image = ((System.Drawing.Image)(resources.GetObject("btnMensajesCompras.Image")));
-            this.btnMensajesCompras.Location = new System.Drawing.Point(1106, 57);
-            this.btnMensajesCompras.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnMensajesCompras.Location = new System.Drawing.Point(885, 46);
+            this.btnMensajesCompras.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnMensajesCompras.Name = "btnMensajesCompras";
-            this.btnMensajesCompras.Size = new System.Drawing.Size(126, 126);
+            this.btnMensajesCompras.Size = new System.Drawing.Size(101, 101);
             this.btnMensajesCompras.TabIndex = 13;
             this.btnMensajesCompras.Text = "Enviar Compras Hacienda";
             this.btnMensajesCompras.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -636,10 +653,10 @@
             this.btnConsultaMensajeHacienda.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConsultaMensajeHacienda.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnConsultaMensajeHacienda.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaMensajeHacienda.Image")));
-            this.btnConsultaMensajeHacienda.Location = new System.Drawing.Point(1106, 187);
-            this.btnConsultaMensajeHacienda.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnConsultaMensajeHacienda.Location = new System.Drawing.Point(885, 150);
+            this.btnConsultaMensajeHacienda.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnConsultaMensajeHacienda.Name = "btnConsultaMensajeHacienda";
-            this.btnConsultaMensajeHacienda.Size = new System.Drawing.Size(126, 126);
+            this.btnConsultaMensajeHacienda.Size = new System.Drawing.Size(101, 101);
             this.btnConsultaMensajeHacienda.TabIndex = 14;
             this.btnConsultaMensajeHacienda.Text = "Consultar compras Hacienda";
             this.btnConsultaMensajeHacienda.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -656,36 +673,28 @@
             this.btnValidarCompras.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnValidarCompras.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnValidarCompras.Image = ((System.Drawing.Image)(resources.GetObject("btnValidarCompras.Image")));
-            this.btnValidarCompras.Location = new System.Drawing.Point(1238, 57);
-            this.btnValidarCompras.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnValidarCompras.Location = new System.Drawing.Point(990, 46);
+            this.btnValidarCompras.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnValidarCompras.Name = "btnValidarCompras";
-            this.btnValidarCompras.Size = new System.Drawing.Size(126, 126);
+            this.btnValidarCompras.Size = new System.Drawing.Size(101, 101);
             this.btnValidarCompras.TabIndex = 15;
             this.btnValidarCompras.Text = "Validar compras Hacienda";
             this.btnValidarCompras.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnValidarCompras.UseVisualStyleBackColor = false;
             this.btnValidarCompras.Click += new System.EventHandler(this.btnValidarCompras_Click);
             // 
-            // ventasToolStripMenuItem
+            // mnuReporteFechaIncioFin
             // 
-            this.ventasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuRptGeneralVenta});
-            this.ventasToolStripMenuItem.Name = "ventasToolStripMenuItem";
-            this.ventasToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.ventasToolStripMenuItem.Text = "Ventas";
-            // 
-            // mnuRptGeneralVenta
-            // 
-            this.mnuRptGeneralVenta.Name = "mnuRptGeneralVenta";
-            this.mnuRptGeneralVenta.Size = new System.Drawing.Size(216, 26);
-            this.mnuRptGeneralVenta.Text = "General Ventas";
-            this.mnuRptGeneralVenta.Click += new System.EventHandler(this.ReporteMenu_Click);
+            this.mnuReporteFechaIncioFin.Name = "mnuReporteFechaIncioFin";
+            this.mnuReporteFechaIncioFin.Size = new System.Drawing.Size(180, 22);
+            this.mnuReporteFechaIncioFin.Text = "General Fechas";
+            this.mnuReporteFechaIncioFin.Click += new System.EventHandler(this.ReporteMenu_Click);
             // 
             // frmPrincipal
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1611, 836);
+            this.ClientSize = new System.Drawing.Size(1289, 669);
             this.Controls.Add(this.btnValidarCompras);
             this.Controls.Add(this.btnConsultaMensajeHacienda);
             this.Controls.Add(this.btnMensajesCompras);
@@ -699,7 +708,7 @@
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "frmPrincipal";
             this.Text = "ESPARTANO SOLUTIONS: SISTEMA DE FACTURACIÓN ELECTRÓNICA";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -772,5 +781,6 @@
         private System.Windows.Forms.ToolStripMenuItem mnuCambiarContrasena;
         private System.Windows.Forms.ToolStripMenuItem ventasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuRptGeneralVenta;
+        private System.Windows.Forms.ToolStripMenuItem mnuReporteFechaIncioFin;
     }
 }

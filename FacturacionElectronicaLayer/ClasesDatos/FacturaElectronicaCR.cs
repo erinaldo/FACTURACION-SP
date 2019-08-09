@@ -303,12 +303,13 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                         writer.WriteElementString("CodigoTarifa", "08");
                         writer.WriteElementString("Tarifa", String.Format("{0:N3}", detalle.tbProducto.tbImpuestos.valor.ToString()));// %aplicado valor
                         writer.WriteElementString("Monto", String.Format("{0:N3}", (detalle.montoTotalImp).ToString().Trim()));
+                          
 
                         if (detalle.montoTotalExo != 0)
                         {
                             writer.WriteStartElement("Exoneracion");
-                            writer.WriteElementString("TipoDocuento", _receptor.tipoExoneracion.PadLeft(2, '0'));// impueto aplicado codigo
-                            writer.WriteElementString("NumeroDocumento", _receptor.institucionExo.Trim());// impueto aplicado codigo
+                            writer.WriteElementString("TipoDocumento", _receptor.tipoExoneracion.PadLeft(2, '0'));// impueto aplicado codigo
+                            writer.WriteElementString("NumeroDocumento", _receptor.docExoneracion.Trim());// impueto aplicado codigo
 
                             writer.WriteElementString("NombreInstitucion",_receptor.institucionExo.Trim());// impueto aplicado codigo
                             writer.WriteElementString("FechaEmision", _receptor.fechaEmisionExo.ToString("yyyy-MM-ddTHH:mm:sszzz"));// impueto aplicado codigo
@@ -320,7 +321,7 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                         }
 
                         writer.WriteEndElement(); // Impuesto
-                        writer.WriteElementString("ImpuestoNeto", String.Format("{0:N3}", (detalle.montoTotalImp).ToString().Trim()));
+                        writer.WriteElementString("ImpuestoNeto", String.Format("{0:N3}", (detalle.montoTotalImp-detalle.montoTotalExo).ToString().Trim()));
                      
 
                     writer.WriteElementString("MontoTotalLinea", String.Format("{0:N3}", detalle.totalLinea.ToString().Trim()));
@@ -332,20 +333,20 @@ namespace FacturacionElectronicaLayer.ClasesDatos
 
                 writer.WriteStartElement("ResumenFactura");
 
-                writer.WriteStartElement("CodigoTipoMoneda");
-                writer.WriteElementString("CodigoMoneda", _codigoMoneda);
+                //writer.WriteStartElement("CodigoTipoMoneda");
+                //writer.WriteElementString("CodigoMoneda", _codigoMoneda);
 
-                if (_codigoMoneda.ToUpper().Trim() == "USD")
-                {
-                    writer.WriteElementString("TipoCambio", String.Format("{0:N3}", _empresa.tbParametrosEmpresa.First().cambioDolar.ToString().Trim()));
+                //if (_codigoMoneda.ToUpper().Trim() == "USD")
+                //{
+                //    writer.WriteElementString("TipoCambio", String.Format("{0:N3}", _empresa.tbParametrosEmpresa.First().cambioDolar.ToString().Trim()));
 
-                }
-                else
-                {
-                    writer.WriteElementString("TipoCambio", String.Format("{0:N3}", "1"));
+                //}
+                //else
+                //{
+                //    writer.WriteElementString("TipoCambio", String.Format("{0:N3}", "1"));
 
-                }
-                writer.WriteEndElement(); // CodigoTipoMoneda
+                //}
+                //writer.WriteEndElement(); // CodigoTipoMoneda
 
 
                 
@@ -364,43 +365,48 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                 {
                     totalDescuento += detalle.montoTotalDesc;//total de decuento
                     totalComprobante += detalle.totalLinea;//total de comprobante
-
-
-                    if (detalle.montoTotalImp == 0)//valida si exonera es 0, si tiene valor de impuesto no exonera
-                    {//acumulo monto total, sin descuento. monto total es precio*cantidad
-                        if (Enum.GetName(typeof(Enums.TipoMedida), detalle.tbProducto.idMedida).Trim().ToUpper() == "SP")//valida si es producto o servicio y acumula en su respectiva variable
-                        {
-                            totalServExonerado += detalle.montoTotalExo;
-                            totalServExcentos += detalle.montoTotal;
-                        }
-                        else//si es producto
-                        {
-                            totalProdExonerado += detalle.montoTotalExo;
-                            totalProdExcentos += detalle.montoTotal;
-
-                        }
-
-
-                    }
-                    else
+                  
+            
+                    if (Enum.GetName(typeof(Enums.TipoMedida), detalle.tbProducto.idMedida).Trim().ToUpper() == "SP")//valida si es producto o servicio y acumula en su respectiva variable
                     {
-                        impuestos += detalle.montoTotalImp;
-
-                        if (Enum.GetName(typeof(Enums.TipoMedida), detalle.tbProducto.idMedida).Trim().ToUpper() == "SP")
-                        {//si tiene impuesto y es un servicio
-                            totalServExonerado += detalle.montoTotalExo;
+                
+                        //si el producto tiene impuesto, es un producto gravado, sino es un prodcuto excento
+                        if (detalle.montoTotalImp!=0 && detalle.montoTotalExo!=0)
+                        {
+                            totalServExonerado += detalle.montoTotal;
+                        }
+                        else if (detalle.montoTotalImp != 0 && detalle.montoTotalExo == 0)
+                        {
                             totalSevGravados += detalle.montoTotal;
+                            impuestos += detalle.montoTotalImp;
                         }
                         else
                         {
-                            totalProdExonerado += detalle.montoTotalExo;
-                            totalProdGravados += detalle.montoTotal;//si es un prodcuto
+                            totalServExcentos += detalle.montoTotal;
+                        }                       
+                    }
+                    else//si es producto
+                    {
+                    
 
+                        if (detalle.montoTotalImp != 0 && detalle.montoTotalExo != 0)
+                        {
+                            totalProdExonerado += detalle.montoTotal;
+                        }
+                        else if (detalle.montoTotalImp != 0 && detalle.montoTotalExo == 0)
+                        {
+                            totalProdGravados += detalle.montoTotal;
+                            impuestos += detalle.montoTotalImp;
+                        }                      
+                        else
+                        {
+                            totalProdExcentos += detalle.montoTotal;
                         }
                     }
-
                 }
-               
+
+  
+
                 writer.WriteElementString("TotalServGravados", String.Format("{0:N3}", totalSevGravados.ToString()));
                
                 writer.WriteElementString("TotalServExentos", String.Format("{0:N3}", totalServExcentos.ToString()));
@@ -422,9 +428,12 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                 writer.WriteElementString("TotalExento", String.Format("{0:N3}", totalExentos.ToString()));     
                 
                 writer.WriteElementString("TotalExonerado", String.Format("{0:N3}", totalExo.ToString()));
-
-                decimal totalVenta = totalGravados + totalExentos+ totalExo;//total de venta, gravados y exonerados
+            
+            
+                decimal totalVenta = totalGravados + totalExentos+ totalExo;
                 decimal totalVentaNeta = totalVenta - totalDescuento;//calula el monto de descuento
+
+
 
                 writer.WriteElementString("TotalVenta", String.Format("{0:N3}", totalVenta.ToString()));
                
@@ -925,7 +934,7 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                     writer.WriteElementString("Codigo", detalle.idProducto.ToString().Trim());
                     writer.WriteEndElement(); // 'codigo comercial
 
-                   // int cant = (int)detalle.cantidad;//convierte entero, elimina decimales
+                    // int cant = (int)detalle.cantidad;//convierte entero, elimina decimales
                     writer.WriteElementString("Cantidad", String.Format("{0:N3}", detalle.cantidad.ToString()));
                     // 'Para las unidades de medida ver la tabla correspondiente
                     writer.WriteElementString("UnidadMedida", Enum.GetName(typeof(Enums.TipoMedida), detalle.tbProducto.idMedida));//nomenlatura kg etc
@@ -948,33 +957,33 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                     }
                     writer.WriteElementString("SubTotal", String.Format("{0:N3}", (detalle.montoTotal - detalle.montoTotalDesc).ToString().Trim()));
 
-                    if (detalle.montoTotalImp != 0)
+
+
+                    writer.WriteStartElement("Impuesto");
+                    writer.WriteElementString("Codigo", detalle.tbProducto.tbImpuestos.id.ToString().PadLeft(2, '0'));// impueto aplicado codigo
+                    writer.WriteElementString("CodigoTarifa", "08");
+                    writer.WriteElementString("Tarifa", String.Format("{0:N3}", detalle.tbProducto.tbImpuestos.valor.ToString()));// %aplicado valor
+                    writer.WriteElementString("Monto", String.Format("{0:N3}", (detalle.montoTotalImp).ToString().Trim()));
+
+
+                    if (detalle.montoTotalExo != 0)
                     {
+                        writer.WriteStartElement("Exoneracion");
+                        writer.WriteElementString("TipoDocumento", _receptor.tipoExoneracion.PadLeft(2, '0'));// impueto aplicado codigo
+                        writer.WriteElementString("NumeroDocumento", _receptor.docExoneracion.Trim());// impueto aplicado codigo
 
-                        writer.WriteStartElement("Impuesto");
-                        writer.WriteElementString("Codigo", detalle.tbProducto.tbImpuestos.id.ToString().PadLeft(2, '0'));// impueto aplicado codigo
-                        writer.WriteElementString("CodigoTarifa", "08");
-                        writer.WriteElementString("Tarifa", String.Format("{0:N3}", detalle.tbProducto.tbImpuestos.valor.ToString()));// %aplicado valor
-                        writer.WriteElementString("Monto", String.Format("{0:N3}", (detalle.montoTotalImp).ToString().Trim()));
+                        writer.WriteElementString("NombreInstitucion", _receptor.institucionExo.Trim());// impueto aplicado codigo
+                        writer.WriteElementString("FechaEmision", _receptor.fechaEmisionExo.ToString("yyyy-MM-ddTHH:mm:sszzz"));// impueto aplicado codigo
+                        writer.WriteElementString("PorcentajeExoneracion", "100");// impueto aplicado codigo
 
-                        if (detalle.montoTotalExo != 0)
-                        {
-                            writer.WriteStartElement("Exoneracion");
-                            writer.WriteElementString("TipoDocuento", _receptor.tipoExoneracion.PadLeft(2, '0'));// impueto aplicado codigo
-                            writer.WriteElementString("NumeroDocumento", _receptor.institucionExo);// impueto aplicado codigo
+                        writer.WriteElementString("MontoExoneracion", String.Format("{0:N3}", detalle.montoTotalExo.ToString().Trim()));// impueto aplicado codigo
 
-                            writer.WriteElementString("NombreInstitucion", _receptor.institucionExo);// impueto aplicado codigo
-                            writer.WriteElementString("FechaEmision", _receptor.fechaEmisionExo.ToString("yyyy-MM-ddTHH:mm:sszzz"));// impueto aplicado codigo
-                            writer.WriteElementString("PorcentajeExoneracion", _receptor.valorExo.ToString());// impueto aplicado codigo
-
-                            writer.WriteElementString("MontoExoneracion", String.Format("{0:N3}", detalle.montoTotalExo.ToString().Trim()));// impueto aplicado codigo
-
-                            writer.WriteEndElement(); // exoneracion
-                        }
-
-                        writer.WriteEndElement(); // Impuesto
-                        writer.WriteElementString("ImpuestoNeto", String.Format("{0:N3}", (detalle.montoTotalImp).ToString().Trim()));
+                        writer.WriteEndElement(); // exoneracion
                     }
+
+                    writer.WriteEndElement(); // Impuesto
+                    writer.WriteElementString("ImpuestoNeto", String.Format("{0:N3}", (detalle.montoTotalImp - detalle.montoTotalExo).ToString().Trim()));
+
 
                     writer.WriteElementString("MontoTotalLinea", String.Format("{0:N3}", detalle.totalLinea.ToString().Trim()));
                     writer.WriteEndElement(); // LineaDetalle
@@ -985,20 +994,20 @@ namespace FacturacionElectronicaLayer.ClasesDatos
 
                 writer.WriteStartElement("ResumenFactura");
 
-                writer.WriteStartElement("CodigoTipoMoneda");
-                writer.WriteElementString("CodigoMoneda", _codigoMoneda);
+                //writer.WriteStartElement("CodigoTipoMoneda");
+                //writer.WriteElementString("CodigoMoneda", _codigoMoneda);
 
-                if (_codigoMoneda.ToUpper().Trim() == "USD")
-                {
-                    writer.WriteElementString("TipoCambio", String.Format("{0:N3}", _empresa.tbParametrosEmpresa.First().cambioDolar.ToString().Trim()));
+                //if (_codigoMoneda.ToUpper().Trim() == "USD")
+                //{
+                //    writer.WriteElementString("TipoCambio", String.Format("{0:N3}", _empresa.tbParametrosEmpresa.First().cambioDolar.ToString().Trim()));
 
-                }
-                else
-                {
-                    writer.WriteElementString("TipoCambio", String.Format("{0:N3}", "1"));
+                //}
+                //else
+                //{
+                //    writer.WriteElementString("TipoCambio", String.Format("{0:N3}", "1"));
 
-                }
-                writer.WriteEndElement(); // CodigoTipoMoneda
+                //}
+                //writer.WriteEndElement(); // CodigoTipoMoneda
 
 
 
@@ -1019,39 +1028,42 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                     totalComprobante += detalle.totalLinea;//total de comprobante
 
 
-                    if (detalle.montoTotalImp == 0)//valida si exonera es 0, si tiene valor de impuesto no exonera
-                    {//acumulo monto total, sin descuento. monto total es precio*cantidad
-                        if (Enum.GetName(typeof(Enums.TipoMedida), detalle.tbProducto.idMedida).Trim().ToUpper() == "SP")//valida si es producto o servicio y acumula en su respectiva variable
-                        {
-                            totalServExonerado += detalle.montoTotalExo;
-                            totalServExcentos += detalle.montoTotal;
-                        }
-                        else//si es producto
-                        {
-                            totalProdExonerado += detalle.montoTotalExo;
-                            totalProdExcentos += detalle.montoTotal;
-
-                        }
-
-
-                    }
-                    else
+                    if (Enum.GetName(typeof(Enums.TipoMedida), detalle.tbProducto.idMedida).Trim().ToUpper() == "SP")//valida si es producto o servicio y acumula en su respectiva variable
                     {
-                        impuestos += detalle.montoTotalImp;
 
-                        if (Enum.GetName(typeof(Enums.TipoMedida), detalle.tbProducto.idMedida).Trim().ToUpper() == "SP")
-                        {//si tiene impuesto y es un servicio
-                            totalServExonerado += detalle.montoTotalExo;
+                        //si el producto tiene impuesto, es un producto gravado, sino es un prodcuto excento
+                        if (detalle.montoTotalImp != 0 && detalle.montoTotalExo != 0)
+                        {
+                            totalServExonerado += detalle.montoTotal;
+                        }
+                        else if (detalle.montoTotalImp != 0 && detalle.montoTotalExo == 0)
+                        {
                             totalSevGravados += detalle.montoTotal;
+                            impuestos += detalle.montoTotalImp;
                         }
                         else
                         {
-                            totalProdExonerado += detalle.montoTotalExo;
-                            totalProdGravados += detalle.montoTotal;//si es un prodcuto
-
+                            totalServExcentos += detalle.montoTotal;
                         }
                     }
+                    else//si es producto
+                    {
 
+
+                        if (detalle.montoTotalImp != 0 && detalle.montoTotalExo != 0)
+                        {
+                            totalProdExonerado += detalle.montoTotal;
+                        }
+                        else if (detalle.montoTotalImp != 0 && detalle.montoTotalExo == 0)
+                        {
+                            totalProdGravados += detalle.montoTotal;
+                            impuestos += detalle.montoTotalImp;
+                        }
+                        else
+                        {
+                            totalProdExcentos += detalle.montoTotal;
+                        }
+                    }
                 }
 
                 writer.WriteElementString("TotalServGravados", String.Format("{0:N3}", totalSevGravados.ToString()));
@@ -1076,7 +1088,7 @@ namespace FacturacionElectronicaLayer.ClasesDatos
 
                 writer.WriteElementString("TotalExonerado", String.Format("{0:N3}", totalExo.ToString()));
 
-                decimal totalVenta = totalGravados + totalExentos + totalExo;//total de venta, gravados y exonerados
+                decimal totalVenta = totalGravados + totalExentos + totalExo;
                 decimal totalVentaNeta = totalVenta - totalDescuento;//calula el monto de descuento
 
                 writer.WriteElementString("TotalVenta", String.Format("{0:N3}", totalVenta.ToString()));
@@ -1747,50 +1759,7 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                         writer.WriteElementString("Monto", String.Format("{0:N3}", (detalle.montoTotalImp).ToString().Trim()));
                         writer.WriteEndElement(); // Impuesto
                     }
-
-
-
-                    //if (!detalle.tbProducto.esExento)
-                    //{
-                    //    if (detalle.tbProducto.tbTipoMedidas.nomenclatura.ToUpper().Trim() == "SP")
-                    //    {
-                    //        if (detalle.montoTotalImp==0)
-                    //        {
-
-                    //            totalSevGravados += detalle.montoTotal;
-                    //        }
-                    //        else
-                    //        {
-                    //            totalSevGravados += detalle.montoTotal-detalle.montoTotalExo;
-                    //        }
-
-
-                    //    }
-                    //    else
-                    //    {
-                    //        totalProdGravados += detalle.montoTotalExo;
-                    //    }
-                    //    impuestos += detalle.montoTotalImp;
-                    //    exoneracion += detalle.montoTotalExo;
-
-                    //}
-                    //else
-                    //{
-                    //    if (detalle.tbProducto.tbTipoMedidas.nomenclatura.ToUpper().Trim()=="SP")
-                    //    {
-                    //        totalServExcentos += detalle.montoTotal;
-
-                    //    }
-                    //    else
-                    //    {
-                    //        totalProdExcentos += detalle.montoTotal;
-                    //    }
-
-                    //}
-
-
                     writer.WriteElementString("MontoTotalLinea", String.Format("{0:N3}", detalle.totalLinea.ToString().Trim()));
-
                     writer.WriteEndElement(); // LineaDetalle
                 }
                 // '-------------------------------------
@@ -1845,8 +1814,6 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                             totalProdExcentos += detalle.montoTotal;
 
                         }
-
-
                     }
                     else
                     {
@@ -1863,12 +1830,7 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                             totalProdGravados += detalle.montoTotal;//si es un prodcuto
 
                         }
-
-
                     }
-
-
-
                 }
                 writer.WriteElementString("TotalServGravados", String.Format("{0:N3}", totalSevGravados.ToString()));
                 writer.WriteElementString("TotalServExentos", String.Format("{0:N3}", totalServExcentos.ToString()));

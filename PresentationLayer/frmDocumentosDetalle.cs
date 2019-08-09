@@ -59,7 +59,7 @@ namespace PresentationLayer
 
             foreach (tbDetalleDocumento detalle in _doc.tbDetalleDocumento)
             {
-                detalle.totalLinea = (detalle.montoTotal - detalle.montoTotalDesc) + detalle.montoTotalImp;
+                detalle.totalLinea = (detalle.montoTotal - detalle.montoTotalDesc) + detalle.montoTotalImp- detalle.montoTotalExo;
                 total += detalle.totalLinea;
                 desc += detalle.montoTotalDesc;
                 iva += detalle.montoTotalImp;

@@ -56,7 +56,7 @@
             this.lstvCategoriaProductos.Location = new System.Drawing.Point(9, 33);
             this.lstvCategoriaProductos.Margin = new System.Windows.Forms.Padding(2);
             this.lstvCategoriaProductos.Name = "lstvCategoriaProductos";
-            this.lstvCategoriaProductos.Size = new System.Drawing.Size(213, 213);
+            this.lstvCategoriaProductos.Size = new System.Drawing.Size(386, 213);
             this.lstvCategoriaProductos.TabIndex = 1;
             this.lstvCategoriaProductos.UseCompatibleStateImageBehavior = false;
             this.lstvCategoriaProductos.View = System.Windows.Forms.View.Details;
@@ -70,15 +70,16 @@
             // colNombre
             // 
             this.colNombre.Text = "Nombre";
-            this.colNombre.Width = 91;
+            this.colNombre.Width = 193;
             // 
             // colEstado
             // 
             this.colEstado.Text = "Estado";
+            this.colEstado.Width = 91;
             // 
             // btnSeleccionar
             // 
-            this.btnSeleccionar.Location = new System.Drawing.Point(9, 250);
+            this.btnSeleccionar.Location = new System.Drawing.Point(270, 250);
             this.btnSeleccionar.Margin = new System.Windows.Forms.Padding(2);
             this.btnSeleccionar.Name = "btnSeleccionar";
             this.btnSeleccionar.Size = new System.Drawing.Size(83, 32);
@@ -89,7 +90,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(158, 250);
+            this.btnCancelar.Location = new System.Drawing.Point(202, 250);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(64, 32);
@@ -102,7 +103,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(243, 301);
+            this.ClientSize = new System.Drawing.Size(421, 301);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnSeleccionar);
             this.Controls.Add(this.lstvCategoriaProductos);

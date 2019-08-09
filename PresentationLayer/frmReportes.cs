@@ -16,6 +16,10 @@ namespace PresentationLayer
 {
     public partial class frmReportes : Form
     {
+
+        public DateTime fechaInicio { get; set; }
+        public DateTime fechaFin { get; set; }
+
         private int reporte { get; set; }
 
         public frmReportes()
@@ -75,11 +79,24 @@ namespace PresentationLayer
                 }
                 else if (reporte == (int)Enums.reportes.reporteGeneralVenta)
                 {
-                    Reporte = new rptVentasGeneral1();
+                    Reporte = new rptVentasGeneral();
                     Reportes.dsReportesTableAdapters.spReporteVentasGeneralTableAdapter dt = new Reportes.dsReportesTableAdapters.spReporteVentasGeneralTableAdapter();
                     dt.Connection = _SqlConnection;
                     dt.Fill(ds.spReporteVentasGeneral);
                 }
+                else if (reporte == (int)Enums.reportes.ventasFechaInicioFin)
+                {
+                    frmFechaInicoFin buscar = new frmFechaInicoFin();
+                    buscar.pasarDatosEvent += datosFechas;
+                    buscar.ShowDialog();
+
+
+                    Reporte = new rptVentasFechasInicioFin();
+                    Reportes.dsReportesTableAdapters.spReporteVentasPorFechaEspTableAdapter dt = new Reportes.dsReportesTableAdapters.spReporteVentasPorFechaEspTableAdapter();
+                    dt.Connection = _SqlConnection;
+                    dt.Fill(ds.spReporteVentasPorFechaEsp,this.fechaInicio, this.fechaFin);
+                }
+
 
 
                 ((ReportDocument)Reporte).SetDataSource(ds);
@@ -95,6 +112,12 @@ namespace PresentationLayer
 
           
 
+        }
+
+        private void datosFechas(DateTime fechaInicio, DateTime fechaFin)
+        {
+            this.fechaFin = fechaFin;
+            this.fechaInicio = fechaInicio;
         }
     }
 }

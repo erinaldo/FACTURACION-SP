@@ -294,9 +294,10 @@ namespace PresentationLayer
                 frm.ShowDialog();
 
             }
-       
+            
 
 
+      
 
 
         }
@@ -334,6 +335,11 @@ namespace PresentationLayer
                 reporte = (int)Enums.reportes.reporteGeneralVenta;
 
             }
+            else if (((ToolStripMenuItem)sender).Name == "mnuReporteFechaIncioFin")
+            {
+                reporte = (int)Enums.reportes.ventasFechaInicioFin;
+
+            }
 
 
 
@@ -361,7 +367,7 @@ namespace PresentationLayer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frmFacturacion form = new frmFacturacion();
+            frmFacturacion1 form = new frmFacturacion1();
             form.ShowDialog();
         }
 

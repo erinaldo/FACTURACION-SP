@@ -291,13 +291,15 @@ namespace PresentationLayer
             calcularTotales();
         }
 
+       
+
         private void calcularTotales()
         {
             decimal total = 0, desc = 0, iva = 0, subtotal = 0, exo = 0;
 
             foreach (tbDetalleDocumento detalle in listaDetalleDocumento)
             {
-                detalle.totalLinea = (detalle.montoTotal - detalle.montoTotalDesc) + detalle.montoTotalImp;
+                detalle.totalLinea = (detalle.montoTotal - detalle.montoTotalDesc) + detalle.montoTotalImp - detalle.montoTotalExo;
                 total += detalle.totalLinea;
                 desc += detalle.montoTotalDesc;
                 iva += detalle.montoTotalImp;
@@ -352,19 +354,15 @@ namespace PresentationLayer
                 //sino es excento el producto
                 if (!detalle.tbProducto.esExento)
                 {
+                    detalle.montoTotalExo = 0;
                     //aplica exoneracion al cliente
                     if (exoneracionClie)
                     {
                         detalle.montoTotalExo = (detalle.montoTotal - detalle.montoTotalDesc) * (((decimal)detalle.tbProducto.tbImpuestos.valor) / 100);
-                        detalle.montoTotalImp = 0;
-                    }
-                    else
-                    {
-                        //aplica el impuesto
-                        detalle.montoTotalExo = 0;
-                        detalle.montoTotalImp = (detalle.montoTotal - detalle.montoTotalDesc) * (((decimal)detalle.tbProducto.tbImpuestos.valor) / 100);
+
                     }
 
+                    detalle.montoTotalImp = (detalle.montoTotal - detalle.montoTotalDesc) * (((decimal)detalle.tbProducto.tbImpuestos.valor) / 100);
                 }
                 else
                 {//no aplica impuesto ya que el producto es excento.
