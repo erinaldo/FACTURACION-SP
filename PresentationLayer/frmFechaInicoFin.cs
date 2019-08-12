@@ -38,7 +38,7 @@ namespace PresentationLayer
 
         private bool validar()
         {
-            if (dtpFin.Value<dtpInicio.Value)
+            if (dtpFin.Value.Date<dtpInicio.Value.Date)
             {
                 MessageBox.Show("La fecha de inicio es mayor que la fecha fin.","Faltan datos",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 return false;

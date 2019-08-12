@@ -340,6 +340,11 @@ namespace PresentationLayer
                 reporte = (int)Enums.reportes.ventasFechaInicioFin;
 
             }
+            else if (((ToolStripMenuItem)sender).Name == "mnuNotasCreditoFechas")
+            {
+                reporte = (int)Enums.reportes.notasCreditoFechaIncioFin;
+
+            }
 
 
 
@@ -436,6 +441,11 @@ namespace PresentationLayer
         }
 
         private void generalVentasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mnuNotasCreditoFechas_Click(object sender, EventArgs e)
         {
 
         }

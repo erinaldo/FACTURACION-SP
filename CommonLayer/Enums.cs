@@ -146,7 +146,8 @@ namespace CommonLayer
             inventarioSobre = 3,
             inventarioCategoria=4,
             reporteGeneralVenta=5,
-            ventasFechaInicioFin=6
+            ventasFechaInicioFin=6,
+            notasCreditoFechaIncioFin=7
            
         }
 

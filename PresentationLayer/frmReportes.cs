@@ -89,13 +89,32 @@ namespace PresentationLayer
                     frmFechaInicoFin buscar = new frmFechaInicoFin();
                     buscar.pasarDatosEvent += datosFechas;
                     buscar.ShowDialog();
+                    if (this.fechaInicio==DateTime.MinValue && this.fechaFin==DateTime.MinValue)
+                    {
+                        this.Close();
+                    }
 
-
-                    Reporte = new rptVentasFechasInicioFin();
+                    Reporte = new rptVentasFechasInicioFin1();
                     Reportes.dsReportesTableAdapters.spReporteVentasPorFechaEspTableAdapter dt = new Reportes.dsReportesTableAdapters.spReporteVentasPorFechaEspTableAdapter();
                     dt.Connection = _SqlConnection;
                     dt.Fill(ds.spReporteVentasPorFechaEsp,this.fechaInicio, this.fechaFin);
                 }
+                else if (reporte == (int)Enums.reportes.notasCreditoFechaIncioFin)
+                {
+                    frmFechaInicoFin buscar = new frmFechaInicoFin();
+                    buscar.pasarDatosEvent += datosFechas;
+                    buscar.ShowDialog();
+                    if (this.fechaInicio == DateTime.MinValue && this.fechaFin == DateTime.MinValue)
+                    {
+                        this.Close();
+                    }
+
+                    Reporte = new rptNotasCreditoFechaIncioFin();
+                    Reportes.dsReportesTableAdapters.sp_NotasCreditoPorFechaEspTableAdapter dt = new Reportes.dsReportesTableAdapters.sp_NotasCreditoPorFechaEspTableAdapter();
+                    dt.Connection = _SqlConnection;
+                    dt.Fill(ds.sp_NotasCreditoPorFechaEsp, this.fechaInicio, this.fechaFin);
+                }
+
 
 
 

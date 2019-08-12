@@ -608,10 +608,16 @@
       <DependentUpon>rptInventarioSobre.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reportes\rptVentasFechasInicioFin.cs">
+    <Compile Include="Reportes\rptNotasCreditoFechaIncioFin.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>rptVentasFechasInicioFin.rpt</DependentUpon>
+      <DependentUpon>rptNotasCreditoFechaIncioFin.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\rptVentasFechasInicioFin1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptVentasFechasInicioFin1.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reportes\rptVentasGeneral.cs">
@@ -893,9 +899,13 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptInventarioSobre.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reportes\rptVentasFechasInicioFin.rpt">
+    <EmbeddedResource Include="Reportes\rptNotasCreditoFechaIncioFin.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>rptVentasFechasInicioFin.cs</LastGenOutput>
+      <LastGenOutput>rptNotasCreditoFechaIncioFin.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\rptVentasFechasInicioFin1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptVentasFechasInicioFin1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\rptVentasGeneral.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
