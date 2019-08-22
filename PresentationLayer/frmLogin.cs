@@ -170,5 +170,13 @@ namespace PresentationLayer
         {
 
         }
+
+        private void txtContraseña_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                ingresar();
+            }
+        }
     }
 }

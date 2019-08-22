@@ -259,7 +259,7 @@ namespace PresentationLayer
             if (tipoPago == (int)Enums.TipoPago.Efectivo)
             {
                 bandera = 1;
-
+                gbxBillete.Enabled = true;
                 btnContado.Enabled = false;
                 btnTarjeta.Enabled = true;
                 btnCredito.Enabled = true;
@@ -285,7 +285,7 @@ namespace PresentationLayer
             else if (tipoPago == (int)Enums.TipoPago.Tarjeta)
             {
                 bandera = 2;
-
+                gbxBillete.Enabled = false;
                 btnTarjeta.Enabled = false;
                 btnContado.Enabled = true;
                 btnCredito.Enabled = true;
@@ -310,7 +310,7 @@ namespace PresentationLayer
             else if (tipoPago == (int)Enums.TipoPago.Otros)
             {
                 bandera = 3;
-
+                gbxBillete.Enabled = false;
                 btnCredito.Enabled = false;
                 btnTarjeta.Enabled = true;
                 btnContado.Enabled = true;
@@ -353,7 +353,7 @@ namespace PresentationLayer
             
          if (txtPago.Text != "")
         {
-            if (Int64.Parse(txtPago.Text) != Int64.Parse("0"))
+            if (decimal.Parse(txtPago.Text) != decimal.Parse("0"))
             {
             //calcular vuelto
             decimal MontoPago = decimal.Parse(txtPago.Text.Trim());
@@ -530,7 +530,7 @@ namespace PresentationLayer
             {
                 cobrar();
             }
-            if (Char.IsDigit(e.KeyChar))
+            if (Char.IsDigit(e.KeyChar) || e.KeyChar.ToString()==".")
             {
                 e.Handled = false;
             }
@@ -590,6 +590,52 @@ namespace PresentationLayer
         private void txtPago_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            txtPago.Text = "1000";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            txtPago.Text = "5000";
+        }
+
+        private void btnCompleto_Click(object sender, EventArgs e)
+        {
+            txtPago.Text = txtMontoTotal.Text;
+        }
+
+        private void btn2000_Click(object sender, EventArgs e)
+        {
+            txtPago.Text = "2000";
+        }
+
+        private void btn10000_Click(object sender, EventArgs e)
+        {
+            txtPago.Text = "10000";
+        }
+
+        private void btn15000_Click(object sender, EventArgs e)
+        {
+            txtPago.Text = "15000";
+        }
+
+        private void btn20000_Click(object sender, EventArgs e)
+        {
+            txtPago.Text = "20000";
+        }
+
+        private void btn50000_Click(object sender, EventArgs e)
+        {
+            txtPago.Text = "50000";
+        }
+
+        private void txtPago_DoubleClick(object sender, EventArgs e)
+        {
+            txtPago.Text = "";
+            txtPago.Focus();
         }
     }
 }

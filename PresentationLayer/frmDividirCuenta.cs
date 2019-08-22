@@ -240,9 +240,9 @@ namespace PresentationLayer
             lista = asignarLineasNumero(lista);
             lista = calcularDescuentos(lista);
             lista = calcularImpuestos(lista);
-            lista = calcularServicioMesa(lista);
-
             lista = calcularTotales(lista);
+            lista = calcularServicioMesa(lista);
+            imprimirTotales(lista);
             return lista;
         }
 
@@ -278,13 +278,26 @@ namespace PresentationLayer
 
         private List<tbDetalleDocumento> calcularTotales(List<tbDetalleDocumento> lista)
         {
+            
+            foreach (tbDetalleDocumento detalle in lista)
+            {
+                if (detalle.idProducto != "SM")
+                {
+                    detalle.totalLinea = (detalle.montoTotal - detalle.montoTotalDesc) + detalle.montoTotalImp - detalle.montoTotalExo;
+                    
+                }
+            }
+
+            return lista;
+        }
+        private void imprimirTotales(List<tbDetalleDocumento> lista)
+        {
             decimal total = 0, desc = 0, iva = 0, subtotal = 0, exo = 0, sm = 0;
 
             foreach (tbDetalleDocumento detalle in lista)
             {
                 if (detalle.idProducto != "SM")
                 {
-                    detalle.totalLinea = (detalle.montoTotal - detalle.montoTotalDesc) + detalle.montoTotalImp - detalle.montoTotalExo;
                     total += detalle.totalLinea;
                     desc += detalle.montoTotalDesc;
                     iva += detalle.montoTotalImp;
@@ -352,7 +365,7 @@ namespace PresentationLayer
                 txtServicioMesa.Text = "0";
 
             }
-            return lista;
+            
         }
 
         private List<tbDetalleDocumento> calcularImpuestos(List<tbDetalleDocumento> lista)
@@ -921,46 +934,53 @@ namespace PresentationLayer
 
         private void frmDividirCuenta_FormClosing(object sender, FormClosingEventArgs e)
         {
-            foreach (ListViewItem item in lstvListaParcial.Items)
+            try
             {
 
-                string prod = item.SubItems[1].Text;
-                decimal cant = decimal.Parse(item.SubItems[3].Text);
-
-                var detalle = documentoTotal.tbDetalleDocumento.Where(a => a.idProducto == prod.Trim()).SingleOrDefault();
-               
-                var x = detalleDocumentoParcial.Where(v => v.idProducto == prod.Trim()).SingleOrDefault();
-                if (detalle == null)
+                foreach (ListViewItem item in lstvListaParcial.Items)
                 {
-                    tbDetalleDocumento detalleParcial = new tbDetalleDocumento();
-                    detalleParcial.cantidad = cant;
-                    detalleParcial.idProducto = x.idProducto;
-                    detalleParcial.precio = x.precio;
-                    detalleParcial.montoTotal = detalleParcial.cantidad * detalleParcial.precio;
 
-                    detalleParcial.tbProducto = x.tbProducto;
-                    documentoTotal.tbDetalleDocumento.Add(detalleParcial);
+                    string prod = item.SubItems[1].Text;
+                    decimal cant = decimal.Parse(item.SubItems[3].Text);
+
+                    var detalle = documentoTotal.tbDetalleDocumento.Where(a => a.idProducto == prod.Trim()).SingleOrDefault();
+
+                    var x = detalleDocumentoParcial.Where(v => v.idProducto == prod.Trim()).SingleOrDefault();
+                    if (detalle == null)
+                    {
+                        tbDetalleDocumento detalleParcial = new tbDetalleDocumento();
+                        detalleParcial.cantidad = cant;
+                        detalleParcial.idProducto = x.idProducto;
+                        detalleParcial.precio = x.precio;
+                        detalleParcial.montoTotal = detalleParcial.cantidad * detalleParcial.precio;
+
+                        detalleParcial.tbProducto = x.tbProducto;
+                        documentoTotal.tbDetalleDocumento.Add(detalleParcial);
+                    }
+                    else
+                    {
+                        documentoTotal.tbDetalleDocumento.Where(c => c.idProducto == prod.Trim()).SingleOrDefault().cantidad += cant;
+                        documentoTotal.tbDetalleDocumento.Where(c => c.idProducto == prod.Trim()).SingleOrDefault().montoTotal = detalleDocumentoParcial.Where(y => y.idProducto == prod.Trim()).SingleOrDefault().cantidad *
+                         documentoTotal.tbDetalleDocumento.Where(f => f.idProducto == prod.Trim()).SingleOrDefault().precio;
+                    }
+                }
+                if (lstvTotal.Items.Count == 0 && lstvListaParcial.Items.Count == 0)
+                {
+
+                    pasarDatosPendientes(null);
                 }
                 else
                 {
-                    documentoTotal.tbDetalleDocumento.Where(c => c.idProducto == prod.Trim()).SingleOrDefault().cantidad+= cant ;
-                    documentoTotal.tbDetalleDocumento.Where(c => c.idProducto == prod.Trim()).SingleOrDefault().montoTotal = detalleDocumentoParcial.Where(y => y.idProducto == prod.Trim()).SingleOrDefault().cantidad *
-                     documentoTotal.tbDetalleDocumento.Where(f => f.idProducto == prod.Trim()).SingleOrDefault().precio;
+
+                    documentoTotal.tbDetalleDocumento = calcularMontosT((List<tbDetalleDocumento>)documentoTotal.tbDetalleDocumento);
+                    pasarDatosPendientes(documentoTotal);
                 }
-            }
-           
 
-
-            if (lstvTotal.Items.Count==0 && lstvListaParcial.Items.Count==0)
-            {
-                
-                pasarDatosPendientes(null);
             }
-            else
+            catch (Exception)
             {
-                
-                documentoTotal.tbDetalleDocumento = calcularMontosT((List<tbDetalleDocumento>)documentoTotal.tbDetalleDocumento);
-                pasarDatosPendientes(documentoTotal);
+
+                MessageBox.Show("Error al cerrar el formulario", "Cerrando...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -976,11 +996,26 @@ namespace PresentationLayer
 
         private void chkServicioMesa_CheckedChanged(object sender, EventArgs e)
         {
-            documentoTotal.tbDetalleDocumento=calcularMontosT((List<tbDetalleDocumento>)documentoTotal.tbDetalleDocumento);
-            detalleDocumentoParcial=calcularMontosT(detalleDocumentoParcial);
+            try
+            {
+                documentoTotal.tbDetalleDocumento = calcularMontosT((List<tbDetalleDocumento>)documentoTotal.tbDetalleDocumento);
+                detalleDocumentoParcial = calcularMontosT(detalleDocumentoParcial);
 
-            cargarListaTotal();
-            cargarListaParcial();
+                cargarListaTotal();
+                cargarListaParcial();
+
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Error al agregar el servicio de mesa","Servicio Mesa",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+            
+        }
+
+        private void lstvTotal_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

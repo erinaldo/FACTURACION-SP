@@ -66,9 +66,19 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.btn1000 = new System.Windows.Forms.Button();
+            this.btn2000 = new System.Windows.Forms.Button();
+            this.btn5000 = new System.Windows.Forms.Button();
+            this.btn10000 = new System.Windows.Forms.Button();
+            this.btn15000 = new System.Windows.Forms.Button();
+            this.btn20000 = new System.Windows.Forms.Button();
+            this.btn50000 = new System.Windows.Forms.Button();
+            this.btnCompleto = new System.Windows.Forms.Button();
+            this.gbxBillete = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.gbxBillete.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblRefPago
@@ -103,6 +113,7 @@
             this.txtPago.TabIndex = 1;
             this.txtPago.Text = "0";
             this.txtPago.TextChanged += new System.EventHandler(this.txtPago_TextChanged);
+            this.txtPago.DoubleClick += new System.EventHandler(this.txtPago_DoubleClick);
             this.txtPago.Enter += new System.EventHandler(this.txtPago_Enter);
             this.txtPago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DeniedNonNumeric);
             this.txtPago.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Backspace);
@@ -573,12 +584,157 @@
             this.label2.TabIndex = 75;
             this.label2.Text = "Efectivo";
             // 
+            // btn1000
+            // 
+            this.btn1000.BackColor = System.Drawing.Color.White;
+            this.btn1000.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn1000.BackgroundImage")));
+            this.btn1000.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn1000.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn1000.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btn1000.Location = new System.Drawing.Point(157, 14);
+            this.btn1000.Margin = new System.Windows.Forms.Padding(4);
+            this.btn1000.Name = "btn1000";
+            this.btn1000.Size = new System.Drawing.Size(107, 76);
+            this.btn1000.TabIndex = 68;
+            this.btn1000.Text = "1.000";
+            this.btn1000.UseVisualStyleBackColor = false;
+            this.btn1000.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btn2000
+            // 
+            this.btn2000.BackColor = System.Drawing.Color.White;
+            this.btn2000.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn2000.BackgroundImage")));
+            this.btn2000.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn2000.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn2000.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btn2000.Location = new System.Drawing.Point(272, 14);
+            this.btn2000.Margin = new System.Windows.Forms.Padding(4);
+            this.btn2000.Name = "btn2000";
+            this.btn2000.Size = new System.Drawing.Size(107, 76);
+            this.btn2000.TabIndex = 69;
+            this.btn2000.Text = "2.000";
+            this.btn2000.UseVisualStyleBackColor = false;
+            this.btn2000.Click += new System.EventHandler(this.btn2000_Click);
+            // 
+            // btn5000
+            // 
+            this.btn5000.BackColor = System.Drawing.Color.White;
+            this.btn5000.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn5000.BackgroundImage")));
+            this.btn5000.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn5000.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn5000.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btn5000.Location = new System.Drawing.Point(387, 14);
+            this.btn5000.Margin = new System.Windows.Forms.Padding(4);
+            this.btn5000.Name = "btn5000";
+            this.btn5000.Size = new System.Drawing.Size(107, 76);
+            this.btn5000.TabIndex = 70;
+            this.btn5000.Text = "5.000";
+            this.btn5000.UseVisualStyleBackColor = false;
+            this.btn5000.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // btn10000
+            // 
+            this.btn10000.BackColor = System.Drawing.Color.White;
+            this.btn10000.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn10000.BackgroundImage")));
+            this.btn10000.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn10000.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn10000.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btn10000.Location = new System.Drawing.Point(502, 14);
+            this.btn10000.Margin = new System.Windows.Forms.Padding(4);
+            this.btn10000.Name = "btn10000";
+            this.btn10000.Size = new System.Drawing.Size(107, 76);
+            this.btn10000.TabIndex = 71;
+            this.btn10000.Text = "10.000";
+            this.btn10000.UseVisualStyleBackColor = false;
+            this.btn10000.Click += new System.EventHandler(this.btn10000_Click);
+            // 
+            // btn15000
+            // 
+            this.btn15000.BackColor = System.Drawing.Color.White;
+            this.btn15000.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn15000.BackgroundImage")));
+            this.btn15000.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn15000.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn15000.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btn15000.Location = new System.Drawing.Point(617, 14);
+            this.btn15000.Margin = new System.Windows.Forms.Padding(4);
+            this.btn15000.Name = "btn15000";
+            this.btn15000.Size = new System.Drawing.Size(107, 76);
+            this.btn15000.TabIndex = 72;
+            this.btn15000.Text = "15.000";
+            this.btn15000.UseVisualStyleBackColor = false;
+            this.btn15000.Click += new System.EventHandler(this.btn15000_Click);
+            // 
+            // btn20000
+            // 
+            this.btn20000.BackColor = System.Drawing.Color.White;
+            this.btn20000.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn20000.BackgroundImage")));
+            this.btn20000.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn20000.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn20000.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btn20000.Location = new System.Drawing.Point(732, 14);
+            this.btn20000.Margin = new System.Windows.Forms.Padding(4);
+            this.btn20000.Name = "btn20000";
+            this.btn20000.Size = new System.Drawing.Size(107, 76);
+            this.btn20000.TabIndex = 73;
+            this.btn20000.Text = "20.000";
+            this.btn20000.UseVisualStyleBackColor = false;
+            this.btn20000.Click += new System.EventHandler(this.btn20000_Click);
+            // 
+            // btn50000
+            // 
+            this.btn50000.BackColor = System.Drawing.Color.White;
+            this.btn50000.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn50000.BackgroundImage")));
+            this.btn50000.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn50000.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn50000.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btn50000.Location = new System.Drawing.Point(850, 14);
+            this.btn50000.Margin = new System.Windows.Forms.Padding(4);
+            this.btn50000.Name = "btn50000";
+            this.btn50000.Size = new System.Drawing.Size(107, 76);
+            this.btn50000.TabIndex = 74;
+            this.btn50000.Text = "50.000";
+            this.btn50000.UseVisualStyleBackColor = false;
+            this.btn50000.Click += new System.EventHandler(this.btn50000_Click);
+            // 
+            // btnCompleto
+            // 
+            this.btnCompleto.BackColor = System.Drawing.Color.White;
+            this.btnCompleto.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompleto.BackgroundImage")));
+            this.btnCompleto.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnCompleto.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCompleto.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnCompleto.Location = new System.Drawing.Point(15, 14);
+            this.btnCompleto.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCompleto.Name = "btnCompleto";
+            this.btnCompleto.Size = new System.Drawing.Size(107, 76);
+            this.btnCompleto.TabIndex = 75;
+            this.btnCompleto.Text = "Completo";
+            this.btnCompleto.UseVisualStyleBackColor = false;
+            this.btnCompleto.Click += new System.EventHandler(this.btnCompleto_Click);
+            // 
+            // gbxBillete
+            // 
+            this.gbxBillete.Controls.Add(this.btnCompleto);
+            this.gbxBillete.Controls.Add(this.btn50000);
+            this.gbxBillete.Controls.Add(this.btn20000);
+            this.gbxBillete.Controls.Add(this.btn15000);
+            this.gbxBillete.Controls.Add(this.btn10000);
+            this.gbxBillete.Controls.Add(this.btn5000);
+            this.gbxBillete.Controls.Add(this.btn2000);
+            this.gbxBillete.Controls.Add(this.btn1000);
+            this.gbxBillete.Location = new System.Drawing.Point(11, 565);
+            this.gbxBillete.Name = "gbxBillete";
+            this.gbxBillete.Size = new System.Drawing.Size(966, 98);
+            this.gbxBillete.TabIndex = 76;
+            this.gbxBillete.TabStop = false;
+            // 
             // frmCobrar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ClientSize = new System.Drawing.Size(989, 575);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(989, 680);
+            this.Controls.Add(this.gbxBillete);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button13);
@@ -595,6 +751,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.gbxBillete.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -637,5 +794,14 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox chkImprimir;
+        private System.Windows.Forms.Button btn1000;
+        private System.Windows.Forms.Button btn2000;
+        private System.Windows.Forms.Button btn5000;
+        private System.Windows.Forms.Button btn10000;
+        private System.Windows.Forms.Button btn15000;
+        private System.Windows.Forms.Button btn20000;
+        private System.Windows.Forms.Button btn50000;
+        private System.Windows.Forms.Button btnCompleto;
+        private System.Windows.Forms.GroupBox gbxBillete;
     }
 }

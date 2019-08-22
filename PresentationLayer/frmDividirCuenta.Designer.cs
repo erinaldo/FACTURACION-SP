@@ -45,6 +45,10 @@
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.gbxMontos = new System.Windows.Forms.GroupBox();
+            this.txtServicioMesa = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtSub = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.txtExoneracion = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -57,8 +61,8 @@
             this.lblIva = new System.Windows.Forms.Label();
             this.txtDescuento = new System.Windows.Forms.TextBox();
             this.lblDescuento = new System.Windows.Forms.Label();
-            this.txtIva = new System.Windows.Forms.TextBox();
             this.lblTotal = new System.Windows.Forms.Label();
+            this.txtIva = new System.Windows.Forms.TextBox();
             this.chkEnviar = new System.Windows.Forms.CheckBox();
             this.txtCorreo2 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -72,10 +76,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.chkServicioMesa = new System.Windows.Forms.CheckBox();
-            this.txtSub = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtServicioMesa = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.gbxMontos.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -163,6 +163,7 @@
             this.lstvTotal.UseCompatibleStateImageBehavior = false;
             this.lstvTotal.View = System.Windows.Forms.View.Details;
             this.lstvTotal.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lstvTotal_ItemChecked);
+            this.lstvTotal.SelectedIndexChanged += new System.EventHandler(this.lstvTotal_SelectedIndexChanged);
             // 
             // columnHeader5
             // 
@@ -212,6 +213,49 @@
             this.gbxMontos.Size = new System.Drawing.Size(386, 425);
             this.gbxMontos.TabIndex = 70;
             this.gbxMontos.TabStop = false;
+            // 
+            // txtServicioMesa
+            // 
+            this.txtServicioMesa.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtServicioMesa.Location = new System.Drawing.Point(199, 190);
+            this.txtServicioMesa.Margin = new System.Windows.Forms.Padding(4);
+            this.txtServicioMesa.Name = "txtServicioMesa";
+            this.txtServicioMesa.ReadOnly = true;
+            this.txtServicioMesa.Size = new System.Drawing.Size(174, 34);
+            this.txtServicioMesa.TabIndex = 71;
+            this.txtServicioMesa.Text = "0";
+            // 
+            // label7
+            // 
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(33, 196);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(159, 25);
+            this.label7.TabIndex = 70;
+            this.label7.Text = "Serv. de Mesa:";
+            // 
+            // txtSub
+            // 
+            this.txtSub.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSub.Location = new System.Drawing.Point(199, 153);
+            this.txtSub.Margin = new System.Windows.Forms.Padding(4);
+            this.txtSub.Name = "txtSub";
+            this.txtSub.ReadOnly = true;
+            this.txtSub.Size = new System.Drawing.Size(174, 34);
+            this.txtSub.TabIndex = 69;
+            this.txtSub.Text = "0";
+            // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(93, 159);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(101, 25);
+            this.label5.TabIndex = 68;
+            this.label5.Text = "Subtotal:";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // button1
             // 
@@ -357,6 +401,16 @@
             this.lblDescuento.TabIndex = 29;
             this.lblDescuento.Text = "Descuento:";
             // 
+            // lblTotal
+            // 
+            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotal.Location = new System.Drawing.Point(123, 233);
+            this.lblTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(68, 25);
+            this.lblTotal.TabIndex = 30;
+            this.lblTotal.Text = "Total:";
+            // 
             // txtIva
             // 
             this.txtIva.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -367,16 +421,6 @@
             this.txtIva.Size = new System.Drawing.Size(174, 34);
             this.txtIva.TabIndex = 0;
             this.txtIva.Text = "0";
-            // 
-            // lblTotal
-            // 
-            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotal.Location = new System.Drawing.Point(123, 233);
-            this.lblTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(68, 25);
-            this.lblTotal.TabIndex = 30;
-            this.lblTotal.Text = "Total:";
             // 
             // chkEnviar
             // 
@@ -516,49 +560,6 @@
             this.chkServicioMesa.Text = "Servicio de Mesa(10%)";
             this.chkServicioMesa.UseVisualStyleBackColor = true;
             this.chkServicioMesa.CheckedChanged += new System.EventHandler(this.chkServicioMesa_CheckedChanged);
-            // 
-            // txtSub
-            // 
-            this.txtSub.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSub.Location = new System.Drawing.Point(199, 153);
-            this.txtSub.Margin = new System.Windows.Forms.Padding(4);
-            this.txtSub.Name = "txtSub";
-            this.txtSub.ReadOnly = true;
-            this.txtSub.Size = new System.Drawing.Size(174, 34);
-            this.txtSub.TabIndex = 69;
-            this.txtSub.Text = "0";
-            // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(93, 159);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(101, 25);
-            this.label5.TabIndex = 68;
-            this.label5.Text = "Subtotal:";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
-            // 
-            // txtServicioMesa
-            // 
-            this.txtServicioMesa.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtServicioMesa.Location = new System.Drawing.Point(199, 190);
-            this.txtServicioMesa.Margin = new System.Windows.Forms.Padding(4);
-            this.txtServicioMesa.Name = "txtServicioMesa";
-            this.txtServicioMesa.ReadOnly = true;
-            this.txtServicioMesa.Size = new System.Drawing.Size(174, 34);
-            this.txtServicioMesa.TabIndex = 71;
-            this.txtServicioMesa.Text = "0";
-            // 
-            // label7
-            // 
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(33, 196);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(159, 25);
-            this.label7.TabIndex = 70;
-            this.label7.Text = "Serv. de Mesa:";
             // 
             // frmDividirCuenta
             // 

@@ -124,6 +124,7 @@
             this.txtContraseña.TabIndex = 7;
             this.txtContraseña.Text = "moya2018";
             this.txtContraseña.TextChanged += new System.EventHandler(this.txtContraseña_TextChanged);
+            this.txtContraseña.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtContraseña_KeyPress);
             // 
             // cboNumCaja
             // 

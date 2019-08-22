@@ -293,8 +293,9 @@ namespace PresentationLayer
                 asignarLineasNumero();
                 calcularDescuentos();
                 calcularImpuestos();
-                calcularServicioMesa();
                 calcularTotales();
+                calcularServicioMesa();
+                imprimirTotales();
             }
             catch (Exception)
             {
@@ -332,38 +333,50 @@ namespace PresentationLayer
 
         private void calcularTotales()
         {
-            decimal total = 0, desc = 0, iva = 0, subtotal = 0, exo = 0, sm=0;
 
             foreach (tbDetalleDocumento detalle in listaDetalleDocumento)
             {
                 if (detalle.idProducto!="SM")
                 {
                     detalle.totalLinea = (detalle.montoTotal - detalle.montoTotalDesc) + detalle.montoTotalImp - detalle.montoTotalExo;
-                    total += detalle.totalLinea;
-                    desc += detalle.montoTotalDesc;
-                    iva += detalle.montoTotalImp;
-                    exo += detalle.montoTotalExo;
-                    subtotal += detalle.montoTotal;
 
                 }
                
 
             }
            
+        }
+
+        private void imprimirTotales()
+        {
+            decimal total = 0, desc = 0, iva = 0, subtotal = 0, exo = 0, sm = 0;
+
+            foreach (tbDetalleDocumento detalle in listaDetalleDocumento)
+            {
+                if (detalle.idProducto != "SM")
+                {
+                    total += detalle.totalLinea;
+                    desc += detalle.montoTotalDesc;
+                    iva += detalle.montoTotalImp;
+                    exo += detalle.montoTotalExo;
+                    subtotal += detalle.montoTotal;
+                }
+            }
+
             txtSubtotal.Text = subtotal.ToString("#.##");
             txtDescuento.Text = desc.ToString("#.##");
             txtIva.Text = iva.ToString("#.##");
             txtExoneracion.Text = exo.ToString("#.##");
-            txtSub.Text = ((subtotal - desc + iva)-exo).ToString("#.##");
+            txtSub.Text = ((subtotal - desc + iva) - exo).ToString("#.##");
             txtServicioMesa.Text = sm.ToString("#.##");
-            if (listaDetalleDocumento.Where(x=>x.idProducto=="SM").SingleOrDefault()!=null)
+            if (listaDetalleDocumento.Where(x => x.idProducto == "SM").SingleOrDefault() != null)
             {
-                sm = listaDetalleDocumento.Where(x => x.idProducto == "SM").Sum(x=>x.totalLinea);
-                sm*=decimal.Parse("0.10"); 
+                sm = listaDetalleDocumento.Where(x => x.idProducto == "SM").Sum(x => x.totalLinea);
+                sm *= decimal.Parse("0.10");
                 txtServicioMesa.Text = sm.ToString("#.##");
             }
-            txtTotal.Text = (total+sm).ToString("#.##");
-          
+            txtTotal.Text = (total + sm).ToString("#.##");
+
 
             if (txtSubtotal.Text == string.Empty)
             {
@@ -407,6 +420,7 @@ namespace PresentationLayer
 
             }
         }
+
 
         private void calcularImpuestos()
         {
@@ -1175,7 +1189,7 @@ namespace PresentationLayer
 
                 MessageBox.Show("Error al validar los campos", "Validar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+            return false; 
         }
 
         private tbDocumento crearDocumento()
