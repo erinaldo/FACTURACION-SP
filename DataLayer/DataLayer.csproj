@@ -161,12 +161,6 @@
       <LastGenOutput>dbSisSodInaModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="dbSisSodInaModel.edmx.sql" />
-    <Content Include="DB\dbSISSODINA.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DB\dbSISSODINA_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Scripts de reportes\p_CantidadMinima.sql" />
     <Content Include="Scripts de reportes\p_InventarioCantidad.sql" />
     <Content Include="Scripts de reportes\P_PlanillaEmpleados.sql" />

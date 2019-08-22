@@ -94,10 +94,18 @@ namespace PresentationLayer
 
         private void cargarDatos()
         {
-           
-            listaCategorias = categoriaIns.getCategorias(1);
-            cargaCategorias(listaCategorias);
-            cargarProductos(listaCategorias);
+            try
+            {
+                listaCategorias = categoriaIns.getCategorias(1);
+                cargaCategorias(listaCategorias);
+                cargarProductos(listaCategorias);
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Error al cargar datos.", "Cargar datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+         
 
 
         }
@@ -121,8 +129,11 @@ namespace PresentationLayer
 
                 foreach (tbProducto pro in categoria.tbProducto)
                 {
-
-                    listaProductos.Add(pro);
+                    if (pro.idProducto!="SM")
+                    {
+                        listaProductos.Add(pro);
+                    }
+                  
 
                 }
             }
@@ -137,38 +148,41 @@ namespace PresentationLayer
                         
             foreach(tbCategoriaProducto categoria in listaCategorias)
             {
-             
-
-                btn = new Button();
-                btn.Name = "cat"+categoria.id.ToString();
-                btn.Text = categoria.nombre.Trim();
-                btn.Location = new System.Drawing.Point(sizeCuadro * x, sizeCuadro * y);
-                btn.Size = new System.Drawing.Size(sizeCuadro, sizeCuadro);
-                btn.BackColor = Color.DarkBlue;
-                btn.Font = new System.Drawing.Font("Microsoft Sans Serif", sizeText, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                btn.ForeColor = Color.White;
-                btn.TextAlign = ContentAlignment.MiddleCenter;
-                if (File.Exists(categoria.fotocategoria))
+                if (categoria.tbProducto.Count!=0)
                 {
+                    btn = new Button();
+                    btn.Name = "cat" + categoria.id.ToString();
+                    btn.Text = categoria.nombre.Trim();
+                    btn.Location = new System.Drawing.Point(sizeCuadro * x, sizeCuadro * y);
+                    btn.Size = new System.Drawing.Size(sizeCuadro, sizeCuadro);
+                    btn.BackColor = Color.DarkBlue;
+                    btn.Font = new System.Drawing.Font("Microsoft Sans Serif", sizeText, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    btn.ForeColor = Color.White;
+                    btn.TextAlign = ContentAlignment.MiddleCenter;
+                    if (File.Exists(categoria.fotocategoria))
+                    {
 
-                    Image imagen = new Bitmap(categoria.fotocategoria.Trim());
-                    Image final = new Bitmap(imagen, 90, 70);
+                        Image imagen = new Bitmap(categoria.fotocategoria.Trim());
+                        Image final = new Bitmap(imagen, 90, 70);
 
-                    btn.Image = final;
-                    btn.ImageAlign = ContentAlignment.TopCenter;
+                        btn.Image = final;
+                        btn.ImageAlign = ContentAlignment.TopCenter;
+
+                    }
+                    btn.Click += new System.EventHandler(agregarProductoFacturacion);
+
+                    gbxCategorias.Controls.Add(btn);
+                    x++;
+
+                    if (x == 5)
+                    {
+                        x = 0;
+                        y++;
+
+                    }
 
                 }
-                btn.Click += new System.EventHandler(agregarProductoFacturacion);
 
-                gbxCategorias.Controls.Add(btn);
-                x++;
-
-                if(x == 5)
-                {
-                    x = 0;
-                    y++;
-
-                }
 
             }
 
@@ -176,76 +190,85 @@ namespace PresentationLayer
 
         private void agregarProductoFacturacion(object sender, EventArgs e)
         {
-            string isCat = ((Button)sender).Name.Substring(0, 3);
-
-
-            if(isCat == "cat")
+            try
             {
+                string isCat = ((Button)sender).Name.Substring(0, 3);
 
-                string categoria = ((Button)sender).Name.Replace("cat", "");
 
-
-                gbxProductos.Controls.Clear();
-                int idCategoria = int.Parse(categoria);
-              //  listaProductos = productoIns.getListProductoByCategoria(idCategoria);
-
-                Button btn;
-                int y = 0;
-                int x = 0;
-
-                foreach (tbProducto pro in listaProductos)
-                {                    
-                    if (pro.id_categoria == idCategoria)
-                    {
-
-                        btn = new Button();
-                        btn.Name = "pro" + pro.idProducto.ToString();
-                        btn.Text = pro.nombre.Trim();
-                        btn.Location = new System.Drawing.Point(sizeCuadro * x, sizeCuadro * y);
-                        btn.Size = new System.Drawing.Size(sizeCuadro, sizeCuadro);
-                        btn.BackColor = Color.SeaGreen;
-                        btn.Font = new System.Drawing.Font("Microsoft Sans Serif", sizeText, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                        btn.ForeColor = Color.White;
-                        btn.TextAlign = ContentAlignment.MiddleCenter;
-                        if (File.Exists(pro.foto))
-                        {
-                            Image imagen = new Bitmap(pro.foto);
-                            Image final = new Bitmap(imagen,90 , 70);
-                            btn.Image = final;
-                            btn.ImageAlign = ContentAlignment.TopCenter;
-                        }
-
-                        btn.Click += new System.EventHandler(agregarProductoFacturacion);
-                        gbxProductos.Controls.Add(btn);
-                        x++;
-
-                        if (x == 10)
-                        {
-                            x = 0;
-                            y++;
-                        }                        
-                    }
-                }               
-
-            }
-            else
-            {
-
-                //en caso que fuera un producto lo mando agregar al detalle de la factura
-                string producto = ((Button)sender).Name.Replace("pro", "");
-                foreach (tbProducto pro in listaProductos)
+                if (isCat == "cat")
                 {
 
-                    if (pro.idProducto == producto)
+                    string categoria = ((Button)sender).Name.Replace("cat", "");
+
+
+                    gbxProductos.Controls.Clear();
+                    int idCategoria = int.Parse(categoria);
+                    //  listaProductos = productoIns.getListProductoByCategoria(idCategoria);
+
+                    Button btn;
+                    int y = 0;
+                    int x = 0;
+
+                    foreach (tbProducto pro in listaProductos)
+                    {
+                        if (pro.id_categoria == idCategoria)
+                        {
+
+                            btn = new Button();
+                            btn.Name = "pro" + pro.idProducto.ToString();
+                            btn.Text = pro.nombre.Trim();
+                            btn.Location = new System.Drawing.Point(sizeCuadro * x, sizeCuadro * y);
+                            btn.Size = new System.Drawing.Size(sizeCuadro, sizeCuadro);
+                            btn.BackColor = Color.SeaGreen;
+                            btn.Font = new System.Drawing.Font("Microsoft Sans Serif", sizeText, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                            btn.ForeColor = Color.White;
+                            btn.TextAlign = ContentAlignment.MiddleCenter;
+                            if (File.Exists(pro.foto))
+                            {
+                                Image imagen = new Bitmap(pro.foto);
+                                Image final = new Bitmap(imagen, 90, 70);
+                                btn.Image = final;
+                                btn.ImageAlign = ContentAlignment.TopCenter;
+                            }
+
+                            btn.Click += new System.EventHandler(agregarProductoFacturacion);
+                            gbxProductos.Controls.Add(btn);
+                            x++;
+
+                            if (x == 10)
+                            {
+                                x = 0;
+                                y++;
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
+
+                    //en caso que fuera un producto lo mando agregar al detalle de la factura
+                    string producto = ((Button)sender).Name.Replace("pro", "");
+                    foreach (tbProducto pro in listaProductos)
                     {
 
-                        agregarProductoDetalleFactura(pro);
+                        if (pro.idProducto == producto)
+                        {
 
-                        break;
+                            agregarProductoDetalleFactura(pro);
 
+                            break;
+
+                        }
                     }
                 }
             }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Error al agregar el producto a facturación.", "Agregar productos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }        
 
         private void txtIdCliente_TextChanged(object sender, EventArgs e)
@@ -265,10 +288,35 @@ namespace PresentationLayer
 
         private void calcularMontosT()
         {
-            asignarLineasNumero();
-            calcularDescuentos();
-            calcularImpuestos();
-            calcularTotales();
+            try
+            {
+                asignarLineasNumero();
+                calcularDescuentos();
+                calcularImpuestos();
+                calcularServicioMesa();
+                calcularTotales();
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Error al calcular montos de facturación.", "Calcular montos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        
+        }
+
+        private void calcularServicioMesa()
+        {
+            listaDetalleDocumento.Remove(listaDetalleDocumento.Where(x=>x.idProducto=="SM").SingleOrDefault());
+            if (chkServicioMesa.Checked)
+            {
+                tbDetalleDocumento detalle = new tbDetalleDocumento();
+                detalle.idProducto = "SM";
+                detalle.cantidad = 1;
+                detalle.montoTotal = listaDetalleDocumento.Sum(x => x.totalLinea);
+                detalle.totalLinea = detalle.cantidad*detalle.montoTotal;
+                listaDetalleDocumento.Add(detalle);
+
+            }
         }
 
         private void asignarLineasNumero()
@@ -284,23 +332,38 @@ namespace PresentationLayer
 
         private void calcularTotales()
         {
-            decimal total = 0, desc = 0, iva = 0, subtotal = 0, exo = 0;
+            decimal total = 0, desc = 0, iva = 0, subtotal = 0, exo = 0, sm=0;
 
             foreach (tbDetalleDocumento detalle in listaDetalleDocumento)
             {
-                detalle.totalLinea = (detalle.montoTotal - detalle.montoTotalDesc) + detalle.montoTotalImp-detalle.montoTotalExo;
-                total += detalle.totalLinea;
-                desc += detalle.montoTotalDesc;
-                iva += detalle.montoTotalImp;
-                exo += detalle.montoTotalExo;
-                subtotal += detalle.montoTotal;
+                if (detalle.idProducto!="SM")
+                {
+                    detalle.totalLinea = (detalle.montoTotal - detalle.montoTotalDesc) + detalle.montoTotalImp - detalle.montoTotalExo;
+                    total += detalle.totalLinea;
+                    desc += detalle.montoTotalDesc;
+                    iva += detalle.montoTotalImp;
+                    exo += detalle.montoTotalExo;
+                    subtotal += detalle.montoTotal;
+
+                }
+               
 
             }
+           
             txtSubtotal.Text = subtotal.ToString("#.##");
             txtDescuento.Text = desc.ToString("#.##");
             txtIva.Text = iva.ToString("#.##");
-            txtTotal.Text = total.ToString("#.##");
             txtExoneracion.Text = exo.ToString("#.##");
+            txtSub.Text = ((subtotal - desc + iva)-exo).ToString("#.##");
+            txtServicioMesa.Text = sm.ToString("#.##");
+            if (listaDetalleDocumento.Where(x=>x.idProducto=="SM").SingleOrDefault()!=null)
+            {
+                sm = listaDetalleDocumento.Where(x => x.idProducto == "SM").Sum(x=>x.totalLinea);
+                sm*=decimal.Parse("0.10"); 
+                txtServicioMesa.Text = sm.ToString("#.##");
+            }
+            txtTotal.Text = (total+sm).ToString("#.##");
+          
 
             if (txtSubtotal.Text == string.Empty)
             {
@@ -333,6 +396,16 @@ namespace PresentationLayer
                 txtExoneracion.Text = "0";
 
             }
+            if (txtSub.Text == string.Empty)
+            {
+                txtSub.Text = "0";
+
+            }
+            if (txtServicioMesa.Text == string.Empty)
+            {
+                txtServicioMesa.Text = "0";
+
+            }
         }
 
         private void calcularImpuestos()
@@ -340,23 +413,27 @@ namespace PresentationLayer
 
             foreach (tbDetalleDocumento detalle in listaDetalleDocumento)
             {
-                //sino es excento el producto
-                if (!detalle.tbProducto.esExento)
+                if (detalle.idProducto!="SM")
                 {
-                    detalle.montoTotalExo = 0;
-                    //aplica exoneracion al cliente
-                    if (exoneracionClie)
+                    //sino es excento el producto
+                    if (!detalle.tbProducto.esExento)
                     {
-                        detalle.montoTotalExo = (detalle.montoTotal - detalle.montoTotalDesc) * (((decimal)detalle.tbProducto.tbImpuestos.valor) / 100);
-                      
+                        detalle.montoTotalExo = 0;
+                        //aplica exoneracion al cliente
+                        if (exoneracionClie)
+                        {
+                            detalle.montoTotalExo = (detalle.montoTotal - detalle.montoTotalDesc) * (((decimal)detalle.tbProducto.tbImpuestos.valor) / 100);
+
+                        }
+
+                        detalle.montoTotalImp = (detalle.montoTotal - detalle.montoTotalDesc) * (((decimal)detalle.tbProducto.tbImpuestos.valor) / 100);
                     }
-                    
-                    detalle.montoTotalImp = (detalle.montoTotal - detalle.montoTotalDesc) * (((decimal)detalle.tbProducto.tbImpuestos.valor) / 100);
-                }
-                else
-                {//no aplica impuesto ya que el producto es excento.
-                    detalle.montoTotalImp = 0;
-                    detalle.montoTotalExo = 0;
+                    else
+                    {//no aplica impuesto ya que el producto es excento.
+                        detalle.montoTotalImp = 0;
+                        detalle.montoTotalExo = 0;
+
+                    }
 
                 }
 
@@ -414,26 +491,29 @@ namespace PresentationLayer
 
                 foreach (tbDetalleDocumento detalle in listaDetalleDocumento)
                 {
-
-                    if ((bool)detalle.tbProducto.aplicaDescuento)
+                    if (detalle.idProducto!="SM")
                     {
-                        if (porc > ((detalle.tbProducto.descuento_max) / 100))
+                        if ((bool)detalle.tbProducto.aplicaDescuento)
                         {
-                            detalle.descuento = (decimal)detalle.tbProducto.descuento_max;
-                            detalle.montoTotalDesc = detalle.montoTotal * ((decimal)detalle.tbProducto.descuento_max / 100);
+                            if (porc > ((detalle.tbProducto.descuento_max) / 100))
+                            {
+                                detalle.descuento = (decimal)detalle.tbProducto.descuento_max;
+                                detalle.montoTotalDesc = detalle.montoTotal * ((decimal)detalle.tbProducto.descuento_max / 100);
+                            }
+                            else
+                            {
+                                detalle.descuento = (decimal)porc * 100;
+                                detalle.montoTotalDesc = detalle.montoTotal * porc;
+                            }
                         }
                         else
                         {
-                            detalle.descuento = (decimal)porc * 100;
-                            detalle.montoTotalDesc = detalle.montoTotal * porc;
+                            detalle.descuento = 0;
+                            detalle.montoTotalDesc = 0;
+
                         }
                     }
-                    else
-                    {
-                        detalle.descuento = 0;
-                        detalle.montoTotalDesc = 0;
-
-                    }
+                  
                 }
 
             }
@@ -455,48 +535,66 @@ namespace PresentationLayer
 
         private void btnBuscarCliente_Click_1(object sender, EventArgs e)
         {
-            FrmBuscar buscar = new FrmBuscar();
-            buscar.pasarDatosEvent += dataBuscar;
-            buscar.ShowDialog();
+            try
+            {
+                FrmBuscar buscar = new FrmBuscar();
+                buscar.pasarDatosEvent += dataBuscar;
+                buscar.ShowDialog();
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Error al buscar el cliente.", "Buscar cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+       
         }
 
         private void dataBuscar(tbClientes cliente)
         {
-            exoneracionClie = false;
-            if (cliente != null)
+            try
             {
-                clienteGlo = cliente;
-                if (cliente.idExonercion != null)
+                exoneracionClie = false;
+                if (cliente != null)
                 {
-                    DialogResult result = MessageBox.Show("El cliente seleccionado aplica para exoneración de impuesto, ¿Desea aplicar la exoneración de impuestos?", "Exoneración de Impuestos", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (result == DialogResult.Yes)
+                    clienteGlo = cliente;
+                    if (cliente.idExonercion != null)
                     {
-                        exoneracionClie = true;
+                        DialogResult result = MessageBox.Show("El cliente seleccionado aplica para exoneración de impuesto, ¿Desea aplicar la exoneración de impuestos?", "Exoneración de Impuestos", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (result == DialogResult.Yes)
+                        {
+                            exoneracionClie = true;
+
+                        }
+                        else
+                        {
+                            exoneracionClie = false;
+                        }
+
+                    }
+                    txtIdCliente.Text = cliente.id.Trim();
+                    if (cliente.tipoId == 1)
+                    {
+                        txtCliente.Text = cliente.tbPersona.nombre.Trim().ToUpper() + " " + cliente.tbPersona.apellido1.Trim().ToUpper() + " " + cliente.tbPersona.apellido2.Trim().ToUpper();
 
                     }
                     else
                     {
-                        exoneracionClie = false;
+                        txtCliente.Text = cliente.tbPersona.nombre.Trim().ToUpper();
+
                     }
+                    txtTel.Text = cliente.tbPersona.telefono.ToString().Trim().ToUpper();
+                    txtCorreo.Text = cliente.tbPersona.correoElectronico.Trim();
+
+                    calcularMontosT();
 
                 }
-                txtIdCliente.Text = cliente.id.Trim();
-                if (cliente.tipoId == 1)
-                {
-                    txtCliente.Text = cliente.tbPersona.nombre.Trim().ToUpper() + " " + cliente.tbPersona.apellido1.Trim().ToUpper() + " " + cliente.tbPersona.apellido2.Trim().ToUpper();
-
-                }
-                else
-                {
-                    txtCliente.Text = cliente.tbPersona.nombre.Trim().ToUpper();
-
-                }         
-                txtTel.Text = cliente.tbPersona.telefono.ToString().Trim().ToUpper();
-                txtCorreo.Text = cliente.tbPersona.correoElectronico.Trim();
-
-                calcularMontosT();
-
             }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Error al buscar el cliente.", "Buscar cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -542,94 +640,102 @@ namespace PresentationLayer
 
         private void agregarProductoDetalleFactura(tbProducto pro, int tipo, decimal cantidad, bool acumular)
         {
-
-            bool banderaExitProd = false;
-            medida.idTipoMedida = pro.idMedida;
-            medida = medidaIns.GetEnityById(medida);
-            if (medida.nomenclatura.Trim().ToUpper() == Enum.GetName(typeof(Enums.TipoMedida), Enums.TipoMedida.kg).Trim().ToUpper())
+            try
             {
-                frmCantidad cantidadfrm = new frmCantidad();
-                cantidadfrm.pasarDatosEvent += cantidadPasarDatos;
-                cantidadfrm.ShowDialog();
-                if (peso==decimal.MinValue)
+                bool banderaExitProd = false;
+                medida.idTipoMedida = pro.idMedida;
+                medida = medidaIns.GetEnityById(medida);
+                if (medida.nomenclatura.Trim().ToUpper() == Enum.GetName(typeof(Enums.TipoMedida), Enums.TipoMedida.kg).Trim().ToUpper())
                 {
-                    return;
-                }
-                cantidad = peso;
-            }
-            
-
-            if (tipo == 1)
-            {
-
-                bool banderaInventario = verificarInventario(pro, cantidad, acumular);
-                if (banderaInventario)
-                {
-                    foreach (tbDetalleDocumento det in listaDetalleDocumento)
+                    frmCantidad cantidadfrm = new frmCantidad();
+                    cantidadfrm.pasarDatosEvent += cantidadPasarDatos;
+                    cantidadfrm.ShowDialog();
+                    if (peso == decimal.MinValue)
                     {
+                        return;
+                    }
+                    cantidad = peso;
+                }
 
-                        if (det.idProducto == pro.idProducto)
+
+                if (tipo == 1)
+                {
+
+                    bool banderaInventario = verificarInventario(pro, cantidad, acumular);
+                    if (banderaInventario)
+                    {
+                        foreach (tbDetalleDocumento det in listaDetalleDocumento)
                         {
-                            if (acumular)
+
+                            if (det.idProducto == pro.idProducto)
                             {
-                                det.cantidad += cantidad;
-                                //det.precio = buscarPrecioProducto(pro);
+                                if (acumular)
+                                {
+                                    det.cantidad += cantidad;
+                                    //det.precio = buscarPrecioProducto(pro);
+                                }
+                                else
+                                {
+                                    det.cantidad = cantidad;
+
+                                }
+
+                                det.montoTotal = det.precio * det.cantidad;
+                                det.descuento = 0;
+
+                                banderaExitProd = true;
+                                break;
                             }
-                            else
-                            {
-                                det.cantidad = cantidad;
+                        }
+                        //prodcuto nuevo
+                        if (!banderaExitProd)
+                        {
 
-                            }
-
-                            det.montoTotal = det.precio * det.cantidad;
-                            det.descuento = 0;
-
-                            banderaExitProd = true;
-                            break;
+                            tbDetalleDocumento detalle = new tbDetalleDocumento();
+                            detalle.cantidad = cantidad;
+                            detalle.idProducto = pro.idProducto;
+                            detalle.precio = buscarPrecioProducto(pro);
+                            detalle.montoTotal = detalle.precio * detalle.cantidad;
+                            detalle.montoTotalDesc = 0;
+                            detalle.montoTotalExo = 0;
+                            detalle.montoTotalImp = 0;
+                            detalle.tbProducto = pro;
+                            listaDetalleDocumento.Add(detalle);
                         }
                     }
-                    //prodcuto nuevo
-                    if (!banderaExitProd)
+                    else
                     {
-
-                        tbDetalleDocumento detalle = new tbDetalleDocumento();
-                        detalle.cantidad = cantidad;
-                        detalle.idProducto = pro.idProducto;
-                        detalle.precio = buscarPrecioProducto(pro);
-                        detalle.montoTotal = detalle.precio*detalle.cantidad;
-                        detalle.montoTotalDesc = 0;
-                        detalle.montoTotalExo = 0;
-                        detalle.montoTotalImp = 0;
-                        detalle.tbProducto = pro;
-                        listaDetalleDocumento.Add(detalle);
+                        MessageBox.Show("El producto ingresado ya no cuenta con existencia en inventario. Cantidad existencia (" + pro.tbInventario.cantidad + ")", "Inexistencia Inventario", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
+
                 }
                 else
                 {
-                    MessageBox.Show("El producto ingresado ya no cuenta con existencia en inventario. Cantidad existencia (" + pro.tbInventario.cantidad + ")", "Inexistencia Inventario", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                }
-
-            }
-            else
-            {
-                foreach (tbDetalleDocumento det in listaDetalleDocumento)
-                {
-                    if (det.idProducto == pro.idProducto)
+                    foreach (tbDetalleDocumento det in listaDetalleDocumento)
                     {
+                        if (det.idProducto == pro.idProducto)
+                        {
 
 
-                        det.precio = cantidad;
-                        det.montoTotal = det.precio * det.cantidad;
-                        det.descuento = 0;
+                            det.precio = cantidad;
+                            det.montoTotal = det.precio * det.cantidad;
+                            det.descuento = 0;
 
-                        break;
+                            break;
+                        }
                     }
+
                 }
 
+                calcularMontosT();
+                agregarProductoGrid();
             }
+            catch (Exception)
+            {
 
-            calcularMontosT();
-            agregarProductoGrid();
+                MessageBox.Show("Error al agregar el producto a facturación.", "Agregar producto", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
 
         }
 
@@ -640,38 +746,64 @@ namespace PresentationLayer
 
         private void agregarProductoGrid()
         {
-            decimal cantidadProd = 0;
-            dtgvDetalleFactura.Rows.Clear();
-            foreach (tbDetalleDocumento detalle in listaDetalleDocumento)
+            try
             {
-                cantidadProd += detalle.cantidad;
-                DataGridViewRow row = (DataGridViewRow)dtgvDetalleFactura.Rows[0].Clone();
-
-                row.Cells[0].Value = detalle.tbProducto.nombre.Trim();
-                if (detalle.precio == 0)
+                decimal cantidadProd = 0;
+                dtgvDetalleFactura.Rows.Clear();
+                bool banderaSm = false;
+                foreach (tbDetalleDocumento detalle in listaDetalleDocumento)
                 {
-                    row.Cells[1].Value = "0.00";
+                    if (detalle.idProducto != "SM")
+                    {
+                        cantidadProd += detalle.cantidad;
+                        DataGridViewRow row = (DataGridViewRow)dtgvDetalleFactura.Rows[0].Clone();
+
+                        row.Cells[0].Value = detalle.tbProducto.nombre.Trim();
+                        if (detalle.precio == 0)
+                        {
+                            row.Cells[1].Value = "0.00";
+                        }
+                        else
+                        {
+                            row.Cells[1].Value = detalle.precio.ToString("#.##").Trim();
+                        }
+
+
+                        row.Cells[2].Value = detalle.cantidad.ToString("#.##").Trim();
+                        row.Cells[3].Value = (decimal)detalle.tbProducto.descuento_max;
+                        row.Cells[4].Value = detalle.montoTotal.ToString("#.##").Trim();
+                        row.Cells[5].Value = detalle.idProducto.ToString().Trim();
+
+                        dtgvDetalleFactura.Rows.Add(row);
+                    }
+                    else
+                    {
+                        banderaSm = true;
+                    }
+
+                    // dtgvDetalleFactura.Rows[listaDetalleDocumento.Count-1].Selected=true;
+                }
+                lblTotalProducto.Text = cantidadProd.ToString("#.#");
+
+                if (banderaSm)
+                {
+                    lblCantidadLineas.Text = (listaDetalleDocumento.Count - 1).ToString();
                 }
                 else
                 {
-                    row.Cells[1].Value = detalle.precio.ToString("#.##").Trim();
+                    lblCantidadLineas.Text = (listaDetalleDocumento.Count).ToString();
+
                 }
 
 
-                row.Cells[2].Value = detalle.cantidad.ToString("#.##").Trim();
-                row.Cells[3].Value = (decimal)detalle.tbProducto.descuento_max;
-                row.Cells[4].Value = detalle.montoTotal.ToString("#.##").Trim();
-                row.Cells[5].Value = detalle.idProducto.ToString().Trim();
-
-                dtgvDetalleFactura.Rows.Add(row);
-                // dtgvDetalleFactura.Rows[listaDetalleDocumento.Count-1].Selected=true;
+                dtgvDetalleFactura.Rows[dtgvDetalleFactura.RowCount - 1].Selected = true;
             }
-            lblTotalProducto.Text = cantidadProd.ToString("#.#");
-            lblCantidadLineas.Text = listaDetalleDocumento.Count.ToString();
-            if (listaDetalleDocumento.Count != 0)
+            catch (Exception)
             {
-                dtgvDetalleFactura.Rows[listaDetalleDocumento.Count - 1].Selected = true;
+
+                MessageBox.Show("Error al agregar el producto a a la lista.", "Agregar producto lista", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+          
 
 
         }
@@ -840,20 +972,30 @@ namespace PresentationLayer
 
         private void dtgvDetalleFactura_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 6)
+            try
             {
-                string codigoProducto = dtgvDetalleFactura.Rows[e.RowIndex].Cells[5].Value.ToString();
-                if (codigoProducto != string.Empty)
+                if (e.ColumnIndex == 6)
                 {
-
-                    DialogResult result = MessageBox.Show("¿Desea eliminar el producto " + dtgvDetalleFactura.Rows[e.RowIndex].Cells[0].Value.ToString().Trim() + " de la factura?", "Eliminar linea", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (result == DialogResult.Yes)
+                    string codigoProducto = dtgvDetalleFactura.Rows[e.RowIndex].Cells[5].Value.ToString();
+                    if (codigoProducto != string.Empty)
                     {
-                        eliminarProducto(codigoProducto);
 
+                        DialogResult result = MessageBox.Show("¿Desea eliminar el producto " + dtgvDetalleFactura.Rows[e.RowIndex].Cells[0].Value.ToString().Trim() + " de la factura?", "Eliminar linea", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (result == DialogResult.Yes)
+                        {
+                            eliminarProducto(codigoProducto);
+
+                        }
                     }
                 }
+
             }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Error al eliminiar la línea", "Elimnar línea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void eliminarProducto(string codigoProducto)
@@ -876,69 +1018,73 @@ namespace PresentationLayer
         }
 
         private void dtgvDetalleFactura_CellValueChanged_1(object sender, DataGridViewCellEventArgs e)        {
-            
+          
             decimal cantidad = 0;
             string codigoProducto = string.Empty;
             decimal precioProd = 0;
 
             try
             {
-                //cuando cambia la cantidad
-                if (dtgvDetalleFactura.Columns[e.ColumnIndex].Name == "colCant")
+                if (e.RowIndex!=-1)
                 {
-                    if (dtgvDetalleFactura.Rows[e.RowIndex].Cells[5].Value != null)
+                    //cuando cambia la cantidad
+                    if (dtgvDetalleFactura.Columns[e.ColumnIndex].Name == "colCant")
                     {
-                        tbProducto prod;
-                        codigoProducto = dtgvDetalleFactura.Rows[e.RowIndex].Cells[5].Value.ToString();
-
-                        if (dtgvDetalleFactura.Rows[e.RowIndex].Cells[2].Value != null)
+                        if (dtgvDetalleFactura.Rows[e.RowIndex].Cells[5].Value != null)
                         {
+                            tbProducto prod;
+                            codigoProducto = dtgvDetalleFactura.Rows[e.RowIndex].Cells[5].Value.ToString();
 
-                            cantidad = decimal.Parse(dtgvDetalleFactura.Rows[e.RowIndex].Cells[2].Value.ToString());
-
-                            prod = buscarProducto(codigoProducto);
-                            if (prod != null)
+                            if (dtgvDetalleFactura.Rows[e.RowIndex].Cells[2].Value != null)
                             {
-                                agregarProductoDetalleFactura(prod, 1, cantidad, false);
-                            }
-                        }
 
-                    }
-                }
-                //cuando cambia el precio
-                if (dtgvDetalleFactura.Columns[e.ColumnIndex].Name == "colPrec")
-                {
-                    if (dtgvDetalleFactura.Rows[e.RowIndex].Cells[5].Value != null)
-                    {
-                        tbProducto prod;
-                        codigoProducto = dtgvDetalleFactura.Rows[e.RowIndex].Cells[5].Value.ToString();
+                                cantidad = decimal.Parse(dtgvDetalleFactura.Rows[e.RowIndex].Cells[2].Value.ToString());
 
-                        if (dtgvDetalleFactura.Rows[e.RowIndex].Cells[1].Value != null)
-                        {
-
-                            precioProd = decimal.Parse(dtgvDetalleFactura.Rows[e.RowIndex].Cells[1].Value.ToString());
-
-                            prod = buscarProducto(codigoProducto);
-                            if (prod != null)
-                            {
-                                if ((bool)prod.precioVariable)
-                                {//el valor de 2 es para actualizar el precio y 1 para cantidad
-
-                                    agregarProductoDetalleFactura(prod, 2, precioProd, false);
-                                }
-                                else
+                                prod = buscarProducto(codigoProducto);
+                                if (prod != null)
                                 {
-                                    agregarProductoGrid();
-                                    MessageBox.Show("El precio de este producto no puede ser actualizado", "Precio Producto", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    agregarProductoDetalleFactura(prod, 1, cantidad, false);
+                                }
+                            }
+
+                        }
+                    }
+                    //cuando cambia el precio
+                    if (dtgvDetalleFactura.Columns[e.ColumnIndex].Name == "colPrec")
+                    {
+                        if (dtgvDetalleFactura.Rows[e.RowIndex].Cells[5].Value != null)
+                        {
+                            tbProducto prod;
+                            codigoProducto = dtgvDetalleFactura.Rows[e.RowIndex].Cells[5].Value.ToString();
+
+                            if (dtgvDetalleFactura.Rows[e.RowIndex].Cells[1].Value != null)
+                            {
+
+                                precioProd = decimal.Parse(dtgvDetalleFactura.Rows[e.RowIndex].Cells[1].Value.ToString());
+
+                                prod = buscarProducto(codigoProducto);
+                                if (prod != null)
+                                {
+                                    if ((bool)prod.precioVariable)
+                                    {//el valor de 2 es para actualizar el precio y 1 para cantidad
+
+                                        agregarProductoDetalleFactura(prod, 2, precioProd, false);
+                                    }
+                                    else
+                                    {
+                                        agregarProductoGrid();
+                                        MessageBox.Show("El precio de este producto no puede ser actualizado", "Precio Producto", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                    }
 
                                 }
-
                             }
+
                         }
 
                     }
-
                 }
+               
             }
             catch (Exception)
             {
@@ -949,69 +1095,87 @@ namespace PresentationLayer
 
         private void btnCobrar_Click(object sender, EventArgs e)
         {
-            tipoDoc = (int)Enums.TipoDocumento.FacturaElectronica;
-            dtgvDetalleFactura.EndEdit();
-            calcularMontosT();
-            agregarProductoGrid();
-            if (listaDetalleDocumento.Count != 0 && txtTotal.Text != "0")
+            try
             {
-                if (validarCampos())
+                tipoDoc = (int)Enums.TipoDocumento.FacturaElectronica;
+                dtgvDetalleFactura.EndEdit();
+                calcularMontosT();
+                agregarProductoGrid();
+                if (listaDetalleDocumento.Count != 0 && txtTotal.Text != "0")
                 {
+                    if (validarCampos())
+                    {
 
-                    tbDocumento documento = crearDocumento();
-                    frmCobrar form = new frmCobrar();
-                    form.recuperarTotal += respuesta;
-                    form.facturaGlobal = documento;
-                    form.ShowDialog();
+                        tbDocumento documento = crearDocumento();
+                        frmCobrar form = new frmCobrar();
+                        form.recuperarTotal += respuesta;
+                        form.facturaGlobal = documento;
+                        form.ShowDialog();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No hay productos o el TOTAL a cobrar es 0.", "Cobrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else
+            catch (Exception)
             {
-                MessageBox.Show("No hay productos o el TOTAL a cobrar es 0.", "Cobrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                MessageBox.Show("Error al realizar el cobro", "Cobrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+          
         }
 
         private bool validarCampos()
         {
-            bool validaCliente = (bool)Global.Usuario.tbEmpresa.tbParametrosEmpresa.First().clienteObligatorioFact;
-
-            if (validaCliente || tipoDoc == (int)Enums.TipoDocumento.Proforma)
+            try
             {
-                if (clienteGlo == null)
-                {
-                    MessageBox.Show("Debe indicar un cliente", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    btnBuscarCliente.Focus();
-                    return false;
-                }
+                bool validaCliente = (bool)Global.Usuario.tbEmpresa.tbParametrosEmpresa.First().clienteObligatorioFact;
 
-            }
-            if (chkEnviar.Checked)
-            {
-                if (txtCorreo.Text == string.Empty)
+                if (validaCliente || tipoDoc == (int)Enums.TipoDocumento.Proforma)
                 {
-                    MessageBox.Show("Debe Ingresar un correo electrónico", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtCorreo.Focus();
-                    return false;
-
-                }
-                if (!Utility.isValidEmail(txtCorreo.Text))
-                {
-                    MessageBox.Show("El formato del correo es incorrecto", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtCorreo.Focus();
-                    return false;
-                }
-                if (txtCorreo2.Text != string.Empty)
-                {
-                    if (!Utility.isValidEmail(txtCorreo2.Text))
+                    if (clienteGlo == null)
                     {
-                        MessageBox.Show("El formato del correo es incorrecto", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        txtCorreo2.Focus();
+                        MessageBox.Show("Debe indicar un cliente", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        btnBuscarCliente.Focus();
                         return false;
                     }
 
                 }
+                if (chkEnviar.Checked)
+                {
+                    if (txtCorreo.Text == string.Empty)
+                    {
+                        MessageBox.Show("Debe Ingresar un correo electrónico", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txtCorreo.Focus();
+                        return false;
+
+                    }
+                    if (!Utility.isValidEmail(txtCorreo.Text))
+                    {
+                        MessageBox.Show("El formato del correo es incorrecto", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txtCorreo.Focus();
+                        return false;
+                    }
+                    if (txtCorreo2.Text != string.Empty)
+                    {
+                        if (!Utility.isValidEmail(txtCorreo2.Text))
+                        {
+                            MessageBox.Show("El formato del correo es incorrecto", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            txtCorreo2.Focus();
+                            return false;
+                        }
+
+                    }
+                }
+                return true;
             }
-            return true;
+            catch (Exception)
+            {
+
+                MessageBox.Show("Error al validar los campos", "Validar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private tbDocumento crearDocumento()
@@ -1266,6 +1430,7 @@ namespace PresentationLayer
             lblAlias.Text = string.Empty;
 
             lblPendientes.Text = facturasPendientes.Count.ToString();
+            chkServicioMesa.Checked = false;
         }
 
         private void btnLimpiarForm_Click(object sender, EventArgs e)
@@ -1665,6 +1830,12 @@ namespace PresentationLayer
         private void label11_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void chkServicioMesa_CheckedChanged(object sender, EventArgs e)
+        {
+            calcularMontosT();
+            agregarProductoGrid();
         }
     }
 

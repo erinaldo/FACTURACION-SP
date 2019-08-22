@@ -58,7 +58,7 @@
             this.btnSalir.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnSalir.BackgroundImage")));
             this.btnSalir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnSalir.Location = new System.Drawing.Point(403, 235);
-            this.btnSalir.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSalir.Margin = new System.Windows.Forms.Padding(4);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(119, 71);
             this.btnSalir.TabIndex = 1;
@@ -71,7 +71,7 @@
             this.btnEntrar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnEntrar.BackgroundImage")));
             this.btnEntrar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnEntrar.Location = new System.Drawing.Point(251, 235);
-            this.btnEntrar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEntrar.Margin = new System.Windows.Forms.Padding(4);
             this.btnEntrar.Name = "btnEntrar";
             this.btnEntrar.Size = new System.Drawing.Size(119, 71);
             this.btnEntrar.TabIndex = 2;
@@ -106,7 +106,7 @@
             // 
             this.txtUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsuario.Location = new System.Drawing.Point(349, 54);
-            this.txtUsuario.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtUsuario.Margin = new System.Windows.Forms.Padding(4);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(172, 30);
             this.txtUsuario.TabIndex = 5;
@@ -117,11 +117,12 @@
             // 
             this.txtContraseña.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtContraseña.Location = new System.Drawing.Point(349, 92);
-            this.txtContraseña.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtContraseña.Margin = new System.Windows.Forms.Padding(4);
             this.txtContraseña.Name = "txtContraseña";
             this.txtContraseña.PasswordChar = '*';
             this.txtContraseña.Size = new System.Drawing.Size(172, 30);
             this.txtContraseña.TabIndex = 7;
+            this.txtContraseña.Text = "moya2018";
             this.txtContraseña.TextChanged += new System.EventHandler(this.txtContraseña_TextChanged);
             // 
             // cboNumCaja
@@ -129,7 +130,7 @@
             this.cboNumCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboNumCaja.FormattingEnabled = true;
             this.cboNumCaja.Location = new System.Drawing.Point(349, 130);
-            this.cboNumCaja.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboNumCaja.Margin = new System.Windows.Forms.Padding(4);
             this.cboNumCaja.Name = "cboNumCaja";
             this.cboNumCaja.Size = new System.Drawing.Size(172, 33);
             this.cboNumCaja.TabIndex = 8;
@@ -142,9 +143,9 @@
             this.groupBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.groupBox1.Font = new System.Drawing.Font("Segoe Script", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(16, 7);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(205, 287);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
@@ -166,7 +167,7 @@
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";

@@ -36,14 +36,17 @@ namespace DataLayer
         public virtual DbSet<tbCajaUsuMonedas> tbCajaUsuMonedas { get; set; }
         public virtual DbSet<tbCanton> tbCanton { get; set; }
         public virtual DbSet<tbCategoriaProducto> tbCategoriaProducto { get; set; }
+        public virtual DbSet<tbCategoriaRequerimiento> tbCategoriaRequerimiento { get; set; }
         public virtual DbSet<tbClientes> tbClientes { get; set; }
         public virtual DbSet<tbCreditos> tbCreditos { get; set; }
         public virtual DbSet<tbDetalleDocumento> tbDetalleDocumento { get; set; }
+        public virtual DbSet<tbDetalleDocumentoPendiente> tbDetalleDocumentoPendiente { get; set; }
         public virtual DbSet<tbDetalleImpresion> tbDetalleImpresion { get; set; }
         public virtual DbSet<tbDetalleMovimiento> tbDetalleMovimiento { get; set; }
         public virtual DbSet<tbDetalleProducto> tbDetalleProducto { get; set; }
         public virtual DbSet<tbDistrito> tbDistrito { get; set; }
         public virtual DbSet<tbDocumento> tbDocumento { get; set; }
+        public virtual DbSet<tbDocumentosPendiente> tbDocumentosPendiente { get; set; }
         public virtual DbSet<tbEmpleado> tbEmpleado { get; set; }
         public virtual DbSet<tbEmpresa> tbEmpresa { get; set; }
         public virtual DbSet<tbExoneraciones> tbExoneraciones { get; set; }

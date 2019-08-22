@@ -22,5 +22,5 @@ public partial class tbAbonos
     public string usuario_ult_mod { get; set; }
     public bool estado { get; set; }
 
-    public virtual tbCreditos tbCreditos { get; set; }
+    public virtual tbDocumento tbDocumento { get; set; }
 }

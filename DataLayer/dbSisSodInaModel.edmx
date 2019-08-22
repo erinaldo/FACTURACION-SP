@@ -115,6 +115,14 @@
           <Property Name="usuario_crea" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="usuario_ult_mod" Type="nchar" MaxLength="30" Nullable="false" />
         </EntityType>
+        <EntityType Name="tbCategoriaRequerimiento">
+          <Key>
+            <PropertyRef Name="idCategoriaReq" />
+          </Key>
+          <Property Name="idCategoriaReq" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="estado" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="tbClientes">
           <Key>
             <PropertyRef Name="id" />
@@ -169,6 +177,23 @@
           </Key>
           <Property Name="idTipoDoc" Type="int" Nullable="false" />
           <Property Name="idDoc" Type="int" Nullable="false" />
+          <Property Name="idProducto" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="numLinea" Type="int" Nullable="false" />
+          <Property Name="cantidad" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="montoTotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="descuento" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="montoTotalDesc" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="montoTotalImp" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="montoTotalExo" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="totalLinea" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbDetalleDocumentoPendiente">
+          <Key>
+            <PropertyRef Name="alias" />
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="alias" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="idProducto" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="numLinea" Type="int" Nullable="false" />
           <Property Name="cantidad" Type="decimal" Precision="18" Scale="2" Nullable="false" />
@@ -267,6 +292,13 @@
           <Property Name="xmlSinFirma" Type="nvarchar(max)" />
           <Property Name="xmlFirmado" Type="nvarchar(max)" />
           <Property Name="xmlRespuesta" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tbDocumentosPendiente">
+          <Key>
+            <PropertyRef Name="alias" />
+          </Key>
+          <Property Name="alias" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="servicioMesa" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tbEmpleado">
           <Key>
@@ -613,14 +645,15 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Key>
             <PropertyRef Name="idReq" />
           </Key>
-          <Property Name="idReq" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nombre" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="idReq" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="nchar" MaxLength="100" Nullable="false" />
           <Property Name="descripcion" Type="nchar" MaxLength="500" />
           <Property Name="estado" Type="bit" Nullable="false" />
           <Property Name="fecha_crea" Type="datetime" Nullable="false" />
           <Property Name="fecha_ult_mod" Type="datetime" Nullable="false" />
           <Property Name="usuario_crea" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="usuario_ult_mod" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="idCategoriaReq" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tbRoles">
           <Key>
@@ -761,15 +794,17 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="usuario_crea" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="usuario_ult_mod" Type="nchar" MaxLength="30" Nullable="false" />
         </EntityType>
-        <Association Name="FK_tbAbonos_tbCreditos">
-          <End Role="tbCreditos" Type="Self.tbCreditos" Multiplicity="1" />
+        <Association Name="FK_tbAbonos_tbDocumento">
+          <End Role="tbDocumento" Type="Self.tbDocumento" Multiplicity="1" />
           <End Role="tbAbonos" Type="Self.tbAbonos" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tbCreditos">
-              <PropertyRef Name="idCredito" />
+            <Principal Role="tbDocumento">
+              <PropertyRef Name="id" />
+              <PropertyRef Name="tipoDocumento" />
             </Principal>
             <Dependent Role="tbAbonos">
               <PropertyRef Name="idDoc" />
+              <PropertyRef Name="tipoDoc" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -912,6 +947,30 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
             <Dependent Role="tbDetalleDocumento">
               <PropertyRef Name="idDoc" />
               <PropertyRef Name="idTipoDoc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbDetalleDocumentoPendiente_tbDocumentosPendiente">
+          <End Role="tbDocumentosPendiente" Type="Self.tbDocumentosPendiente" Multiplicity="1" />
+          <End Role="tbDetalleDocumentoPendiente" Type="Self.tbDetalleDocumentoPendiente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbDocumentosPendiente">
+              <PropertyRef Name="alias" />
+            </Principal>
+            <Dependent Role="tbDetalleDocumentoPendiente">
+              <PropertyRef Name="alias" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbDetalleDocumentoPendiente_tbProducto">
+          <End Role="tbProducto" Type="Self.tbProducto" Multiplicity="1" />
+          <End Role="tbDetalleDocumentoPendiente" Type="Self.tbDetalleDocumentoPendiente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbProducto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="tbDetalleDocumentoPendiente">
+              <PropertyRef Name="idProducto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1131,6 +1190,18 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbInventario_tbProducto">
+          <End Role="tbProducto" Type="Self.tbProducto" Multiplicity="1" />
+          <End Role="tbInventario" Type="Self.tbInventario" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbProducto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="tbInventario">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbMonedas_tbTipoMoneda">
           <End Role="tbTipoMoneda" Type="Self.tbTipoMoneda" Multiplicity="1" />
           <End Role="tbMonedas" Type="Self.tbMonedas" Multiplicity="*" />
@@ -1297,18 +1368,6 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbProducto_tbInventario">
-          <End Role="tbInventario" Type="Self.tbInventario" Multiplicity="1" />
-          <End Role="tbProducto" Type="Self.tbProducto" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="tbInventario">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="tbProducto">
-              <PropertyRef Name="idProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tbProducto_tbProveedores">
           <End Role="tbProveedores" Type="Self.tbProveedores" Multiplicity="0..1" />
           <End Role="tbProducto" Type="Self.tbProducto" Multiplicity="*" />
@@ -1363,6 +1422,18 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbRequerimientos_tbCategoriaRequerimiento">
+          <End Role="tbCategoriaRequerimiento" Type="Self.tbCategoriaRequerimiento" Multiplicity="1" />
+          <End Role="tbRequerimientos" Type="Self.tbRequerimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCategoriaRequerimiento">
+              <PropertyRef Name="idCategoriaReq" />
+            </Principal>
+            <Dependent Role="tbRequerimientos">
+              <PropertyRef Name="idCategoriaReq" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbUsuarios_tbEmpresa">
           <End Role="tbEmpresa" Type="Self.tbEmpresa" Multiplicity="0..1" />
           <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="*" />
@@ -1413,14 +1484,17 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <EntitySet Name="tbCajaUsuMonedas" EntityType="Self.tbCajaUsuMonedas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbCanton" EntityType="Self.tbCanton" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbCategoriaProducto" EntityType="Self.tbCategoriaProducto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbCategoriaRequerimiento" EntityType="Self.tbCategoriaRequerimiento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbClientes" EntityType="Self.tbClientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbCreditos" EntityType="Self.tbCreditos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbDetalleDocumento" EntityType="Self.tbDetalleDocumento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbDetalleDocumentoPendiente" EntityType="Self.tbDetalleDocumentoPendiente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbDetalleImpresion" EntityType="Self.tbDetalleImpresion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbDetalleMovimiento" EntityType="Self.tbDetalleMovimiento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbDetalleProducto" EntityType="Self.tbDetalleProducto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbDistrito" EntityType="Self.tbDistrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbDocumento" EntityType="Self.tbDocumento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbDocumentosPendiente" EntityType="Self.tbDocumentosPendiente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbEmpleado" EntityType="Self.tbEmpleado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbEmpresa" EntityType="Self.tbEmpresa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbExoneraciones" EntityType="Self.tbExoneraciones" Schema="dbo" store:Type="Tables" />
@@ -1455,8 +1529,8 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <EntitySet Name="tbTipoPuesto" EntityType="Self.tbTipoPuesto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbTipoVenta" EntityType="Self.tbTipoVenta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbUsuarios" EntityType="Self.tbUsuarios" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_tbAbonos_tbCreditos" Association="Self.FK_tbAbonos_tbCreditos">
-            <End Role="tbCreditos" EntitySet="tbCreditos" />
+          <AssociationSet Name="FK_tbAbonos_tbDocumento" Association="Self.FK_tbAbonos_tbDocumento">
+            <End Role="tbDocumento" EntitySet="tbDocumento" />
             <End Role="tbAbonos" EntitySet="tbAbonos" />
           </AssociationSet>
           <AssociationSet Name="FK_tbBarrios_tbDistrito" Association="Self.FK_tbBarrios_tbDistrito">
@@ -1502,6 +1576,14 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <AssociationSet Name="FK_tbDetalleDocumento_tbDocumento" Association="Self.FK_tbDetalleDocumento_tbDocumento">
             <End Role="tbDocumento" EntitySet="tbDocumento" />
             <End Role="tbDetalleDocumento" EntitySet="tbDetalleDocumento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbDetalleDocumentoPendiente_tbDocumentosPendiente" Association="Self.FK_tbDetalleDocumentoPendiente_tbDocumentosPendiente">
+            <End Role="tbDocumentosPendiente" EntitySet="tbDocumentosPendiente" />
+            <End Role="tbDetalleDocumentoPendiente" EntitySet="tbDetalleDocumentoPendiente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbDetalleDocumentoPendiente_tbProducto" Association="Self.FK_tbDetalleDocumentoPendiente_tbProducto">
+            <End Role="tbProducto" EntitySet="tbProducto" />
+            <End Role="tbDetalleDocumentoPendiente" EntitySet="tbDetalleDocumentoPendiente" />
           </AssociationSet>
           <AssociationSet Name="FK_tbDetalleFactura_tbProducto" Association="Self.FK_tbDetalleFactura_tbProducto">
             <End Role="tbProducto" EntitySet="tbProducto" />
@@ -1571,6 +1653,10 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
             <End Role="tbTipoIngrediente" EntitySet="tbTipoIngrediente" />
             <End Role="tbIngredientes" EntitySet="tbIngredientes" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbInventario_tbProducto" Association="Self.FK_tbInventario_tbProducto">
+            <End Role="tbProducto" EntitySet="tbProducto" />
+            <End Role="tbInventario" EntitySet="tbInventario" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbMonedas_tbTipoMoneda" Association="Self.FK_tbMonedas_tbTipoMoneda">
             <End Role="tbTipoMoneda" EntitySet="tbTipoMoneda" />
             <End Role="tbMonedas" EntitySet="tbMonedas" />
@@ -1623,10 +1709,6 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
             <End Role="tbImpuestos" EntitySet="tbImpuestos" />
             <End Role="tbProducto" EntitySet="tbProducto" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbProducto_tbInventario" Association="Self.FK_tbProducto_tbInventario">
-            <End Role="tbInventario" EntitySet="tbInventario" />
-            <End Role="tbProducto" EntitySet="tbProducto" />
-          </AssociationSet>
           <AssociationSet Name="FK_tbProducto_tbProveedores" Association="Self.FK_tbProducto_tbProveedores">
             <End Role="tbProveedores" EntitySet="tbProveedores" />
             <End Role="tbProducto" EntitySet="tbProducto" />
@@ -1642,6 +1724,10 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <AssociationSet Name="FK_tbReporteHacienda_tbEmpresa" Association="Self.FK_tbReporteHacienda_tbEmpresa">
             <End Role="tbEmpresa" EntitySet="tbEmpresa" />
             <End Role="tbReporteHacienda" EntitySet="tbReporteHacienda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbRequerimientos_tbCategoriaRequerimiento" Association="Self.FK_tbRequerimientos_tbCategoriaRequerimiento">
+            <End Role="tbCategoriaRequerimiento" EntitySet="tbCategoriaRequerimiento" />
+            <End Role="tbRequerimientos" EntitySet="tbRequerimientos" />
           </AssociationSet>
           <AssociationSet Name="FK_tbUsuarios_tbEmpresa" Association="Self.FK_tbUsuarios_tbEmpresa">
             <End Role="tbEmpresa" EntitySet="tbEmpresa" />
@@ -1670,14 +1756,17 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <EntitySet Name="tbCajaUsuMonedas" EntityType="dbSisSodInaModel.tbCajaUsuMonedas" />
           <EntitySet Name="tbCanton" EntityType="dbSisSodInaModel.tbCanton" />
           <EntitySet Name="tbCategoriaProducto" EntityType="dbSisSodInaModel.tbCategoriaProducto" />
+          <EntitySet Name="tbCategoriaRequerimiento" EntityType="dbSisSodInaModel.tbCategoriaRequerimiento" />
           <EntitySet Name="tbClientes" EntityType="dbSisSodInaModel.tbClientes" />
           <EntitySet Name="tbCreditos" EntityType="dbSisSodInaModel.tbCreditos" />
           <EntitySet Name="tbDetalleDocumento" EntityType="dbSisSodInaModel.tbDetalleDocumento" />
+          <EntitySet Name="tbDetalleDocumentoPendiente" EntityType="dbSisSodInaModel.tbDetalleDocumentoPendiente" />
           <EntitySet Name="tbDetalleImpresion" EntityType="dbSisSodInaModel.tbDetalleImpresion" />
           <EntitySet Name="tbDetalleMovimiento" EntityType="dbSisSodInaModel.tbDetalleMovimiento" />
           <EntitySet Name="tbDetalleProducto" EntityType="dbSisSodInaModel.tbDetalleProducto" />
           <EntitySet Name="tbDistrito" EntityType="dbSisSodInaModel.tbDistrito" />
           <EntitySet Name="tbDocumento" EntityType="dbSisSodInaModel.tbDocumento" />
+          <EntitySet Name="tbDocumentosPendiente" EntityType="dbSisSodInaModel.tbDocumentosPendiente" />
           <EntitySet Name="tbEmpleado" EntityType="dbSisSodInaModel.tbEmpleado" />
           <EntitySet Name="tbEmpresa" EntityType="dbSisSodInaModel.tbEmpresa" />
           <EntitySet Name="tbExoneraciones" EntityType="dbSisSodInaModel.tbExoneraciones" />
@@ -1710,8 +1799,8 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <EntitySet Name="tbTipoPuesto" EntityType="dbSisSodInaModel.tbTipoPuesto" />
           <EntitySet Name="tbTipoVenta" EntityType="dbSisSodInaModel.tbTipoVenta" />
           <EntitySet Name="tbUsuarios" EntityType="dbSisSodInaModel.tbUsuarios" />
-          <AssociationSet Name="FK_tbAbonos_tbCreditos" Association="dbSisSodInaModel.FK_tbAbonos_tbCreditos">
-            <End Role="tbCreditos" EntitySet="tbCreditos" />
+          <AssociationSet Name="FK_tbAbonos_tbDocumento" Association="dbSisSodInaModel.FK_tbAbonos_tbDocumento">
+            <End Role="tbDocumento" EntitySet="tbDocumento" />
             <End Role="tbAbonos" EntitySet="tbAbonos" />
           </AssociationSet>
           <AssociationSet Name="FK_tbBarrios_tbDistrito" Association="dbSisSodInaModel.FK_tbBarrios_tbDistrito">
@@ -1750,6 +1839,10 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
             <End Role="tbCategoriaProducto" EntitySet="tbCategoriaProducto" />
             <End Role="tbProducto" EntitySet="tbProducto" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbRequerimientos_tbCategoriaRequerimiento" Association="dbSisSodInaModel.FK_tbRequerimientos_tbCategoriaRequerimiento">
+            <End Role="tbCategoriaRequerimiento" EntitySet="tbCategoriaRequerimiento" />
+            <End Role="tbRequerimientos" EntitySet="tbRequerimientos" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbClientes_tbExoneraciones" Association="dbSisSodInaModel.FK_tbClientes_tbExoneraciones">
             <End Role="tbExoneraciones" EntitySet="tbExoneraciones" />
             <End Role="tbClientes" EntitySet="tbClientes" />
@@ -1777,6 +1870,14 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <AssociationSet Name="FK_tbDetalleFactura_tbProducto" Association="dbSisSodInaModel.FK_tbDetalleFactura_tbProducto">
             <End Role="tbProducto" EntitySet="tbProducto" />
             <End Role="tbDetalleDocumento" EntitySet="tbDetalleDocumento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbDetalleDocumentoPendiente_tbDocumentosPendiente" Association="dbSisSodInaModel.FK_tbDetalleDocumentoPendiente_tbDocumentosPendiente">
+            <End Role="tbDocumentosPendiente" EntitySet="tbDocumentosPendiente" />
+            <End Role="tbDetalleDocumentoPendiente" EntitySet="tbDetalleDocumentoPendiente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbDetalleDocumentoPendiente_tbProducto" Association="dbSisSodInaModel.FK_tbDetalleDocumentoPendiente_tbProducto">
+            <End Role="tbProducto" EntitySet="tbProducto" />
+            <End Role="tbDetalleDocumentoPendiente" EntitySet="tbDetalleDocumentoPendiente" />
           </AssociationSet>
           <AssociationSet Name="FK_tbDetalleMovimiento_tbIngredientes" Association="dbSisSodInaModel.FK_tbDetalleMovimiento_tbIngredientes">
             <End Role="tbIngredientes" EntitySet="tbIngredientes" />
@@ -1854,9 +1955,9 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
             <End Role="tbTipoIngrediente" EntitySet="tbTipoIngrediente" />
             <End Role="tbIngredientes" EntitySet="tbIngredientes" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbProducto_tbInventario" Association="dbSisSodInaModel.FK_tbProducto_tbInventario">
-            <End Role="tbInventario" EntitySet="tbInventario" />
+          <AssociationSet Name="FK_tbInventario_tbProducto" Association="dbSisSodInaModel.FK_tbInventario_tbProducto">
             <End Role="tbProducto" EntitySet="tbProducto" />
+            <End Role="tbInventario" EntitySet="tbInventario" />
           </AssociationSet>
           <AssociationSet Name="FK_tbMonedas_tbTipoMoneda" Association="dbSisSodInaModel.FK_tbMonedas_tbTipoMoneda">
             <End Role="tbTipoMoneda" EntitySet="tbTipoMoneda" />
@@ -1939,7 +2040,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="usuario_crea" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="usuario_ult_mod" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="tbCreditos" Relationship="dbSisSodInaModel.FK_tbAbonos_tbCreditos" FromRole="tbAbonos" ToRole="tbCreditos" />
+          <NavigationProperty Name="tbDocumento" Relationship="dbSisSodInaModel.FK_tbAbonos_tbDocumento" FromRole="tbAbonos" ToRole="tbDocumento" />
         </EntityType>
         <EntityType Name="tbBarrios">
           <Key>
@@ -2029,6 +2130,15 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="usuario_ult_mod" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="tbProducto" Relationship="dbSisSodInaModel.FK_tbProducto_tbCategoriaProducto" FromRole="tbCategoriaProducto" ToRole="tbProducto" />
         </EntityType>
+        <EntityType Name="tbCategoriaRequerimiento">
+          <Key>
+            <PropertyRef Name="idCategoriaReq" />
+          </Key>
+          <Property Name="idCategoriaReq" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tbRequerimientos" Relationship="dbSisSodInaModel.FK_tbRequerimientos_tbCategoriaRequerimiento" FromRole="tbCategoriaRequerimiento" ToRole="tbRequerimientos" />
+        </EntityType>
         <EntityType Name="tbClientes">
           <Key>
             <PropertyRef Name="id" />
@@ -2078,7 +2188,6 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="usuario_crea" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="usuario_ult_mod" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="saldoCredito" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <NavigationProperty Name="tbAbonos" Relationship="dbSisSodInaModel.FK_tbAbonos_tbCreditos" FromRole="tbCreditos" ToRole="tbAbonos" />
           <NavigationProperty Name="tbMovimientos" Relationship="dbSisSodInaModel.FK_tbCreditos_tbMovimientos" FromRole="tbCreditos" ToRole="tbMovimientos" />
         </EntityType>
         <EntityType Name="tbDetalleDocumento">
@@ -2101,6 +2210,25 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="totalLinea" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <NavigationProperty Name="tbDocumento" Relationship="dbSisSodInaModel.FK_tbDetalleDocumento_tbDocumento" FromRole="tbDetalleDocumento" ToRole="tbDocumento" />
           <NavigationProperty Name="tbProducto" Relationship="dbSisSodInaModel.FK_tbDetalleFactura_tbProducto" FromRole="tbDetalleDocumento" ToRole="tbProducto" />
+        </EntityType>
+        <EntityType Name="tbDetalleDocumentoPendiente">
+          <Key>
+            <PropertyRef Name="alias" />
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="alias" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="idProducto" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="numLinea" Type="Int32" Nullable="false" />
+          <Property Name="cantidad" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="precio" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="montoTotal" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="descuento" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="montoTotalDesc" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="montoTotalImp" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="montoTotalExo" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="totalLinea" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="tbDocumentosPendiente" Relationship="dbSisSodInaModel.FK_tbDetalleDocumentoPendiente_tbDocumentosPendiente" FromRole="tbDetalleDocumentoPendiente" ToRole="tbDocumentosPendiente" />
+          <NavigationProperty Name="tbProducto" Relationship="dbSisSodInaModel.FK_tbDetalleDocumentoPendiente_tbProducto" FromRole="tbDetalleDocumentoPendiente" ToRole="tbProducto" />
         </EntityType>
         <EntityType Name="tbDetalleImpresion">
           <Key>
@@ -2194,6 +2322,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="xmlSinFirma" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="xmlFirmado" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="xmlRespuesta" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbAbonos" Relationship="dbSisSodInaModel.FK_tbAbonos_tbDocumento" FromRole="tbDocumento" ToRole="tbAbonos" />
           <NavigationProperty Name="tbClientes" Relationship="dbSisSodInaModel.FK_tbFactura_tbClientes" FromRole="tbDocumento" ToRole="tbClientes" />
           <NavigationProperty Name="tbDetalleDocumento" Relationship="dbSisSodInaModel.FK_tbDetalleDocumento_tbDocumento" FromRole="tbDocumento" ToRole="tbDetalleDocumento" />
           <NavigationProperty Name="tbEmpresa" Relationship="dbSisSodInaModel.FK_tbDocumento_tbEmpresa" FromRole="tbDocumento" ToRole="tbEmpresa" />
@@ -2201,6 +2330,14 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <NavigationProperty Name="tbTipoMoneda" Relationship="dbSisSodInaModel.FK_tbDocumento_tbTipoMoneda" FromRole="tbDocumento" ToRole="tbTipoMoneda" />
           <NavigationProperty Name="tbTipoPago" Relationship="dbSisSodInaModel.FK_tbDocumento_tbTipoPago" FromRole="tbDocumento" ToRole="tbTipoPago" />
           <NavigationProperty Name="tbTipoVenta" Relationship="dbSisSodInaModel.FK_tbDocumento_tbTipoVenta" FromRole="tbDocumento" ToRole="tbTipoVenta" />
+        </EntityType>
+        <EntityType Name="tbDocumentosPendiente">
+          <Key>
+            <PropertyRef Name="alias" />
+          </Key>
+          <Property Name="alias" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="servicioMesa" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tbDetalleDocumentoPendiente" Relationship="dbSisSodInaModel.FK_tbDetalleDocumentoPendiente_tbDocumentosPendiente" FromRole="tbDocumentosPendiente" ToRole="tbDetalleDocumentoPendiente" />
         </EntityType>
         <EntityType Name="tbEmpleado">
           <Key>
@@ -2340,7 +2477,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="fecha_ult_mod" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="usuario_crea" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="usuario_ult_mod" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="tbProducto" Relationship="dbSisSodInaModel.FK_tbProducto_tbInventario" FromRole="tbInventario" ToRole="tbProducto" />
+          <NavigationProperty Name="tbProducto" Relationship="dbSisSodInaModel.FK_tbInventario_tbProducto" FromRole="tbInventario" ToRole="tbProducto" />
         </EntityType>
         <EntityType Name="tbMonedas">
           <Key>
@@ -2486,8 +2623,9 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="usuario_ult_mod" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="tbCategoriaProducto" Relationship="dbSisSodInaModel.FK_tbProducto_tbCategoriaProducto" FromRole="tbProducto" ToRole="tbCategoriaProducto" />
           <NavigationProperty Name="tbDetalleDocumento" Relationship="dbSisSodInaModel.FK_tbDetalleFactura_tbProducto" FromRole="tbProducto" ToRole="tbDetalleDocumento" />
+          <NavigationProperty Name="tbDetalleDocumentoPendiente" Relationship="dbSisSodInaModel.FK_tbDetalleDocumentoPendiente_tbProducto" FromRole="tbProducto" ToRole="tbDetalleDocumentoPendiente" />
           <NavigationProperty Name="tbImpuestos" Relationship="dbSisSodInaModel.FK_tbProducto_tbImpuestos" FromRole="tbProducto" ToRole="tbImpuestos" />
-          <NavigationProperty Name="tbInventario" Relationship="dbSisSodInaModel.FK_tbProducto_tbInventario" FromRole="tbProducto" ToRole="tbInventario" />
+          <NavigationProperty Name="tbInventario" Relationship="dbSisSodInaModel.FK_tbInventario_tbProducto" FromRole="tbProducto" ToRole="tbInventario" />
           <NavigationProperty Name="tbProveedores" Relationship="dbSisSodInaModel.FK_tbProducto_tbProveedores" FromRole="tbProducto" ToRole="tbProveedores" />
           <NavigationProperty Name="tbTipoMedidas" Relationship="dbSisSodInaModel.FK_tbProducto_tbTipoMedidas" FromRole="tbProducto" ToRole="tbTipoMedidas" />
         </EntityType>
@@ -2571,14 +2709,16 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Key>
             <PropertyRef Name="idReq" />
           </Key>
-          <Property Name="idReq" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="idReq" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="descripcion" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
           <Property Name="fecha_crea" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="fecha_ult_mod" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="usuario_crea" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="usuario_ult_mod" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="idCategoriaReq" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbCategoriaRequerimiento" Relationship="dbSisSodInaModel.FK_tbRequerimientos_tbCategoriaRequerimiento" FromRole="tbRequerimientos" ToRole="tbCategoriaRequerimiento" />
           <NavigationProperty Name="tbRoles" Relationship="dbSisSodInaModel.tbPermisos" FromRole="tbRequerimientos" ToRole="tbRoles" />
         </EntityType>
         <EntityType Name="tbRoles">
@@ -2737,15 +2877,17 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <NavigationProperty Name="tbPersona" Relationship="dbSisSodInaModel.FK_tbUsuarios_tbPersona" FromRole="tbUsuarios" ToRole="tbPersona" />
           <NavigationProperty Name="tbRoles" Relationship="dbSisSodInaModel.FK_tbUsuarios_tbRoles" FromRole="tbUsuarios" ToRole="tbRoles" />
         </EntityType>
-        <Association Name="FK_tbAbonos_tbCreditos">
-          <End Type="dbSisSodInaModel.tbCreditos" Role="tbCreditos" Multiplicity="1" />
+        <Association Name="FK_tbAbonos_tbDocumento">
+          <End Type="dbSisSodInaModel.tbDocumento" Role="tbDocumento" Multiplicity="1" />
           <End Type="dbSisSodInaModel.tbAbonos" Role="tbAbonos" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tbCreditos">
-              <PropertyRef Name="idCredito" />
+            <Principal Role="tbDocumento">
+              <PropertyRef Name="id" />
+              <PropertyRef Name="tipoDocumento" />
             </Principal>
             <Dependent Role="tbAbonos">
               <PropertyRef Name="idDoc" />
+              <PropertyRef Name="tipoDoc" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2871,6 +3013,18 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbRequerimientos_tbCategoriaRequerimiento">
+          <End Type="dbSisSodInaModel.tbCategoriaRequerimiento" Role="tbCategoriaRequerimiento" Multiplicity="1" />
+          <End Type="dbSisSodInaModel.tbRequerimientos" Role="tbRequerimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCategoriaRequerimiento">
+              <PropertyRef Name="idCategoriaReq" />
+            </Principal>
+            <Dependent Role="tbRequerimientos">
+              <PropertyRef Name="idCategoriaReq" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbClientes_tbExoneraciones">
           <End Type="dbSisSodInaModel.tbExoneraciones" Role="tbExoneraciones" Multiplicity="0..1" />
           <End Type="dbSisSodInaModel.tbClientes" Role="tbClientes" Multiplicity="*" />
@@ -2957,6 +3111,30 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
               <PropertyRef Name="idProducto" />
             </Principal>
             <Dependent Role="tbDetalleDocumento">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbDetalleDocumentoPendiente_tbDocumentosPendiente">
+          <End Type="dbSisSodInaModel.tbDocumentosPendiente" Role="tbDocumentosPendiente" Multiplicity="1" />
+          <End Type="dbSisSodInaModel.tbDetalleDocumentoPendiente" Role="tbDetalleDocumentoPendiente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbDocumentosPendiente">
+              <PropertyRef Name="alias" />
+            </Principal>
+            <Dependent Role="tbDetalleDocumentoPendiente">
+              <PropertyRef Name="alias" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbDetalleDocumentoPendiente_tbProducto">
+          <End Type="dbSisSodInaModel.tbProducto" Role="tbProducto" Multiplicity="1" />
+          <End Type="dbSisSodInaModel.tbDetalleDocumentoPendiente" Role="tbDetalleDocumentoPendiente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbProducto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="tbDetalleDocumentoPendiente">
               <PropertyRef Name="idProducto" />
             </Dependent>
           </ReferentialConstraint>
@@ -3205,14 +3383,14 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbProducto_tbInventario">
-          <End Type="dbSisSodInaModel.tbInventario" Role="tbInventario" Multiplicity="1" />
-          <End Type="dbSisSodInaModel.tbProducto" Role="tbProducto" Multiplicity="0..1" />
+        <Association Name="FK_tbInventario_tbProducto">
+          <End Type="dbSisSodInaModel.tbProducto" Role="tbProducto" Multiplicity="1" />
+          <End Type="dbSisSodInaModel.tbInventario" Role="tbInventario" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="tbInventario">
+            <Principal Role="tbProducto">
               <PropertyRef Name="idProducto" />
             </Principal>
-            <Dependent Role="tbProducto">
+            <Dependent Role="tbInventario">
               <PropertyRef Name="idProducto" />
             </Dependent>
           </ReferentialConstraint>
@@ -3459,6 +3637,15 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tbCategoriaRequerimiento">
+            <EntityTypeMapping TypeName="dbSisSodInaModel.tbCategoriaRequerimiento">
+              <MappingFragment StoreEntitySet="tbCategoriaRequerimiento">
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idCategoriaReq" ColumnName="idCategoriaReq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbClientes">
             <EntityTypeMapping TypeName="dbSisSodInaModel.tbClientes">
               <MappingFragment StoreEntitySet="tbClientes">
@@ -3521,6 +3708,23 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
                 <ScalarProperty Name="idProducto" ColumnName="idProducto" />
                 <ScalarProperty Name="idDoc" ColumnName="idDoc" />
                 <ScalarProperty Name="idTipoDoc" ColumnName="idTipoDoc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbDetalleDocumentoPendiente">
+            <EntityTypeMapping TypeName="dbSisSodInaModel.tbDetalleDocumentoPendiente">
+              <MappingFragment StoreEntitySet="tbDetalleDocumentoPendiente">
+                <ScalarProperty Name="totalLinea" ColumnName="totalLinea" />
+                <ScalarProperty Name="montoTotalExo" ColumnName="montoTotalExo" />
+                <ScalarProperty Name="montoTotalImp" ColumnName="montoTotalImp" />
+                <ScalarProperty Name="montoTotalDesc" ColumnName="montoTotalDesc" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="montoTotal" ColumnName="montoTotal" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="numLinea" ColumnName="numLinea" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="alias" ColumnName="alias" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3609,6 +3813,14 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
                 <ScalarProperty Name="consecutivo" ColumnName="consecutivo" />
                 <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbDocumentosPendiente">
+            <EntityTypeMapping TypeName="dbSisSodInaModel.tbDocumentosPendiente">
+              <MappingFragment StoreEntitySet="tbDocumentosPendiente">
+                <ScalarProperty Name="servicioMesa" ColumnName="servicioMesa" />
+                <ScalarProperty Name="alias" ColumnName="alias" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3946,6 +4158,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <EntitySetMapping Name="tbRequerimientos">
             <EntityTypeMapping TypeName="dbSisSodInaModel.tbRequerimientos">
               <MappingFragment StoreEntitySet="tbRequerimientos">
+                <ScalarProperty Name="idCategoriaReq" ColumnName="idCategoriaReq" />
                 <ScalarProperty Name="usuario_ult_mod" ColumnName="usuario_ult_mod" />
                 <ScalarProperty Name="usuario_crea" ColumnName="usuario_crea" />
                 <ScalarProperty Name="fecha_ult_mod" ColumnName="fecha_ult_mod" />

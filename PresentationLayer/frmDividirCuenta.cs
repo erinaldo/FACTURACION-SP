@@ -42,6 +42,7 @@ namespace PresentationLayer
         {
             try
             {
+                chkServicioMesa.Checked = documentoTotal.tbDetalleDocumento.Where(x => x.idProducto == "SM").SingleOrDefault() != null;
                 cargarListaTotal();
             }
             catch (Exception)
@@ -57,19 +58,9 @@ namespace PresentationLayer
             lstvTotal.Items.Clear();
             foreach (var detalle in documentoTotal.tbDetalleDocumento)
             {
-                if (detalle.tbProducto.idMedida==(int)Enums.TipoMedida.kg)
+                if (detalle.idProducto!="SM")
                 {
-                    ListViewItem item = new ListViewItem();
-                    // Place a check mark next to the item.
-                    item.Checked = false;
-                    item.SubItems.Add(detalle.idProducto);
-                    item.SubItems.Add(detalle.tbProducto.nombre.Trim().ToUpper());
-                    item.SubItems.Add(detalle.precio.ToString());
-                    lstvTotal.Items.Add(item);
-                }
-                else
-                {
-                    for (int i = 0; i < detalle.cantidad; i++)
+                    if (detalle.tbProducto.idMedida == (int)Enums.TipoMedida.kg)
                     {
                         ListViewItem item = new ListViewItem();
                         // Place a check mark next to the item.
@@ -79,7 +70,21 @@ namespace PresentationLayer
                         item.SubItems.Add(detalle.precio.ToString());
                         lstvTotal.Items.Add(item);
                     }
+                    else
+                    {
+                        for (int i = 0; i < detalle.cantidad; i++)
+                        {
+                            ListViewItem item = new ListViewItem();
+                            // Place a check mark next to the item.
+                            item.Checked = false;
+                            item.SubItems.Add(detalle.idProducto);
+                            item.SubItems.Add(detalle.tbProducto.nombre.Trim().ToUpper());
+                            item.SubItems.Add(detalle.precio.ToString());
+                            lstvTotal.Items.Add(item);
+                        }
+                    }
                 }
+                
                
             }
         }
@@ -98,19 +103,22 @@ namespace PresentationLayer
             lstvListaParcial.Items.Clear();
             foreach (var detalle in detalleDocumentoParcial)
             {
-
-                ListViewItem item = new ListViewItem();
-                // Place a check mark next to the item.
-                item.Checked = false;
-                item.SubItems.Add(detalle.idProducto);
-                item.SubItems.Add(detalle.tbProducto.nombre.Trim().ToUpper());
-                item.SubItems.Add(detalle.cantidad.ToString().Trim());
-                item.SubItems.Add(detalle.precio.ToString());
-                item.SubItems.Add(detalle.montoTotal.ToString());
-                item.SubItems.Add(detalle.montoTotalDesc.ToString());
-                item.SubItems.Add(detalle.montoTotalImp.ToString());
-                item.SubItems.Add(detalle.totalLinea.ToString());
-                lstvListaParcial.Items.Add(item);
+                if (detalle.idProducto!="SM")
+                {
+                    ListViewItem item = new ListViewItem();
+                    // Place a check mark next to the item.
+                    item.Checked = false;
+                    item.SubItems.Add(detalle.idProducto);
+                    item.SubItems.Add(detalle.tbProducto.nombre.Trim().ToUpper());
+                    item.SubItems.Add(detalle.cantidad.ToString().Trim());
+                    item.SubItems.Add(detalle.precio.ToString());
+                    item.SubItems.Add(detalle.montoTotal.ToString());
+                    item.SubItems.Add(detalle.montoTotalDesc.ToString());
+                    item.SubItems.Add(detalle.montoTotalImp.ToString());
+                    item.SubItems.Add(detalle.totalLinea.ToString());
+                    lstvListaParcial.Items.Add(item);
+                }
+                
 
             }
         }
@@ -232,7 +240,25 @@ namespace PresentationLayer
             lista = asignarLineasNumero(lista);
             lista = calcularDescuentos(lista);
             lista = calcularImpuestos(lista);
+            lista = calcularServicioMesa(lista);
+
             lista = calcularTotales(lista);
+            return lista;
+        }
+
+        private List<tbDetalleDocumento> calcularServicioMesa(List<tbDetalleDocumento> lista)
+        {
+            lista.Remove(lista.Where(x => x.idProducto == "SM").SingleOrDefault());
+            if (chkServicioMesa.Checked)
+            {
+                tbDetalleDocumento detalle = new tbDetalleDocumento();
+                detalle.idProducto = "SM";
+                detalle.cantidad = 1;
+                detalle.montoTotal = lista.Sum(x => x.totalLinea);
+                detalle.totalLinea = detalle.cantidad * detalle.montoTotal;
+                lista.Add(detalle);
+
+            }
             return lista;
         }
 
@@ -249,26 +275,41 @@ namespace PresentationLayer
 
         }
 
+
         private List<tbDetalleDocumento> calcularTotales(List<tbDetalleDocumento> lista)
         {
-            decimal total = 0, desc = 0, iva = 0, subtotal = 0, exo = 0;
+            decimal total = 0, desc = 0, iva = 0, subtotal = 0, exo = 0, sm = 0;
 
             foreach (tbDetalleDocumento detalle in lista)
             {
-                detalle.montoTotal = detalle.cantidad * detalle.precio;
-                detalle.totalLinea = (detalle.montoTotal - detalle.montoTotalDesc) + detalle.montoTotalImp;
-                total += detalle.totalLinea;
-                desc += detalle.montoTotalDesc;
-                iva += detalle.montoTotalImp;
-                exo += detalle.montoTotalExo;
-                subtotal += detalle.montoTotal;
+                if (detalle.idProducto != "SM")
+                {
+                    detalle.totalLinea = (detalle.montoTotal - detalle.montoTotalDesc) + detalle.montoTotalImp - detalle.montoTotalExo;
+                    total += detalle.totalLinea;
+                    desc += detalle.montoTotalDesc;
+                    iva += detalle.montoTotalImp;
+                    exo += detalle.montoTotalExo;
+                    subtotal += detalle.montoTotal;
+
+                }
+
 
             }
+
             txtSubtotal.Text = subtotal.ToString("#.##");
             txtDescuento.Text = desc.ToString("#.##");
             txtIva.Text = iva.ToString("#.##");
-            txtTotal.Text = total.ToString("#.##");
             txtExoneracion.Text = exo.ToString("#.##");
+            txtSub.Text = ((subtotal - desc + iva) - exo).ToString("#.##");
+            txtServicioMesa.Text = sm.ToString("#.##");
+            if (lista.Where(x => x.idProducto == "SM").SingleOrDefault() != null)
+            {
+                sm = lista.Where(x => x.idProducto == "SM").Sum(x => x.totalLinea);
+                sm *= decimal.Parse("0.10");
+                txtServicioMesa.Text = sm.ToString("#.##");
+            }
+            txtTotal.Text = (total + sm).ToString("#.##");
+
 
             if (txtSubtotal.Text == string.Empty)
             {
@@ -301,6 +342,16 @@ namespace PresentationLayer
                 txtExoneracion.Text = "0";
 
             }
+            if (txtSub.Text == string.Empty)
+            {
+                txtSub.Text = "0";
+
+            }
+            if (txtServicioMesa.Text == string.Empty)
+            {
+                txtServicioMesa.Text = "0";
+
+            }
             return lista;
         }
 
@@ -309,28 +360,31 @@ namespace PresentationLayer
 
             foreach (tbDetalleDocumento detalle in lista)
             {
-                //sino es excento el producto
-                if (!detalle.tbProducto.esExento)
+                if (detalle.idProducto!="SM")
                 {
-                    //aplica exoneracion al cliente
-                    if (false)
+                    //sino es excento el producto
+                    if (!detalle.tbProducto.esExento)
                     {
-                        detalle.montoTotalExo = (detalle.montoTotal - detalle.montoTotalDesc) * (((decimal)detalle.tbProducto.tbImpuestos.valor) / 100);
-                        detalle.montoTotalImp = 0;
+                        //aplica exoneracion al cliente
+                        if (false)
+                        {
+                            detalle.montoTotalExo = (detalle.montoTotal - detalle.montoTotalDesc) * (((decimal)detalle.tbProducto.tbImpuestos.valor) / 100);
+                            detalle.montoTotalImp = 0;
+                        }
+                        else
+                        {
+                            //aplica el impuesto
+                            detalle.montoTotalExo = 0;
+                            detalle.montoTotalImp = (detalle.montoTotal - detalle.montoTotalDesc) * (((decimal)detalle.tbProducto.tbImpuestos.valor) / 100);
+                        }
+
                     }
                     else
-                    {
-                        //aplica el impuesto
+                    {//no aplica impuesto ya que el producto es excento.
+                        detalle.montoTotalImp = 0;
                         detalle.montoTotalExo = 0;
-                        detalle.montoTotalImp = (detalle.montoTotal - detalle.montoTotalDesc) * (((decimal)detalle.tbProducto.tbImpuestos.valor) / 100);
+
                     }
-
-                }
-                else
-                {//no aplica impuesto ya que el producto es excento.
-                    detalle.montoTotalImp = 0;
-                    detalle.montoTotalExo = 0;
-
                 }
 
             }
@@ -388,26 +442,29 @@ namespace PresentationLayer
 
                 foreach (tbDetalleDocumento detalle in lista)
                 {
-
-                    if ((bool)detalle.tbProducto.aplicaDescuento)
+                    if (detalle.idProducto!="SM")
                     {
-                        if (porc > ((detalle.tbProducto.descuento_max) / 100))
+                        if ((bool)detalle.tbProducto.aplicaDescuento)
                         {
-                            detalle.descuento = (decimal)detalle.tbProducto.descuento_max;
-                            detalle.montoTotalDesc = detalle.montoTotal * ((decimal)detalle.tbProducto.descuento_max / 100);
+                            if (porc > ((detalle.tbProducto.descuento_max) / 100))
+                            {
+                                detalle.descuento = (decimal)detalle.tbProducto.descuento_max;
+                                detalle.montoTotalDesc = detalle.montoTotal * ((decimal)detalle.tbProducto.descuento_max / 100);
+                            }
+                            else
+                            {
+                                detalle.descuento = (decimal)porc * 100;
+                                detalle.montoTotalDesc = detalle.montoTotal * porc;
+                            }
                         }
                         else
                         {
-                            detalle.descuento = (decimal)porc * 100;
-                            detalle.montoTotalDesc = detalle.montoTotal * porc;
+                            detalle.descuento = 0;
+                            detalle.montoTotalDesc = 0;
+
                         }
                     }
-                    else
-                    {
-                        detalle.descuento = 0;
-                        detalle.montoTotalDesc = 0;
-
-                    }
+                   
                 }
 
             }
@@ -910,6 +967,20 @@ namespace PresentationLayer
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkServicioMesa_CheckedChanged(object sender, EventArgs e)
+        {
+            documentoTotal.tbDetalleDocumento=calcularMontosT((List<tbDetalleDocumento>)documentoTotal.tbDetalleDocumento);
+            detalleDocumentoParcial=calcularMontosT(detalleDocumentoParcial);
+
+            cargarListaTotal();
+            cargarListaParcial();
         }
     }
 }

@@ -10,25 +10,18 @@
 using System;
 using System.Collections.Generic;
 
-public partial class tbRequerimientos
+public partial class tbCategoriaRequerimiento
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public tbRequerimientos()
+    public tbCategoriaRequerimiento()
     {
-        this.tbRoles = new HashSet<tbRoles>();
+        this.tbRequerimientos = new HashSet<tbRequerimientos>();
     }
 
-    public int idReq { get; set; }
-    public string nombre { get; set; }
-    public string descripcion { get; set; }
-    public bool estado { get; set; }
-    public System.DateTime fecha_crea { get; set; }
-    public System.DateTime fecha_ult_mod { get; set; }
-    public string usuario_crea { get; set; }
-    public string usuario_ult_mod { get; set; }
     public int idCategoriaReq { get; set; }
+    public string nombre { get; set; }
+    public bool estado { get; set; }
 
-    public virtual tbCategoriaRequerimiento tbCategoriaRequerimiento { get; set; }
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbRoles> tbRoles { get; set; }
+    public virtual ICollection<tbRequerimientos> tbRequerimientos { get; set; }
 }

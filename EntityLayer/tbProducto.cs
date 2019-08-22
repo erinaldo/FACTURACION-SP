@@ -16,6 +16,7 @@ public partial class tbProducto
     public tbProducto()
     {
         this.tbDetalleDocumento = new HashSet<tbDetalleDocumento>();
+        this.tbDetalleDocumentoPendiente = new HashSet<tbDetalleDocumentoPendiente>();
     }
 
     public string idProducto { get; set; }
@@ -49,6 +50,8 @@ public partial class tbProducto
     public virtual tbCategoriaProducto tbCategoriaProducto { get; set; }
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     public virtual ICollection<tbDetalleDocumento> tbDetalleDocumento { get; set; }
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    public virtual ICollection<tbDetalleDocumentoPendiente> tbDetalleDocumentoPendiente { get; set; }
     public virtual tbImpuestos tbImpuestos { get; set; }
     public virtual tbInventario tbInventario { get; set; }
     public virtual tbProveedores tbProveedores { get; set; }

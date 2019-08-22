@@ -12,12 +12,6 @@ using System.Collections.Generic;
 
 public partial class tbCreditos
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public tbCreditos()
-    {
-        this.tbAbonos = new HashSet<tbAbonos>();
-    }
-
     public int idCredito { get; set; }
     public string idCliente { get; set; }
     public Nullable<int> tipoCliente { get; set; }
@@ -31,7 +25,5 @@ public partial class tbCreditos
     public string usuario_ult_mod { get; set; }
     public decimal saldoCredito { get; set; }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbAbonos> tbAbonos { get; set; }
     public virtual tbMovimientos tbMovimientos { get; set; }
 }

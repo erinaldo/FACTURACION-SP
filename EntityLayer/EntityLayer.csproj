@@ -95,6 +95,9 @@
     <Compile Include="tbCategoriaProducto.cs">
       <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbCategoriaRequerimiento.cs">
+      <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbClientes.cs">
       <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
     </Compile>
@@ -102,6 +105,9 @@
       <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tbDetalleDocumento.cs">
+      <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbDetalleDocumentoPendiente.cs">
       <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tbDetalleImpresion.cs">
@@ -117,6 +123,9 @@
       <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tbDocumento.cs">
+      <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbDocumentosPendiente.cs">
       <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tbEmpleado.cs">

@@ -44,8 +44,8 @@ namespace CommonLayer
 
         }
         public static string stringConexionReportes() {
-           //return "data source=localhost\\SQLEXPRESS;initial catalog=dbSISSODINA;user id=sa;password=crpp;";
-            return "data source=.;initial catalog=dbSISSODINA;user id=sa;password=crpp;";
+           return "data source=localhost\\SQLEXPRESS;initial catalog=dbSISSODINA;user id=sa;password=crpp;";
+            //return "data source=.;initial catalog=dbSISSODINA;user id=sa;password=crpp;";
         }
         public static XmlDocument DecodeBase64ToXML(string valor)
         {

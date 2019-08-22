@@ -15,6 +15,7 @@ public partial class tbDocumento
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
     public tbDocumento()
     {
+        this.tbAbonos = new HashSet<tbAbonos>();
         this.tbDetalleDocumento = new HashSet<tbDetalleDocumento>();
     }
 
@@ -57,6 +58,8 @@ public partial class tbDocumento
     public string xmlFirmado { get; set; }
     public string xmlRespuesta { get; set; }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    public virtual ICollection<tbAbonos> tbAbonos { get; set; }
     public virtual tbClientes tbClientes { get; set; }
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     public virtual ICollection<tbDetalleDocumento> tbDetalleDocumento { get; set; }
