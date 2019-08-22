@@ -48,6 +48,7 @@
     <Compile Include="BAbonos.cs" />
     <Compile Include="BCanton.cs" />
     <Compile Include="BEmpresa.cs" />
+    <Compile Include="BPendientes.cs" />
     <Compile Include="BTipoId.cs" />
     <Compile Include="BProvincias.cs" />
     <Compile Include="BCajas.cs" />

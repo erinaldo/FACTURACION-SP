@@ -85,6 +85,7 @@
     </Compile>
     <Compile Include="DCanton.cs" />
     <Compile Include="DEmpresa.cs" />
+    <Compile Include="DPendientes.cs" />
     <Compile Include="DProvincia.cs" />
     <Compile Include="DCajas.cs" />
     <Compile Include="DCajaUsuario.cs" />
