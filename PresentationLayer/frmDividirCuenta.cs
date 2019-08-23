@@ -255,6 +255,7 @@ namespace PresentationLayer
                 detalle.idProducto = "SM";
                 detalle.cantidad = 1;
                 detalle.montoTotal = lista.Sum(x => x.totalLinea);
+                detalle.montoTotal *= decimal.Parse("0.10");
                 detalle.totalLinea = detalle.cantidad * detalle.montoTotal;
                 lista.Add(detalle);
 
@@ -318,7 +319,7 @@ namespace PresentationLayer
             if (lista.Where(x => x.idProducto == "SM").SingleOrDefault() != null)
             {
                 sm = lista.Where(x => x.idProducto == "SM").Sum(x => x.totalLinea);
-                sm *= decimal.Parse("0.10");
+            
                 txtServicioMesa.Text = sm.ToString("#.##");
             }
             txtTotal.Text = (total + sm).ToString("#.##");
@@ -815,10 +816,10 @@ namespace PresentationLayer
 
             documento.estado = true;
 
-            foreach (tbDetalleDocumento detalle in detalleDocumentoParcial)
-            {
-                detalle.tbProducto = null;
-            }
+            //foreach (tbDetalleDocumento detalle in detalleDocumentoParcial)
+            //{
+            //    detalle.tbProducto = null;
+            //}
 
             documento.tbDetalleDocumento = detalleDocumentoParcial;
 
@@ -942,7 +943,7 @@ namespace PresentationLayer
 
                     string prod = item.SubItems[1].Text;
                     decimal cant = decimal.Parse(item.SubItems[3].Text);
-
+                    
                     var detalle = documentoTotal.tbDetalleDocumento.Where(a => a.idProducto == prod.Trim()).SingleOrDefault();
 
                     var x = detalleDocumentoParcial.Where(v => v.idProducto == prod.Trim()).SingleOrDefault();
@@ -960,7 +961,7 @@ namespace PresentationLayer
                     else
                     {
                         documentoTotal.tbDetalleDocumento.Where(c => c.idProducto == prod.Trim()).SingleOrDefault().cantidad += cant;
-                        documentoTotal.tbDetalleDocumento.Where(c => c.idProducto == prod.Trim()).SingleOrDefault().montoTotal = detalleDocumentoParcial.Where(y => y.idProducto == prod.Trim()).SingleOrDefault().cantidad *
+                        documentoTotal.tbDetalleDocumento.Where(c => c.idProducto == prod.Trim()).SingleOrDefault().montoTotal = documentoTotal.tbDetalleDocumento.Where(y => y.idProducto == prod.Trim()).SingleOrDefault().cantidad *
                          documentoTotal.tbDetalleDocumento.Where(f => f.idProducto == prod.Trim()).SingleOrDefault().precio;
                     }
                 }
@@ -998,6 +999,7 @@ namespace PresentationLayer
         {
             try
             {
+                
                 documentoTotal.tbDetalleDocumento = calcularMontosT((List<tbDetalleDocumento>)documentoTotal.tbDetalleDocumento);
                 detalleDocumentoParcial = calcularMontosT(detalleDocumentoParcial);
 

@@ -1559,7 +1559,7 @@ namespace PresentationLayer
                     facturasPendientes.Remove(pendiente);
                     pendiente.detalleFacturaPendiente.Clear();
                     alias = pendiente.alias;
-
+                    //chkServicioMesa.Checked = pendiente.servicioMesa;
                 }
                 else
                 {
@@ -1602,11 +1602,11 @@ namespace PresentationLayer
                         detalleP.precio = detalle.precio;
                         detalleP.tbProducto = detalle.tbProducto;
                         detalleP.totalLinea = detalle.totalLinea;
-
+                        
                         pendiente.detalleFacturaPendiente.Add(detalleP);
                     }
                     pendiente.alias = alias;
-
+                    pendiente.servicioMesa = chkServicioMesa.Checked;
                     facturasPendientes.Add(pendiente);
                    
                     MessageBox.Show("Pendiente actualizado", "Pendiente", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1660,7 +1660,7 @@ namespace PresentationLayer
             string alias = ((Button)sender).Name.Trim().ToUpper();
             FacturasPendientes pendiente= facturasPendientes.Where(x=>x.alias==alias).SingleOrDefault();
             lblAlias.Text = pendiente.alias;
-          
+            
             if (pendiente!=null)
             {
 
@@ -1684,10 +1684,12 @@ namespace PresentationLayer
                     listaDetalleDocumento.Add(detalleP);                  
                   
                 }
+                chkServicioMesa.Checked = pendiente.servicioMesa;
                 calcularMontosT();
                 agregarProductoGrid();
                 tabFact.Show();tabFact.Focus();
                 isAlias = true;
+           
             }
 
 
@@ -1756,9 +1758,11 @@ namespace PresentationLayer
             {
                 listaDetalleDocumento = (List<tbDetalleDocumento>)documento.tbDetalleDocumento;
                 //actualizar si esta pendiente
+                chkServicioMesa.Checked = listaDetalleDocumento.Where(x => x.idProducto == "SM").SingleOrDefault() != null;
+
                 agregarPendiente();
                 cargarPendientes();
-
+             
                 calcularMontosT();
                 agregarProductoGrid();
 

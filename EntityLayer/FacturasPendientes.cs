@@ -46,7 +46,7 @@ namespace EntityLayer
         }
 
         public string alias { get; set; }
-
+        public bool servicioMesa { get; set; }
         public List<DetalleFacturaPendiente> detalleFacturaPendiente { get; set; }
     }
 }

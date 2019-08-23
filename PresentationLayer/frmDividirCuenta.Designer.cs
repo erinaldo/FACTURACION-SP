@@ -187,6 +187,7 @@
             // 
             // gbxMontos
             // 
+            this.gbxMontos.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.gbxMontos.BackColor = System.Drawing.SystemColors.ControlLight;
             this.gbxMontos.Controls.Add(this.txtServicioMesa);
             this.gbxMontos.Controls.Add(this.label7);
@@ -228,12 +229,13 @@
             // label7
             // 
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(33, 196);
+            this.label7.Location = new System.Drawing.Point(13, 196);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(159, 25);
+            this.label7.Size = new System.Drawing.Size(178, 25);
             this.label7.TabIndex = 70;
             this.label7.Text = "Serv. de Mesa:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtSub
             // 
@@ -249,12 +251,13 @@
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(93, 159);
+            this.label5.Location = new System.Drawing.Point(73, 159);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(101, 25);
+            this.label5.Size = new System.Drawing.Size(118, 25);
             this.label5.TabIndex = 68;
             this.label5.Text = "Subtotal:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // button1
@@ -290,12 +293,13 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(52, 85);
+            this.label1.Location = new System.Drawing.Point(32, 85);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(139, 25);
+            this.label1.Size = new System.Drawing.Size(159, 25);
             this.label1.TabIndex = 65;
             this.label1.Text = "Exoneración:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label8
             // 
@@ -341,12 +345,13 @@
             // lblSubtotal
             // 
             this.lblSubtotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSubtotal.Location = new System.Drawing.Point(99, 10);
+            this.lblSubtotal.Location = new System.Drawing.Point(79, 10);
             this.lblSubtotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSubtotal.Name = "lblSubtotal";
-            this.lblSubtotal.Size = new System.Drawing.Size(96, 25);
+            this.lblSubtotal.Size = new System.Drawing.Size(112, 25);
             this.lblSubtotal.TabIndex = 36;
             this.lblSubtotal.Text = "Importe:";
+            this.lblSubtotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtSubtotal
             // 
@@ -373,12 +378,13 @@
             // lblIva
             // 
             this.lblIva.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIva.Location = new System.Drawing.Point(122, 121);
+            this.lblIva.Location = new System.Drawing.Point(84, 121);
             this.lblIva.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblIva.Name = "lblIva";
-            this.lblIva.Size = new System.Drawing.Size(74, 25);
+            this.lblIva.Size = new System.Drawing.Size(107, 25);
             this.lblIva.TabIndex = 28;
             this.lblIva.Text = "I.V.A:";
+            this.lblIva.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtDescuento
             // 
@@ -394,22 +400,24 @@
             // lblDescuento
             // 
             this.lblDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDescuento.Location = new System.Drawing.Point(70, 50);
+            this.lblDescuento.Location = new System.Drawing.Point(50, 47);
             this.lblDescuento.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDescuento.Name = "lblDescuento";
-            this.lblDescuento.Size = new System.Drawing.Size(122, 25);
+            this.lblDescuento.Size = new System.Drawing.Size(141, 25);
             this.lblDescuento.TabIndex = 29;
             this.lblDescuento.Text = "Descuento:";
+            this.lblDescuento.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblTotal
             // 
             this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotal.Location = new System.Drawing.Point(123, 233);
+            this.lblTotal.Location = new System.Drawing.Point(103, 233);
             this.lblTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(68, 25);
+            this.lblTotal.Size = new System.Drawing.Size(88, 25);
             this.lblTotal.TabIndex = 30;
             this.lblTotal.Text = "Total:";
+            this.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtIva
             // 
@@ -553,7 +561,7 @@
             // 
             this.chkServicioMesa.AutoSize = true;
             this.chkServicioMesa.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkServicioMesa.Location = new System.Drawing.Point(541, 95);
+            this.chkServicioMesa.Location = new System.Drawing.Point(541, 94);
             this.chkServicioMesa.Name = "chkServicioMesa";
             this.chkServicioMesa.Size = new System.Drawing.Size(226, 24);
             this.chkServicioMesa.TabIndex = 83;
