@@ -116,5 +116,26 @@ namespace PresentationLayer
             }
 
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (txtNuevoValor.Text!=string.Empty && Utility.isNumeroDecimal(txtNuevoValor.Text))
+            {
+                if (chkAcumular.Checked)
+                {
+                    txtCantidadP.Text = (inventarioGlobal.cantidad + decimal.Parse(txtNuevoValor.Text)).ToString();
+                }
+                else
+                {
+                    txtCantidadP.Text = decimal.Parse(txtNuevoValor.Text).ToString();
+                }
+            }
+            else
+            {
+                txtNuevoValor.Text = string.Empty;
+                txtCantidadP.Text = inventarioGlobal.cantidad.ToString();
+            }
+          
+        }
     }
 }

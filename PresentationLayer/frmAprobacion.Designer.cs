@@ -101,7 +101,7 @@
             this.btnAceptar.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnAceptar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAceptar.BackgroundImage")));
             this.btnAceptar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnAceptar.Location = new System.Drawing.Point(151, 185);
+            this.btnAceptar.Location = new System.Drawing.Point(295, 185);
             this.btnAceptar.Margin = new System.Windows.Forms.Padding(4);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(119, 65);
@@ -114,7 +114,7 @@
             this.btnDenegar.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnDenegar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDenegar.BackgroundImage")));
             this.btnDenegar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnDenegar.Location = new System.Drawing.Point(294, 185);
+            this.btnDenegar.Location = new System.Drawing.Point(168, 185);
             this.btnDenegar.Margin = new System.Windows.Forms.Padding(4);
             this.btnDenegar.Name = "btnDenegar";
             this.btnDenegar.Size = new System.Drawing.Size(119, 65);
