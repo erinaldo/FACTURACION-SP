@@ -23,23 +23,22 @@ namespace PresentationLayer
         decimal _paga { set; get; }
         decimal _vuelto { set; get; }
         tbDocumento _doc { set; get; }
-        tbAbonos _abono { set; get; }
+
         tbEmpresa _empresa { set; get; }
+        List<tbDocumento> _docs { set; get; }
+        
+        public clsImpresionFactura(List<tbDocumento> docs, tbEmpresa empresa)
+        {
+            _docs = docs;
+            _empresa = empresa;
 
-
+        }
         public clsImpresionFactura(tbDocumento doc, tbEmpresa empresa)
         {
             _doc = doc;
             _empresa = empresa;
           
-        }
-        public clsImpresionFactura(tbDocumento doc,  tbAbonos abono, tbEmpresa empresa)
-        {
-            _doc = doc;
-            _abono = abono;
-            _empresa = empresa;
-
-        }
+        }    
 
         public clsImpresionFactura(tbDocumento doc, tbEmpresa empresa, decimal paga, decimal vuelto)
         {
@@ -54,14 +53,14 @@ namespace PresentationLayer
         public void print()
         {
             //imprimir documentos que no son abono
-            if (_abono==null)
+            if (_docs == null)
             {
                 if (_doc.tipoDocumento == (int)Enums.TipoDocumento.FacturaElectronica)
                 {
                     if (_doc.tipoVenta == (int)Enums.tipoVenta.Credito)
                     {
 
-                        printMediaCarta();
+                        printPuntoVenta();
                     }
                     else
                     {
@@ -82,8 +81,8 @@ namespace PresentationLayer
             }
             else
             {
-
-
+                //imprimeAbono
+                printPuntoVentaAbono();
 
 
             }
@@ -91,6 +90,92 @@ namespace PresentationLayer
 
 
         }
+
+        private void printPuntoVentaAbono()
+        {
+            CreaTicket Ticket1 = new CreaTicket();
+            Ticket1.AbreCajon();  //abre el cajon
+            string nombreEmpresa = string.Empty;
+            string nombreComercial = string.Empty;
+            if (_empresa.nombreComercial != null)
+            {
+                nombreComercial = _empresa.nombreComercial.Trim().ToUpper();
+            }
+
+            if (_empresa.tipoId == (int)Enums.TipoId.Fisica)
+            {
+                nombreEmpresa = _empresa.tbPersona.nombre.ToUpper().ToString().Trim() + " " +
+                        _empresa.tbPersona.apellido1.ToUpper().ToString().Trim() + " " + _empresa.tbPersona.apellido2.ToUpper().ToString().Trim();
+            }
+            else
+            {
+                nombreEmpresa = _doc.tbClientes.tbPersona.nombre.ToUpper().ToString().Trim();
+
+            }
+
+
+            if (nombreComercial != string.Empty)
+            {
+                Ticket1.TextoCentro(nombreComercial);
+            }
+            Ticket1.TextoCentro(nombreEmpresa);
+            Ticket1.TextoCentro(_empresa.tbPersona.tbBarrios.tbDistrito.Nombre.Trim().ToUpper() + "-" + _empresa.tbPersona.tbBarrios.tbDistrito.tbCanton.Nombre.Trim().ToUpper() + "-" + _empresa.tbPersona.tbBarrios.tbDistrito.tbCanton.tbProvincia.Nombre.Trim().ToUpper());
+            Ticket1.TextoCentro((_empresa.tipoId == (int)Enums.TipoId.Fisica ? "Ced Fisica:" : "Ced Juridica:") + _empresa.tbPersona.identificacion.ToString().Trim());
+            Ticket1.TextoCentro("Tel:" + _empresa.tbPersona.telefono.ToString());         
+            Ticket1.TextoIzquierda("Fecha:" + _doc.fecha);           
+            Ticket1.TextoCentro("");
+            Ticket1.TextoCentro("ABONOS");   
+            Ticket1.TextoCentro("");
+            if (_doc.idCliente != null)
+            {
+
+                string nombre = "";
+                string id = _doc.tbClientes.tbPersona.identificacion.ToString().Trim();
+                if (_doc.tbClientes.tbPersona.tipoId == (int)Enums.TipoId.Fisica)
+                {
+
+                    nombre = _doc.tbClientes.tbPersona.nombre.ToUpper().ToString().Trim() + " " +
+                       _doc.tbClientes.tbPersona.apellido1.ToUpper().ToString().Trim() + " " + _doc.tbClientes.tbPersona.apellido2.ToUpper().ToString().Trim();
+                }
+                else
+                {
+                    nombre = _doc.tbClientes.tbPersona.nombre.ToUpper().ToString().Trim();
+                }
+                Ticket1.TextoIzquierda("ID Cliente:" + id);
+                Ticket1.TextoIzquierda("Cliente:" + nombre);
+
+            }
+
+            Ticket1.LineasGuion(); // imprime una linea de guiones
+            Ticket1.EncabezadoVenta(); // imprime encabezados
+            foreach (tbDetalleDocumento item in _doc.tbDetalleDocumento)
+            {
+                Ticket1.AgregaArticulo(item.tbProducto.nombre.Trim().ToUpper(), item.cantidad, item.precio, item.montoTotal); //imprime una linea de descripcion
+            }
+
+            Ticket1.LineasTotales(); // imprime linea 
+
+            Ticket1.AgregaTotales("SubTotal", _doc.tbDetalleDocumento.Sum(x => x.montoTotal)); // imprime linea con total
+            Ticket1.AgregaTotales("Descuento", _doc.tbDetalleDocumento.Sum(x => x.montoTotalDesc));
+            decimal exo = _doc.tbDetalleDocumento.Sum(x => x.montoTotalExo);
+            if (exo != 0)
+            {
+                Ticket1.AgregaTotales("Exoneracion", exo);
+            }
+            Ticket1.AgregaTotales("IVA", _doc.tbDetalleDocumento.Sum(x => x.montoTotalImp));
+            Ticket1.AgregaTotales("Total", _doc.tbDetalleDocumento.Sum(x => x.totalLinea)); // imprime linea con total
+            Ticket1.LineasGuion();
+            Ticket1.AgregaTotales("Pago", _paga); // imprime linea con total
+            Ticket1.AgregaTotales("Vuelto", _vuelto); // imprime linea con total
+            Ticket1.LineasGuion();
+            Ticket1.TextoIzquierda("Autorizada mediante resolución No. DGT-R");
+            Ticket1.TextoIzquierda("-48-2016 del 7 de octubre del 2016");
+
+            Ticket1.TextoCentro("GRACIAS POR SU COMPRA");
+
+            Ticket1.CortaTicket(); // corta el ticket
+        }
+
         private void printPuntoVenta( )
         {
 
@@ -181,37 +266,6 @@ namespace PresentationLayer
             Ticket1.TextoCentro("GRACIAS POR SU COMPRA");
 
             Ticket1.CortaTicket(); // corta el ticket
-
-            ////Configuracion.
-            //PrintDialog pd = new PrintDialog();
-            //PrintDocument pdoc = new PrintDocument();
-            //PrinterSettings ps = new PrinterSettings();
-            //Font font = new Font("Courier New",12);
-            //PaperSize paperSize = new PaperSize("Custom",100,200);
-
-            //pd.Document = pdoc;
-            //pd.Document.DefaultPageSettings.PaperSize = paperSize;
-
-            ////Configuramos el tamaño de la factura a imprimir.
-            //pdoc.DefaultPageSettings.PaperSize.Height = 820;
-            //pdoc.DefaultPageSettings.PaperSize.Width = 520;
-
-            ////Asignacion de metodo para imprimir.
-            //pdoc.PrintPage += new PrintPageEventHandler(imprimirFactura);
-
-            //DialogResult result = pd.ShowDialog();
-            //if (result == DialogResult.OK)
-            //{
-            //    //Creamos un visor de la impresion.
-            //    //Retirar esto cuando querramos sacar la version de produccion.
-            //    PrintPreviewDialog pp = new PrintPreviewDialog();
-            //    pp.Document = pdoc;
-            //    result = pp.ShowDialog();
-            //    if (result == DialogResult.OK)
-            //    {
-            //        pdoc.Print();
-            //    }
-            //}
 
         }
 

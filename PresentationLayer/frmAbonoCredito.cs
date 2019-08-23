@@ -24,8 +24,9 @@ namespace PresentationLayer
         public BFacturacion facturacionB = new BFacturacion();
         IEnumerable<tbDocumento> docsGlobal;
         List<tbDocumento> docsModificados = new List<tbDocumento>();
-     //   List<tbAbonos> abonosModificados = new List<tbAbonos>();
+      List<tbAbonos> abonosModificados = new List<tbAbonos>();
         Bcliente clienteB = new Bcliente();
+        
 
 
         public frmAbonoCredito()
@@ -44,7 +45,7 @@ namespace PresentationLayer
         //metodo para buscar clientes
         private void dataBuscar(tbClientes cliente)
         {
-
+           
             clienteGlobal = cliente;
             if ( clienteGlobal !=null && clienteGlobal.id.Trim() != null)//antes tenia cero pero como es string se pone null
             {
@@ -75,58 +76,64 @@ namespace PresentationLayer
 
         private void cargarCreditos()
         {
-
-            lsvFacturas.Items.Clear();
-            IEnumerable<tbDocumento> docs = clienteGlobal.tbDocumento.Where(x => x.estadoFactura == (int)Enums.EstadoFactura.Pendiente && x.estado == true && x.tipoVenta == (int)Enums.tipoVenta.Credito);
-            docsGlobal = docs;
-
-            decimal mnontoGeneral = 0;
-            decimal adeudadoGeneral = 0;
-            foreach (tbDocumento item in docs)
+            try
             {
+                lsvFacturas.Items.Clear();
+                IEnumerable<tbDocumento> docs = clienteGlobal.tbDocumento.Where(x => x.estadoFactura == (int)Enums.EstadoFactura.Pendiente && x.estado == true && x.tipoVenta == (int)Enums.tipoVenta.Credito);
+                docsGlobal = docs;
 
-                //Creamos un objeto de tipo ListviewItem
-                ListViewItem linea = new ListViewItem();
-                //CheckBox chk = new CheckBox();
-                //linea.ImageIndext4r+= chk;
-                linea.SubItems.Add(item.id.ToString());
-                linea.SubItems.Add(item.fecha.ToString());
-                linea.SubItems.Add(item.consecutivo.Trim());
-                decimal monto = 0;
-                foreach (var detalle in item.tbDetalleDocumento)
+                decimal mnontoGeneral = 0;
+                decimal adeudadoGeneral = 0;
+                foreach (tbDocumento item in docs)
                 {
-                    monto += detalle.totalLinea;
+
+                    //Creamos un objeto de tipo ListviewItem
+                    ListViewItem linea = new ListViewItem();
+                    //CheckBox chk = new CheckBox();
+                    //linea.ImageIndext4r+= chk;
+                    linea.SubItems.Add(item.id.ToString());
+                    linea.SubItems.Add(item.fecha.ToString());
+                    linea.SubItems.Add(item.consecutivo.Trim());
+                    decimal monto = 0;
+                    foreach (var detalle in item.tbDetalleDocumento)
+                    {
+                        monto += detalle.totalLinea;
+                    }
+                    mnontoGeneral += monto;
+                    decimal abonos = 0;
+                    foreach (var abono in item.tbAbonos)
+                    {
+                        abonos += (decimal)abono.monto;
+                    }
+                    adeudadoGeneral += monto - abonos;
+
+                    linea.SubItems.Add(monto.ToString());
+                    linea.SubItems.Add((monto - abonos).ToString());
+
+                    //Agregamos el item a la lista.
+                    double daysPlazo = double.Parse(item.plazo.ToString());
+                    DateTime fechaVenc = item.fecha.AddDays(daysPlazo);
+
+                    linea.SubItems.Add(fechaVenc.ToString());
+                    if (fechaVenc < Utility.getDate())
+                    {
+                        linea.ForeColor = Color.Red;
+                    }
+                    lsvFacturas.Items.Add(linea);
+
                 }
-                mnontoGeneral += monto;
-                decimal abonos = 0;
-                //foreach (var abono in item.tbAbonos)
-                //{
-                //    abonos += (decimal)abono.monto;
-                //}
-
-
-
-
-                adeudadoGeneral += monto - abonos;
-
-                linea.SubItems.Add(monto.ToString());
-                linea.SubItems.Add((monto-abonos).ToString());
-      
-                //Agregamos el item a la lista.
-                double daysPlazo = double.Parse( item.plazo.ToString());
-                DateTime fechaVenc = item.fecha.AddDays(daysPlazo);
-
-                linea.SubItems.Add(fechaVenc.ToString());
-                if (fechaVenc<Utility.getDate())
-                {
-                    linea.ForeColor = Color.Red;
-                }
-                lsvFacturas.Items.Add(linea);
+                txtAdeudado.Text = adeudadoGeneral.ToString();
+                txtFacturado.Text = mnontoGeneral.ToString();
 
             }
-            txtAdeudado.Text = adeudadoGeneral.ToString();
-            txtFacturado.Text = mnontoGeneral.ToString();
+            catch (Exception)
+            {
 
+                           MessageBox.Show("El dato al cargar los créditos.", "Cargar Créditos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            
+            }
+
+            
         }
 
         //funcion que abre formulario de busqueda y asigna metodos a un evento
@@ -148,8 +155,16 @@ namespace PresentationLayer
 
         private void btnBuscarCliente_Click(object sender, EventArgs e)
         {
+            try
+            {
+                buscar();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al buscar los datos del cliente.", "Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            buscar();
+            }
+
         }
         private void limpiarForm()
         {
@@ -169,7 +184,7 @@ namespace PresentationLayer
             clienteGlobal = null;
             docsGlobal = null;
             docsModificados.Clear();
-          //  abonosModificados.Clear();
+            abonosModificados.Clear();
 
 
         }
@@ -211,13 +226,13 @@ namespace PresentationLayer
                         {
                             foreach (tbDocumento doc in docsGlobal)
                             {
-                                //abonosModificados.Clear();
-                                //decimal abono = (decimal)doc.tbAbonos.Sum(x => x.monto);
+                                abonosModificados.Clear();
+                                 decimal abono = (decimal)doc.tbAbonos.Sum(x => x.monto);
                                 decimal totalFact = (decimal)doc.tbDetalleDocumento.Sum(x => x.totalLinea);
                                 decimal adeudadoFact = 0;
 
                                 //calculo el total adeudado actual
-                                //adeudadoFact = totalFact - abono;
+                                adeudadoFact = totalFact - abono;
 
 
                                 tbAbonos abonoE = new tbAbonos();
@@ -243,14 +258,10 @@ namespace PresentationLayer
                                     //sino abona lo indicado
                                     abonoE.monto = montoAbono;
                                 }
-                                // abonosModificados.Add(abonoE);
-                                //doc.tbAbonos.Add(abonoE);
+                                abonosModificados.Add(abonoE);
+                                doc.tbAbonos.Add(abonoE);
                                 docsModificados.Add(doc);
-                                if (chkImprimir.Checked)
-                                {
-                                    //clsImpresionFactura imprimir = new clsImpresionFactura();
-                                    //imprimir.print();
-                                }
+                               
                                 montoAdeudado -= (decimal)abonoE.monto;
                                 montoAbono -= (decimal)abonoE.monto;
                                 if (montoAbono <= 0)
@@ -264,7 +275,12 @@ namespace PresentationLayer
 
                                 facturacionB.guadarFacturaAbonos(docsModificados);
                                 MessageBox.Show("Datos guardados correctamente.", "Guardar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                if (chkImprimir.Checked)
+                                {
 
+                                    clsImpresionFactura imprimir = new clsImpresionFactura(docsModificados, Global.Usuario.tbEmpresa);
+                                    imprimir.print();
+                                }
                                 txtAbono.Text = string.Empty;
                                 txtFacturado.Text = string.Empty;
                                 chkTodos.Checked = false;

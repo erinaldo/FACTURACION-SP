@@ -30,11 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAbonoCredito));
             this.gbxCredito = new System.Windows.Forms.GroupBox();
+            this.chkImprimir = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.btnProcesar = new System.Windows.Forms.Button();
             this.chkTodos = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtFacturado = new System.Windows.Forms.TextBox();
-            this.btnProcesar = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.txtAbono = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -59,7 +60,6 @@
             this.txtTel = new System.Windows.Forms.TextBox();
             this.txtIdCliente = new System.Windows.Forms.TextBox();
             this.txtCliente = new System.Windows.Forms.TextBox();
-            this.chkImprimir = new System.Windows.Forms.CheckBox();
             this.gbxCredito.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -86,6 +86,19 @@
             this.gbxCredito.TabStop = false;
             this.gbxCredito.Text = "Créditos";
             // 
+            // chkImprimir
+            // 
+            this.chkImprimir.AutoSize = true;
+            this.chkImprimir.Checked = true;
+            this.chkImprimir.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkImprimir.Location = new System.Drawing.Point(667, 480);
+            this.chkImprimir.Name = "chkImprimir";
+            this.chkImprimir.Size = new System.Drawing.Size(217, 24);
+            this.chkImprimir.TabIndex = 87;
+            this.chkImprimir.Text = "Imprimir Comprobante";
+            this.chkImprimir.UseVisualStyleBackColor = true;
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -95,6 +108,20 @@
             this.label8.Size = new System.Drawing.Size(253, 17);
             this.label8.TabIndex = 84;
             this.label8.Text = "En color rojo los documentos Vencidos";
+            // 
+            // btnProcesar
+            // 
+            this.btnProcesar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProcesar.Image = ((System.Drawing.Image)(resources.GetObject("btnProcesar.Image")));
+            this.btnProcesar.Location = new System.Drawing.Point(891, 447);
+            this.btnProcesar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnProcesar.Name = "btnProcesar";
+            this.btnProcesar.Size = new System.Drawing.Size(99, 80);
+            this.btnProcesar.TabIndex = 83;
+            this.btnProcesar.Text = "Procesar";
+            this.btnProcesar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnProcesar.UseVisualStyleBackColor = true;
+            this.btnProcesar.Click += new System.EventHandler(this.button1_Click);
             // 
             // chkTodos
             // 
@@ -126,20 +153,6 @@
             this.txtFacturado.ReadOnly = true;
             this.txtFacturado.Size = new System.Drawing.Size(288, 28);
             this.txtFacturado.TabIndex = 84;
-            // 
-            // btnProcesar
-            // 
-            this.btnProcesar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProcesar.Image = ((System.Drawing.Image)(resources.GetObject("btnProcesar.Image")));
-            this.btnProcesar.Location = new System.Drawing.Point(891, 447);
-            this.btnProcesar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnProcesar.Name = "btnProcesar";
-            this.btnProcesar.Size = new System.Drawing.Size(99, 80);
-            this.btnProcesar.TabIndex = 83;
-            this.btnProcesar.Text = "Procesar";
-            this.btnProcesar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnProcesar.UseVisualStyleBackColor = true;
-            this.btnProcesar.Click += new System.EventHandler(this.button1_Click);
             // 
             // label6
             // 
@@ -367,19 +380,6 @@
             this.txtCliente.ReadOnly = true;
             this.txtCliente.Size = new System.Drawing.Size(353, 22);
             this.txtCliente.TabIndex = 53;
-            // 
-            // chkImprimir
-            // 
-            this.chkImprimir.AutoSize = true;
-            this.chkImprimir.Checked = true;
-            this.chkImprimir.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkImprimir.Location = new System.Drawing.Point(702, 416);
-            this.chkImprimir.Name = "chkImprimir";
-            this.chkImprimir.Size = new System.Drawing.Size(217, 24);
-            this.chkImprimir.TabIndex = 87;
-            this.chkImprimir.Text = "Imprimir Comprobante";
-            this.chkImprimir.UseVisualStyleBackColor = true;
             // 
             // frmAbonoCredito
             // 

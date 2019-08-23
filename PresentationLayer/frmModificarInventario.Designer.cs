@@ -166,11 +166,11 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(63, 24);
+            this.label6.Location = new System.Drawing.Point(30, 24);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(23, 17);
+            this.label6.Size = new System.Drawing.Size(56, 17);
             this.label6.TabIndex = 0;
-            this.label6.Text = "Id:";
+            this.label6.Text = "Código:";
             // 
             // btnCancelar
             // 

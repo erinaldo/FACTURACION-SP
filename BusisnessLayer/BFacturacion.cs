@@ -107,9 +107,11 @@ namespace BusinessLayer
             {
                 foreach (var item in docs)
                 {
-                  
 
+                    item.tbClientes = null;
                     item.tbDetalleDocumento = null;
+
+
                      
                 }
                 DFacturaIns.abonos(docs);

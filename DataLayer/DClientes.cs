@@ -156,11 +156,11 @@ catch (Exception EX)
                 try
                 {
                 // SE AGREGA EL USING
-                     using (dbSisSodInaEntities context = new dbSisSodInaEntities())
+                     using (dbSisSodInaEntities context = new dbSisSodInaEntities()) 
                     if (estado == (int)Enums.EstadoBusqueda.Activo)
                     {
                         //PARA JALAR LOS DATOS DE LAS TABLAS RELACIONADAS SE USA LA PALABRA RESERVADA INCLUDE....Y ENTRE("")EL NOMBRE DE LAS TABLAS RELACIONADAS.
-                        list = (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbDocumento.tbDetalleDocumento")                          
+                        list = (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbDocumento.tbDetalleDocumento").Include("tbDocumento.tbAbonos")
                                 where p.estado == true
                                 select p).ToList();
                       
@@ -170,8 +170,8 @@ catch (Exception EX)
                     }
                     else if (estado == (int)Enums.EstadoBusqueda.Inactivos)
                     {
-                        list = (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbDocumento.tbDetalleDocumento").Include("tbImpuestos")
-                                  
+                        list = (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbDocumento.tbDetalleDocumento").Include("tbImpuestos").Include("tbDocumento.tbDetalleDocumento")
+
                                 where p.estado == false
                                 select p).ToList();
                     }
@@ -188,6 +188,8 @@ catch (Exception EX)
                             item.tbExoneraciones = impExo.GetEntity((int)item.idExonercion);
                         }
                     }
+                    
+                  
 
                 return list;
                 }

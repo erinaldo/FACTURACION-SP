@@ -99,50 +99,47 @@ namespace DataLayer
         public bool abonos(IEnumerable<tbDocumento> listaFact)
         {
             List<tbAbonos> listaAbonos = new List<tbAbonos>();
+            try
+            {
+
+                using (dbSisSodInaEntities context = new dbSisSodInaEntities())
+                {
+                    foreach (var doc in listaFact)
+                    {
+                       
+                        foreach (var abono in doc.tbAbonos)
+                        {
+                            if (abono.idAbono == 0)
+                            {
+                                context.Entry(abono).State = System.Data.Entity.EntityState.Added;
 
 
+                            }
+                            else
+                            {
+                                context.Entry(abono).State = System.Data.Entity.EntityState.Detached;
 
-            //try
-            //{
-             
-            //    using ( dbSisSodInaEntities context = new dbSisSodInaEntities())
-            //    {
-            //        foreach (var doc in listaFact)
-            //        {
-                    
-            //            foreach (var abono in doc.tbAbonos)
-            //            {
-            //                if (abono.idAbono==0)
-            //                {
-            //                    context.Entry(abono).State = System.Data.Entity.EntityState.Added;
+                            }
+                        }
+                    }
 
+                    foreach (var doc in listaFact)
+                    {
+                        context.Entry(doc).State = System.Data.Entity.EntityState.Modified;
 
-            //                }
-            //                else
-            //                {
-            //                    context.Entry(abono).State = System.Data.Entity.EntityState.Detached;
-
-            //                }
-            //            }
-            //        }
-
-            //        foreach (var doc in listaFact)
-            //        {
-            //            context.Entry(doc).State = System.Data.Entity.EntityState.Modified;
-
-            //            context.SaveChanges();
-            //        }
+                        context.SaveChanges();
+                    }
 
 
 
 
 
-            //     }
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new UpdateEntityException("facturacion actualizacion. Electronica");
-            //}
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new UpdateEntityException("facturacion actualizacion. Electronica");
+            }
 
             return true;
 
