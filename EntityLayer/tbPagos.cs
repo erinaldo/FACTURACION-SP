@@ -7,25 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbPagos
+namespace EntityLayer
 {
-    public int id { get; set; }
-    public string idEmpleado { get; set; }
-    public int tipoId { get; set; }
-    public int Cantidad_horas { get; set; }
-    public Nullable<int> cantidad_horaExtra { get; set; }
-    public float total { get; set; }
-    public System.DateTime fecha_pago { get; set; }
-    public string descripcion { get; set; }
-    public System.DateTime fecha_crea { get; set; }
-    public System.DateTime fecha_ult_mod { get; set; }
-    public string usuario_crea { get; set; }
-    public string usuario_ult_mod { get; set; }
-    public int idMovimiento { get; set; }
-
-    public virtual tbEmpleado tbEmpleado { get; set; }
-    public virtual tbMovimientos tbMovimientos { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbPagos
+    {
+        public int id { get; set; }
+        public string idEmpleado { get; set; }
+        public int tipoId { get; set; }
+        public int Cantidad_horas { get; set; }
+        public Nullable<int> cantidad_horaExtra { get; set; }
+        public float total { get; set; }
+        public System.DateTime fecha_pago { get; set; }
+        public string descripcion { get; set; }
+        public System.DateTime fecha_crea { get; set; }
+        public System.DateTime fecha_ult_mod { get; set; }
+        public string usuario_crea { get; set; }
+        public string usuario_ult_mod { get; set; }
+        public int idMovimiento { get; set; }
+    
+        public virtual tbEmpleado tbEmpleado { get; set; }
+        public virtual tbMovimientos tbMovimientos { get; set; }
+    }
 }

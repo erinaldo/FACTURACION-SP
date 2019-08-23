@@ -7,32 +7,35 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbEmpleado
+namespace EntityLayer
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public tbEmpleado()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbEmpleado
     {
-        this.tbPagos = new HashSet<tbPagos>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbEmpleado()
+        {
+            this.tbPagos = new HashSet<tbPagos>();
+        }
+    
+        public string id { get; set; }
+        public int tipoId { get; set; }
+        public int idPuesto { get; set; }
+        public System.DateTime fecha_ingreso { get; set; }
+        public Nullable<System.DateTime> fecha_salida { get; set; }
+        public bool estado { get; set; }
+        public System.DateTime fecha_crea { get; set; }
+        public System.DateTime fecha_ult_mod { get; set; }
+        public string usuario_crea { get; set; }
+        public string usuario_ult_crea { get; set; }
+        public bool esContraDefinido { get; set; }
+        public string direccion { get; set; }
+    
+        public virtual tbPersona tbPersona { get; set; }
+        public virtual tbTipoPuesto tbTipoPuesto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbPagos> tbPagos { get; set; }
     }
-
-    public string id { get; set; }
-    public int tipoId { get; set; }
-    public int idPuesto { get; set; }
-    public System.DateTime fecha_ingreso { get; set; }
-    public Nullable<System.DateTime> fecha_salida { get; set; }
-    public bool estado { get; set; }
-    public System.DateTime fecha_crea { get; set; }
-    public System.DateTime fecha_ult_mod { get; set; }
-    public string usuario_crea { get; set; }
-    public string usuario_ult_crea { get; set; }
-    public bool esContraDefinido { get; set; }
-    public string direccion { get; set; }
-
-    public virtual tbPersona tbPersona { get; set; }
-    public virtual tbTipoPuesto tbTipoPuesto { get; set; }
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbPagos> tbPagos { get; set; }
 }

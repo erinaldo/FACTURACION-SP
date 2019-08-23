@@ -7,36 +7,39 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbProveedores
+namespace EntityLayer
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public tbProveedores()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbProveedores
     {
-        this.tbHorarioProveedor = new HashSet<tbHorarioProveedor>();
-        this.tbProducto = new HashSet<tbProducto>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbProveedores()
+        {
+            this.tbHorarioProveedor = new HashSet<tbHorarioProveedor>();
+            this.tbProducto = new HashSet<tbProducto>();
+        }
+    
+        public string id { get; set; }
+        public int tipoId { get; set; }
+        public string descripcion { get; set; }
+        public string contactoProveedor { get; set; }
+        public string fax { get; set; }
+        public string nombreTributario { get; set; }
+        public string encargadoConta { get; set; }
+        public string correoElectConta { get; set; }
+        public string cuentaBancaria { get; set; }
+        public bool estado { get; set; }
+        public System.DateTime fecha_crea { get; set; }
+        public System.DateTime fecha_ult_mod { get; set; }
+        public string usuario_crea { get; set; }
+        public string usuario_ult_mod { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbHorarioProveedor> tbHorarioProveedor { get; set; }
+        public virtual tbPersona tbPersona { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbProducto> tbProducto { get; set; }
     }
-
-    public string id { get; set; }
-    public int tipoId { get; set; }
-    public string descripcion { get; set; }
-    public string contactoProveedor { get; set; }
-    public string fax { get; set; }
-    public string nombreTributario { get; set; }
-    public string encargadoConta { get; set; }
-    public string correoElectConta { get; set; }
-    public string cuentaBancaria { get; set; }
-    public bool estado { get; set; }
-    public System.DateTime fecha_crea { get; set; }
-    public System.DateTime fecha_ult_mod { get; set; }
-    public string usuario_crea { get; set; }
-    public string usuario_ult_mod { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbHorarioProveedor> tbHorarioProveedor { get; set; }
-    public virtual tbPersona tbPersona { get; set; }
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbProducto> tbProducto { get; set; }
 }

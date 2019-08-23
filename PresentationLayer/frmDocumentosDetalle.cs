@@ -2,6 +2,7 @@
 using CommonLayer;
 using CommonLayer.Exceptions.BussinessExceptions;
 using CrystalDecisions.Shared;
+using EntityLayer;
 using PresentationLayer.Reportes;
 using System;
 using System.Collections.Generic;

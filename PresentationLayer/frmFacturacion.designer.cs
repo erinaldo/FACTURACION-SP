@@ -110,10 +110,7 @@
             this.txtCliente = new System.Windows.Forms.TextBox();
             this.tabPendientes = new System.Windows.Forms.TabPage();
             this.gbxPendientes = new System.Windows.Forms.GroupBox();
-            this.tbpReportes = new System.Windows.Forms.TabPage();
-            this.btnCantidadMinima = new System.Windows.Forms.Button();
-            this.btnPlanillaEmpleados = new System.Windows.Forms.Button();
-            this.btnCantidadInventario = new System.Windows.Forms.Button();
+            this.btnEliminarPendientes = new System.Windows.Forms.Button();
             this.tabFacturacion.SuspendLayout();
             this.tabFact.SuspendLayout();
             this.gbxAcciones.SuspendLayout();
@@ -124,7 +121,6 @@
             this.tabPage2.SuspendLayout();
             this.gbxMontos.SuspendLayout();
             this.tabPendientes.SuspendLayout();
-            this.tbpReportes.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbxCategorias
@@ -156,7 +152,6 @@
             // 
             this.tabFacturacion.Controls.Add(this.tabFact);
             this.tabFacturacion.Controls.Add(this.tabPendientes);
-            this.tabFacturacion.Controls.Add(this.tbpReportes);
             this.tabFacturacion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabFacturacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabFacturacion.Location = new System.Drawing.Point(0, 0);
@@ -1094,6 +1089,7 @@
             // 
             // tabPendientes
             // 
+            this.tabPendientes.Controls.Add(this.btnEliminarPendientes);
             this.tabPendientes.Controls.Add(this.gbxPendientes);
             this.tabPendientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPendientes.Location = new System.Drawing.Point(4, 34);
@@ -1109,57 +1105,25 @@
             // 
             this.gbxPendientes.BackColor = System.Drawing.SystemColors.ControlLight;
             this.gbxPendientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbxPendientes.Location = new System.Drawing.Point(9, 8);
+            this.gbxPendientes.Location = new System.Drawing.Point(9, 55);
             this.gbxPendientes.Margin = new System.Windows.Forms.Padding(4);
             this.gbxPendientes.Name = "gbxPendientes";
             this.gbxPendientes.Padding = new System.Windows.Forms.Padding(4);
-            this.gbxPendientes.Size = new System.Drawing.Size(1521, 751);
+            this.gbxPendientes.Size = new System.Drawing.Size(1266, 728);
             this.gbxPendientes.TabIndex = 19;
             this.gbxPendientes.TabStop = false;
             // 
-            // tbpReportes
+            // btnEliminarPendientes
             // 
-            this.tbpReportes.Controls.Add(this.btnCantidadMinima);
-            this.tbpReportes.Controls.Add(this.btnPlanillaEmpleados);
-            this.tbpReportes.Controls.Add(this.btnCantidadInventario);
-            this.tbpReportes.Location = new System.Drawing.Point(4, 34);
-            this.tbpReportes.Margin = new System.Windows.Forms.Padding(4);
-            this.tbpReportes.Name = "tbpReportes";
-            this.tbpReportes.Padding = new System.Windows.Forms.Padding(4);
-            this.tbpReportes.Size = new System.Drawing.Size(1284, 792);
-            this.tbpReportes.TabIndex = 2;
-            this.tbpReportes.Text = "Reportes";
-            this.tbpReportes.UseVisualStyleBackColor = true;
-            // 
-            // btnCantidadMinima
-            // 
-            this.btnCantidadMinima.Location = new System.Drawing.Point(441, 33);
-            this.btnCantidadMinima.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCantidadMinima.Name = "btnCantidadMinima";
-            this.btnCantidadMinima.Size = new System.Drawing.Size(403, 90);
-            this.btnCantidadMinima.TabIndex = 2;
-            this.btnCantidadMinima.Text = "Productos con cantidad minima.";
-            this.btnCantidadMinima.UseVisualStyleBackColor = true;
-            // 
-            // btnPlanillaEmpleados
-            // 
-            this.btnPlanillaEmpleados.Location = new System.Drawing.Point(852, 33);
-            this.btnPlanillaEmpleados.Margin = new System.Windows.Forms.Padding(4);
-            this.btnPlanillaEmpleados.Name = "btnPlanillaEmpleados";
-            this.btnPlanillaEmpleados.Size = new System.Drawing.Size(403, 90);
-            this.btnPlanillaEmpleados.TabIndex = 1;
-            this.btnPlanillaEmpleados.Text = "Planilla de empleados";
-            this.btnPlanillaEmpleados.UseVisualStyleBackColor = true;
-            // 
-            // btnCantidadInventario
-            // 
-            this.btnCantidadInventario.Location = new System.Drawing.Point(31, 33);
-            this.btnCantidadInventario.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCantidadInventario.Name = "btnCantidadInventario";
-            this.btnCantidadInventario.Size = new System.Drawing.Size(403, 90);
-            this.btnCantidadInventario.TabIndex = 0;
-            this.btnCantidadInventario.Text = "Cantidad en Inventario";
-            this.btnCantidadInventario.UseVisualStyleBackColor = true;
+            this.btnEliminarPendientes.BackColor = System.Drawing.Color.Red;
+            this.btnEliminarPendientes.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnEliminarPendientes.Location = new System.Drawing.Point(9, 7);
+            this.btnEliminarPendientes.Name = "btnEliminarPendientes";
+            this.btnEliminarPendientes.Size = new System.Drawing.Size(181, 41);
+            this.btnEliminarPendientes.TabIndex = 20;
+            this.btnEliminarPendientes.Text = "Eliminar Pendientes";
+            this.btnEliminarPendientes.UseVisualStyleBackColor = false;
+            this.btnEliminarPendientes.Click += new System.EventHandler(this.btnEliminarPendientes_Click);
             // 
             // frmFacturacion
             // 
@@ -1174,7 +1138,6 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Facturación";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmFacturacion_FormClosing);
             this.Load += new System.EventHandler(this.frmFacturacion_Load);
             this.tabFacturacion.ResumeLayout(false);
             this.tabFact.ResumeLayout(false);
@@ -1192,7 +1155,6 @@
             this.gbxMontos.ResumeLayout(false);
             this.gbxMontos.PerformLayout();
             this.tabPendientes.ResumeLayout(false);
-            this.tbpReportes.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1202,10 +1164,6 @@
         private System.Windows.Forms.GroupBox gbxProductos;
         private System.Windows.Forms.TabControl tabFacturacion;
         private System.Windows.Forms.TabPage tabFact;
-        private System.Windows.Forms.TabPage tbpReportes;
-        private System.Windows.Forms.Button btnCantidadMinima;
-        private System.Windows.Forms.Button btnPlanillaEmpleados;
-        private System.Windows.Forms.Button btnCantidadInventario;
         private System.Windows.Forms.CheckBox chkEnviar;
         private System.Windows.Forms.TextBox txtCorreo2;
         private System.Windows.Forms.GroupBox gbxAcciones;
@@ -1280,5 +1238,6 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txtSub;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button btnEliminarPendientes;
     }
 }

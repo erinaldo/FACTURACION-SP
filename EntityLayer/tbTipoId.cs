@@ -7,20 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbTipoId
+namespace EntityLayer
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public tbTipoId()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbTipoId
     {
-        this.tbPersona = new HashSet<tbPersona>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbTipoId()
+        {
+            this.tbPersona = new HashSet<tbPersona>();
+        }
+    
+        public int id { get; set; }
+        public string nombre { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbPersona> tbPersona { get; set; }
     }
-
-    public int id { get; set; }
-    public string nombre { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbPersona> tbPersona { get; set; }
 }

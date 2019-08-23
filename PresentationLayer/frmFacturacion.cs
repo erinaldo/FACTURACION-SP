@@ -26,8 +26,9 @@ namespace PresentationLayer
 
         bool isAlias = false;
 
-        List<FacturasPendientes> facturasPendientes = new List<FacturasPendientes>();
+     
 
+        BPendientes pendientesIns = new BPendientes();
         BProducto productoIns = new BProducto();
         BFacturacion facturaIns = new BFacturacion();
         BInventario invetnarioIns = new BInventario();
@@ -87,8 +88,9 @@ namespace PresentationLayer
             {
                 MessageBox.Show("No hay acceso a internet", "Sin Internet", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            lblPendientes.Text = facturasPendientes.Count.ToString();
-            //cargarListaPendientes();
+            lblPendientes.Text = pendientesIns.CantidadPendientes().ToString();
+               
+            cargarPendientes();
 
         }       
 
@@ -1263,8 +1265,8 @@ namespace PresentationLayer
                     existeRespuesta = true;
                     if (isAlias)
                     {
-                        var pend = facturasPendientes.Where(x => x.alias == lblAlias.Text.Trim()).SingleOrDefault();
-                        facturasPendientes.Remove(pend);
+                        var pend = pendientesIns.GetEntityByAlias(lblAlias.Text.Trim());
+                        pendientesIns.removeByAlias(pend.alias);
                         cargarPendientes();
                     }
                     if (doc.reporteElectronic == true)
@@ -1432,7 +1434,10 @@ namespace PresentationLayer
             txtTotal.Text = "0";
             lblTotalProducto.Text = "0";
             txtExoneracion.Text = "0";
+            txtSub.Text = "0";
+            txtServicioMesa.Text = "0";
             lblCantidadLineas.Text = "0";
+
 
             txtObservaciones.Text = string.Empty;
 
@@ -1443,7 +1448,7 @@ namespace PresentationLayer
             isAlias = false;
             lblAlias.Text = string.Empty;
 
-            lblPendientes.Text = facturasPendientes.Count.ToString();
+            lblPendientes.Text = pendientesIns.CantidadPendientes().ToString();
             chkServicioMesa.Checked = false;
         }
 
@@ -1537,9 +1542,19 @@ namespace PresentationLayer
 
         private void btnPendiente_Click(object sender, EventArgs e)
         {
-            agregarPendiente();
-            limpiarFactura();
-            cargarPendientes();
+            try
+            {
+                agregarPendiente();
+                limpiarFactura();
+                cargarPendientes();
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Error al agreagar o actualizar pendientes", "Pendientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
 
 
 
@@ -1550,27 +1565,17 @@ namespace PresentationLayer
         {
             if (listaDetalleDocumento.Count != 0 && txtTotal.Text != "0")
             {
-                FacturasPendientes pendiente;
-                //verifica si exite ya ese alias, para agregar los cambios al detalle
-                if (isAlias && lblAlias.Text != string.Empty)
+                bool exist=isAlias && lblAlias.Text != string.Empty;    
+                isAlias = true;
+                //VERIFICAR SI EXISTE EL ALIAS EN LA BD
+                if (!exist)
                 {
-                    //lo busca
-                    pendiente = facturasPendientes.Where(x => x.alias == lblAlias.Text.Trim()).SingleOrDefault();
-                    facturasPendientes.Remove(pendiente);
-                    pendiente.detalleFacturaPendiente.Clear();
-                    alias = pendiente.alias;
-                    //chkServicioMesa.Checked = pendiente.servicioMesa;
-                }
-                else
-                {
-                    pendiente = new FacturasPendientes();
-                    bool exist = false;
                     do
                     {
                         frmAliasMesa aliasForm = new frmAliasMesa();
                         aliasForm.pasarDatosEvent += aliasPasarDatos;
                         aliasForm.ShowDialog();
-                        exist = facturasPendientes.Where(x => x.alias == alias).SingleOrDefault() != null;
+                        exist = pendientesIns.existAlias(alias);
                         if (exist)
                         {
                             MessageBox.Show("Ya existe ese ALIAS/MESA, ingreso uno diferente", "ALIAS/MESA", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1578,43 +1583,43 @@ namespace PresentationLayer
 
                     } while (exist);
                     lblAlias.Text = alias;
-                    isAlias = true;
-
                 }
-
-                if (alias != string.Empty)
+                else
                 {
-
-                    //sgrega los detalles
-                    foreach (var detalle in listaDetalleDocumento)
-                    {
-                        DetalleFacturaPendiente detalleP = new DetalleFacturaPendiente();
-                        detalleP.idTipoDoc = detalle.idTipoDoc;
-                        detalleP.idProducto = detalle.idProducto;
-                        detalleP.cantidad = detalle.cantidad;
-                        detalleP.idDoc = detalle.idDoc;
-                        detalleP.descuento = detalle.descuento;
-                        detalleP.montoTotal = detalle.montoTotal;
-                        detalleP.montoTotalDesc = detalle.montoTotalDesc;
-                        detalleP.montoTotalExo = detalle.montoTotalExo;
-                        detalleP.montoTotalImp = detalle.montoTotalImp;
-                        detalleP.numLinea = detalle.numLinea;
-                        detalleP.precio = detalle.precio;
-                        detalleP.tbProducto = detalle.tbProducto;
-                        detalleP.totalLinea = detalle.totalLinea;
-                        
-                        pendiente.detalleFacturaPendiente.Add(detalleP);
-                    }
-                    pendiente.alias = alias;
-                    pendiente.servicioMesa = chkServicioMesa.Checked;
-                    facturasPendientes.Add(pendiente);
-                   
-                    MessageBox.Show("Pendiente actualizado", "Pendiente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alias = lblAlias.Text;
+                  
                 }
 
+          
+            
+                tbDocumentosPendiente pendiente = new tbDocumentosPendiente();
+
+                foreach (var detalle in listaDetalleDocumento)
+                {
+                    tbDetalleDocumentoPendiente detalleP = new tbDetalleDocumentoPendiente();
+
+                    detalleP.alias = alias;
+                    detalleP.idProducto = detalle.idProducto;
+                    detalleP.cantidad = detalle.cantidad;              
+                    detalleP.descuento = detalle.descuento;
+                    detalleP.montoTotal = detalle.montoTotal;
+                    detalleP.montoTotalDesc = detalle.montoTotalDesc;
+                    detalleP.montoTotalExo = detalle.montoTotalExo;
+                    detalleP.montoTotalImp = detalle.montoTotalImp;
+                    detalleP.numLinea = detalle.numLinea;
+                    detalleP.precio = detalle.precio;
+                    //detalleP.tbProducto = detalle.tbProducto;
+                    detalleP.totalLinea = detalle.totalLinea;
+                    pendiente.tbDetalleDocumentoPendiente.Add(detalleP);
 
 
-            }
+                }
+                pendiente.alias = alias;
+                pendiente.servicioMesa = chkServicioMesa.Checked;
+                pendientesIns.Guardar(pendiente);
+                   
+                MessageBox.Show("Pendiente actualizado", "Pendiente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }         
             else
             {
                 MessageBox.Show("No hay productos o el TOTAL a cobrar es 0.", "Pendiente", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1627,11 +1632,11 @@ namespace PresentationLayer
             int y = 0;
             int x = 0;
             gbxPendientes.Controls.Clear();
-            foreach (var pend in facturasPendientes)
+            foreach (var pend in pendientesIns.GetListEntities())
             {
                 btn = new Button();
                 btn.Name = pend.alias;
-                btn.Text = pend.alias;
+                btn.Text = pend.alias.Trim();
                 btn.Location = new System.Drawing.Point(100 * x, 100 * y);
                 btn.Size = new System.Drawing.Size(100, 100);
                 btn.BackColor = Color.DarkOrange;
@@ -1656,41 +1661,49 @@ namespace PresentationLayer
 
         private void cargarAliasMesa(object sender, EventArgs e)
         {
-            limpiarFactura();
-            string alias = ((Button)sender).Name.Trim().ToUpper();
-            FacturasPendientes pendiente= facturasPendientes.Where(x=>x.alias==alias).SingleOrDefault();
-            lblAlias.Text = pendiente.alias;
-            
-            if (pendiente!=null)
+            try
             {
+                limpiarFactura();
+                string alias = ((Button)sender).Name.Trim().ToUpper();
+                tbDocumentosPendiente pendiente = pendientesIns.GetEntityByAlias(alias);
+                lblAlias.Text = pendiente.alias;
 
-                foreach (var detalle in pendiente.detalleFacturaPendiente)
+
+                if (pendiente != null)
                 {
-                    tbDetalleDocumento detalleP = new tbDetalleDocumento();
-                    detalleP.idTipoDoc = detalle.idTipoDoc;
-                    detalleP.idProducto = detalle.idProducto;
-                    detalleP.cantidad = detalle.cantidad;
-                    detalleP.idDoc = detalle.idDoc;
-                    detalleP.descuento = detalle.descuento;
-                    detalleP.montoTotal = detalle.montoTotal;
-                    detalleP.montoTotalDesc = detalle.montoTotalDesc;
-                    detalleP.montoTotalExo = detalle.montoTotalExo;
-                    detalleP.montoTotalImp = detalle.montoTotalImp;
-                    detalleP.numLinea = detalle.numLinea;
-                    detalleP.precio = detalle.precio;
-                    detalleP.tbProducto = detalle.tbProducto;
-                    detalleP.totalLinea = detalle.totalLinea;
 
-                    listaDetalleDocumento.Add(detalleP);                  
-                  
+                    foreach (var detalle in pendiente.tbDetalleDocumentoPendiente)
+                    {
+                        tbDetalleDocumento detalleP = new tbDetalleDocumento();
+                        detalleP.idProducto = detalle.idProducto;
+                        detalleP.cantidad = detalle.cantidad;
+                        detalleP.descuento = detalle.descuento;
+                        detalleP.montoTotal = detalle.montoTotal;
+                        detalleP.montoTotalDesc = detalle.montoTotalDesc;
+                        detalleP.montoTotalExo = detalle.montoTotalExo;
+                        detalleP.montoTotalImp = detalle.montoTotalImp;
+                        detalleP.numLinea = detalle.numLinea;
+                        detalleP.precio = detalle.precio;
+                        detalleP.tbProducto = detalle.tbProducto;
+                        detalleP.totalLinea = detalle.totalLinea;
+
+                        listaDetalleDocumento.Add(detalleP);
+
+                    }
+                    chkServicioMesa.Checked = pendiente.servicioMesa;
+                    calcularMontosT();
+                    agregarProductoGrid();
+                    tabFacturacion.SelectedTab = tabFacturacion.TabPages[0];
+                    isAlias = true;
+
                 }
-                chkServicioMesa.Checked = pendiente.servicioMesa;
-                calcularMontosT();
-                agregarProductoGrid();
-                tabFact.Show();tabFact.Focus();
-                isAlias = true;
-           
             }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al cargar el pendiente", "Pendiente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
 
 
 
@@ -1708,20 +1721,6 @@ namespace PresentationLayer
             }         
         }
 
-        private void frmFacturacion_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Esta seguro de cerrar el formulario? se PERDERÁN los documentos PENDIENTES!","Cerrar formulario", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
-                e.Cancel = false;
-
-            }
-            else
-            {
-                e.Cancel = true;
-            }
-
-        }
 
         private void btnDividir_Click(object sender, EventArgs e)
         {
@@ -1747,8 +1746,8 @@ namespace PresentationLayer
             {
                 if (lblAlias.Text!=string.Empty && isAlias)
                 {
-                    var fact = facturasPendientes.Where(x => x.alias == lblAlias.Text.Trim()).SingleOrDefault();
-                    facturasPendientes.Remove(fact);
+                    var fact = pendientesIns.GetEntityByAlias(lblAlias.Text.Trim());
+                    pendientesIns.removeByAlias(fact.alias);              
                     cargarPendientes();
                 }
                 limpiarFactura();
@@ -1852,8 +1851,40 @@ namespace PresentationLayer
 
         private void chkServicioMesa_CheckedChanged(object sender, EventArgs e)
         {
-            calcularMontosT();
-            agregarProductoGrid();
+            try
+            {
+                calcularMontosT();
+                agregarProductoGrid();
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Error al agregar el servicio de mesa a la facturación", "Facturación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+          
+        }
+
+        private void btnEliminarPendientes_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult result = MessageBox.Show("¿Desea eliminar TODOS los pendientes?", "Pendientes", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    pendientesIns.removeAll();
+                    MessageBox.Show("Se ha eliminado los pendientes", "Pendientes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    cargarPendientes();
+                }
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Error al eliminar los pendientes", "Pendientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+
+
         }
     }
 

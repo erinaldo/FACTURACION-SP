@@ -1,4 +1,5 @@
 ﻿using DataLayer;
+using EntityLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace BusinessLayer
     public class BPendientes
     {
         DPendientes pendientesIns = new DPendientes();
-        public List<tbDocumentosPendiente> GetListEntities(int estado)
+        public List<tbDocumentosPendiente> GetListEntities()
         {
-            return pendientesIns.GetListEntities(estado);
+            return pendientesIns.GetListEntities();
         }
 
         public tbDocumentosPendiente Guardar(tbDocumentosPendiente entity)
@@ -41,6 +42,11 @@ namespace BusinessLayer
 
             return pendientesIns.removeAll();
 
+        }
+
+        public int CantidadPendientes()
+        {
+            return pendientesIns.CantidadPendientes();
         }
 
     }

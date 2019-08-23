@@ -7,38 +7,41 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbMovimientos
+namespace EntityLayer
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public tbMovimientos()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbMovimientos
     {
-        this.tbCreditos = new HashSet<tbCreditos>();
-        this.tbDetalleMovimiento = new HashSet<tbDetalleMovimiento>();
-        this.tbPagos = new HashSet<tbPagos>();
-        this.tbCajaUsuario = new HashSet<tbCajaUsuario>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbMovimientos()
+        {
+            this.tbCreditos = new HashSet<tbCreditos>();
+            this.tbDetalleMovimiento = new HashSet<tbDetalleMovimiento>();
+            this.tbPagos = new HashSet<tbPagos>();
+            this.tbCajaUsuario = new HashSet<tbCajaUsuario>();
+        }
+    
+        public int idMovimiento { get; set; }
+        public System.DateTime fecha { get; set; }
+        public int idTipoMov { get; set; }
+        public bool estado { get; set; }
+        public string motivo { get; set; }
+        public decimal total { get; set; }
+        public System.DateTime fecha_ult_mod { get; set; }
+        public System.DateTime fecha_crea { get; set; }
+        public string usuario_crea { get; set; }
+        public string usuario_ult_mod { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbCreditos> tbCreditos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbDetalleMovimiento> tbDetalleMovimiento { get; set; }
+        public virtual tbTipoMovimiento tbTipoMovimiento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbPagos> tbPagos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbCajaUsuario> tbCajaUsuario { get; set; }
     }
-
-    public int idMovimiento { get; set; }
-    public System.DateTime fecha { get; set; }
-    public int idTipoMov { get; set; }
-    public bool estado { get; set; }
-    public string motivo { get; set; }
-    public decimal total { get; set; }
-    public System.DateTime fecha_ult_mod { get; set; }
-    public System.DateTime fecha_crea { get; set; }
-    public string usuario_crea { get; set; }
-    public string usuario_ult_mod { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbCreditos> tbCreditos { get; set; }
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbDetalleMovimiento> tbDetalleMovimiento { get; set; }
-    public virtual tbTipoMovimiento tbTipoMovimiento { get; set; }
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbPagos> tbPagos { get; set; }
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbCajaUsuario> tbCajaUsuario { get; set; }
 }

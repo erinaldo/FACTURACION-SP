@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Configuration;
 using CommonLayer.Exceptions.PresentationsExceptions;
+using EntityLayer;
 
 namespace PresentationLayer.Reportes
 {

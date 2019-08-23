@@ -7,23 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbMonedas
+namespace EntityLayer
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public tbMonedas()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbMonedas
     {
-        this.tbCajaUsuMonedas = new HashSet<tbCajaUsuMonedas>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbMonedas()
+        {
+            this.tbCajaUsuMonedas = new HashSet<tbCajaUsuMonedas>();
+        }
+    
+        public string idMoneda { get; set; }
+        public string moneda { get; set; }
+        public int idTipoMoneda { get; set; }
+        public bool estado { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbCajaUsuMonedas> tbCajaUsuMonedas { get; set; }
+        public virtual tbTipoMoneda tbTipoMoneda { get; set; }
     }
-
-    public string idMoneda { get; set; }
-    public string moneda { get; set; }
-    public int idTipoMoneda { get; set; }
-    public bool estado { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbCajaUsuMonedas> tbCajaUsuMonedas { get; set; }
-    public virtual tbTipoMoneda tbTipoMoneda { get; set; }
 }

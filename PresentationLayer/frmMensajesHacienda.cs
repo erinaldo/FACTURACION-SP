@@ -1,5 +1,6 @@
 ﻿using BusinessLayer;
 using CommonLayer;
+using EntityLayer;
 using PresentationLayer.Reportes;
 using System;
 using System.Collections.Generic;

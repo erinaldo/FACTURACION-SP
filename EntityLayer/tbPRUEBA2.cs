@@ -7,12 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbPRUEBA2
+namespace EntityLayer
 {
-    public string nose1 { get; set; }
-    public string sss { get; set; }
-    public string dc { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbPRUEBA2
+    {
+        public string nose1 { get; set; }
+        public string sss { get; set; }
+        public string dc { get; set; }
+    }
 }

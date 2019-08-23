@@ -7,42 +7,45 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbReporteHacienda
+namespace EntityLayer
 {
-    public int id { get; set; }
-    public string consecutivoReceptor { get; set; }
-    public string codigoActividadEmisor { get; set; }
-    public string claveReceptor { get; set; }
-    public string claveDocEmisor { get; set; }
-    public System.DateTime fecha { get; set; }
-    public System.DateTime fechaEmision { get; set; }
-    public int tipoIdEmisor { get; set; }
-    public string idEmisor { get; set; }
-    public string nombreEmisor { get; set; }
-    public string EstadoRespHacienda { get; set; }
-    public bool reporteAceptaHacienda { get; set; }
-    public string mensajeReporteHacienda { get; set; }
-    public bool mensajeRespHacienda { get; set; }
-    public System.DateTime fecha_crea { get; set; }
-    public System.DateTime fecha_ult_mod { get; set; }
-    public string usuario_crea { get; set; }
-    public string usuario_ult_mod { get; set; }
-    public int estadoRecibido { get; set; }
-    public string razon { get; set; }
-    public decimal totalImp { get; set; }
-    public decimal totalFactura { get; set; }
-    public string idEmpresa { get; set; }
-    public string nombreReceptor { get; set; }
-    public int tipoIdEmpresa { get; set; }
-    public string nombreArchivo { get; set; }
-    public string rutaRespuestaHacienda { get; set; }
-    public string xmlSinFirma { get; set; }
-    public string xmlFirmado { get; set; }
-    public string xmlRespuesta { get; set; }
-    public string correoElectronico { get; set; }
-
-    public virtual tbEmpresa tbEmpresa { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbReporteHacienda
+    {
+        public int id { get; set; }
+        public string consecutivoReceptor { get; set; }
+        public string codigoActividadEmisor { get; set; }
+        public string claveReceptor { get; set; }
+        public string claveDocEmisor { get; set; }
+        public System.DateTime fecha { get; set; }
+        public System.DateTime fechaEmision { get; set; }
+        public int tipoIdEmisor { get; set; }
+        public string idEmisor { get; set; }
+        public string nombreEmisor { get; set; }
+        public string EstadoRespHacienda { get; set; }
+        public bool reporteAceptaHacienda { get; set; }
+        public string mensajeReporteHacienda { get; set; }
+        public bool mensajeRespHacienda { get; set; }
+        public System.DateTime fecha_crea { get; set; }
+        public System.DateTime fecha_ult_mod { get; set; }
+        public string usuario_crea { get; set; }
+        public string usuario_ult_mod { get; set; }
+        public int estadoRecibido { get; set; }
+        public string razon { get; set; }
+        public decimal totalImp { get; set; }
+        public decimal totalFactura { get; set; }
+        public string idEmpresa { get; set; }
+        public string nombreReceptor { get; set; }
+        public int tipoIdEmpresa { get; set; }
+        public string nombreArchivo { get; set; }
+        public string rutaRespuestaHacienda { get; set; }
+        public string xmlSinFirma { get; set; }
+        public string xmlFirmado { get; set; }
+        public string xmlRespuesta { get; set; }
+        public string correoElectronico { get; set; }
+    
+        public virtual tbEmpresa tbEmpresa { get; set; }
+    }
 }

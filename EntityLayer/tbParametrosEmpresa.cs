@@ -7,24 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbParametrosEmpresa
+namespace EntityLayer
 {
-    public int id { get; set; }
-    public string idEmpresa { get; set; }
-    public int idTipoEmpresa { get; set; }
-    public float utilidadBase { get; set; }
-    public bool manejaInventario { get; set; }
-    public Nullable<decimal> cambioDolar { get; set; }
-    public Nullable<decimal> descuentoBase { get; set; }
-    public Nullable<bool> aprobacionDescuento { get; set; }
-    public Nullable<int> precioBase { get; set; }
-    public Nullable<bool> facturacionElectronica { get; set; }
-    public Nullable<bool> clienteObligatorioFact { get; set; }
-    public Nullable<int> plazoMaximoCredito { get; set; }
-    public Nullable<int> plazoMaximoProforma { get; set; }
-
-    public virtual tbEmpresa tbEmpresa { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbParametrosEmpresa
+    {
+        public int id { get; set; }
+        public string idEmpresa { get; set; }
+        public int idTipoEmpresa { get; set; }
+        public float utilidadBase { get; set; }
+        public bool manejaInventario { get; set; }
+        public Nullable<decimal> cambioDolar { get; set; }
+        public Nullable<decimal> descuentoBase { get; set; }
+        public Nullable<bool> aprobacionDescuento { get; set; }
+        public Nullable<int> precioBase { get; set; }
+        public Nullable<bool> facturacionElectronica { get; set; }
+        public Nullable<bool> clienteObligatorioFact { get; set; }
+        public Nullable<int> plazoMaximoCredito { get; set; }
+        public Nullable<int> plazoMaximoProforma { get; set; }
+    
+        public virtual tbEmpresa tbEmpresa { get; set; }
+    }
 }

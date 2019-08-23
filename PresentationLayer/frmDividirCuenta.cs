@@ -1,6 +1,7 @@
 ﻿using BusinessLayer;
 using CommonLayer;
 using CommonLayer.Exceptions.BussinessExceptions;
+using EntityLayer;
 using PresentationLayer.Reportes;
 using System;
 using System.Collections.Generic;

@@ -7,21 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbHorarioProveedor
+namespace EntityLayer
 {
-    public int idTipo { get; set; }
-    public string idProveedor { get; set; }
-    public int idTipoHorario { get; set; }
-    public Nullable<bool> lunes { get; set; }
-    public Nullable<bool> martes { get; set; }
-    public Nullable<bool> miercoles { get; set; }
-    public Nullable<bool> jueves { get; set; }
-    public Nullable<bool> viernes { get; set; }
-    public Nullable<bool> sabado { get; set; }
-    public Nullable<bool> domingo { get; set; }
-
-    public virtual tbProveedores tbProveedores { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbHorarioProveedor
+    {
+        public int idTipo { get; set; }
+        public string idProveedor { get; set; }
+        public int idTipoHorario { get; set; }
+        public Nullable<bool> lunes { get; set; }
+        public Nullable<bool> martes { get; set; }
+        public Nullable<bool> miercoles { get; set; }
+        public Nullable<bool> jueves { get; set; }
+        public Nullable<bool> viernes { get; set; }
+        public Nullable<bool> sabado { get; set; }
+        public Nullable<bool> domingo { get; set; }
+    
+        public virtual tbProveedores tbProveedores { get; set; }
+    }
 }

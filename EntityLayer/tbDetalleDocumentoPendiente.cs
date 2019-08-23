@@ -7,23 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbDetalleDocumentoPendiente
+namespace EntityLayer
 {
-    public string alias { get; set; }
-    public string idProducto { get; set; }
-    public int numLinea { get; set; }
-    public decimal cantidad { get; set; }
-    public decimal precio { get; set; }
-    public decimal montoTotal { get; set; }
-    public decimal descuento { get; set; }
-    public decimal montoTotalDesc { get; set; }
-    public decimal montoTotalImp { get; set; }
-    public decimal montoTotalExo { get; set; }
-    public decimal totalLinea { get; set; }
-
-    public virtual tbDocumentosPendiente tbDocumentosPendiente { get; set; }
-    public virtual tbProducto tbProducto { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbDetalleDocumentoPendiente
+    {
+        public string alias { get; set; }
+        public string idProducto { get; set; }
+        public int numLinea { get; set; }
+        public decimal cantidad { get; set; }
+        public decimal precio { get; set; }
+        public decimal montoTotal { get; set; }
+        public decimal descuento { get; set; }
+        public decimal montoTotalDesc { get; set; }
+        public decimal montoTotalImp { get; set; }
+        public decimal montoTotalExo { get; set; }
+        public decimal totalLinea { get; set; }
+    
+        public virtual tbDocumentosPendiente tbDocumentosPendiente { get; set; }
+        public virtual tbProducto tbProducto { get; set; }
+    }
 }

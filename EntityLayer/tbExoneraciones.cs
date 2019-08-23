@@ -7,22 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbExoneraciones
+namespace EntityLayer
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public tbExoneraciones()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbExoneraciones
     {
-        this.tbClientes = new HashSet<tbClientes>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbExoneraciones()
+        {
+            this.tbClientes = new HashSet<tbClientes>();
+        }
+    
+        public int id { get; set; }
+        public string nombre { get; set; }
+        public string descripcion { get; set; }
+        public Nullable<int> valor { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbClientes> tbClientes { get; set; }
     }
-
-    public int id { get; set; }
-    public string nombre { get; set; }
-    public string descripcion { get; set; }
-    public Nullable<int> valor { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbClientes> tbClientes { get; set; }
 }

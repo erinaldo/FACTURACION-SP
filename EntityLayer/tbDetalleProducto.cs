@@ -7,15 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbDetalleProducto
+namespace EntityLayer
 {
-    public int id { get; set; }
-    public string idProducto { get; set; }
-    public int idIngrediente { get; set; }
-    public float cantidad { get; set; }
-
-    public virtual tbIngredientes tbIngredientes { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbDetalleProducto
+    {
+        public int id { get; set; }
+        public string idProducto { get; set; }
+        public int idIngrediente { get; set; }
+        public float cantidad { get; set; }
+    
+        public virtual tbIngredientes tbIngredientes { get; set; }
+    }
 }

@@ -7,17 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbDetalleMovimiento
+namespace EntityLayer
 {
-    public int idDetalleMov { get; set; }
-    public int idMov { get; set; }
-    public int idIngrediente { get; set; }
-    public int cantidad { get; set; }
-    public Nullable<decimal> monto { get; set; }
-
-    public virtual tbIngredientes tbIngredientes { get; set; }
-    public virtual tbMovimientos tbMovimientos { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbDetalleMovimiento
+    {
+        public int idDetalleMov { get; set; }
+        public int idMov { get; set; }
+        public int idIngrediente { get; set; }
+        public int cantidad { get; set; }
+        public Nullable<decimal> monto { get; set; }
+    
+        public virtual tbIngredientes tbIngredientes { get; set; }
+        public virtual tbMovimientos tbMovimientos { get; set; }
+    }
 }

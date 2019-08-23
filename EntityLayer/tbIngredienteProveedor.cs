@@ -7,14 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbIngredienteProveedor
+namespace EntityLayer
 {
-    public int tbIngredientes_idIngrediente { get; set; }
-    public string tbProveedores_id { get; set; }
-    public int tbProveedores_tipoId { get; set; }
-
-    public virtual tbIngredientes tbIngredientes { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbIngredienteProveedor
+    {
+        public int tbIngredientes_idIngrediente { get; set; }
+        public string tbProveedores_id { get; set; }
+        public int tbProveedores_tipoId { get; set; }
+    
+        public virtual tbIngredientes tbIngredientes { get; set; }
+    }
 }

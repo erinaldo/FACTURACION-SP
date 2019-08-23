@@ -7,16 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbCajaUsuMonedas
+namespace EntityLayer
 {
-    public string idMoneda { get; set; }
-    public int idCajaUsuario { get; set; }
-    public int cantidad { get; set; }
-    public int subtotal { get; set; }
-
-    public virtual tbCajaUsuario tbCajaUsuario { get; set; }
-    public virtual tbMonedas tbMonedas { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbCajaUsuMonedas
+    {
+        public string idMoneda { get; set; }
+        public int idCajaUsuario { get; set; }
+        public int cantidad { get; set; }
+        public int subtotal { get; set; }
+    
+        public virtual tbCajaUsuario tbCajaUsuario { get; set; }
+        public virtual tbMonedas tbMonedas { get; set; }
+    }
 }

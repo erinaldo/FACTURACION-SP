@@ -7,35 +7,38 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbIngredientes
+namespace EntityLayer
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public tbIngredientes()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbIngredientes
     {
-        this.tbDetalleMovimiento = new HashSet<tbDetalleMovimiento>();
-        this.tbDetalleProducto = new HashSet<tbDetalleProducto>();
-        this.tbIngredienteProveedor = new HashSet<tbIngredienteProveedor>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbIngredientes()
+        {
+            this.tbDetalleMovimiento = new HashSet<tbDetalleMovimiento>();
+            this.tbDetalleProducto = new HashSet<tbDetalleProducto>();
+            this.tbIngredienteProveedor = new HashSet<tbIngredienteProveedor>();
+        }
+    
+        public int idIngrediente { get; set; }
+        public string nombre { get; set; }
+        public int idTipoMedida { get; set; }
+        public int idTipoIngrediente { get; set; }
+        public decimal precioCompra { get; set; }
+        public bool estado { get; set; }
+        public System.DateTime fecha_crea { get; set; }
+        public System.DateTime fecha_ult_mod { get; set; }
+        public string usuario_crea { get; set; }
+        public string usuario_ult_mod { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbDetalleMovimiento> tbDetalleMovimiento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbDetalleProducto> tbDetalleProducto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbIngredienteProveedor> tbIngredienteProveedor { get; set; }
+        public virtual tbTipoIngrediente tbTipoIngrediente { get; set; }
     }
-
-    public int idIngrediente { get; set; }
-    public string nombre { get; set; }
-    public int idTipoMedida { get; set; }
-    public int idTipoIngrediente { get; set; }
-    public decimal precioCompra { get; set; }
-    public bool estado { get; set; }
-    public System.DateTime fecha_crea { get; set; }
-    public System.DateTime fecha_ult_mod { get; set; }
-    public string usuario_crea { get; set; }
-    public string usuario_ult_mod { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbDetalleMovimiento> tbDetalleMovimiento { get; set; }
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbDetalleProducto> tbDetalleProducto { get; set; }
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbIngredienteProveedor> tbIngredienteProveedor { get; set; }
-    public virtual tbTipoIngrediente tbTipoIngrediente { get; set; }
 }

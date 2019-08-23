@@ -7,24 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbDetalleDocumento
+namespace EntityLayer
 {
-    public int idTipoDoc { get; set; }
-    public int idDoc { get; set; }
-    public string idProducto { get; set; }
-    public int numLinea { get; set; }
-    public decimal cantidad { get; set; }
-    public decimal precio { get; set; }
-    public decimal montoTotal { get; set; }
-    public decimal descuento { get; set; }
-    public decimal montoTotalDesc { get; set; }
-    public decimal montoTotalImp { get; set; }
-    public decimal montoTotalExo { get; set; }
-    public decimal totalLinea { get; set; }
-
-    public virtual tbDocumento tbDocumento { get; set; }
-    public virtual tbProducto tbProducto { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbDetalleDocumento
+    {
+        public int idTipoDoc { get; set; }
+        public int idDoc { get; set; }
+        public string idProducto { get; set; }
+        public int numLinea { get; set; }
+        public decimal cantidad { get; set; }
+        public decimal precio { get; set; }
+        public decimal montoTotal { get; set; }
+        public decimal descuento { get; set; }
+        public decimal montoTotalDesc { get; set; }
+        public decimal montoTotalImp { get; set; }
+        public decimal montoTotalExo { get; set; }
+        public decimal totalLinea { get; set; }
+    
+        public virtual tbDocumento tbDocumento { get; set; }
+        public virtual tbProducto tbProducto { get; set; }
+    }
 }

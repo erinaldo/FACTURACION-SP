@@ -38,8 +38,7 @@ namespace PresentationLayer
         bool respuestaAprobaDesc = false;
         decimal porcDesc = 0;
         int tipoDoc = 1;
-        List<FacturasPendientes> facturasPendientes = new List<FacturasPendientes>();
-
+       
         tbTipoMedidas medida = new tbTipoMedidas();
         bTipoMedidas medidaIns = new bTipoMedidas();
         decimal peso = decimal.MinValue;

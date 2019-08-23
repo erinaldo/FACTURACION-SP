@@ -7,23 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbDistrito
+namespace EntityLayer
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public tbDistrito()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbDistrito
     {
-        this.tbBarrios = new HashSet<tbBarrios>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbDistrito()
+        {
+            this.tbBarrios = new HashSet<tbBarrios>();
+        }
+    
+        public string Provincia { get; set; }
+        public string Canton { get; set; }
+        public string Distrito { get; set; }
+        public string Nombre { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbBarrios> tbBarrios { get; set; }
+        public virtual tbCanton tbCanton { get; set; }
     }
-
-    public string Provincia { get; set; }
-    public string Canton { get; set; }
-    public string Distrito { get; set; }
-    public string Nombre { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbBarrios> tbBarrios { get; set; }
-    public virtual tbCanton tbCanton { get; set; }
 }

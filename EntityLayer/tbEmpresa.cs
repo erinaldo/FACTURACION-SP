@@ -7,49 +7,52 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbEmpresa
+namespace EntityLayer
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public tbEmpresa()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbEmpresa
     {
-        this.tbDocumento = new HashSet<tbDocumento>();
-        this.tbParametrosEmpresa = new HashSet<tbParametrosEmpresa>();
-        this.tbReporteHacienda = new HashSet<tbReporteHacienda>();
-        this.tbUsuarios = new HashSet<tbUsuarios>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbEmpresa()
+        {
+            this.tbDocumento = new HashSet<tbDocumento>();
+            this.tbParametrosEmpresa = new HashSet<tbParametrosEmpresa>();
+            this.tbReporteHacienda = new HashSet<tbReporteHacienda>();
+            this.tbUsuarios = new HashSet<tbUsuarios>();
+        }
+    
+        public string id { get; set; }
+        public int tipoId { get; set; }
+        public string razonSocial { get; set; }
+        public string certificadoInstalado { get; set; }
+        public string rutaCertificado { get; set; }
+        public Nullable<int> pin { get; set; }
+        public string usuarioApiHacienda { get; set; }
+        public string claveApiHacienda { get; set; }
+        public string numeroResolucion { get; set; }
+        public Nullable<System.DateTime> fechaResolucio { get; set; }
+        public string correoElectronicoEmpresa { get; set; }
+        public string contrasenaCorreo { get; set; }
+        public string nombreComercial { get; set; }
+        public string cuerpoCorreo { get; set; }
+        public string subjectCorreo { get; set; }
+        public Nullable<System.DateTime> fechaCaducidad { get; set; }
+        public Nullable<bool> ambientePruebas { get; set; }
+        public string rutaXMLCompras { get; set; }
+        public Nullable<bool> imprimeDoc { get; set; }
+        public string codigoActComercial { get; set; }
+        public string nombreImpresora { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbDocumento> tbDocumento { get; set; }
+        public virtual tbPersona tbPersona { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbParametrosEmpresa> tbParametrosEmpresa { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbReporteHacienda> tbReporteHacienda { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbUsuarios> tbUsuarios { get; set; }
     }
-
-    public string id { get; set; }
-    public int tipoId { get; set; }
-    public string razonSocial { get; set; }
-    public string certificadoInstalado { get; set; }
-    public string rutaCertificado { get; set; }
-    public Nullable<int> pin { get; set; }
-    public string usuarioApiHacienda { get; set; }
-    public string claveApiHacienda { get; set; }
-    public string numeroResolucion { get; set; }
-    public Nullable<System.DateTime> fechaResolucio { get; set; }
-    public string correoElectronicoEmpresa { get; set; }
-    public string contrasenaCorreo { get; set; }
-    public string nombreComercial { get; set; }
-    public string cuerpoCorreo { get; set; }
-    public string subjectCorreo { get; set; }
-    public Nullable<System.DateTime> fechaCaducidad { get; set; }
-    public Nullable<bool> ambientePruebas { get; set; }
-    public string rutaXMLCompras { get; set; }
-    public Nullable<bool> imprimeDoc { get; set; }
-    public string codigoActComercial { get; set; }
-    public string nombreImpresora { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbDocumento> tbDocumento { get; set; }
-    public virtual tbPersona tbPersona { get; set; }
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbParametrosEmpresa> tbParametrosEmpresa { get; set; }
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbReporteHacienda> tbReporteHacienda { get; set; }
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbUsuarios> tbUsuarios { get; set; }
 }

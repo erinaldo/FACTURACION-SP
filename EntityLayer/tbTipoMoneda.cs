@@ -7,26 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbTipoMoneda
+namespace EntityLayer
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public tbTipoMoneda()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbTipoMoneda
     {
-        this.tbDocumento = new HashSet<tbDocumento>();
-        this.tbMonedas = new HashSet<tbMonedas>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbTipoMoneda()
+        {
+            this.tbDocumento = new HashSet<tbDocumento>();
+            this.tbMonedas = new HashSet<tbMonedas>();
+        }
+    
+        public int id { get; set; }
+        public string nombre { get; set; }
+        public string siglas { get; set; }
+        public string simbolo { get; set; }
+        public bool estado { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbDocumento> tbDocumento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbMonedas> tbMonedas { get; set; }
     }
-
-    public int id { get; set; }
-    public string nombre { get; set; }
-    public string siglas { get; set; }
-    public string simbolo { get; set; }
-    public bool estado { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbDocumento> tbDocumento { get; set; }
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbMonedas> tbMonedas { get; set; }
 }

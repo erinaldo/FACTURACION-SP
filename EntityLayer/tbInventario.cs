@@ -7,20 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbInventario
+namespace EntityLayer
 {
-    public string idProducto { get; set; }
-    public decimal cantidad { get; set; }
-    public Nullable<decimal> cant_min { get; set; }
-    public Nullable<decimal> cant_max { get; set; }
-    public bool estado { get; set; }
-    public System.DateTime fecha_crea { get; set; }
-    public System.DateTime fecha_ult_mod { get; set; }
-    public string usuario_crea { get; set; }
-    public string usuario_ult_mod { get; set; }
-
-    public virtual tbProducto tbProducto { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbInventario
+    {
+        public string idProducto { get; set; }
+        public decimal cantidad { get; set; }
+        public Nullable<decimal> cant_min { get; set; }
+        public Nullable<decimal> cant_max { get; set; }
+        public bool estado { get; set; }
+        public System.DateTime fecha_crea { get; set; }
+        public System.DateTime fecha_ult_mod { get; set; }
+        public string usuario_crea { get; set; }
+        public string usuario_ult_mod { get; set; }
+    
+        public virtual tbProducto tbProducto { get; set; }
+    }
 }

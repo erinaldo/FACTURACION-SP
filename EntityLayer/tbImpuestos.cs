@@ -7,26 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbImpuestos
+namespace EntityLayer
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public tbImpuestos()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbImpuestos
     {
-        this.tbProducto = new HashSet<tbProducto>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbImpuestos()
+        {
+            this.tbProducto = new HashSet<tbProducto>();
+        }
+    
+        public int id { get; set; }
+        public Nullable<decimal> valor { get; set; }
+        public string descripcion { get; set; }
+        public bool estado { get; set; }
+        public System.DateTime fecha_crea { get; set; }
+        public string usuario_crea { get; set; }
+        public System.DateTime fecha_ult_mod { get; set; }
+        public string usuario_ult_mod { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbProducto> tbProducto { get; set; }
     }
-
-    public int id { get; set; }
-    public Nullable<decimal> valor { get; set; }
-    public string descripcion { get; set; }
-    public bool estado { get; set; }
-    public System.DateTime fecha_crea { get; set; }
-    public string usuario_crea { get; set; }
-    public System.DateTime fecha_ult_mod { get; set; }
-    public string usuario_ult_mod { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbProducto> tbProducto { get; set; }
 }

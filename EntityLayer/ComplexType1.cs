@@ -7,10 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class ComplexType1
+namespace EntityLayer
 {
-    public int cantidad { get; set; }
+    using System;
+    
+    public partial class ComplexType1
+    {
+        public int cantidad { get; set; }
+    }
 }

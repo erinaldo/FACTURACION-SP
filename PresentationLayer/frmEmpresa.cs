@@ -1,6 +1,7 @@
 ﻿using BusinessLayer;
 using CommonLayer;
 using CommonLayer.Exceptions.DataExceptions;
+using EntityLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

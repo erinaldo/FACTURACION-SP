@@ -7,14 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class publishers
+namespace EntityLayer
 {
-    public string pub_id { get; set; }
-    public string pub_name { get; set; }
-    public string city { get; set; }
-    public string state { get; set; }
-    public string country { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class publishers
+    {
+        public string pub_id { get; set; }
+        public string pub_name { get; set; }
+        public string city { get; set; }
+        public string state { get; set; }
+        public string country { get; set; }
+    }
 }

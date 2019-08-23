@@ -7,34 +7,37 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbUsuarios
+namespace EntityLayer
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public tbUsuarios()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbUsuarios
     {
-        this.tbCajaUsuario = new HashSet<tbCajaUsuario>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbUsuarios()
+        {
+            this.tbCajaUsuario = new HashSet<tbCajaUsuario>();
+        }
+    
+        public int tipoId { get; set; }
+        public string id { get; set; }
+        public string nombreUsuario { get; set; }
+        public string contraseña { get; set; }
+        public int idRol { get; set; }
+        public string foto_url { get; set; }
+        public string idEmpresa { get; set; }
+        public Nullable<int> idTipoIdEmpresa { get; set; }
+        public bool estado { get; set; }
+        public System.DateTime fecha_crea { get; set; }
+        public System.DateTime fecha_ult_mod { get; set; }
+        public string usuario_crea { get; set; }
+        public string usuario_ult_mod { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbCajaUsuario> tbCajaUsuario { get; set; }
+        public virtual tbEmpresa tbEmpresa { get; set; }
+        public virtual tbPersona tbPersona { get; set; }
+        public virtual tbRoles tbRoles { get; set; }
     }
-
-    public int tipoId { get; set; }
-    public string id { get; set; }
-    public string nombreUsuario { get; set; }
-    public string contraseña { get; set; }
-    public int idRol { get; set; }
-    public string foto_url { get; set; }
-    public string idEmpresa { get; set; }
-    public Nullable<int> idTipoIdEmpresa { get; set; }
-    public bool estado { get; set; }
-    public System.DateTime fecha_crea { get; set; }
-    public System.DateTime fecha_ult_mod { get; set; }
-    public string usuario_crea { get; set; }
-    public string usuario_ult_mod { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<tbCajaUsuario> tbCajaUsuario { get; set; }
-    public virtual tbEmpresa tbEmpresa { get; set; }
-    public virtual tbPersona tbPersona { get; set; }
-    public virtual tbRoles tbRoles { get; set; }
 }

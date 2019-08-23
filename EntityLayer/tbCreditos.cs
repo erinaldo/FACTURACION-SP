@@ -7,23 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbCreditos
+namespace EntityLayer
 {
-    public int idCredito { get; set; }
-    public string idCliente { get; set; }
-    public Nullable<int> tipoCliente { get; set; }
-    public int idMov { get; set; }
-    public bool idEstado { get; set; }
-    public bool estadoCredito { get; set; }
-    public decimal montoCredito { get; set; }
-    public System.DateTime fecha_ult_mod { get; set; }
-    public System.DateTime fecha_crea { get; set; }
-    public string usuario_crea { get; set; }
-    public string usuario_ult_mod { get; set; }
-    public decimal saldoCredito { get; set; }
-
-    public virtual tbMovimientos tbMovimientos { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbCreditos
+    {
+        public int idCredito { get; set; }
+        public string idCliente { get; set; }
+        public Nullable<int> tipoCliente { get; set; }
+        public int idMov { get; set; }
+        public bool idEstado { get; set; }
+        public bool estadoCredito { get; set; }
+        public decimal montoCredito { get; set; }
+        public System.DateTime fecha_ult_mod { get; set; }
+        public System.DateTime fecha_crea { get; set; }
+        public string usuario_crea { get; set; }
+        public string usuario_ult_mod { get; set; }
+        public decimal saldoCredito { get; set; }
+    
+        public virtual tbMovimientos tbMovimientos { get; set; }
+    }
 }

@@ -1,4 +1,6 @@
-﻿using CommonLayer;
+﻿using BusinessLayer;
+using CommonLayer;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +15,7 @@ namespace PresentationLayer
 {
     public partial class frmPrincipal : Form
     {
+        
         bool cerrando = false;
         public frmPrincipal()
         {
@@ -27,19 +30,8 @@ namespace PresentationLayer
         private void cargarLogeo()
         {
             frmLogin login = new frmLogin();
-            login.cerrarFact += cerrarForm;
-
-            //login.permisosEvent += cargarPermisos;
+            login.cerrarFact += cerrarForm;     
             login.ShowDialog();
-
-
-
-
-
-
-            //cargarDatos();
-            //cargarDatosLogin();
-            
 
         }
 
@@ -53,6 +45,21 @@ namespace PresentationLayer
         {
             if (!cerrando)
             {
+                BPendientes pendientesIns = new BPendientes();
+                int cantidadPend = pendientesIns.CantidadPendientes();
+
+                if (cantidadPend!=0)
+                {
+                    DialogResult result = MessageBox.Show("Existen Pendientes, desea eliminarlos?", "Pendientes", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        pendientesIns.removeAll();
+                        MessageBox.Show("Se ha eliminado los pendientes", "Pendientes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                    }
+                }
+                
+
                 DialogResult dialog = MessageBox.Show("Esta seguro que desea cerra la Aplicación?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (dialog == DialogResult.No)

@@ -7,15 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbPersonasTribunalS
+namespace EntityLayer
 {
-    public string ID { get; set; }
-    public string CODIGOPOSTAL { get; set; }
-    public string SEXO { get; set; }
-    public string NOMBRE { get; set; }
-    public string APELLIDO1 { get; set; }
-    public string APELLIDO2 { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbPersonasTribunalS
+    {
+        public string ID { get; set; }
+        public string CODIGOPOSTAL { get; set; }
+        public string SEXO { get; set; }
+        public string NOMBRE { get; set; }
+        public string APELLIDO1 { get; set; }
+        public string APELLIDO2 { get; set; }
+    }
 }

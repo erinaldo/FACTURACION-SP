@@ -7,20 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class tbAbonos
+namespace EntityLayer
 {
-    public int idAbono { get; set; }
-    public int idDoc { get; set; }
-    public int tipoDoc { get; set; }
-    public Nullable<decimal> monto { get; set; }
-    public System.DateTime fecha_ult_mod { get; set; }
-    public System.DateTime fecha_crea { get; set; }
-    public string usuario_crea { get; set; }
-    public string usuario_ult_mod { get; set; }
-    public bool estado { get; set; }
-
-    public virtual tbDocumento tbDocumento { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class tbAbonos
+    {
+        public int idAbono { get; set; }
+        public int idDoc { get; set; }
+        public int tipoDoc { get; set; }
+        public Nullable<decimal> monto { get; set; }
+        public System.DateTime fecha_ult_mod { get; set; }
+        public System.DateTime fecha_crea { get; set; }
+        public string usuario_crea { get; set; }
+        public string usuario_ult_mod { get; set; }
+        public bool estado { get; set; }
+    
+        public virtual tbDocumento tbDocumento { get; set; }
+    }
 }
