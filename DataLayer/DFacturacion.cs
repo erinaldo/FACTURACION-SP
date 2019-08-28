@@ -129,11 +129,6 @@ namespace DataLayer
 
                         context.SaveChanges();
                     }
-
-
-
-
-
                 }
             }
             catch (Exception ex)
@@ -142,7 +137,6 @@ namespace DataLayer
             }
 
             return true;
-
         }
 
 
@@ -230,10 +224,14 @@ namespace DataLayer
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
                 {
 
-                    return (from p in context.tbDocumento.Include("tbClientes.tbPersona").Include("tbDetalleDocumento.tbProducto").Include("tbDetalleDocumento.tbProducto.tbImpuestos").Include("tbTipoMoneda")
+                    var doc= (from p in context.tbDocumento.Include("tbAbonos").Include("tbDetalleDocumento.tbProducto.tbImpuestos").Include("tbTipoMoneda")
                             where p.id == id && p.tipoDocumento==tipo
                             select p).FirstOrDefault();
-
+                    if (doc.idCliente!=null)
+                    {
+                        doc.tbClientes = clienteIns.GetClienteById(doc.idCliente, (int)doc.tipoIdCliente);
+                    }
+                    return doc;
                 }
 
             }
@@ -258,17 +256,14 @@ namespace DataLayer
                    
                     if (cargaEntAnexas)
                     {
-                        var doc= (from p in context.tbDocumento.Include("tbClientes").Include("tbDetalleDocumento.tbProducto.tbImpuestos")
+                        var doc= (from p in context.tbDocumento.Include("tbDetalleDocumento.tbProducto.tbImpuestos").Include("tbAbonos")
                                 where p.id == entity.id && p.tipoDocumento==entity.tipoDocumento
                                 select p).FirstOrDefault();
 
                         if (doc.idCliente!=null)
                         {
                             doc.tbClientes = clienteIns.GetClienteById((int)doc.tipoIdCliente, doc.idCliente);
-                            if (doc.tbClientes.idExonercion!=null)
-                            {
-                                doc.tbClientes.tbExoneraciones = exoIns.GetEntity((int)doc.tbClientes.idExonercion);
-                            }
+                            
                         }
                         foreach (var item in doc.tbDetalleDocumento)
                         {
@@ -276,18 +271,13 @@ namespace DataLayer
                             item.tbProducto.tbCategoriaProducto = cateIns.GetEntityById(item.tbProducto.id_categoria);
 
                         }
-                     
-
-                        
-
-
                         return doc;
 
                     }
                     else
                     {
-                        var doc= (from p in context.tbDocumento.Include("tbClientes").Include("tbDetalleDocumento.tbProducto")
-                                where p.id == entity.id && p.tipoDocumento == entity.tipoDocumento
+                        var doc= (from p in context.tbDocumento.Include("tbClientes").Include("tbDetalleDocumento.tbProducto").Include("tbAbonos")
+                                  where p.id == entity.id && p.tipoDocumento == entity.tipoDocumento
                                 select p).FirstOrDefault();
 
                         if (doc.idCliente != null)
@@ -390,8 +380,6 @@ namespace DataLayer
 
                 throw ex;
             }
-
-
         }
 
         public IEnumerable<tbDocumento> getListAllDocumentos()
@@ -400,7 +388,7 @@ namespace DataLayer
             {
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
                 {
-                    var list= (from p in context.tbDocumento.Include("tbDetalleDocumento").Include("tbDetalleDocumento.tbProducto.tbImpuestos")
+                    var list= (from p in context.tbDocumento.Include("tbDetalleDocumento").Include("tbDetalleDocumento.tbProducto.tbImpuestos").Include("tbAbonos")
                             select p).ToList();
 
                     foreach (var doc in list)
@@ -411,11 +399,7 @@ namespace DataLayer
                         }
                     }
                     return list;
-
-                }
-
-
-                
+                }                
 
             }
             catch (Exception ex)
@@ -426,7 +410,27 @@ namespace DataLayer
 
 
         }
-        public List<tbDocumento> getListFactPendiente()
+
+        public List<tbDocumento> getListDocCreditoPendienteByCliente(int tipo, string id)
+        {
+            try
+            {
+                using (dbSisSodInaEntities context = new dbSisSodInaEntities())
+                {
+                    var x= (from p in context.tbDocumento.Include("tbAbonos").Include("tbDetalleDocumento").Include("tbDetalleDocumento.tbProducto")
+                            where p.estado==true && p.idCliente.Trim()== id.Trim() && p.tipoIdCliente==tipo && p.tipoVenta==(int)Enums.tipoVenta.Credito && p.estadoFactura==(int)Enums.EstadoFactura.Pendiente
+                            select p).ToList();
+                    return x;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+         
+        }
+        public List<tbDocumento> getListFactPendiente()            
         {
             try
             {

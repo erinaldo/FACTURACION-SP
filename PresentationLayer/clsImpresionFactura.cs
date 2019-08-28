@@ -23,14 +23,16 @@ namespace PresentationLayer
         decimal _paga { set; get; }
         decimal _vuelto { set; get; }
         tbDocumento _doc { set; get; }
-
+        tbClientes _cliente { set; get; }
         tbEmpresa _empresa { set; get; }
         List<tbDocumento> _docs { set; get; }
-        
-        public clsImpresionFactura(List<tbDocumento> docs, tbEmpresa empresa)
+        decimal _saldo { set; get; }
+        public clsImpresionFactura(List<tbDocumento> docs, tbClientes cliente, tbEmpresa empresa, decimal saldoPend)
         {
             _docs = docs;
             _empresa = empresa;
+            _cliente = cliente;
+            _saldo = saldoPend;
 
         }
         public clsImpresionFactura(tbDocumento doc, tbEmpresa empresa)
@@ -122,24 +124,24 @@ namespace PresentationLayer
             Ticket1.TextoCentro(_empresa.tbPersona.tbBarrios.tbDistrito.Nombre.Trim().ToUpper() + "-" + _empresa.tbPersona.tbBarrios.tbDistrito.tbCanton.Nombre.Trim().ToUpper() + "-" + _empresa.tbPersona.tbBarrios.tbDistrito.tbCanton.tbProvincia.Nombre.Trim().ToUpper());
             Ticket1.TextoCentro((_empresa.tipoId == (int)Enums.TipoId.Fisica ? "Ced Fisica:" : "Ced Juridica:") + _empresa.tbPersona.identificacion.ToString().Trim());
             Ticket1.TextoCentro("Tel:" + _empresa.tbPersona.telefono.ToString());         
-            Ticket1.TextoIzquierda("Fecha:" + _doc.fecha);           
+            Ticket1.TextoIzquierda("Fecha:" + Utility.getDate());           
             Ticket1.TextoCentro("");
             Ticket1.TextoCentro("ABONOS");   
             Ticket1.TextoCentro("");
-            if (_doc.idCliente != null)
+            if (_cliente.id != null)
             {
 
                 string nombre = "";
-                string id = _doc.tbClientes.tbPersona.identificacion.ToString().Trim();
-                if (_doc.tbClientes.tbPersona.tipoId == (int)Enums.TipoId.Fisica)
+                string id = _cliente.tbPersona.identificacion.ToString().Trim();
+                if (_cliente.tbPersona.tipoId == (int)Enums.TipoId.Fisica)
                 {
 
-                    nombre = _doc.tbClientes.tbPersona.nombre.ToUpper().ToString().Trim() + " " +
-                       _doc.tbClientes.tbPersona.apellido1.ToUpper().ToString().Trim() + " " + _doc.tbClientes.tbPersona.apellido2.ToUpper().ToString().Trim();
+                    nombre = _cliente.tbPersona.nombre.ToUpper().ToString().Trim() + " " +
+                       _cliente.tbPersona.apellido1.ToUpper().ToString().Trim() + " " + _cliente.tbPersona.apellido2.ToUpper().ToString().Trim();
                 }
                 else
                 {
-                    nombre = _doc.tbClientes.tbPersona.nombre.ToUpper().ToString().Trim();
+                    nombre = _cliente.tbPersona.nombre.ToUpper().ToString().Trim();
                 }
                 Ticket1.TextoIzquierda("ID Cliente:" + id);
                 Ticket1.TextoIzquierda("Cliente:" + nombre);
@@ -147,30 +149,20 @@ namespace PresentationLayer
             }
 
             Ticket1.LineasGuion(); // imprime una linea de guiones
-            Ticket1.EncabezadoVenta(); // imprime encabezados
-            foreach (tbDetalleDocumento item in _doc.tbDetalleDocumento)
+            decimal totalAbonos = 0;
+            foreach (var abono in _docs)
             {
-                Ticket1.AgregaArticulo(item.tbProducto.nombre.Trim().ToUpper(), item.cantidad, item.precio, item.montoTotal); //imprime una linea de descripcion
+                Ticket1.TextoIzquierda("# Factura:" + abono.id);
+                Ticket1.TextoIzquierda("Monto:" + abono.tbAbonos.Last().monto);
+                totalAbonos += (decimal)abono.tbAbonos.Last().monto;
+                Ticket1.TextoIzquierda("Saldo:" + ((abono.tbDetalleDocumento.Sum(x => x.totalLinea))- (abono.tbAbonos.Sum(x=>x.monto))).ToString());
+                Ticket1.TextoIzquierda("Estado Factura:"+ Enum.GetName(typeof(Enums.EstadoFactura), abono.estadoFactura));
+                Ticket1.TextoIzquierda("" );
             }
-
-            Ticket1.LineasTotales(); // imprime linea 
-
-            Ticket1.AgregaTotales("SubTotal", _doc.tbDetalleDocumento.Sum(x => x.montoTotal)); // imprime linea con total
-            Ticket1.AgregaTotales("Descuento", _doc.tbDetalleDocumento.Sum(x => x.montoTotalDesc));
-            decimal exo = _doc.tbDetalleDocumento.Sum(x => x.montoTotalExo);
-            if (exo != 0)
-            {
-                Ticket1.AgregaTotales("Exoneracion", exo);
-            }
-            Ticket1.AgregaTotales("IVA", _doc.tbDetalleDocumento.Sum(x => x.montoTotalImp));
-            Ticket1.AgregaTotales("Total", _doc.tbDetalleDocumento.Sum(x => x.totalLinea)); // imprime linea con total
-            Ticket1.LineasGuion();
-            Ticket1.AgregaTotales("Pago", _paga); // imprime linea con total
-            Ticket1.AgregaTotales("Vuelto", _vuelto); // imprime linea con total
-            Ticket1.LineasGuion();
-            Ticket1.TextoIzquierda("Autorizada mediante resolución No. DGT-R");
-            Ticket1.TextoIzquierda("-48-2016 del 7 de octubre del 2016");
-
+            Ticket1.LineasAsterisco();
+            Ticket1.TextoIzquierda("Total Abonado:" + totalAbonos);
+            Ticket1.TextoIzquierda("Saldo Pendiente:" + _saldo);
+            Ticket1.LineasAsterisco();
             Ticket1.TextoCentro("GRACIAS POR SU COMPRA");
 
             Ticket1.CortaTicket(); // corta el ticket

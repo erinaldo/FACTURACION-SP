@@ -160,7 +160,7 @@ catch (Exception EX)
                     if (estado == (int)Enums.EstadoBusqueda.Activo)
                     {
                         //PARA JALAR LOS DATOS DE LAS TABLAS RELACIONADAS SE USA LA PALABRA RESERVADA INCLUDE....Y ENTRE("")EL NOMBRE DE LAS TABLAS RELACIONADAS.
-                        list = (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbDocumento.tbDetalleDocumento").Include("tbDocumento.tbAbonos")
+                        list = (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbExoneraciones")
                                 where p.estado == true
                                 select p).ToList();
                       
@@ -170,24 +170,18 @@ catch (Exception EX)
                     }
                     else if (estado == (int)Enums.EstadoBusqueda.Inactivos)
                     {
-                        list = (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbDocumento.tbDetalleDocumento").Include("tbImpuestos").Include("tbDocumento.tbDetalleDocumento")
+                        list = (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbExoneraciones")
 
                                 where p.estado == false
                                 select p).ToList();
                     }
                     else
                     {
-                        list = (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbDocumento.tbDetalleDocumento").Include("tbImpuestos")                                 
+                        list = (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbExoneraciones")
                                 select p).ToList();
                     }
 
-                    foreach (var item in list)
-                    {
-                        if (item.idExonercion!=null)
-                        {
-                            item.tbExoneraciones = impExo.GetEntity((int)item.idExonercion);
-                        }
-                    }
+                
                     
                   
 
@@ -200,14 +194,34 @@ catch (Exception EX)
 
         }
 
-        public tbClientes GetClienteById( string id)
+        public tbClientes GetClienteById( string id, int tipo)
         {
 
             try
             {
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
                 {
-                    return (from p in context.tbClientes.Include("tbPersona")
+                    return (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbExoneraciones")
+                            where p.estado == true && p.id == id && p.tipoId==tipo
+                            select p).SingleOrDefault();
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        public tbClientes GetClienteById(string id)
+        {
+
+            try
+            {
+                using (dbSisSodInaEntities context = new dbSisSodInaEntities())
+                {
+                    return (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbExoneraciones")
                             where p.estado == true && p.id == id 
                             select p).SingleOrDefault();
 
@@ -228,8 +242,8 @@ catch (Exception EX)
             {
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
                 {
-                    return (from p in context.tbClientes.Include("tbPersona")
-                        where p.estado == true && p.id == id.Trim() && p.tipoId==tipo
+                    return (from p in context.tbClientes.Include("tbPersona").Include("tbTipoClientes").Include("tbExoneraciones")
+                            where p.estado == true && p.id == id.Trim() && p.tipoId==tipo
                         select p).SingleOrDefault();
 
                 }

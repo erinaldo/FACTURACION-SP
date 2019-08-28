@@ -46,8 +46,9 @@ namespace PresentationLayer
         private void dataBuscar(tbClientes cliente)
         {
            
-            clienteGlobal = cliente;
-            if ( clienteGlobal !=null && clienteGlobal.id.Trim() != null)//antes tenia cero pero como es string se pone null
+            clienteGlobal = cliente;            
+        
+              if ( clienteGlobal !=null && clienteGlobal.id.Trim() != null )//antes tenia cero pero como es string se pone null
             {
                 txtIdCliente.Text = cliente.id.Trim();
                 if (cliente.tipoId == 1)
@@ -79,7 +80,8 @@ namespace PresentationLayer
             try
             {
                 lsvFacturas.Items.Clear();
-                IEnumerable<tbDocumento> docs = clienteGlobal.tbDocumento.Where(x => x.estadoFactura == (int)Enums.EstadoFactura.Pendiente && x.estado == true && x.tipoVenta == (int)Enums.tipoVenta.Credito);
+                IEnumerable<tbDocumento> docs = facturacionB.getListDocCreditoPendienteByCliente(clienteGlobal.tipoId, clienteGlobal.id);
+
                 docsGlobal = docs;
 
                 decimal mnontoGeneral = 0;
@@ -275,16 +277,17 @@ namespace PresentationLayer
 
                                 facturacionB.guadarFacturaAbonos(docsModificados);
                                 MessageBox.Show("Datos guardados correctamente.", "Guardar", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                if (chkImprimir.Checked)
-                                {
-
-                                    clsImpresionFactura imprimir = new clsImpresionFactura(docsModificados, Global.Usuario.tbEmpresa);
-                                    imprimir.print();
-                                }
+                              
                                 txtAbono.Text = string.Empty;
                                 txtFacturado.Text = string.Empty;
                                 chkTodos.Checked = false;
                                 cargarDatosCliente();
+                                if (chkImprimir.Checked)
+                                {
+
+                                    clsImpresionFactura imprimir = new clsImpresionFactura(docsModificados, clienteGlobal, Global.Usuario.tbEmpresa, decimal.Parse(txtAdeudado.Text));
+                                    imprimir.print();
+                                }
 
                             }
 

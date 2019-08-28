@@ -120,6 +120,7 @@ namespace PresentationLayer
 
         private void lsvBuscar_DoubleClick(object sender, EventArgs e)
         {
+        
             pasarDatosEvent(clienteGlo);
             this.Dispose();
             bandSeleccionar = true;
@@ -127,7 +128,16 @@ namespace PresentationLayer
 
         private void txtBuscar_TextChanged_1(object sender, EventArgs e)
         {
-            ListaCoincid();
+            try
+            {
+                ListaCoincid();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Error al buscar el cliente.","Cliente",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+            
         }
         private void ListaCoincid()
         {
@@ -139,7 +149,23 @@ namespace PresentationLayer
 
                 foreach (tbClientes p in listaclientes)
                 {
-                    nombre = p.tbPersona.nombre.Trim() + " " + p.tbPersona.apellido1.Trim() + " " + p.tbPersona.apellido2.Trim();
+                    if (p.tipoId==(int)Enums.TipoId.Fisica)
+                    {
+                        nombre = p.tbPersona.nombre.Trim() + " " + p.tbPersona.apellido1.Trim() + " " + p.tbPersona.apellido2.Trim();
+
+
+                    }
+                    else
+                    {
+                        nombre = p.tbPersona.nombre.Trim();
+
+
+                    }
+                    if (p.id.Contains(txtBuscar.Text.ToUpper().Trim()))
+                    {
+
+                        listaBuscar.Add(p);
+                    }
 
                     if (nombre.Contains(txtBuscar.Text.ToUpper().Trim()))
                     {

@@ -109,7 +109,7 @@ namespace BusinessLayer
                 {
 
                     item.tbClientes = null;
-                    item.tbDetalleDocumento = null;
+                    //item.tbDetalleDocumento = null;
 
 
                      
@@ -665,7 +665,10 @@ namespace BusinessLayer
         {
             return DFacturaIns.Actualizar(facturaGlobal);
         }
-
+        public List<tbDocumento> getListDocCreditoPendienteByCliente(int tipo, string id)
+        {
+            return DFacturaIns.getListDocCreditoPendienteByCliente(tipo, id.Trim());
+        }
 
         public List<tbDocumento> getListFactPendiente()
         {
@@ -1200,7 +1203,7 @@ namespace BusinessLayer
 
             return DFacturaIns.GetMensajeByConsecutivo(consecutivo);
         }
-
+     
         public tbReporteHacienda consultarMensajePorId(int id)
         {
 
