@@ -399,7 +399,9 @@ namespace PresentationLayer
                     mskidentificacion.Visible = false;
                     txtIdentificacion.Visible = true;
                     txtIdentificacion.Enabled = true;
-
+                    txtapellido1.Enabled = false;
+                    txtapellido2.Enabled = false;
+                    gboSexo.Enabled = false;
 
                 }
                 else
@@ -407,7 +409,9 @@ namespace PresentationLayer
                     mskidentificacion.Enabled = true;
                     mskidentificacion.Visible = true;
                     txtIdentificacion.Visible = false;
-
+                    txtapellido1.Enabled = true;
+                    txtapellido2.Enabled = true;
+                    gboSexo.Enabled = true;
                 }
 
             }
@@ -580,7 +584,7 @@ namespace PresentationLayer
                                 txtInstitucionExo.Text = clienteGlobal.institucionExo.ToUpper().Trim();
                                 cboExoneracion.SelectedValue = clienteGlobal.idExonercion;
                                 dtpFechaEmisionExo.Value = clienteGlobal.FechaEmisionExo.Value;
-                                cliente.numeroDocumentoExo = clienteGlobal.numeroDocumentoExo.Trim();
+                                txtDocExo.Text = clienteGlobal.numeroDocumentoExo.Trim();
                           
 
                             }
