@@ -81,7 +81,7 @@
             // 
             // btnSeleccionar
             // 
-            this.btnSeleccionar.Location = new System.Drawing.Point(368, 466);
+            this.btnSeleccionar.Location = new System.Drawing.Point(715, 466);
             this.btnSeleccionar.Margin = new System.Windows.Forms.Padding(2);
             this.btnSeleccionar.Name = "btnSeleccionar";
             this.btnSeleccionar.Size = new System.Drawing.Size(135, 41);
@@ -92,7 +92,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(510, 466);
+            this.btnCancelar.Location = new System.Drawing.Point(577, 466);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(121, 41);

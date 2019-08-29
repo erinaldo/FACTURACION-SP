@@ -17,6 +17,7 @@ namespace EntityLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbProveedores()
         {
+            this.tbCompras = new HashSet<tbCompras>();
             this.tbHorarioProveedor = new HashSet<tbHorarioProveedor>();
             this.tbProducto = new HashSet<tbProducto>();
         }
@@ -36,6 +37,8 @@ namespace EntityLayer
         public string usuario_crea { get; set; }
         public string usuario_ult_mod { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbCompras> tbCompras { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbHorarioProveedor> tbHorarioProveedor { get; set; }
         public virtual tbPersona tbPersona { get; set; }

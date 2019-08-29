@@ -93,6 +93,12 @@
     <Compile Include="frmAprobacion.Designer.cs">
       <DependentUpon>frmAprobacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmBuscarComprasHacienda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBuscarComprasHacienda.Designer.cs">
+      <DependentUpon>frmBuscarComprasHacienda.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmBuscarDocumentos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -652,6 +658,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmBuscarCliente.resx">
       <DependentUpon>frmBuscarCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBuscarComprasHacienda.resx">
+      <DependentUpon>frmBuscarComprasHacienda.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmBuscarDetalleIngrediente.resx">
       <DependentUpon>frmBuscarDetalleIngrediente.cs</DependentUpon>

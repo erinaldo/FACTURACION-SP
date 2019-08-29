@@ -12,28 +12,40 @@ namespace EntityLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class tbTipoMedidas
+    public partial class tbCompras
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbTipoMedidas()
+        public tbCompras()
         {
             this.tbDetalleCompras = new HashSet<tbDetalleCompras>();
-            this.tbProducto = new HashSet<tbProducto>();
         }
     
-        public int idTipoMedida { get; set; }
-        public string nombre { get; set; }
-        public string nomenclatura { get; set; }
-        public string descripcion { get; set; }
-        public bool estado { get; set; }
+        public int numFactura { get; set; }
+        public string idProveedor { get; set; }
+        public int tipoIdProveedor { get; set; }
+        public Nullable<int> idReporteHacienda { get; set; }
+        public string consecutivo { get; set; }
+        public string clave { get; set; }
+        public System.DateTime fecha { get; set; }
+        public System.DateTime fechaCompra { get; set; }
+        public System.DateTime fechaReporte { get; set; }
+        public int estadoCompra { get; set; }
+        public int tipoCompra { get; set; }
+        public int tipoPago { get; set; }
+        public Nullable<int> plazo { get; set; }
+        public bool reporteElectronico { get; set; }
+        public string observaciones { get; set; }
         public System.DateTime fecha_crea { get; set; }
         public System.DateTime fecha_ult_mod { get; set; }
         public string usuario_crea { get; set; }
         public string usuario_ult_mod { get; set; }
+        public bool estado { get; set; }
     
+        public virtual tbProveedores tbProveedores { get; set; }
+        public virtual tbReporteHacienda tbReporteHacienda { get; set; }
+        public virtual tbTipoPago tbTipoPago { get; set; }
+        public virtual tbTipoVenta tbTipoVenta { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbDetalleCompras> tbDetalleCompras { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbProducto> tbProducto { get; set; }
     }
 }

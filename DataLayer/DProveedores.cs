@@ -158,6 +158,31 @@ namespace DataLayer
         }
 
 
+        public tbProveedores getProveedorById(string id)
+        {
+            try
+            {
+                using (dbSisSodInaEntities context = new dbSisSodInaEntities())
+                {                   
+                        return (from p in context.tbProveedores.Include("tbPersona")
+                                where p.id == id
+                                select p).SingleOrDefault(); 
+
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+
+            throw new SaveEntityException("Proveedores");
+
+        }
+
+        
 
     }
 }

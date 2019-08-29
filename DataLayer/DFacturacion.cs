@@ -458,8 +458,7 @@ namespace DataLayer
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
                 {
 
-                    return (from p in context.tbReporteHacienda
-                                             
+                    return (from p in context.tbReporteHacienda.Include("tbCompras")                                             
                             select p).ToList();
                 }
 

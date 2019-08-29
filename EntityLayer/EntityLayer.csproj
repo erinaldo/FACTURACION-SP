@@ -100,7 +100,13 @@
     <Compile Include="tbClientes.cs">
       <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbCompras.cs">
+      <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbCreditos.cs">
+      <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbDetalleCompras.cs">
       <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tbDetalleDocumento.cs">

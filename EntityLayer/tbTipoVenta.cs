@@ -17,12 +17,15 @@ namespace EntityLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbTipoVenta()
         {
+            this.tbCompras = new HashSet<tbCompras>();
             this.tbDocumento = new HashSet<tbDocumento>();
         }
     
         public int id { get; set; }
         public string nombre { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbCompras> tbCompras { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbDocumento> tbDocumento { get; set; }
     }

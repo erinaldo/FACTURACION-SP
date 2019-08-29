@@ -14,6 +14,12 @@ namespace EntityLayer
     
     public partial class tbReporteHacienda
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbReporteHacienda()
+        {
+            this.tbCompras = new HashSet<tbCompras>();
+        }
+    
         public int id { get; set; }
         public string consecutivoReceptor { get; set; }
         public string codigoActividadEmisor { get; set; }
@@ -46,6 +52,8 @@ namespace EntityLayer
         public string xmlRespuesta { get; set; }
         public string correoElectronico { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbCompras> tbCompras { get; set; }
         public virtual tbEmpresa tbEmpresa { get; set; }
     }
 }

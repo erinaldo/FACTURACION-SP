@@ -31,9 +31,7 @@
             this.gboBuscar = new System.Windows.Forms.GroupBox();
             this.lstvProveedores = new System.Windows.Forms.ListView();
             this.colId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colTipoId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colNombre = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colEstado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.btnSeleccionar = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -44,10 +42,11 @@
             // 
             this.gboBuscar.Controls.Add(this.lstvProveedores);
             this.gboBuscar.Controls.Add(this.txtBuscar);
-            this.gboBuscar.Controls.Add(this.btnSeleccionar);
-            this.gboBuscar.Location = new System.Drawing.Point(12, 12);
+            this.gboBuscar.Location = new System.Drawing.Point(16, 15);
+            this.gboBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gboBuscar.Name = "gboBuscar";
-            this.gboBuscar.Size = new System.Drawing.Size(390, 337);
+            this.gboBuscar.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gboBuscar.Size = new System.Drawing.Size(536, 349);
             this.gboBuscar.TabIndex = 0;
             this.gboBuscar.TabStop = false;
             this.gboBuscar.Text = "Buscar";
@@ -56,14 +55,13 @@
             // 
             this.lstvProveedores.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colId,
-            this.colTipoId,
-            this.colNombre,
-            this.colEstado});
+            this.colNombre});
             this.lstvProveedores.FullRowSelect = true;
             this.lstvProveedores.GridLines = true;
-            this.lstvProveedores.Location = new System.Drawing.Point(6, 60);
+            this.lstvProveedores.Location = new System.Drawing.Point(8, 74);
+            this.lstvProveedores.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lstvProveedores.Name = "lstvProveedores";
-            this.lstvProveedores.Size = new System.Drawing.Size(384, 208);
+            this.lstvProveedores.Size = new System.Drawing.Size(511, 255);
             this.lstvProveedores.TabIndex = 8;
             this.lstvProveedores.UseCompatibleStateImageBehavior = false;
             this.lstvProveedores.View = System.Windows.Forms.View.Details;
@@ -73,37 +71,29 @@
             // colId
             // 
             this.colId.Text = " ID";
-            this.colId.Width = 130;
-            // 
-            // colTipoId
-            // 
-            this.colTipoId.Text = "Tipo ID";
-            this.colTipoId.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.colTipoId.Width = 49;
+            this.colId.Width = 100;
             // 
             // colNombre
             // 
             this.colNombre.Text = "Nombre";
-            this.colNombre.Width = 127;
-            // 
-            // colEstado
-            // 
-            this.colEstado.Text = "Estado";
+            this.colNombre.Width = 350;
             // 
             // txtBuscar
             // 
-            this.txtBuscar.Location = new System.Drawing.Point(6, 19);
+            this.txtBuscar.Location = new System.Drawing.Point(8, 23);
+            this.txtBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(378, 20);
+            this.txtBuscar.Size = new System.Drawing.Size(503, 22);
             this.txtBuscar.TabIndex = 6;
             this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
             // 
             // btnSeleccionar
             // 
             this.btnSeleccionar.Enabled = false;
-            this.btnSeleccionar.Location = new System.Drawing.Point(312, 274);
+            this.btnSeleccionar.Location = new System.Drawing.Point(456, 372);
+            this.btnSeleccionar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSeleccionar.Name = "btnSeleccionar";
-            this.btnSeleccionar.Size = new System.Drawing.Size(72, 57);
+            this.btnSeleccionar.Size = new System.Drawing.Size(96, 39);
             this.btnSeleccionar.TabIndex = 7;
             this.btnSeleccionar.Text = "Seleccionar";
             this.btnSeleccionar.UseVisualStyleBackColor = true;
@@ -111,10 +101,12 @@
             // 
             // frmBuscarProveedores
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 361);
+            this.ClientSize = new System.Drawing.Size(565, 422);
             this.Controls.Add(this.gboBuscar);
+            this.Controls.Add(this.btnSeleccionar);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "frmBuscarProveedores";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "BuscarProveedores";
@@ -130,12 +122,10 @@
 
         private System.Windows.Forms.GroupBox gboBuscar;
         private System.Windows.Forms.ListView lstvProveedores;
-        private System.Windows.Forms.ColumnHeader colTipoId;
         private System.Windows.Forms.ColumnHeader colNombre;
         private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.Button btnSeleccionar;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ColumnHeader colId;
-        private System.Windows.Forms.ColumnHeader colEstado;
     }
 }

@@ -61,7 +61,12 @@ namespace BusinessLayer
             return proveedorIns.GetListEntities(estado);
         }
 
-       
+        public tbProveedores getProveedorById(string id)
+        {
+            return proveedorIns.getProveedorById(id);
+        }
+
+
         public tbProveedores  Modificar(tbProveedores proveedor)
         {
 

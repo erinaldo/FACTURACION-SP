@@ -38,7 +38,9 @@ namespace DataLayer
         public virtual DbSet<tbCategoriaProducto> tbCategoriaProducto { get; set; }
         public virtual DbSet<tbCategoriaRequerimiento> tbCategoriaRequerimiento { get; set; }
         public virtual DbSet<tbClientes> tbClientes { get; set; }
+        public virtual DbSet<tbCompras> tbCompras { get; set; }
         public virtual DbSet<tbCreditos> tbCreditos { get; set; }
+        public virtual DbSet<tbDetalleCompras> tbDetalleCompras { get; set; }
         public virtual DbSet<tbDetalleDocumento> tbDetalleDocumento { get; set; }
         public virtual DbSet<tbDetalleDocumentoPendiente> tbDetalleDocumentoPendiente { get; set; }
         public virtual DbSet<tbDetalleImpresion> tbDetalleImpresion { get; set; }

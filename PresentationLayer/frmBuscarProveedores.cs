@@ -71,20 +71,17 @@ namespace PresentationLayer
             foreach (tbProveedores p in lista)
             {
                 ListViewItem item = new ListViewItem();
-                item.Text = p.id.ToString();
-                item.SubItems.Add(p.tipoId.ToString());
-                item.SubItems.Add(p.tbPersona.nombre.ToUpper());
-                
-
-                
-                if (p.estado == true)
+                item.Text = p.id.ToString();                 
+                if (p.tipoId == 1)
                 {
-                    item.SubItems.Add("Activo");
+                    item.SubItems.Add(p.tbPersona.nombre.Trim() + " " + p.tbPersona.apellido1.Trim() + " " + p.tbPersona.apellido2.Trim());
+
                 }
                 else
                 {
-                    item.SubItems.Add("Inactivo");
+                    item.SubItems.Add(p.tbPersona.nombre.Trim());
                 }
+
                 lstvProveedores.Items.Add(item);
             }
         }

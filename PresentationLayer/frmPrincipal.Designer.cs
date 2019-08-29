@@ -77,6 +77,8 @@
             this.ventasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRptGeneralVenta = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuReporteFechaIncioFin = new System.Windows.Forms.ToolStripMenuItem();
+            this.notasCréditoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuNotasCreditoFechas = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAcercaDe = new System.Windows.Forms.ToolStripMenuItem();
             this.btnConsultaHac = new System.Windows.Forms.Button();
             this.btnDocEmitidos = new System.Windows.Forms.Button();
@@ -88,8 +90,7 @@
             this.btnMensajesCompras = new System.Windows.Forms.Button();
             this.btnConsultaMensajeHacienda = new System.Windows.Forms.Button();
             this.btnValidarCompras = new System.Windows.Forms.Button();
-            this.notasCréditoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuNotasCreditoFechas = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCompras = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -435,7 +436,7 @@
             this.mnuInventarioSobre,
             this.mnuGeneralByCat});
             this.inventarioToolStripMenuItem.Name = "inventarioToolStripMenuItem";
-            this.inventarioToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.inventarioToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
             this.inventarioToolStripMenuItem.Text = "Inventario";
             // 
             // mnuInventarioGeneral
@@ -472,22 +473,37 @@
             this.mnuRptGeneralVenta,
             this.mnuReporteFechaIncioFin});
             this.ventasToolStripMenuItem.Name = "ventasToolStripMenuItem";
-            this.ventasToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.ventasToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
             this.ventasToolStripMenuItem.Text = "Ventas";
             // 
             // mnuRptGeneralVenta
             // 
             this.mnuRptGeneralVenta.Name = "mnuRptGeneralVenta";
-            this.mnuRptGeneralVenta.Size = new System.Drawing.Size(216, 26);
+            this.mnuRptGeneralVenta.Size = new System.Drawing.Size(183, 26);
             this.mnuRptGeneralVenta.Text = "General hoy";
             this.mnuRptGeneralVenta.Click += new System.EventHandler(this.ReporteMenu_Click);
             // 
             // mnuReporteFechaIncioFin
             // 
             this.mnuReporteFechaIncioFin.Name = "mnuReporteFechaIncioFin";
-            this.mnuReporteFechaIncioFin.Size = new System.Drawing.Size(216, 26);
+            this.mnuReporteFechaIncioFin.Size = new System.Drawing.Size(183, 26);
             this.mnuReporteFechaIncioFin.Text = "General Fechas";
             this.mnuReporteFechaIncioFin.Click += new System.EventHandler(this.ReporteMenu_Click);
+            // 
+            // notasCréditoToolStripMenuItem
+            // 
+            this.notasCréditoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuNotasCreditoFechas});
+            this.notasCréditoToolStripMenuItem.Name = "notasCréditoToolStripMenuItem";
+            this.notasCréditoToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.notasCréditoToolStripMenuItem.Text = "Notas Crédito";
+            // 
+            // mnuNotasCreditoFechas
+            // 
+            this.mnuNotasCreditoFechas.Name = "mnuNotasCreditoFechas";
+            this.mnuNotasCreditoFechas.Size = new System.Drawing.Size(183, 26);
+            this.mnuNotasCreditoFechas.Text = "General Fechas";
+            this.mnuNotasCreditoFechas.Click += new System.EventHandler(this.ReporteMenu_Click);
             // 
             // mnuAcercaDe
             // 
@@ -693,26 +709,32 @@
             this.btnValidarCompras.UseVisualStyleBackColor = false;
             this.btnValidarCompras.Click += new System.EventHandler(this.btnValidarCompras_Click);
             // 
-            // notasCréditoToolStripMenuItem
+            // btnCompras
             // 
-            this.notasCréditoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuNotasCreditoFechas});
-            this.notasCréditoToolStripMenuItem.Name = "notasCréditoToolStripMenuItem";
-            this.notasCréditoToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.notasCréditoToolStripMenuItem.Text = "Notas Crédito";
-            // 
-            // mnuNotasCreditoFechas
-            // 
-            this.mnuNotasCreditoFechas.Name = "mnuNotasCreditoFechas";
-            this.mnuNotasCreditoFechas.Size = new System.Drawing.Size(216, 26);
-            this.mnuNotasCreditoFechas.Text = "General Fechas";
-            this.mnuNotasCreditoFechas.Click += new System.EventHandler(this.ReporteMenu_Click);
+            this.btnCompras.BackColor = System.Drawing.Color.Thistle;
+            this.btnCompras.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnCompras.FlatAppearance.BorderSize = 3;
+            this.btnCompras.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnCompras.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnCompras.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCompras.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnCompras.Image = ((System.Drawing.Image)(resources.GetObject("btnCompras.Image")));
+            this.btnCompras.Location = new System.Drawing.Point(1045, 409);
+            this.btnCompras.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCompras.Name = "btnCompras";
+            this.btnCompras.Size = new System.Drawing.Size(256, 256);
+            this.btnCompras.TabIndex = 17;
+            this.btnCompras.Text = "Registrar Compras";
+            this.btnCompras.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnCompras.UseVisualStyleBackColor = false;
+            this.btnCompras.Click += new System.EventHandler(this.btnCompras_Click);
             // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1611, 836);
+            this.Controls.Add(this.btnCompras);
             this.Controls.Add(this.btnValidarCompras);
             this.Controls.Add(this.btnConsultaMensajeHacienda);
             this.Controls.Add(this.btnMensajesCompras);
@@ -802,5 +824,6 @@
         private System.Windows.Forms.ToolStripMenuItem mnuReporteFechaIncioFin;
         private System.Windows.Forms.ToolStripMenuItem notasCréditoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuNotasCreditoFechas;
+        private System.Windows.Forms.Button btnCompras;
     }
 }

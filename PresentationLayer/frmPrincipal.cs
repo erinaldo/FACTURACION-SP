@@ -456,5 +456,11 @@ namespace PresentationLayer
         {
 
         }
+
+        private void btnCompras_Click(object sender, EventArgs e)
+        {
+            frmCompras form = new frmCompras();
+            form.ShowDialog();
+        }
     }
 }
