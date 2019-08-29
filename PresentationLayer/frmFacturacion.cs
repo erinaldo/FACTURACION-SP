@@ -80,6 +80,8 @@ namespace PresentationLayer
         //Se crean los metodos necesarios para cargar el usuario y sus requerimientos segun el permiso que posea.
         private void frmFacturacion_Load(object sender, EventArgs e)
         {
+            chkTiqueteElectronico.Enabled = false;
+            chkTiqueteElectronico.Checked = false;
             btnReImprimir.Enabled = (bool)Global.Usuario.tbEmpresa.imprimeDoc;
             formatoGrid();         
             cargarDatos();
@@ -282,6 +284,10 @@ namespace PresentationLayer
                 txtTel.Text = string.Empty;
                 txtCorreo.Text = string.Empty;
                 exoneracionClie = false;
+                clienteGlo = null;
+                chkTiqueteElectronico.Enabled = false;
+                chkTiqueteElectronico.Checked = false;
+
 
                 calcularMontosT();
 
@@ -572,6 +578,8 @@ namespace PresentationLayer
                 exoneracionClie = false;
                 if (cliente != null)
                 {
+                    chkTiqueteElectronico.Enabled = true;
+                    chkTiqueteElectronico.Checked = false;
                     clienteGlo = cliente;
                     if (cliente.idExonercion != null)
                     {
@@ -1228,12 +1236,17 @@ namespace PresentationLayer
                 documento.idCliente = clienteGlo.id;
                 documento.tipoIdCliente = clienteGlo.tipoId;
                 //asigna el valor que tenga el cliente si es contribuyente o no
-
+               
                 documento.tbClientes = clienteGlo;
+
+                if (chkTiqueteElectronico.Checked)
+                {
+                    documento.tipoDocumento = (int)Enums.TipoDocumento.TiqueteElectronico;
+                }
             }
             else
             {
-                documento.reporteElectronic = false;
+                documento.tipoDocumento = (int)Enums.TipoDocumento.TiqueteElectronico;
             }
 
             documento.estado = true;
@@ -1450,6 +1463,9 @@ namespace PresentationLayer
 
             lblPendientes.Text = pendientesIns.CantidadPendientes().ToString();
             chkServicioMesa.Checked = false;
+
+            chkTiqueteElectronico.Enabled = false;
+            chkTiqueteElectronico.Checked = false;
         }
 
         private void btnLimpiarForm_Click(object sender, EventArgs e)

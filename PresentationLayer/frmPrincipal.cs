@@ -379,7 +379,7 @@ namespace PresentationLayer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frmFacturacion form = new frmFacturacion();
+            frmFacturacion1 form = new frmFacturacion1();
             form.ShowDialog();
         }
 

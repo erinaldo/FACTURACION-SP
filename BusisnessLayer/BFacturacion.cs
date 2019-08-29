@@ -60,43 +60,7 @@ namespace BusinessLayer
                 item.idTipoDoc = facturaGlobal.tipoDocumento;
 
             }
-           return DFacturaIns.Guardar(facturaGlobal);
-            //if (facturaGlobal.tipoDocumento==(int)Enums.TipoDocumento.NotaCreditoElectronica || facturaGlobal.tipoDocumento == (int)Enums.TipoDocumento.NotaDebitoElectronica)
-            //{
-            //    if (facturaGlobal.claveRef!=null)
-            //    {
-            //        var docActualizar = DFacturaIns.GetEntityByClave(facturaGlobal.claveRef);
-            //        docActualizar.estado = false;//elimino logicamente
-            //        docActualizar.fecha_ult_mod = Utility.getDate();
-            //        docActualizar.usuario_ult_mod = Global.Usuario.nombreUsuario.Trim();
-            //        DFacturaIns.Actualizar(docActualizar);
-            //    }
-                
-            //}
-
-
-            //if (facturaGlobal.reporteElectronic)
-            //{
-            //    if (facturaGlobal.id!=0)
-            //    {
-            //        facturaGlobal = getEntity(facturaGlobal);
-
-            //        try
-            //        {
-            //            facturaGlobal = await FacturarElectronicamente(facturaGlobal);
-            //            DFacturaIns.Actualizar(facturaGlobal);
-            //        }
-            //        catch (Exception ex)
-            //        {
-
-            //            throw new FacturacionElectronicaException(ex);
-            //        }
-
-
-
-            //    }
-            //}
-           //return DFacturaIns.getById(facturaGlobal.id, facturaGlobal.tipoDocumento);
+           return DFacturaIns.Guardar(facturaGlobal);            
    
         }
 

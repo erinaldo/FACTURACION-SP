@@ -53,8 +53,9 @@ namespace PresentationLayer
 
         private void frmFacturacion1_Load(object sender, EventArgs e)
         {
-          
-                btnReImprimir.Enabled = (bool)Global.Usuario.tbEmpresa.imprimeDoc;
+            chkTiqueteElectronico.Enabled = false;
+            chkTiqueteElectronico.Checked = false;
+            btnReImprimir.Enabled = (bool)Global.Usuario.tbEmpresa.imprimeDoc;
 
                 formatoGrid();
             limpiarFactura();
@@ -624,6 +625,10 @@ namespace PresentationLayer
             listaDetalleDocumento.Clear();
             txtCodigo.Text = string.Empty;
             clienteGlo = null;
+
+            chkTiqueteElectronico.Enabled = false;
+            chkTiqueteElectronico.Checked = false;
+
             exoneracionClie = false;
             existeRespuesta = false;
 
@@ -728,6 +733,11 @@ namespace PresentationLayer
             if (cliente != null)
             {
                 clienteGlo = cliente;
+
+                chkTiqueteElectronico.Enabled = true;
+                chkTiqueteElectronico.Checked = false;
+
+
                 if (cliente.idExonercion != null)
                 {
                     DialogResult result = MessageBox.Show("El cliente seleccionado aplica para exoneración de impuesto, ¿Desea aplicar la exoneración de impuestos?", "Exoneración de Impuestos", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -772,6 +782,12 @@ namespace PresentationLayer
                 txtTel.Text = string.Empty;
                 txtCorreo.Text = string.Empty;
                 exoneracionClie = false;
+                chkTiqueteElectronico.Enabled = false;
+                chkTiqueteElectronico.Checked = false;
+
+                clienteGlo = null;
+                chkTiqueteElectronico.Enabled = true;
+                chkTiqueteElectronico.Checked = false;
 
                 calcularMontosT();
 
@@ -1060,10 +1076,14 @@ namespace PresentationLayer
                 //asigna el valor que tenga el cliente si es contribuyente o no
         
                 documento.tbClientes = clienteGlo;
+                if (chkTiqueteElectronico.Checked)
+                {
+                    documento.tipoDocumento = (int)Enums.TipoDocumento.TiqueteElectronico;
+                }
             }
             else
             {
-                documento.reporteElectronic = false;
+                documento.tipoDocumento = (int)Enums.TipoDocumento.TiqueteElectronico;
             }
 
             documento.estado = true;

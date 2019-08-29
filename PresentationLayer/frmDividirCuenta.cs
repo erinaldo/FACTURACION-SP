@@ -43,6 +43,8 @@ namespace PresentationLayer
         {
             try
             {
+                chkTiqueteElectronico.Enabled = false;
+                chkTiqueteElectronico.Checked = false;
                 chkServicioMesa.Checked = documentoTotal.tbDetalleDocumento.Where(x => x.idProducto == "SM").SingleOrDefault() != null;
                 cargarListaTotal();
             }
@@ -212,16 +214,8 @@ namespace PresentationLayer
                   
 
 
-
-
                     detalleDocumentoParcial.Remove(detalleDocumentoParcial.Where(x => x.idProducto == prod).SingleOrDefault());
-                    //detalleDocumentoParcial.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().montoTotal = detalleDocumentoParcial.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().cantidad * detalleDocumentoParcial.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().precio;
-
-                    //if (detalleDocumentoParcial.Where(x => x.idProducto == prod.Trim()).SingleOrDefault().cantidad == 0)
-                    //{
-                    //    detalleDocumentoParcial.Remove(detalleDocumentoParcial.Where(x => x.idProducto == prod.Trim()).SingleOrDefault());
-                    //}
-                    //detalleDocumentoParcial.Remove(detalle);
+                    
                     refrescarListas();
                 }
 
@@ -274,7 +268,6 @@ namespace PresentationLayer
               
             }
             return lista;
-
         }
 
 
@@ -307,8 +300,6 @@ namespace PresentationLayer
                     subtotal += detalle.montoTotal;
 
                 }
-
-
             }
 
             txtSubtotal.Text = subtotal.ToString("#.##");
@@ -725,7 +716,9 @@ namespace PresentationLayer
             respuestaAprobaDesc = false;
             porcDesc = 0;
 
-        
+            chkTiqueteElectronico.Enabled = false;
+            chkTiqueteElectronico.Checked = false;
+
         }
 
         private bool validarCampos()
@@ -808,10 +801,14 @@ namespace PresentationLayer
                 //asigna el valor que tenga el cliente si es contribuyente o no
 
                 documento.tbClientes = clienteGlo;
+                if (chkTiqueteElectronico.Checked)
+                {
+                    documento.tipoDocumento = (int)Enums.TipoDocumento.TiqueteElectronico;
+                }
             }
             else
             {
-                documento.reporteElectronic = false;
+                documento.tipoDocumento = (int)Enums.TipoDocumento.TiqueteElectronico;
 
             }
 
@@ -847,6 +844,8 @@ namespace PresentationLayer
             exoneracionClie = false;
             if (cliente != null)
             {
+                chkTiqueteElectronico.Enabled = true;
+                chkTiqueteElectronico.Checked = false;
                 clienteGlo = cliente;
                 if (cliente.idExonercion != null)
                 {
@@ -921,7 +920,6 @@ namespace PresentationLayer
                             txtTel.Text = string.Empty;
                             txtCorreo.Text = string.Empty;
                             txtCorreo2.Text = string.Empty;
-
                         }
                     }
                     catch (Exception)

@@ -546,11 +546,10 @@
             // btnAgregarProducto
             // 
             this.btnAgregarProducto.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregarProducto.Image")));
-            this.btnAgregarProducto.Location = new System.Drawing.Point(1058, 57);
+            this.btnAgregarProducto.Location = new System.Drawing.Point(1057, 74);
             this.btnAgregarProducto.Name = "btnAgregarProducto";
-            this.btnAgregarProducto.Size = new System.Drawing.Size(70, 60);
+            this.btnAgregarProducto.Size = new System.Drawing.Size(58, 55);
             this.btnAgregarProducto.TabIndex = 32;
-            this.btnAgregarProducto.Text = "Agregar";
             this.btnAgregarProducto.UseVisualStyleBackColor = true;
             this.btnAgregarProducto.Click += new System.EventHandler(this.btnAgregarProducto_Click);
             // 

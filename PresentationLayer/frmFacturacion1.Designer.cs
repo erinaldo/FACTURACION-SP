@@ -98,6 +98,7 @@
             this.txtCorreo2 = new System.Windows.Forms.TextBox();
             this.chkEnviar = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
+            this.chkTiqueteElectronico = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvDetalleFactura)).BeginInit();
             this.gbxMontos.SuspendLayout();
@@ -620,7 +621,7 @@
             this.txtTel.Margin = new System.Windows.Forms.Padding(4);
             this.txtTel.Name = "txtTel";
             this.txtTel.ReadOnly = true;
-            this.txtTel.Size = new System.Drawing.Size(238, 27);
+            this.txtTel.Size = new System.Drawing.Size(155, 27);
             this.txtTel.TabIndex = 46;
             // 
             // label4
@@ -890,11 +891,11 @@
             this.chkEnviar.Checked = true;
             this.chkEnviar.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkEnviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkEnviar.Location = new System.Drawing.Point(345, 39);
+            this.chkEnviar.Location = new System.Drawing.Point(262, 36);
             this.chkEnviar.Name = "chkEnviar";
-            this.chkEnviar.Size = new System.Drawing.Size(262, 28);
+            this.chkEnviar.Size = new System.Drawing.Size(190, 28);
             this.chkEnviar.TabIndex = 52;
-            this.chkEnviar.Text = "Notificar Correo Electrónico";
+            this.chkEnviar.Text = "Correo Electrónico";
             this.chkEnviar.UseVisualStyleBackColor = true;
             this.chkEnviar.CheckedChanged += new System.EventHandler(this.chkEnviar_CheckedChanged);
             // 
@@ -910,12 +911,24 @@
             this.label19.TabIndex = 53;
             this.label19.Text = "Correo 2:";
             // 
+            // chkTiqueteElectronico
+            // 
+            this.chkTiqueteElectronico.AutoSize = true;
+            this.chkTiqueteElectronico.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkTiqueteElectronico.Location = new System.Drawing.Point(458, 37);
+            this.chkTiqueteElectronico.Name = "chkTiqueteElectronico";
+            this.chkTiqueteElectronico.Size = new System.Drawing.Size(196, 28);
+            this.chkTiqueteElectronico.TabIndex = 77;
+            this.chkTiqueteElectronico.Text = "Tiquete Electrónico";
+            this.chkTiqueteElectronico.UseVisualStyleBackColor = true;
+            // 
             // frmFacturacion1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1397, 702);
+            this.Controls.Add(this.chkTiqueteElectronico);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.chkEnviar);
             this.Controls.Add(this.txtCorreo2);
@@ -1017,5 +1030,6 @@
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Button btnReImprimir;
+        private System.Windows.Forms.CheckBox chkTiqueteElectronico;
     }
 }

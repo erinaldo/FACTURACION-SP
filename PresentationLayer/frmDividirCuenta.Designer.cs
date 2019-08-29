@@ -76,6 +76,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.chkServicioMesa = new System.Windows.Forms.CheckBox();
+            this.chkTiqueteElectronico = new System.Windows.Forms.CheckBox();
             this.gbxMontos.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -434,11 +435,11 @@
             // 
             this.chkEnviar.AutoSize = true;
             this.chkEnviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkEnviar.Location = new System.Drawing.Point(355, 37);
+            this.chkEnviar.Location = new System.Drawing.Point(318, 34);
             this.chkEnviar.Name = "chkEnviar";
-            this.chkEnviar.Size = new System.Drawing.Size(262, 28);
+            this.chkEnviar.Size = new System.Drawing.Size(190, 28);
             this.chkEnviar.TabIndex = 80;
-            this.chkEnviar.Text = "Notificar Correo Electrónico";
+            this.chkEnviar.Text = "Correo Electrónico";
             this.chkEnviar.UseVisualStyleBackColor = true;
             // 
             // txtCorreo2
@@ -492,7 +493,7 @@
             this.txtTel.Margin = new System.Windows.Forms.Padding(4);
             this.txtTel.Name = "txtTel";
             this.txtTel.ReadOnly = true;
-            this.txtTel.Size = new System.Drawing.Size(238, 27);
+            this.txtTel.Size = new System.Drawing.Size(202, 27);
             this.txtTel.TabIndex = 75;
             // 
             // txtIdCliente
@@ -569,11 +570,23 @@
             this.chkServicioMesa.UseVisualStyleBackColor = true;
             this.chkServicioMesa.CheckedChanged += new System.EventHandler(this.chkServicioMesa_CheckedChanged);
             // 
+            // chkTiqueteElectronico
+            // 
+            this.chkTiqueteElectronico.AutoSize = true;
+            this.chkTiqueteElectronico.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkTiqueteElectronico.Location = new System.Drawing.Point(524, 34);
+            this.chkTiqueteElectronico.Name = "chkTiqueteElectronico";
+            this.chkTiqueteElectronico.Size = new System.Drawing.Size(196, 28);
+            this.chkTiqueteElectronico.TabIndex = 84;
+            this.chkTiqueteElectronico.Text = "Tiquete Electrónico";
+            this.chkTiqueteElectronico.UseVisualStyleBackColor = true;
+            // 
             // frmDividirCuenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1201, 655);
+            this.Controls.Add(this.chkTiqueteElectronico);
             this.Controls.Add(this.chkServicioMesa);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -649,5 +662,6 @@
         private System.Windows.Forms.TextBox txtSub;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox chkServicioMesa;
+        private System.Windows.Forms.CheckBox chkTiqueteElectronico;
     }
 }

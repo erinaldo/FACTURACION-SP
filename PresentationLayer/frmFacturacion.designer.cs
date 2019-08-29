@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFacturacion));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbxCategorias = new System.Windows.Forms.GroupBox();
             this.gbxProductos = new System.Windows.Forms.GroupBox();
             this.tabFacturacion = new System.Windows.Forms.TabControl();
@@ -109,8 +109,9 @@
             this.lblCliente = new System.Windows.Forms.Label();
             this.txtCliente = new System.Windows.Forms.TextBox();
             this.tabPendientes = new System.Windows.Forms.TabPage();
-            this.gbxPendientes = new System.Windows.Forms.GroupBox();
             this.btnEliminarPendientes = new System.Windows.Forms.Button();
+            this.gbxPendientes = new System.Windows.Forms.GroupBox();
+            this.chkTiqueteElectronico = new System.Windows.Forms.CheckBox();
             this.tabFacturacion.SuspendLayout();
             this.tabFact.SuspendLayout();
             this.gbxAcciones.SuspendLayout();
@@ -164,6 +165,7 @@
             // tabFact
             // 
             this.tabFact.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.tabFact.Controls.Add(this.chkTiqueteElectronico);
             this.tabFact.Controls.Add(this.gbxAcciones);
             this.tabFact.Controls.Add(this.tabControl1);
             this.tabFact.Controls.Add(this.label15);
@@ -504,14 +506,14 @@
             // 
             this.dtgvDetalleFactura.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dtgvDetalleFactura.BackgroundColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvDetalleFactura.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvDetalleFactura.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dtgvDetalleFactura.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvDetalleFactura.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colNom,
@@ -521,28 +523,28 @@
             this.colSubTot,
             this.colId,
             this.colEliminar});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dtgvDetalleFactura.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dtgvDetalleFactura.DefaultCellStyle = dataGridViewCellStyle2;
             this.dtgvDetalleFactura.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dtgvDetalleFactura.Location = new System.Drawing.Point(0, 55);
             this.dtgvDetalleFactura.Margin = new System.Windows.Forms.Padding(4);
             this.dtgvDetalleFactura.MultiSelect = false;
             this.dtgvDetalleFactura.Name = "dtgvDetalleFactura";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvDetalleFactura.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvDetalleFactura.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dtgvDetalleFactura.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dtgvDetalleFactura.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvDetalleFactura.Size = new System.Drawing.Size(840, 230);
@@ -984,9 +986,9 @@
             this.chkEnviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkEnviar.Location = new System.Drawing.Point(359, 44);
             this.chkEnviar.Name = "chkEnviar";
-            this.chkEnviar.Size = new System.Drawing.Size(262, 28);
+            this.chkEnviar.Size = new System.Drawing.Size(190, 28);
             this.chkEnviar.TabIndex = 67;
-            this.chkEnviar.Text = "Notificar Correo Electrónico";
+            this.chkEnviar.Text = "Correo Electrónico";
             this.chkEnviar.UseVisualStyleBackColor = true;
             // 
             // txtCorreo2
@@ -1101,6 +1103,18 @@
             this.tabPendientes.Text = "Pendientes";
             this.tabPendientes.UseVisualStyleBackColor = true;
             // 
+            // btnEliminarPendientes
+            // 
+            this.btnEliminarPendientes.BackColor = System.Drawing.Color.Red;
+            this.btnEliminarPendientes.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnEliminarPendientes.Location = new System.Drawing.Point(9, 7);
+            this.btnEliminarPendientes.Name = "btnEliminarPendientes";
+            this.btnEliminarPendientes.Size = new System.Drawing.Size(181, 41);
+            this.btnEliminarPendientes.TabIndex = 20;
+            this.btnEliminarPendientes.Text = "Eliminar Pendientes";
+            this.btnEliminarPendientes.UseVisualStyleBackColor = false;
+            this.btnEliminarPendientes.Click += new System.EventHandler(this.btnEliminarPendientes_Click);
+            // 
             // gbxPendientes
             // 
             this.gbxPendientes.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -1113,17 +1127,16 @@
             this.gbxPendientes.TabIndex = 19;
             this.gbxPendientes.TabStop = false;
             // 
-            // btnEliminarPendientes
+            // chkTiqueteElectronico
             // 
-            this.btnEliminarPendientes.BackColor = System.Drawing.Color.Red;
-            this.btnEliminarPendientes.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnEliminarPendientes.Location = new System.Drawing.Point(9, 7);
-            this.btnEliminarPendientes.Name = "btnEliminarPendientes";
-            this.btnEliminarPendientes.Size = new System.Drawing.Size(181, 41);
-            this.btnEliminarPendientes.TabIndex = 20;
-            this.btnEliminarPendientes.Text = "Eliminar Pendientes";
-            this.btnEliminarPendientes.UseVisualStyleBackColor = false;
-            this.btnEliminarPendientes.Click += new System.EventHandler(this.btnEliminarPendientes_Click);
+            this.chkTiqueteElectronico.AutoSize = true;
+            this.chkTiqueteElectronico.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkTiqueteElectronico.Location = new System.Drawing.Point(543, 44);
+            this.chkTiqueteElectronico.Name = "chkTiqueteElectronico";
+            this.chkTiqueteElectronico.Size = new System.Drawing.Size(196, 28);
+            this.chkTiqueteElectronico.TabIndex = 76;
+            this.chkTiqueteElectronico.Text = "Tiquete Electrónico";
+            this.chkTiqueteElectronico.UseVisualStyleBackColor = true;
             // 
             // frmFacturacion
             // 
@@ -1239,5 +1252,6 @@
         private System.Windows.Forms.TextBox txtSub;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button btnEliminarPendientes;
+        private System.Windows.Forms.CheckBox chkTiqueteElectronico;
     }
 }
