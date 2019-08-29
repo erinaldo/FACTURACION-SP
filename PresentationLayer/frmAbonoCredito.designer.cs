@@ -60,12 +60,16 @@
             this.txtTel = new System.Windows.Forms.TextBox();
             this.txtIdCliente = new System.Windows.Forms.TextBox();
             this.txtCliente = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtPendiente = new System.Windows.Forms.TextBox();
             this.gbxCredito.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbxCredito
             // 
+            this.gbxCredito.Controls.Add(this.label9);
+            this.gbxCredito.Controls.Add(this.txtPendiente);
             this.gbxCredito.Controls.Add(this.chkImprimir);
             this.gbxCredito.Controls.Add(this.label8);
             this.gbxCredito.Controls.Add(this.btnProcesar);
@@ -92,7 +96,7 @@
             this.chkImprimir.Checked = true;
             this.chkImprimir.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkImprimir.Location = new System.Drawing.Point(667, 480);
+            this.chkImprimir.Location = new System.Drawing.Point(642, 477);
             this.chkImprimir.Name = "chkImprimir";
             this.chkImprimir.Size = new System.Drawing.Size(217, 24);
             this.chkImprimir.TabIndex = 87;
@@ -113,7 +117,7 @@
             // 
             this.btnProcesar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProcesar.Image = ((System.Drawing.Image)(resources.GetObject("btnProcesar.Image")));
-            this.btnProcesar.Location = new System.Drawing.Point(891, 447);
+            this.btnProcesar.Location = new System.Drawing.Point(891, 440);
             this.btnProcesar.Margin = new System.Windows.Forms.Padding(4);
             this.btnProcesar.Name = "btnProcesar";
             this.btnProcesar.Size = new System.Drawing.Size(99, 80);
@@ -138,7 +142,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(525, 310);
+            this.label7.Location = new System.Drawing.Point(21, 315);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(162, 24);
             this.label7.TabIndex = 85;
@@ -147,7 +151,7 @@
             // txtFacturado
             // 
             this.txtFacturado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFacturado.Location = new System.Drawing.Point(702, 308);
+            this.txtFacturado.Location = new System.Drawing.Point(198, 313);
             this.txtFacturado.Margin = new System.Windows.Forms.Padding(4);
             this.txtFacturado.Name = "txtFacturado";
             this.txtFacturado.ReadOnly = true;
@@ -158,7 +162,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(609, 381);
+            this.label6.Location = new System.Drawing.Point(604, 351);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(78, 24);
             this.label6.TabIndex = 76;
@@ -167,17 +171,18 @@
             // txtAbono
             // 
             this.txtAbono.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAbono.Location = new System.Drawing.Point(702, 381);
+            this.txtAbono.Location = new System.Drawing.Point(697, 351);
             this.txtAbono.Margin = new System.Windows.Forms.Padding(4);
             this.txtAbono.Name = "txtAbono";
             this.txtAbono.Size = new System.Drawing.Size(288, 28);
             this.txtAbono.TabIndex = 75;
+            this.txtAbono.TextChanged += new System.EventHandler(this.txtAbono_TextChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(510, 345);
+            this.label4.Location = new System.Drawing.Point(505, 315);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(177, 24);
             this.label4.TabIndex = 74;
@@ -186,7 +191,7 @@
             // txtAdeudado
             // 
             this.txtAdeudado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAdeudado.Location = new System.Drawing.Point(702, 345);
+            this.txtAdeudado.Location = new System.Drawing.Point(697, 315);
             this.txtAdeudado.Margin = new System.Windows.Forms.Padding(4);
             this.txtAdeudado.Name = "txtAdeudado";
             this.txtAdeudado.ReadOnly = true;
@@ -381,6 +386,26 @@
             this.txtCliente.Size = new System.Drawing.Size(353, 22);
             this.txtCliente.TabIndex = 53;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(571, 391);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(111, 24);
+            this.label9.TabIndex = 89;
+            this.label9.Text = "Pendiente:";
+            // 
+            // txtPendiente
+            // 
+            this.txtPendiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPendiente.Location = new System.Drawing.Point(697, 387);
+            this.txtPendiente.Margin = new System.Windows.Forms.Padding(4);
+            this.txtPendiente.Name = "txtPendiente";
+            this.txtPendiente.ReadOnly = true;
+            this.txtPendiente.Size = new System.Drawing.Size(288, 28);
+            this.txtPendiente.TabIndex = 88;
+            // 
             // frmAbonoCredito
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -433,5 +458,7 @@
         private System.Windows.Forms.ColumnHeader colChk;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox chkImprimir;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtPendiente;
     }
 }

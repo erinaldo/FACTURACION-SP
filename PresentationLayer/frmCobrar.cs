@@ -350,21 +350,29 @@ namespace PresentationLayer
 
         private void txtPago_TextChanged(object sender, EventArgs e)
         {
-            
-         if (txtPago.Text != "")
-        {
-            if (decimal.Parse(txtPago.Text) != decimal.Parse("0"))
+            try
             {
-            //calcular vuelto
-            decimal MontoPago = decimal.Parse(txtPago.Text.Trim());
-            txtVuelto.Text = (MontoPago - decimal.Parse(txtMontoTotal.Text)).ToString();
-            }
-         }
+                if (txtPago.Text != "")
+                {
+                    if (decimal.Parse(txtPago.Text) != decimal.Parse("0"))
+                    {
+                        //calcular vuelto
+                        decimal MontoPago = decimal.Parse(txtPago.Text.Trim());
+                        txtVuelto.Text = (MontoPago - decimal.Parse(txtMontoTotal.Text)).ToString();
+                    }
+                }
 
-            else if (txtPago.Text == "")
-            {
-               btnNum0.Enabled = true;
+                else if (txtPago.Text == "")
+                {
+                    btnNum0.Enabled = true;
+                }
             }
+            catch (Exception)
+            {
+
+                txtPago.ResetText();
+            }
+    
         }
 
         private bool ValidarCampos()

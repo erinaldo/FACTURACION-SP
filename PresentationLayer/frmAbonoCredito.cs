@@ -372,6 +372,23 @@ namespace PresentationLayer
         {
             calcularAbono();
         }
+
+        private void txtAbono_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtAbono.Text==string.Empty)
+                {
+                    txtPendiente.Text = "0";
+                }
+                txtPendiente.Text = (decimal.Parse(txtAdeudado.Text) - decimal.Parse(txtAbono.Text)).ToString();
+            }
+            catch (Exception)
+            {
+
+                txtAbono.ResetText();
+            }
+        }
     }
 }
 
