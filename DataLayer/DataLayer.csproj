@@ -84,6 +84,7 @@
       <DependentUpon>dbSisSodInaModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="DCanton.cs" />
+    <Compile Include="DCompras.cs" />
     <Compile Include="DEmpresa.cs" />
     <Compile Include="DPendientes.cs" />
     <Compile Include="DProvincia.cs" />

@@ -24,6 +24,7 @@ namespace EntityLayer
     
         public string id { get; set; }
         public int tipoId { get; set; }
+        public string codigoActividad { get; set; }
         public string descripcion { get; set; }
         public string contactoProveedor { get; set; }
         public string fax { get; set; }

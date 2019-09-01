@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFacturacion));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbxCategorias = new System.Windows.Forms.GroupBox();
             this.gbxProductos = new System.Windows.Forms.GroupBox();
             this.tabFacturacion = new System.Windows.Forms.TabControl();
             this.tabFact = new System.Windows.Forms.TabPage();
+            this.chkTiqueteElectronico = new System.Windows.Forms.CheckBox();
             this.gbxAcciones = new System.Windows.Forms.GroupBox();
             this.label22 = new System.Windows.Forms.Label();
             this.btnReImprimir = new System.Windows.Forms.Button();
@@ -111,7 +112,8 @@
             this.tabPendientes = new System.Windows.Forms.TabPage();
             this.btnEliminarPendientes = new System.Windows.Forms.Button();
             this.gbxPendientes = new System.Windows.Forms.GroupBox();
-            this.chkTiqueteElectronico = new System.Windows.Forms.CheckBox();
+            this.btnAbonos = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
             this.tabFacturacion.SuspendLayout();
             this.tabFact.SuspendLayout();
             this.gbxAcciones.SuspendLayout();
@@ -153,7 +155,7 @@
             // 
             this.tabFacturacion.Controls.Add(this.tabFact);
             this.tabFacturacion.Controls.Add(this.tabPendientes);
-            this.tabFacturacion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabFacturacion.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabFacturacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabFacturacion.Location = new System.Drawing.Point(0, 0);
             this.tabFacturacion.Margin = new System.Windows.Forms.Padding(4);
@@ -193,25 +195,38 @@
             this.tabFact.Text = "Facturación";
             this.tabFact.Click += new System.EventHandler(this.tabFact_Click);
             // 
+            // chkTiqueteElectronico
+            // 
+            this.chkTiqueteElectronico.AutoSize = true;
+            this.chkTiqueteElectronico.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkTiqueteElectronico.Location = new System.Drawing.Point(515, 41);
+            this.chkTiqueteElectronico.Name = "chkTiqueteElectronico";
+            this.chkTiqueteElectronico.Size = new System.Drawing.Size(196, 28);
+            this.chkTiqueteElectronico.TabIndex = 76;
+            this.chkTiqueteElectronico.Text = "Tiquete Electrónico";
+            this.chkTiqueteElectronico.UseVisualStyleBackColor = true;
+            // 
             // gbxAcciones
             // 
+            this.gbxAcciones.Controls.Add(this.label18);
+            this.gbxAcciones.Controls.Add(this.btnAbonos);
             this.gbxAcciones.Controls.Add(this.label22);
             this.gbxAcciones.Controls.Add(this.btnReImprimir);
             this.gbxAcciones.Controls.Add(this.btnBuscarProforma);
             this.gbxAcciones.Controls.Add(this.btnValidacion);
             this.gbxAcciones.Controls.Add(this.label10);
             this.gbxAcciones.Controls.Add(this.btnProductos);
+            this.gbxAcciones.Controls.Add(this.label14);
             this.gbxAcciones.Controls.Add(this.btnClientes);
             this.gbxAcciones.Controls.Add(this.btnBuscarFactura);
             this.gbxAcciones.Controls.Add(this.btnLimpiarForm);
             this.gbxAcciones.Controls.Add(this.label21);
-            this.gbxAcciones.Controls.Add(this.label14);
             this.gbxAcciones.Controls.Add(this.label13);
             this.gbxAcciones.Controls.Add(this.label12);
             this.gbxAcciones.Controls.Add(this.label11);
-            this.gbxAcciones.Location = new System.Drawing.Point(802, -3);
+            this.gbxAcciones.Location = new System.Drawing.Point(776, -3);
             this.gbxAcciones.Name = "gbxAcciones";
-            this.gbxAcciones.Size = new System.Drawing.Size(469, 80);
+            this.gbxAcciones.Size = new System.Drawing.Size(505, 80);
             this.gbxAcciones.TabIndex = 65;
             this.gbxAcciones.TabStop = false;
             this.gbxAcciones.Text = "Acciones";
@@ -257,7 +272,7 @@
             // 
             this.btnValidacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnValidacion.Image = ((System.Drawing.Image)(resources.GetObject("btnValidacion.Image")));
-            this.btnValidacion.Location = new System.Drawing.Point(384, 24);
+            this.btnValidacion.Location = new System.Drawing.Point(438, 25);
             this.btnValidacion.Margin = new System.Windows.Forms.Padding(4);
             this.btnValidacion.Name = "btnValidacion";
             this.btnValidacion.Size = new System.Drawing.Size(57, 49);
@@ -342,7 +357,7 @@
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 4.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.ForeColor = System.Drawing.Color.Maroon;
-            this.label14.Location = new System.Drawing.Point(387, 13);
+            this.label14.Location = new System.Drawing.Point(439, 13);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(52, 12);
             this.label14.TabIndex = 53;
@@ -353,7 +368,7 @@
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 4.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.Maroon;
-            this.label13.Location = new System.Drawing.Point(263, 13);
+            this.label13.Location = new System.Drawing.Point(262, 13);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(56, 12);
             this.label13.TabIndex = 51;
@@ -364,7 +379,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 4.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.Maroon;
-            this.label12.Location = new System.Drawing.Point(327, 12);
+            this.label12.Location = new System.Drawing.Point(329, 13);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(47, 12);
             this.label12.TabIndex = 50;
@@ -506,14 +521,14 @@
             // 
             this.dtgvDetalleFactura.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dtgvDetalleFactura.BackgroundColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvDetalleFactura.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvDetalleFactura.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dtgvDetalleFactura.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvDetalleFactura.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colNom,
@@ -523,28 +538,28 @@
             this.colSubTot,
             this.colId,
             this.colEliminar});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dtgvDetalleFactura.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dtgvDetalleFactura.DefaultCellStyle = dataGridViewCellStyle5;
             this.dtgvDetalleFactura.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dtgvDetalleFactura.Location = new System.Drawing.Point(0, 55);
             this.dtgvDetalleFactura.Margin = new System.Windows.Forms.Padding(4);
             this.dtgvDetalleFactura.MultiSelect = false;
             this.dtgvDetalleFactura.Name = "dtgvDetalleFactura";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvDetalleFactura.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvDetalleFactura.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dtgvDetalleFactura.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dtgvDetalleFactura.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvDetalleFactura.Size = new System.Drawing.Size(840, 230);
@@ -984,7 +999,7 @@
             // 
             this.chkEnviar.AutoSize = true;
             this.chkEnviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkEnviar.Location = new System.Drawing.Point(359, 44);
+            this.chkEnviar.Location = new System.Drawing.Point(331, 41);
             this.chkEnviar.Name = "chkEnviar";
             this.chkEnviar.Size = new System.Drawing.Size(190, 28);
             this.chkEnviar.TabIndex = 67;
@@ -994,7 +1009,7 @@
             // txtCorreo2
             // 
             this.txtCorreo2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCorreo2.Location = new System.Drawing.Point(465, 72);
+            this.txtCorreo2.Location = new System.Drawing.Point(437, 72);
             this.txtCorreo2.Margin = new System.Windows.Forms.Padding(4);
             this.txtCorreo2.MaxLength = 50;
             this.txtCorreo2.Name = "txtCorreo2";
@@ -1020,7 +1035,7 @@
             this.txtCorreo.Margin = new System.Windows.Forms.Padding(4);
             this.txtCorreo.MaxLength = 50;
             this.txtCorreo.Name = "txtCorreo";
-            this.txtCorreo.Size = new System.Drawing.Size(350, 27);
+            this.txtCorreo.Size = new System.Drawing.Size(316, 27);
             this.txtCorreo.TabIndex = 63;
             // 
             // label4
@@ -1042,7 +1057,7 @@
             this.txtTel.Margin = new System.Windows.Forms.Padding(4);
             this.txtTel.Name = "txtTel";
             this.txtTel.ReadOnly = true;
-            this.txtTel.Size = new System.Drawing.Size(238, 27);
+            this.txtTel.Size = new System.Drawing.Size(207, 27);
             this.txtTel.TabIndex = 61;
             // 
             // txtIdCliente
@@ -1059,7 +1074,7 @@
             // btnBuscarCliente
             // 
             this.btnBuscarCliente.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarCliente.Image")));
-            this.btnBuscarCliente.Location = new System.Drawing.Point(747, 14);
+            this.btnBuscarCliente.Location = new System.Drawing.Point(718, 12);
             this.btnBuscarCliente.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscarCliente.Name = "btnBuscarCliente";
             this.btnBuscarCliente.Size = new System.Drawing.Size(51, 61);
@@ -1086,7 +1101,7 @@
             this.txtCliente.Margin = new System.Windows.Forms.Padding(4);
             this.txtCliente.Name = "txtCliente";
             this.txtCliente.ReadOnly = true;
-            this.txtCliente.Size = new System.Drawing.Size(463, 27);
+            this.txtCliente.Size = new System.Drawing.Size(435, 27);
             this.txtCliente.TabIndex = 55;
             // 
             // tabPendientes
@@ -1127,16 +1142,28 @@
             this.gbxPendientes.TabIndex = 19;
             this.gbxPendientes.TabStop = false;
             // 
-            // chkTiqueteElectronico
+            // btnAbonos
             // 
-            this.chkTiqueteElectronico.AutoSize = true;
-            this.chkTiqueteElectronico.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkTiqueteElectronico.Location = new System.Drawing.Point(543, 44);
-            this.chkTiqueteElectronico.Name = "chkTiqueteElectronico";
-            this.chkTiqueteElectronico.Size = new System.Drawing.Size(196, 28);
-            this.chkTiqueteElectronico.TabIndex = 76;
-            this.chkTiqueteElectronico.Text = "Tiquete Electrónico";
-            this.chkTiqueteElectronico.UseVisualStyleBackColor = true;
+            this.btnAbonos.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAbonos.Image = ((System.Drawing.Image)(resources.GetObject("btnAbonos.Image")));
+            this.btnAbonos.Location = new System.Drawing.Point(380, 25);
+            this.btnAbonos.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAbonos.Name = "btnAbonos";
+            this.btnAbonos.Size = new System.Drawing.Size(57, 49);
+            this.btnAbonos.TabIndex = 63;
+            this.btnAbonos.UseVisualStyleBackColor = true;
+            this.btnAbonos.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 4.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.Color.Maroon;
+            this.label18.Location = new System.Drawing.Point(385, 13);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(43, 12);
+            this.label18.TabIndex = 64;
+            this.label18.Text = "Abonos";
             // 
             // frmFacturacion
             // 
@@ -1253,5 +1280,7 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button btnEliminarPendientes;
         private System.Windows.Forms.CheckBox chkTiqueteElectronico;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button btnAbonos;
     }
 }

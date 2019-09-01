@@ -1225,7 +1225,7 @@ namespace PresentationLayer
 
         private void btnValidacion_Click(object sender, EventArgs e)
         {
-            frmValidacionDocumentosHacienda form = new frmValidacionDocumentosHacienda();
+            frmValidacionDocsHacienda form = new frmValidacionDocsHacienda();
             form.ShowDialog();
         }
 

@@ -61,13 +61,13 @@
             this.mnuReporteHacienda = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuInventario = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAbonos = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuCompras = new System.Windows.Forms.ToolStripMenuItem();
             this.consultasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuConsultarFacHac = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuValidacionHacienda = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDocumentosEmitidos = new System.Windows.Forms.ToolStripMenuItem();
             this.comprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuConsultaMensajes = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuValidarMensajes = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuDocumentosEmitidos = new System.Windows.Forms.ToolStripMenuItem();
             this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inventarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuInventarioGeneral = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,7 +80,6 @@
             this.notasCréditoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuNotasCreditoFechas = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAcercaDe = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnConsultaHac = new System.Windows.Forms.Button();
             this.btnDocEmitidos = new System.Windows.Forms.Button();
             this.btnValidacion = new System.Windows.Forms.Button();
             this.btnProductos = new System.Windows.Forms.Button();
@@ -89,8 +88,8 @@
             this.btnFacturacion = new System.Windows.Forms.Button();
             this.btnMensajesCompras = new System.Windows.Forms.Button();
             this.btnConsultaMensajeHacienda = new System.Windows.Forms.Button();
-            this.btnValidarCompras = new System.Windows.Forms.Button();
             this.btnCompras = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -324,7 +323,8 @@
             this.mnuFacturacion,
             this.mnuReporteHacienda,
             this.mnuInventario,
-            this.mnuAbonos});
+            this.mnuAbonos,
+            this.mnuCompras});
             this.procesosToolStripMenuItem.Name = "procesosToolStripMenuItem";
             this.procesosToolStripMenuItem.Size = new System.Drawing.Size(79, 24);
             this.procesosToolStripMenuItem.Text = "Procesos";
@@ -333,7 +333,7 @@
             // 
             this.mnuFacturacion.Name = "mnuFacturacion";
             this.mnuFacturacion.ShortcutKeys = System.Windows.Forms.Keys.F6;
-            this.mnuFacturacion.Size = new System.Drawing.Size(229, 26);
+            this.mnuFacturacion.Size = new System.Drawing.Size(273, 26);
             this.mnuFacturacion.Text = "Facturacion";
             this.mnuFacturacion.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
@@ -341,49 +341,56 @@
             // 
             this.mnuReporteHacienda.Name = "mnuReporteHacienda";
             this.mnuReporteHacienda.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.mnuReporteHacienda.Size = new System.Drawing.Size(229, 26);
+            this.mnuReporteHacienda.Size = new System.Drawing.Size(273, 26);
             this.mnuReporteHacienda.Text = "Reportar Compras";
             this.mnuReporteHacienda.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuInventario
             // 
             this.mnuInventario.Name = "mnuInventario";
-            this.mnuInventario.Size = new System.Drawing.Size(229, 26);
+            this.mnuInventario.Size = new System.Drawing.Size(273, 26);
             this.mnuInventario.Text = "Inventario";
             this.mnuInventario.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuAbonos
             // 
             this.mnuAbonos.Name = "mnuAbonos";
-            this.mnuAbonos.Size = new System.Drawing.Size(229, 26);
-            this.mnuAbonos.Text = "Abonos";
+            this.mnuAbonos.Size = new System.Drawing.Size(273, 26);
+            this.mnuAbonos.Text = "Cuentas por Cobrar(Abonos)";
             this.mnuAbonos.Click += new System.EventHandler(this.OpcionMenu_Click);
+            // 
+            // mnuCompras
+            // 
+            this.mnuCompras.Name = "mnuCompras";
+            this.mnuCompras.Size = new System.Drawing.Size(273, 26);
+            this.mnuCompras.Text = "Cuentas por Pagar(Compras)";
+            this.mnuCompras.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // consultasToolStripMenuItem
             // 
             this.consultasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuConsultarFacHac,
             this.mnuValidacionHacienda,
-            this.comprasToolStripMenuItem,
-            this.mnuDocumentosEmitidos});
+            this.mnuDocumentosEmitidos,
+            this.comprasToolStripMenuItem});
             this.consultasToolStripMenuItem.Name = "consultasToolStripMenuItem";
             this.consultasToolStripMenuItem.Size = new System.Drawing.Size(84, 24);
             this.consultasToolStripMenuItem.Text = "Consultas";
-            // 
-            // mnuConsultarFacHac
-            // 
-            this.mnuConsultarFacHac.Name = "mnuConsultarFacHac";
-            this.mnuConsultarFacHac.Size = new System.Drawing.Size(369, 26);
-            this.mnuConsultarFacHac.Text = "Documentos en Hacienda";
-            this.mnuConsultarFacHac.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuValidacionHacienda
             // 
             this.mnuValidacionHacienda.Name = "mnuValidacionHacienda";
             this.mnuValidacionHacienda.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.mnuValidacionHacienda.Size = new System.Drawing.Size(369, 26);
-            this.mnuValidacionHacienda.Text = "Validar documentos emitidos Hacienda";
+            this.mnuValidacionHacienda.Size = new System.Drawing.Size(283, 26);
+            this.mnuValidacionHacienda.Text = "Validar emitidos Hacienda";
             this.mnuValidacionHacienda.Click += new System.EventHandler(this.OpcionMenu_Click);
+            // 
+            // mnuDocumentosEmitidos
+            // 
+            this.mnuDocumentosEmitidos.Name = "mnuDocumentosEmitidos";
+            this.mnuDocumentosEmitidos.ShortcutKeys = System.Windows.Forms.Keys.F3;
+            this.mnuDocumentosEmitidos.Size = new System.Drawing.Size(283, 26);
+            this.mnuDocumentosEmitidos.Text = "Documentos Emitidos";
+            this.mnuDocumentosEmitidos.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // comprasToolStripMenuItem
             // 
@@ -391,32 +398,24 @@
             this.mnuConsultaMensajes,
             this.mnuValidarMensajes});
             this.comprasToolStripMenuItem.Name = "comprasToolStripMenuItem";
-            this.comprasToolStripMenuItem.Size = new System.Drawing.Size(369, 26);
-            this.comprasToolStripMenuItem.Text = "Compras";
-            this.comprasToolStripMenuItem.Click += new System.EventHandler(this.comprasToolStripMenuItem_Click);
+            this.comprasToolStripMenuItem.Size = new System.Drawing.Size(283, 26);
+            this.comprasToolStripMenuItem.Text = "Cuentas por Pagar(Compras)";
+            this.comprasToolStripMenuItem.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuConsultaMensajes
             // 
             this.mnuConsultaMensajes.Name = "mnuConsultaMensajes";
-            this.mnuConsultaMensajes.Size = new System.Drawing.Size(368, 26);
-            this.mnuConsultaMensajes.Text = "Mensajes compras Hacienda";
+            this.mnuConsultaMensajes.Size = new System.Drawing.Size(284, 26);
+            this.mnuConsultaMensajes.Text = "Enviar Compras Hacienda";
             this.mnuConsultaMensajes.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuValidarMensajes
             // 
             this.mnuValidarMensajes.Name = "mnuValidarMensajes";
             this.mnuValidarMensajes.ShortcutKeys = System.Windows.Forms.Keys.F9;
-            this.mnuValidarMensajes.Size = new System.Drawing.Size(368, 26);
-            this.mnuValidarMensajes.Text = "Validar Mensajes de compras Hacienda";
+            this.mnuValidarMensajes.Size = new System.Drawing.Size(284, 26);
+            this.mnuValidarMensajes.Text = "Validar Compras Hacienda";
             this.mnuValidarMensajes.Click += new System.EventHandler(this.OpcionMenu_Click);
-            // 
-            // mnuDocumentosEmitidos
-            // 
-            this.mnuDocumentosEmitidos.Name = "mnuDocumentosEmitidos";
-            this.mnuDocumentosEmitidos.ShortcutKeys = System.Windows.Forms.Keys.F3;
-            this.mnuDocumentosEmitidos.Size = new System.Drawing.Size(369, 26);
-            this.mnuDocumentosEmitidos.Text = "Documentos Emitidos";
-            this.mnuDocumentosEmitidos.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // reportesToolStripMenuItem
             // 
@@ -512,26 +511,6 @@
             this.mnuAcercaDe.Text = "Acerca de";
             this.mnuAcercaDe.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
-            // btnConsultaHac
-            // 
-            this.btnConsultaHac.BackColor = System.Drawing.Color.LightSeaGreen;
-            this.btnConsultaHac.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.btnConsultaHac.FlatAppearance.BorderSize = 3;
-            this.btnConsultaHac.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnConsultaHac.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnConsultaHac.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConsultaHac.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnConsultaHac.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaHac.Image")));
-            this.btnConsultaHac.Location = new System.Drawing.Point(555, 319);
-            this.btnConsultaHac.Margin = new System.Windows.Forms.Padding(2);
-            this.btnConsultaHac.Name = "btnConsultaHac";
-            this.btnConsultaHac.Size = new System.Drawing.Size(256, 256);
-            this.btnConsultaHac.TabIndex = 9;
-            this.btnConsultaHac.Text = "Consultar emitidos Hacienda";
-            this.btnConsultaHac.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnConsultaHac.UseVisualStyleBackColor = false;
-            this.btnConsultaHac.Click += new System.EventHandler(this.btnConsultaHac_Click);
-            // 
             // btnDocEmitidos
             // 
             this.btnDocEmitidos.BackColor = System.Drawing.Color.PaleVioletRed;
@@ -542,7 +521,7 @@
             this.btnDocEmitidos.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDocEmitidos.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnDocEmitidos.Image = ((System.Drawing.Image)(resources.GetObject("btnDocEmitidos.Image")));
-            this.btnDocEmitidos.Location = new System.Drawing.Point(819, 58);
+            this.btnDocEmitidos.Location = new System.Drawing.Point(569, 55);
             this.btnDocEmitidos.Margin = new System.Windows.Forms.Padding(2);
             this.btnDocEmitidos.Name = "btnDocEmitidos";
             this.btnDocEmitidos.Size = new System.Drawing.Size(256, 256);
@@ -562,7 +541,7 @@
             this.btnValidacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnValidacion.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnValidacion.Image = ((System.Drawing.Image)(resources.GetObject("btnValidacion.Image")));
-            this.btnValidacion.Location = new System.Drawing.Point(556, 58);
+            this.btnValidacion.Location = new System.Drawing.Point(829, 55);
             this.btnValidacion.Margin = new System.Windows.Forms.Padding(2);
             this.btnValidacion.Name = "btnValidacion";
             this.btnValidacion.Size = new System.Drawing.Size(256, 256);
@@ -689,56 +668,56 @@
             this.btnConsultaMensajeHacienda.UseVisualStyleBackColor = false;
             this.btnConsultaMensajeHacienda.Click += new System.EventHandler(this.btnConsultaMensajeHacienda_Click);
             // 
-            // btnValidarCompras
-            // 
-            this.btnValidarCompras.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnValidarCompras.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.btnValidarCompras.FlatAppearance.BorderSize = 3;
-            this.btnValidarCompras.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnValidarCompras.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnValidarCompras.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnValidarCompras.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnValidarCompras.Image = ((System.Drawing.Image)(resources.GetObject("btnValidarCompras.Image")));
-            this.btnValidarCompras.Location = new System.Drawing.Point(1238, 58);
-            this.btnValidarCompras.Margin = new System.Windows.Forms.Padding(2);
-            this.btnValidarCompras.Name = "btnValidarCompras";
-            this.btnValidarCompras.Size = new System.Drawing.Size(126, 126);
-            this.btnValidarCompras.TabIndex = 15;
-            this.btnValidarCompras.Text = "Validar compras Hacienda";
-            this.btnValidarCompras.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnValidarCompras.UseVisualStyleBackColor = false;
-            this.btnValidarCompras.Click += new System.EventHandler(this.btnValidarCompras_Click);
-            // 
             // btnCompras
             // 
-            this.btnCompras.BackColor = System.Drawing.Color.Thistle;
+            this.btnCompras.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.btnCompras.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.btnCompras.FlatAppearance.BorderSize = 3;
             this.btnCompras.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btnCompras.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCompras.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCompras.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnCompras.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnCompras.Image = ((System.Drawing.Image)(resources.GetObject("btnCompras.Image")));
-            this.btnCompras.Location = new System.Drawing.Point(1045, 409);
+            this.btnCompras.Location = new System.Drawing.Point(829, 315);
             this.btnCompras.Margin = new System.Windows.Forms.Padding(2);
             this.btnCompras.Name = "btnCompras";
             this.btnCompras.Size = new System.Drawing.Size(256, 256);
             this.btnCompras.TabIndex = 17;
-            this.btnCompras.Text = "Registrar Compras";
+            this.btnCompras.Text = "Registrar Cuentas por Pagar(Compra)";
             this.btnCompras.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnCompras.UseVisualStyleBackColor = false;
             this.btnCompras.Click += new System.EventHandler(this.btnCompras_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Blue;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.button1.FlatAppearance.BorderSize = 3;
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.Location = new System.Drawing.Point(569, 315);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(256, 256);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "Registrar Cuentas por Cobrar(Abonos)";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1611, 836);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnCompras);
-            this.Controls.Add(this.btnValidarCompras);
             this.Controls.Add(this.btnConsultaMensajeHacienda);
             this.Controls.Add(this.btnMensajesCompras);
-            this.Controls.Add(this.btnConsultaHac);
             this.Controls.Add(this.btnDocEmitidos);
             this.Controls.Add(this.btnValidacion);
             this.Controls.Add(this.btnProductos);
@@ -746,11 +725,12 @@
             this.Controls.Add(this.btnClientes);
             this.Controls.Add(this.btnFacturacion);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmPrincipal";
-            this.Text = "ESPARTANO SOLUTIONS: SISTEMA DE FACTURACIÓN ELECTRÓNICA";
+            this.Text = "ESPARTANO SOLUTIONS S.A: SISTEMA DE FACTURACIÓN ELECTRÓNICA";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmPrincipal_FormClosing);
             this.Load += new System.EventHandler(this.frmPrincipal_Load);
@@ -790,7 +770,6 @@
         private System.Windows.Forms.ToolStripMenuItem mnuEmpleados;
         private System.Windows.Forms.ToolStripMenuItem mnuInventario;
         private System.Windows.Forms.ToolStripMenuItem consultasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mnuConsultarFacHac;
         private System.Windows.Forms.ToolStripMenuItem mnuValidacionHacienda;
         private System.Windows.Forms.ToolStripMenuItem mnuParametrosSistema;
         private System.Windows.Forms.ToolStripMenuItem mnuDocumentosEmitidos;
@@ -800,7 +779,6 @@
         private System.Windows.Forms.Button btnProductos;
         private System.Windows.Forms.Button btnValidacion;
         private System.Windows.Forms.Button btnDocEmitidos;
-        private System.Windows.Forms.Button btnConsultaHac;
         private System.Windows.Forms.ToolStripMenuItem mnuAcercaDe;
         private System.Windows.Forms.ToolStripMenuItem mnuReporteHacienda;
         private System.Windows.Forms.ToolStripMenuItem comprasToolStripMenuItem;
@@ -808,7 +786,6 @@
         private System.Windows.Forms.ToolStripMenuItem mnuValidarMensajes;
         private System.Windows.Forms.Button btnMensajesCompras;
         private System.Windows.Forms.Button btnConsultaMensajeHacienda;
-        private System.Windows.Forms.Button btnValidarCompras;
         private System.Windows.Forms.ToolStripMenuItem mnuAbonos;
         private System.Windows.Forms.ToolStripMenuItem inventarioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuInventarioGeneral;
@@ -825,5 +802,7 @@
         private System.Windows.Forms.ToolStripMenuItem notasCréditoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuNotasCreditoFechas;
         private System.Windows.Forms.Button btnCompras;
+        private System.Windows.Forms.ToolStripMenuItem mnuCompras;
+        private System.Windows.Forms.Button button1;
     }
 }

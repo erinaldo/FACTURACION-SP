@@ -537,11 +537,11 @@
     <Compile Include="frmValidacionDocumentosHacienda.Designer.cs">
       <DependentUpon>frmValidacionDocumentosHacienda.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmValidacionMensajesComprasHacienda.cs">
+    <Compile Include="frmValidacionDocsHacienda.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmValidacionMensajesComprasHacienda.Designer.cs">
-      <DependentUpon>frmValidacionMensajesComprasHacienda.cs</DependentUpon>
+    <Compile Include="frmValidacionDocsHacienda.Designer.cs">
+      <DependentUpon>frmValidacionDocsHacienda.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProgressBar.cs">
@@ -861,8 +861,8 @@
     <EmbeddedResource Include="frmValidacionDocumentosHacienda.resx">
       <DependentUpon>frmValidacionDocumentosHacienda.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmValidacionMensajesComprasHacienda.resx">
-      <DependentUpon>frmValidacionMensajesComprasHacienda.cs</DependentUpon>
+    <EmbeddedResource Include="frmValidacionDocsHacienda.resx">
+      <DependentUpon>frmValidacionDocsHacienda.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProgressBar.resx">
       <DependentUpon>ProgressBar.cs</DependentUpon>

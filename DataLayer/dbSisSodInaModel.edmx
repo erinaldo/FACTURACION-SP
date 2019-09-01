@@ -154,10 +154,11 @@
         </EntityType>
         <EntityType Name="tbCompras">
           <Key>
-            <PropertyRef Name="numFactura" />
-            <PropertyRef Name="idProveedor" />
-            <PropertyRef Name="tipoIdProveedor" />
+            <PropertyRef Name="id" />
+            <PropertyRef Name="tipoDoc" />
           </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="tipoDoc" Type="int" Nullable="false" />
           <Property Name="numFactura" Type="int" Nullable="false" />
           <Property Name="idProveedor" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="tipoIdProveedor" Type="int" Nullable="false" />
@@ -165,7 +166,7 @@
           <Property Name="consecutivo" Type="char" MaxLength="20" />
           <Property Name="clave" Type="nchar" MaxLength="50" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
-          <Property Name="fechaCompra" Type="datetime" Nullable="false" />
+          <Property Name="fechaCompra" Type="date" Nullable="false" />
           <Property Name="fechaReporte" Type="datetime" Nullable="false" />
           <Property Name="estadoCompra" Type="int" Nullable="false" />
           <Property Name="tipoCompra" Type="int" Nullable="false" />
@@ -178,6 +179,20 @@
           <Property Name="usuario_crea" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="usuario_ult_mod" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="estado" Type="bit" Nullable="false" />
+          <Property Name="EstadoFacturaHacienda" Type="nchar" MaxLength="50" />
+          <Property Name="reporteAceptaHacienda" Type="bit" Nullable="false" />
+          <Property Name="mensajeReporteHacienda" Type="nchar" MaxLength="50" />
+          <Property Name="mensajeRespHacienda" Type="bit" Nullable="false" />
+          <Property Name="idEmpresa" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="tipoIdEmpresa" Type="int" Nullable="false" />
+          <Property Name="xmlSinFirma" Type="nvarchar(max)" />
+          <Property Name="xmlFirmado" Type="nvarchar(max)" />
+          <Property Name="xmlRespuesta" Type="nvarchar(max)" />
+          <Property Name="notificarCorreo" Type="bit" Nullable="false" />
+          <Property Name="correo1" Type="nchar" MaxLength="50" />
+          <Property Name="tipoMoneda" Type="int" />
+          <Property Name="tipoCambio" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="reportaInventario" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tbCreditos">
           <Key>
@@ -199,14 +214,12 @@
         <EntityType Name="tbDetalleCompras">
           <Key>
             <PropertyRef Name="idDetalle" />
-            <PropertyRef Name="numFactura" />
-            <PropertyRef Name="idProveedor" />
-            <PropertyRef Name="tipoIdProveedor" />
+            <PropertyRef Name="idCompra" />
+            <PropertyRef Name="TipoCompra" />
           </Key>
           <Property Name="idDetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="numFactura" Type="int" Nullable="false" />
-          <Property Name="idProveedor" Type="nchar" MaxLength="30" Nullable="false" />
-          <Property Name="tipoIdProveedor" Type="int" Nullable="false" />
+          <Property Name="idCompra" Type="int" Nullable="false" />
+          <Property Name="TipoCompra" Type="int" Nullable="false" />
           <Property Name="idProducto" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="nombreProducto" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="idMedida" Type="int" Nullable="false" />
@@ -621,6 +634,7 @@
           </Key>
           <Property Name="id" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="tipoId" Type="int" Nullable="false" />
+          <Property Name="codigoActividad" Type="nchar" MaxLength="6" />
           <Property Name="descripcion" Type="nchar" MaxLength="500" />
           <Property Name="contactoProveedor" Type="nchar" MaxLength="150" Nullable="false" />
           <Property Name="fax" Type="nchar" MaxLength="10" />
@@ -1040,18 +1054,16 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <End Role="tbDetalleCompras" Type="Self.tbDetalleCompras" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbCompras">
-              <PropertyRef Name="numFactura" />
-              <PropertyRef Name="idProveedor" />
-              <PropertyRef Name="tipoIdProveedor" />
+              <PropertyRef Name="id" />
+              <PropertyRef Name="tipoDoc" />
             </Principal>
             <Dependent Role="tbDetalleCompras">
-              <PropertyRef Name="numFactura" />
-              <PropertyRef Name="idProveedor" />
-              <PropertyRef Name="tipoIdProveedor" />
+              <PropertyRef Name="idCompra" />
+              <PropertyRef Name="TipoCompra" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbDetalleCompras_tbTipoMedidas">
+        <Association Name="FK_tbDetalleCompras_tbTipoMedidas1">
           <End Role="tbTipoMedidas" Type="Self.tbTipoMedidas" Multiplicity="1" />
           <End Role="tbDetalleCompras" Type="Self.tbDetalleCompras" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1722,7 +1734,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
             <End Role="tbCompras" EntitySet="tbCompras" />
             <End Role="tbDetalleCompras" EntitySet="tbDetalleCompras" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbDetalleCompras_tbTipoMedidas" Association="Self.FK_tbDetalleCompras_tbTipoMedidas">
+          <AssociationSet Name="FK_tbDetalleCompras_tbTipoMedidas1" Association="Self.FK_tbDetalleCompras_tbTipoMedidas1">
             <End Role="tbTipoMedidas" EntitySet="tbTipoMedidas" />
             <End Role="tbDetalleCompras" EntitySet="tbDetalleCompras" />
           </AssociationSet>
@@ -2038,7 +2050,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
             <End Role="tbMovimientos" EntitySet="tbMovimientos" />
             <End Role="tbCreditos" EntitySet="tbCreditos" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbDetalleCompras_tbTipoMedidas" Association="dbSisSodInaModel.FK_tbDetalleCompras_tbTipoMedidas">
+          <AssociationSet Name="FK_tbDetalleCompras_tbTipoMedidas1" Association="dbSisSodInaModel.FK_tbDetalleCompras_tbTipoMedidas1">
             <End Role="tbTipoMedidas" EntitySet="tbTipoMedidas" />
             <End Role="tbDetalleCompras" EntitySet="tbDetalleCompras" />
           </AssociationSet>
@@ -2353,10 +2365,11 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
         </EntityType>
         <EntityType Name="tbCompras">
           <Key>
-            <PropertyRef Name="numFactura" />
-            <PropertyRef Name="idProveedor" />
-            <PropertyRef Name="tipoIdProveedor" />
+            <PropertyRef Name="id" />
+            <PropertyRef Name="tipoDoc" />
           </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="tipoDoc" Type="Int32" Nullable="false" />
           <Property Name="numFactura" Type="Int32" Nullable="false" />
           <Property Name="idProveedor" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="tipoIdProveedor" Type="Int32" Nullable="false" />
@@ -2364,7 +2377,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="consecutivo" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
           <Property Name="clave" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="fechaCompra" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fechaCompra" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="fechaReporte" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="estadoCompra" Type="Int32" Nullable="false" />
           <Property Name="tipoCompra" Type="Int32" Nullable="false" />
@@ -2377,6 +2390,20 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="usuario_crea" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="usuario_ult_mod" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
+          <Property Name="EstadoFacturaHacienda" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="reporteAceptaHacienda" Type="Boolean" Nullable="false" />
+          <Property Name="mensajeReporteHacienda" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="mensajeRespHacienda" Type="Boolean" Nullable="false" />
+          <Property Name="idEmpresa" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="tipoIdEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="xmlSinFirma" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="xmlFirmado" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="xmlRespuesta" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="notificarCorreo" Type="Boolean" Nullable="false" />
+          <Property Name="correo1" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="tipoMoneda" Type="Int32" />
+          <Property Name="tipoCambio" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="reportaInventario" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="tbProveedores" Relationship="dbSisSodInaModel.FK_tbCompras_tbProveedores" FromRole="tbCompras" ToRole="tbProveedores" />
           <NavigationProperty Name="tbReporteHacienda" Relationship="dbSisSodInaModel.FK_tbCompras_tbReporteHacienda" FromRole="tbCompras" ToRole="tbReporteHacienda" />
           <NavigationProperty Name="tbTipoPago" Relationship="dbSisSodInaModel.FK_tbCompras_tbTipoPago" FromRole="tbCompras" ToRole="tbTipoPago" />
@@ -2404,14 +2431,12 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
         <EntityType Name="tbDetalleCompras">
           <Key>
             <PropertyRef Name="idDetalle" />
-            <PropertyRef Name="numFactura" />
-            <PropertyRef Name="idProveedor" />
-            <PropertyRef Name="tipoIdProveedor" />
+            <PropertyRef Name="idCompra" />
+            <PropertyRef Name="TipoCompra" />
           </Key>
           <Property Name="idDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="numFactura" Type="Int32" Nullable="false" />
-          <Property Name="idProveedor" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="tipoIdProveedor" Type="Int32" Nullable="false" />
+          <Property Name="idCompra" Type="Int32" Nullable="false" />
+          <Property Name="TipoCompra" Type="Int32" Nullable="false" />
           <Property Name="idProducto" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="nombreProducto" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="idMedida" Type="Int32" Nullable="false" />
@@ -2423,7 +2448,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="montoTotalExo" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="montoTotalLinea" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <NavigationProperty Name="tbCompras" Relationship="dbSisSodInaModel.FK_tbDetalleCompras_tbCompras" FromRole="tbDetalleCompras" ToRole="tbCompras" />
-          <NavigationProperty Name="tbTipoMedidas" Relationship="dbSisSodInaModel.FK_tbDetalleCompras_tbTipoMedidas" FromRole="tbDetalleCompras" ToRole="tbTipoMedidas" />
+          <NavigationProperty Name="tbTipoMedidas" Relationship="dbSisSodInaModel.FK_tbDetalleCompras_tbTipoMedidas1" FromRole="tbDetalleCompras" ToRole="tbTipoMedidas" />
         </EntityType>
         <EntityType Name="tbDetalleDocumento">
           <Key>
@@ -2871,6 +2896,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           </Key>
           <Property Name="id" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="tipoId" Type="Int32" Nullable="false" />
+          <Property Name="codigoActividad" Type="String" MaxLength="6" FixedLength="true" Unicode="true" />
           <Property Name="descripcion" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
           <Property Name="contactoProveedor" Type="String" Nullable="false" MaxLength="150" FixedLength="true" Unicode="true" />
           <Property Name="fax" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
@@ -3030,7 +3056,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="fecha_ult_mod" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="usuario_crea" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="usuario_ult_mod" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="tbDetalleCompras" Relationship="dbSisSodInaModel.FK_tbDetalleCompras_tbTipoMedidas" FromRole="tbTipoMedidas" ToRole="tbDetalleCompras" />
+          <NavigationProperty Name="tbDetalleCompras" Relationship="dbSisSodInaModel.FK_tbDetalleCompras_tbTipoMedidas1" FromRole="tbTipoMedidas" ToRole="tbDetalleCompras" />
           <NavigationProperty Name="tbProducto" Relationship="dbSisSodInaModel.FK_tbProducto_tbTipoMedidas" FromRole="tbTipoMedidas" ToRole="tbProducto" />
         </EntityType>
         <EntityType Name="tbTipoMoneda">
@@ -3372,14 +3398,12 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <End Type="dbSisSodInaModel.tbDetalleCompras" Role="tbDetalleCompras" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbCompras">
-              <PropertyRef Name="numFactura" />
-              <PropertyRef Name="idProveedor" />
-              <PropertyRef Name="tipoIdProveedor" />
+              <PropertyRef Name="id" />
+              <PropertyRef Name="tipoDoc" />
             </Principal>
             <Dependent Role="tbDetalleCompras">
-              <PropertyRef Name="numFactura" />
-              <PropertyRef Name="idProveedor" />
-              <PropertyRef Name="tipoIdProveedor" />
+              <PropertyRef Name="idCompra" />
+              <PropertyRef Name="TipoCompra" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3395,7 +3419,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbDetalleCompras_tbTipoMedidas">
+        <Association Name="FK_tbDetalleCompras_tbTipoMedidas1">
           <End Type="dbSisSodInaModel.tbTipoMedidas" Role="tbTipoMedidas" Multiplicity="1" />
           <End Type="dbSisSodInaModel.tbDetalleCompras" Role="tbDetalleCompras" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3996,6 +4020,20 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <EntitySetMapping Name="tbCompras">
             <EntityTypeMapping TypeName="dbSisSodInaModel.tbCompras">
               <MappingFragment StoreEntitySet="tbCompras">
+                <ScalarProperty Name="reportaInventario" ColumnName="reportaInventario" />
+                <ScalarProperty Name="tipoCambio" ColumnName="tipoCambio" />
+                <ScalarProperty Name="tipoMoneda" ColumnName="tipoMoneda" />
+                <ScalarProperty Name="correo1" ColumnName="correo1" />
+                <ScalarProperty Name="notificarCorreo" ColumnName="notificarCorreo" />
+                <ScalarProperty Name="xmlRespuesta" ColumnName="xmlRespuesta" />
+                <ScalarProperty Name="xmlFirmado" ColumnName="xmlFirmado" />
+                <ScalarProperty Name="xmlSinFirma" ColumnName="xmlSinFirma" />
+                <ScalarProperty Name="tipoIdEmpresa" ColumnName="tipoIdEmpresa" />
+                <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />
+                <ScalarProperty Name="mensajeRespHacienda" ColumnName="mensajeRespHacienda" />
+                <ScalarProperty Name="mensajeReporteHacienda" ColumnName="mensajeReporteHacienda" />
+                <ScalarProperty Name="reporteAceptaHacienda" ColumnName="reporteAceptaHacienda" />
+                <ScalarProperty Name="EstadoFacturaHacienda" ColumnName="EstadoFacturaHacienda" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="usuario_ult_mod" ColumnName="usuario_ult_mod" />
                 <ScalarProperty Name="usuario_crea" ColumnName="usuario_crea" />
@@ -4016,6 +4054,8 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
                 <ScalarProperty Name="tipoIdProveedor" ColumnName="tipoIdProveedor" />
                 <ScalarProperty Name="idProveedor" ColumnName="idProveedor" />
                 <ScalarProperty Name="numFactura" ColumnName="numFactura" />
+                <ScalarProperty Name="tipoDoc" ColumnName="tipoDoc" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4050,9 +4090,8 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
                 <ScalarProperty Name="idMedida" ColumnName="idMedida" />
                 <ScalarProperty Name="nombreProducto" ColumnName="nombreProducto" />
                 <ScalarProperty Name="idProducto" ColumnName="idProducto" />
-                <ScalarProperty Name="tipoIdProveedor" ColumnName="tipoIdProveedor" />
-                <ScalarProperty Name="idProveedor" ColumnName="idProveedor" />
-                <ScalarProperty Name="numFactura" ColumnName="numFactura" />
+                <ScalarProperty Name="TipoCompra" ColumnName="TipoCompra" />
+                <ScalarProperty Name="idCompra" ColumnName="idCompra" />
                 <ScalarProperty Name="idDetalle" ColumnName="idDetalle" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -4460,6 +4499,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
                 <ScalarProperty Name="fax" ColumnName="fax" />
                 <ScalarProperty Name="contactoProveedor" ColumnName="contactoProveedor" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="codigoActividad" ColumnName="codigoActividad" />
                 <ScalarProperty Name="tipoId" ColumnName="tipoId" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

@@ -57,7 +57,7 @@ namespace PresentationLayer
             //imprimir documentos que no son abono
             if (_docs == null)
             {
-                if (_doc.tipoDocumento == (int)Enums.TipoDocumento.FacturaElectronica)
+                if (_doc.tipoDocumento == (int)Enums.TipoDocumento.FacturaElectronica || _doc.tipoDocumento == (int)Enums.TipoDocumento.TiqueteElectronico)
                 {
                     if (_doc.tipoVenta == (int)Enums.tipoVenta.Credito)
                     {
@@ -153,7 +153,7 @@ namespace PresentationLayer
             foreach (var abono in _docs)
             {
                 Ticket1.TextoIzquierda("# Factura:" + abono.id);
-                Ticket1.TextoIzquierda("Monto:" + abono.tbAbonos.Last().monto);
+                Ticket1.TextoIzquierda("Monto abonado:" + abono.tbAbonos.Last().monto);
                 totalAbonos += (decimal)abono.tbAbonos.Last().monto;
                 Ticket1.TextoIzquierda("Saldo:" + ((abono.tbDetalleDocumento.Sum(x => x.totalLinea))- (abono.tbAbonos.Sum(x=>x.monto))).ToString());
                 Ticket1.TextoIzquierda("Estado Factura:"+ Enum.GetName(typeof(Enums.EstadoFactura), abono.estadoFactura));
@@ -205,7 +205,15 @@ namespace PresentationLayer
             Ticket1.TextoIzquierda("Tipo Venta:" + Enum.GetName(typeof(Enums.tipoVenta), _doc.tipoVenta));
             Ticket1.TextoIzquierda("Forma Pago:" + Enum.GetName(typeof(Enums.TipoPago), _doc.tipoPago));
             Ticket1.TextoCentro("");
-            Ticket1.TextoCentro("TIQUETE ELECTRONICO");
+            if (_doc.tipoDocumento==(int)Enums.TipoDocumento.FacturaElectronica)
+            {
+                Ticket1.TextoCentro("FACTURA ELECTRONICA");
+            }
+            else if (_doc.tipoDocumento == (int)Enums.TipoDocumento.TiqueteElectronico)
+            {
+                Ticket1.TextoCentro("TIQUETE ELECTRONICO");
+            }
+            
             Ticket1.TextoIzquierda("Consecutivo:" + _doc.consecutivo);
             Ticket1.TextoCentro(_doc.clave.Substring(0,40));
             Ticket1.TextoCentro(_doc.clave.Substring(40, 10));

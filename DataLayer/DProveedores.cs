@@ -16,6 +16,31 @@ namespace DataLayer
     {
         DPersona persona = new DPersona();
 
+        public tbProveedores GetProveedorById(int tipo, string id)
+        {
+
+            try
+            {
+                using (dbSisSodInaEntities context = new dbSisSodInaEntities())
+                {
+                    var pro = (from p in context.tbProveedores
+                               where p.estado == true && p.id == id.Trim() && p.tipoId == tipo
+                               select p).SingleOrDefault();
+
+                    pro.tbPersona = (from us in context.tbPersona.Include("tbBarrios.tbDistrito.tbCanton.tbProvincia")
+                                     where us.identificacion == pro.id && us.tipoId == pro.tipoId
+                                     select us).SingleOrDefault();
+                    return pro;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
         public tbProveedores Guardar(tbProveedores proveedor)
         {
 

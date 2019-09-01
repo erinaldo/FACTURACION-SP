@@ -1,6 +1,8 @@
 ﻿using BusinessLayer;
 using CommonLayer;
+using CommonLayer.Exceptions.BussinessExceptions;
 using EntityLayer;
+using PresentationLayer.Reportes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,13 +24,14 @@ namespace PresentationLayer
         bTipoMedidas medidaIns = new bTipoMedidas();
         BExoneraciones exoneraIns = new BExoneraciones();
 
- 
+        tbCompras compraGlobal;
         List<tbDetalleCompras> detalleDoc = new List<tbDetalleCompras>();
         tbProducto productoGlobal;
         tbReporteHacienda reporteGlobal;
         tbProveedores proveedorGlobal;
 
-
+        BCompras comprasIns = new BCompras();
+        BFacturacion facturacionIns = new BFacturacion();
         public frmCompras()
         {
             InitializeComponent();
@@ -59,7 +62,9 @@ namespace PresentationLayer
         private void frmCompras_Load(object sender, EventArgs e)
         {
             CargarCombos();
-     
+            limpiarForm();
+
+
         }
 
         private void cboTipoVenta_SelectedIndexChanged(object sender, EventArgs e)
@@ -92,7 +97,7 @@ namespace PresentationLayer
                     detalle.nombreProducto = txtNombreProducto.Text.Trim().ToUpper();
                     detalle.idMedida = (int)cboMedida.SelectedValue;
                     detalle.precio = decimal.Parse(txtPrecioProducto.Text);
-                    detalle.cantidad = decimal.Parse(mskCantidadProd.Text);
+                    detalle.cantidad = decimal.Parse(txtCantidad.Text);
                     detalle.montoTotal = detalle.precio * detalle.cantidad;
                     
 
@@ -130,7 +135,7 @@ namespace PresentationLayer
                 subtotal += (decimal)detalle.montoTotal;
 
             }
-            txtSubtotal.Text = subtotal.ToString("#.##");
+            txtSubtotal.Text=subtotal ==0?"0": subtotal.ToString("#.##");
             txtDescuentoTotal.Text = desc == 0 ? "0" : desc.ToString("#.##");
             txtIva.Text = iva == 0 ? "0" : iva.ToString("#.##");
             txtTotal.Text = total == 0 ? "0" : total.ToString("#.##");
@@ -144,8 +149,9 @@ namespace PresentationLayer
             txtNombreProducto.ResetText();
             cboMedida.SelectedIndex = 0;
             txtPrecioProducto.ResetText();
-            mskCantidadProd.ResetText();
+            txtCantidad.ResetText();
             txtDescuento.ResetText();
+            txtObservaciones.ResetText();
 
             cboImpuesto.SelectedIndex = 0;
         }
@@ -184,6 +190,14 @@ namespace PresentationLayer
                 return false;
             }
 
+            if (detalleDoc.Where(x=>x.idProducto== txtCodigoProducto.Text).SingleOrDefault()!=null)
+            {
+                txtCodigoProducto.Focus();
+                MessageBox.Show("El producto ya se encuentra en la lista.", "Error de datos");
+                return false;
+            }
+
+
             if (txtNombreProducto.Text == string.Empty)
             {
                 txtNombreProducto.Focus();
@@ -203,9 +217,9 @@ namespace PresentationLayer
                 MessageBox.Show("Debe indicar el precio del producto", "Error de datos");
                 return false;
             }
-            if (mskCantidadProd.Text == string.Empty)
+            if (txtCantidad.Text == string.Empty)
             {
-                mskCantidadProd.Focus();
+                txtCantidad.Focus();
                 MessageBox.Show("Debe indicar la cantidad del producto", "Error de datos");
                 return false;
             }
@@ -240,25 +254,7 @@ namespace PresentationLayer
 
        
 
-        private void btnProcesar_Click(object sender, EventArgs e)
-        {
-            if (detalleDoc.Count != 0 && txtTotal.Text != "0")
-            {
-                if (validarCamposDoc())
-                {
-
-                    tbCompras documento = crearDocumento();
-         
-
-
-                }
-
-            }
-            else
-            {
-                MessageBox.Show("No hay productos o el TOTAL a cobrar es 0.", "Cobrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        
 
         private bool validarCamposDoc()
         {
@@ -282,12 +278,12 @@ namespace PresentationLayer
                 MessageBox.Show("Debe indicar la fecha de compra", "Error de datos");
                 return false;
             }
-            if (dtpFechaReporte.Value == null)
-            {
-                dtpFechaReporte.Focus();
-                MessageBox.Show("Debe indicar la fecha de reporte", "Error de datos");
-                return false;
-            }
+            //if (dtpFechaReporte.Value == null)
+            //{
+            //    dtpFechaReporte.Focus();
+            //    MessageBox.Show("Debe indicar la fecha de reporte", "Error de datos");
+            //    return false;
+            //}
 
             if (cboTipoVenta.Text == string.Empty)
             {
@@ -317,28 +313,36 @@ namespace PresentationLayer
         {
             tbCompras documento = new tbCompras();
 
-
-
+            documento.reportaInventario = chkIncluyeInventario.Checked;
+            documento.reporteElectronico = chkRegimenSimplificado.Checked;
+            documento.tipoDoc = (int)Enums.TipoDocumento.ComprasSimplificada;
+            if (reporteGlobal!=null)
+            {
+                documento.idReporteHacienda = reporteGlobal.id;
+                documento.reporteElectronico = false;
+                documento.tipoDoc = (int)Enums.TipoDocumento.Compras;
+            }
+            documento.fecha= Utility.getDate();
             documento.numFactura = int.Parse(txtIdFactura.Text);
-            documento.fechaCompra =dtpFechaCompra.Value;
-            documento.fechaReporte = dtpFechaReporte.Value;
+            documento.fechaCompra =dtpFechaCompra.Value.Date;
+            documento.fechaReporte = Utility.getDate();
             documento.estadoCompra = (int)cboEstadoFactura.SelectedValue;
             documento.tipoPago = (int)cboTipoPago.SelectedValue;
-            documento.tipoCompra = (int)cboTipoVenta.SelectedValue;
-            documento.reporteElectronico = chkRegimenSimplificado.Checked;
+            documento.tipoCompra = (int)cboTipoVenta.SelectedValue;     
             documento.tipoIdProveedor = proveedorGlobal.tipoId;
             documento.idProveedor = proveedorGlobal.id;
-
+            
             documento.plazo = (int)documento.tipoCompra == (int)Enums.tipoVenta.Credito ? int.Parse(mskPlazoCredito.Text) : 0;
+
+            documento.idEmpresa = Global.Usuario.tbEmpresa.id;
+            documento.tipoIdEmpresa= Global.Usuario.tbEmpresa.tipoId;
+
+            documento.observaciones = txtObservaciones.Text;
+            documento.tipoMoneda = (int)Enums.TipoMoneda.CRC;       
 
 
             documento.tbDetalleCompras = detalleDoc;
-
-
-
             documento.estado = true;
-
-         
 
             //Atributos de Auditoria
 
@@ -371,7 +375,11 @@ namespace PresentationLayer
                 {
                     txtProveedor.Text = proveedor.id.Trim() + "-" + proveedor.tbPersona.nombre.Trim();
                 }
-                
+
+            }
+            else
+            {
+                MessageBox.Show("El proveedor del documento no se encuentra registrado en el sistema, Debe incluir el proveedor", "Error de datos");
             }
         }
 
@@ -458,12 +466,17 @@ namespace PresentationLayer
                 limpiarForm();
 
             }
+            if (reporteGlobal==null)
+            {
+                chkRegimenSimplificado.Enabled = true;
+                chkRegimenSimplificado.Checked = true;
+            }
         }
         public void limpiarForm()
         {
             txtIdFactura.ResetText();
             chkRegimenSimplificado.Enabled = true;
-            chkRegimenSimplificado.Checked = false;
+            chkRegimenSimplificado.Checked = true;
             reporteGlobal = null;
             proveedorGlobal = null;
             lstvDocs.Items.Clear();
@@ -475,12 +488,14 @@ namespace PresentationLayer
             txtProveedor.Text = string.Empty;
             mskPlazoCredito.ResetText();
             
-            dtpFechaCompra.Refresh();
-            dtpFechaReporte.Refresh();
+            dtpFechaCompra.Refresh();    
 
             mskConsecutivo.ResetText();
             mskClave.ResetText();
             resetProducto();
+            txtDescuento.Text = "0";
+
+            chkIncluyeInventario.Checked = false;
         }
 
         private void btnLimpiarForm_Click(object sender, EventArgs e)
@@ -490,22 +505,181 @@ namespace PresentationLayer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (detalleDoc.Count != 0 && txtTotal.Text != "0")
+            try
             {
-                if (validarCamposDoc())
+                if (detalleDoc.Count != 0 && txtTotal.Text != "0")
+                {
+                    if (validarCamposDoc())
+                    {
+
+                        tbCompras documento = crearDocumento();
+
+                        facturacionIns.guadarCompra(documento);
+                        if (documento.tipoDoc==(int)Enums.TipoDocumento.ComprasSimplificada)
+                        {
+                            documento = facturacionIns.GetEntityCompra(documento);
+                            reportarCompraSimplificadaHacienda(documento);
+                        }
+                        MessageBox.Show("La compras se ha guardado correctamente.", "Compras", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        limpiarForm();
+                        cargarTotales();
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("No hay productos o el TOTAL a cobrar es 0.", "Cobrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Error al guardar la compra.","Compras",MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+          
+        }
+
+        private void reportarCompraSimplificadaHacienda(tbCompras doc)
+        {
+            try
+            {
+                if (doc != null)
+                {
+                  
+                    if (doc.reporteElectronico == true)
+                    {
+                        compraGlobal = doc;
+                        if (Utility.AccesoInternet())
+                        {
+
+                            BackgroundWorker tarea = new BackgroundWorker();                     
+                            tarea.DoWork += reportarCompraElectronica;
+                            tarea.RunWorkerAsync();                         
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No hay acceso a internet", "Sin Internet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+                        }
+
+                    }
+             
+                    limpiarForm();
+                }
+              
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void reportarCompraElectronica(object sender, DoWorkEventArgs e)
+        {
+
+            try
+            {
+                //envio la factura a hacienda
+                compraGlobal = facturacionIns.CompraSimplificadaElectronica(compraGlobal);
+
+                System.Threading.Thread.Sleep(3000);
+                //consulto a hacienda el estado de la factura
+                try
+                {
+                    string mensaje = facturacionIns.consultarCompraSimplificada(compraGlobal);
+                }
+                catch (Exception)
                 {
 
-                    tbCompras documento = crearDocumento();
-
-
+                    MessageBox.Show("Error al consultar el estado del documento en Hacienda, valida el estado del documento", "Error al consultar el estado del documento", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
 
             }
-            else
+            catch (FacturacionElectronicaException ex)
             {
-                MessageBox.Show("No hay productos o el TOTAL a cobrar es 0.", "Cobrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al realizar la facturación electronica", "Factura Electrónica", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            catch (EnvioCorreoException ex)
+            {
+                MessageBox.Show("Error al enviar la facturación por correo electrónico", "Correo electrónico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (TokenException ex)
+            {
+                MessageBox.Show("Error al obtener el Token en Hacienda", "Facturación electrónica", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (ConsultaHaciendaExcpetion ex)
+            {
+                MessageBox.Show("Error al consultar hacienda la factura electrónica", "Facturación electrónica", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (generarXMLException ex)
+            {
+                MessageBox.Show("Error al generar el XML de la factura", "Facturación electrónica", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error general de facturación electrónica", "Facturación electrónica", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void txtPrecioProducto_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                decimal.Parse(txtPrecioProducto.Text);
+            }
+            catch (Exception)
+            {
+
+                txtPrecioProducto.ResetText();
+            }
+        }
+
+        private void txtDescuento_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                decimal.Parse(txtDescuento.Text);
+            }
+            catch (Exception)
+            {
+
+                txtDescuento.ResetText();
+            }
+        }       
+
+        private void txtCantidad_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                decimal.Parse(txtCantidad.Text);
+            }
+            catch (Exception)
+            {
+
+                txtCantidad.ResetText();
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Desea eliminar el producto de la compra?", "Compras", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result== DialogResult.Yes)
+            {
+             
+                detalleDoc.Remove(detalleDoc.Where(x => x.idProducto == lstvDocs.SelectedItems[0].Text).SingleOrDefault());
+                actualizarListView();
+                resetProducto();
+                cargarTotales();
+
+            }
+
+            
+            
+           
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace PresentationLayer
 {
-    partial class frmValidacionMensajesComprasHacienda
+    partial class frmValidacionDocsHacienda
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmValidacionMensajesComprasHacienda));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmValidacionDocsHacienda));
             this.label2 = new System.Windows.Forms.Label();
             this.dtpFechaFin = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
@@ -58,10 +58,11 @@
             this.txtArchivo = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.colIdTipoDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TipoDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colFecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colClave = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colFechaEmision = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colReceptor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colEnvio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colRespHacienda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDetalle = new System.Windows.Forms.DataGridViewLinkColumn();
@@ -118,7 +119,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(1644, 567);
+            this.groupBox1.Size = new System.Drawing.Size(1702, 567);
             this.groupBox1.TabIndex = 37;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Mensajes";
@@ -137,10 +138,11 @@
             this.dtgvDetalleFactura.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvDetalleFactura.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colIdTipoDoc,
+            this.TipoDoc,
             this.colFecha,
             this.colClave,
             this.colFechaEmision,
-            this.colCliente,
+            this.colReceptor,
             this.colEnvio,
             this.colRespHacienda,
             this.colDetalle,
@@ -153,7 +155,7 @@
             this.dtgvDetalleFactura.Name = "dtgvDetalleFactura";
             this.dtgvDetalleFactura.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dtgvDetalleFactura.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgvDetalleFactura.Size = new System.Drawing.Size(1616, 526);
+            this.dtgvDetalleFactura.Size = new System.Drawing.Size(1669, 526);
             this.dtgvDetalleFactura.TabIndex = 22;
             this.dtgvDetalleFactura.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvDetalleFactura_CellContentClick);
             // 
@@ -163,9 +165,9 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(824, 27);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(157, 38);
+            this.label3.Size = new System.Drawing.Size(485, 38);
             this.label3.TabIndex = 38;
-            this.label3.Text = "Compras";
+            this.label3.Text = "Validar Documentos Hacienda";
             // 
             // btnRefrescar
             // 
@@ -355,15 +357,22 @@
             // 
             // colIdTipoDoc
             // 
-            this.colIdTipoDoc.HeaderText = "ID Receptor";
+            this.colIdTipoDoc.HeaderText = "ID";
             this.colIdTipoDoc.Name = "colIdTipoDoc";
             this.colIdTipoDoc.ReadOnly = true;
-            this.colIdTipoDoc.Width = 50;
+            this.colIdTipoDoc.Width = 40;
+            // 
+            // TipoDoc
+            // 
+            this.TipoDoc.HeaderText = "Tipo Documento";
+            this.TipoDoc.Name = "TipoDoc";
+            this.TipoDoc.ReadOnly = true;
+            this.TipoDoc.Width = 140;
             // 
             // colFecha
             // 
             this.colFecha.FillWeight = 115F;
-            this.colFecha.HeaderText = "Fecha";
+            this.colFecha.HeaderText = "Fecha Registro";
             this.colFecha.Name = "colFecha";
             this.colFecha.ReadOnly = true;
             this.colFecha.Width = 115;
@@ -371,7 +380,7 @@
             // colClave
             // 
             this.colClave.FillWeight = 130F;
-            this.colClave.HeaderText = "Consecutivo Receptor";
+            this.colClave.HeaderText = "Consecutivo";
             this.colClave.Name = "colClave";
             this.colClave.ReadOnly = true;
             this.colClave.Width = 130;
@@ -383,13 +392,13 @@
             this.colFechaEmision.Name = "colFechaEmision";
             this.colFechaEmision.Width = 115;
             // 
-            // colCliente
+            // colReceptor
             // 
-            this.colCliente.FillWeight = 275F;
-            this.colCliente.HeaderText = "Cliente";
-            this.colCliente.Name = "colCliente";
-            this.colCliente.ReadOnly = true;
-            this.colCliente.Width = 275;
+            this.colReceptor.FillWeight = 275F;
+            this.colReceptor.HeaderText = "Ente/Receptor";
+            this.colReceptor.Name = "colReceptor";
+            this.colReceptor.ReadOnly = true;
+            this.colReceptor.Width = 275;
             // 
             // colEnvio
             // 
@@ -397,7 +406,6 @@
             this.colEnvio.HeaderText = "Estado Envio";
             this.colEnvio.Name = "colEnvio";
             this.colEnvio.ReadOnly = true;
-            this.colEnvio.Width = 115;
             // 
             // colRespHacienda
             // 
@@ -405,7 +413,6 @@
             this.colRespHacienda.HeaderText = "Estado Hacienda";
             this.colRespHacienda.Name = "colRespHacienda";
             this.colRespHacienda.ReadOnly = true;
-            this.colRespHacienda.Width = 115;
             // 
             // colDetalle
             // 
@@ -431,11 +438,12 @@
             this.colValidar.ToolTipText = "Validar";
             this.colValidar.UseColumnTextForButtonValue = true;
             // 
-            // frmValidacionMensajesComprasHacienda
+            // frmValidacionDocsHacienda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1924, 779);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(1724, 800);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtArchivo);
             this.Controls.Add(this.chkInconsistentes);
@@ -458,8 +466,9 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnRefrescar);
             this.Controls.Add(this.btnBuscar);
-            this.Name = "frmValidacionMensajesComprasHacienda";
-            this.Text = "Consulta: Estado de mensajes de compras Hacienda";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Name = "frmValidacionDocsHacienda";
+            this.Text = "Consulta: Validar Documentos enviados Hacienda";
             this.Load += new System.EventHandler(this.frmValidacionMensajesComprasHacienda_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtgvDetalleFactura)).EndInit();
@@ -501,10 +510,11 @@
         private System.Windows.Forms.TextBox txtArchivo;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridViewTextBoxColumn colIdTipoDoc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TipoDoc;
         private System.Windows.Forms.DataGridViewTextBoxColumn colFecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn colClave;
         private System.Windows.Forms.DataGridViewTextBoxColumn colFechaEmision;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colReceptor;
         private System.Windows.Forms.DataGridViewTextBoxColumn colEnvio;
         private System.Windows.Forms.DataGridViewTextBoxColumn colRespHacienda;
         private System.Windows.Forms.DataGridViewLinkColumn colDetalle;

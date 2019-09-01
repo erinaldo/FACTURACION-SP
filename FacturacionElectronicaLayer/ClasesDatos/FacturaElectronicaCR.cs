@@ -29,6 +29,7 @@ namespace FacturacionElectronicaLayer.ClasesDatos
       
         private System.IO.MemoryStream mXML;
         private tbDocumento _doc = null;
+        private tbCompras _compras = null;
         private string _numeroConsecutivo = "";
         private string _numeroClave = "";
         private Emisor _emisor;
@@ -37,6 +38,7 @@ namespace FacturacionElectronicaLayer.ClasesDatos
         private string _plazoCredito = "";
         private string _medioPago = "";
         private ICollection<tbDetalleDocumento> _listaDetalle;
+        private ICollection<tbDetalleCompras> _listaDetalleCompras;
         private string _codigoMoneda = "";
         private decimal _tipoCambio;
         private string _Obsv;
@@ -72,15 +74,58 @@ namespace FacturacionElectronicaLayer.ClasesDatos
 
         }
 
-        // 'Este documento esta para la factura electronica, 
-        // 'Para la nota de credito es un documento similar pero cambia algunos nodos.
-        // 'Lo vemos luego.
+        public FacturaElectronicaCR(tbCompras compras, string numeroConsecutivo, string numeroClave, Emisor emisor, Receptor receptor,
+                                    string condicionVenta, string plazoCredito, string medioPago,
+                                    ICollection<tbDetalleCompras> listaDetalle, string codigoMoneda, decimal tipoCambio, tbEmpresa empresa, string obsv)
+        {
+            _compras = compras;
+            _numeroConsecutivo = numeroConsecutivo;
+            _numeroClave = numeroClave;
+            _emisor = emisor;
+            _receptor = receptor;
+            _condicionVenta = condicionVenta;
+            _plazoCredito = plazoCredito;
+            _medioPago = medioPago;
+            _listaDetalleCompras = listaDetalle;
+            _codigoMoneda = codigoMoneda;
+            _tipoCambio = tipoCambio;
+            _empresa = empresa;
+            _Obsv = obsv;
+
+        }
+
+
 
         // 'Segun la normativa, estos son los datos basicos que seguramente van a ocupar,
         // 'Es posible que algunos no los ocupen y requieran otros, es normal y los veremos conforme vayamos 
         // 'desarrollando la factura. Cuando se envien los datos a Hacienda, ahi seguramente nos daremos cuenta en las pruebas
 
+        public XmlDocument CreaXMLComprasSimplificadaHacienda()
+        {
+            try
+            {
+                mXML = new System.IO.MemoryStream();
 
+                System.Xml.XmlTextWriter writer = new System.Xml.XmlTextWriter(mXML, System.Text.Encoding.UTF8);
+
+                XmlDocument docXML = new XmlDocument();
+
+                GeneraXMLComprasSimplificadoElectronica4_3(writer);
+
+                mXML.Seek(0, System.IO.SeekOrigin.Begin);
+
+                docXML.Load(mXML);
+
+                writer.Close();
+
+                // Retorna el documento xml y ahi se puede salvar docXML.Save
+                return docXML;
+            }
+            catch (Exception ex)
+            {
+                throw new generarXMLException(ex);
+            }
+        }
 
         public XmlDocument CreaXMLMensajeHacienda()
         {
@@ -158,7 +203,7 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                 throw new generarXMLException(ex);
             }
         }
-        #region 4.2
+        #region 4.3
 
         private void GeneraXMLTiqueteElectronico4_3(System.Xml.XmlTextWriter writer) // As System.Xml.XmlTextWriter
         {
@@ -471,8 +516,7 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                 throw ex;
             }
         }
-
-
+        
 
         private void GeneraXMLFacturaElectronica4_3(System.Xml.XmlTextWriter writer) // As System.Xml.XmlTextWriter
         {
@@ -790,7 +834,7 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                 throw ex;
             }
          }
-        private void GeneraXMLFacturaElectronicaNoContribuyente4_3(System.Xml.XmlTextWriter writer) // As System.Xml.XmlTextWriter
+        private void GeneraXMLComprasSimplificadoElectronica4_3(System.Xml.XmlTextWriter writer) // As System.Xml.XmlTextWriter
         {
             try
             {
@@ -852,33 +896,23 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                 writer.WriteElementString("CorreoElectronico", _emisor.CorreoElectronico);
 
                 writer.WriteEndElement(); // Emisor
+
+                writer.WriteStartElement("Receptor");                      // 'Receptor es similar con emisor, los datos opcionales siempre siempre siempre omitirlos.
+
+                writer.WriteElementString("Nombre", _receptor.Nombre);
+                writer.WriteStartElement("Identificacion");
+                // 'Los tipos de identificacion los puede ver en la tabla de datos
+                writer.WriteElementString("Tipo", _receptor.Identificacion_Tipo);
+                writer.WriteElementString("Numero", _receptor.Identificacion_Numero);
+                writer.WriteEndElement(); // 'Identificacion
+
+                writer.WriteElementString("CorreoElectronico", _receptor.CorreoElectronico);
+
+                writer.WriteEndElement(); // Receptor
                                           // '------------------------------------
-                                          // 'Receptor es similar con emisor, los datos opcionales siempre siempre siempre omitirlos.
-                if (_receptor != null)
-                {
-                    writer.WriteStartElement("Receptor");
-                    writer.WriteElementString("Nombre", _receptor.Nombre);
-                    writer.WriteStartElement("Identificacion");
-                    // 'Los tipos de identificacion los puede ver en la tabla de datos
-                    writer.WriteElementString("Tipo", _receptor.Identificacion_Tipo);
-                    writer.WriteElementString("Numero", _receptor.Identificacion_Numero);
-                    writer.WriteEndElement(); // 'Identificacion
 
-                    //writer.WriteStartElement("Telefono");
-                    //writer.WriteElementString("CodigoPais", _receptor.Telefono_CodigoPais);
-                    //writer.WriteElementString("NumTelefono", _receptor.Telefono_Numero.ToString());
-                    //writer.WriteEndElement(); // 'Telefono
 
-                    //writer.WriteStartElement("Fax");
-                    //writer.WriteElementString("CodigoPais", _receptor.Telefono_CodigoPais);
-                    //writer.WriteElementString("NumTelefono", _receptor.Telefono_Numero.ToString());
-                    //writer.WriteEndElement(); // 'Telefono
 
-                    writer.WriteElementString("CorreoElectronico", _receptor.CorreoElectronico);
-
-                    writer.WriteEndElement(); // Receptor
-
-                }
 
                 // 'Loa datos estan en la tabla correspondiente
                 writer.WriteElementString("CondicionVenta", _condicionVenta);
@@ -897,8 +931,6 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                 }
 
 
-
-
                 writer.WriteElementString("MedioPago", _medioPago);
                 // '01: Efectivo
                 // '02: Tarjeta
@@ -908,105 +940,93 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                 // '99: Otros
 
                 writer.WriteStartElement("DetalleServicio");
-                //-----variables resumes de montos pagados
-
-
-                // '-------------------------------------
-                foreach (tbDetalleDocumento detalle in _listaDetalle)
+                int linea = 0;
+                foreach (tbDetalleCompras detalle in _listaDetalleCompras)
                 {
+                    linea++;
                     writer.WriteStartElement("LineaDetalle");
 
-                    writer.WriteElementString("NumeroLinea", detalle.numLinea.ToString().Trim());
+                    writer.WriteElementString("NumeroLinea", linea.ToString().Trim());
 
-                    //writer.WriteStartElement("Codigo");
-                    //writer.WriteElementString("Tipo", "01");//codigo del prodcuto del vendedor nota 12.
+                    writer.WriteStartElement("CodigoComercial");
+                    writer.WriteElementString("Tipo", "01");
                     writer.WriteElementString("Codigo", detalle.idProducto.ToString().Trim());
-                    //writer.WriteEndElement(); // 'Codigo
+                    writer.WriteEndElement(); // 'codigo comercial
 
-                    int cant = (int)detalle.cantidad;//convierte entero, elimina decimales
-                    writer.WriteElementString("Cantidad", cant.ToString());
+                    // int cant = (int)detalle.cantidad;//convierte entero, elimina decimales
+                    writer.WriteElementString("Cantidad", String.Format("{0:N3}", detalle.cantidad.ToString()));
                     // 'Para las unidades de medida ver la tabla correspondiente
-                    writer.WriteElementString("UnidadMedida", Enum.GetName(typeof(Enums.TipoMedida), detalle.tbProducto.idMedida));//nomenlatura kg etc
+                    writer.WriteElementString("UnidadMedida", Enum.GetName(typeof(Enums.TipoMedida), detalle.idMedida));//nomenlatura kg etc
 
-                    writer.WriteElementString("Detalle", detalle.tbProducto.nombre.ToString().Trim());
+                    writer.WriteElementString("Detalle", detalle.nombreProducto.ToString().Trim());
 
 
                     writer.WriteElementString("PrecioUnitario", String.Format("{0:N3}", detalle.precio.ToString().Trim()));
                     writer.WriteElementString("MontoTotal", String.Format("{0:N3}", detalle.montoTotal.ToString().Trim()));
 
-                    if (detalle.montoTotalDesc != 0)
+                    if (detalle.montoTotaDesc != 0)
                     {
 
 
                         writer.WriteStartElement("Descuento");
-                        writer.WriteElementString("MontoDescuento", String.Format("{0:N3}", detalle.montoTotalDesc.ToString().Trim()));
+                        writer.WriteElementString("MontoDescuento", String.Format("{0:N3}", detalle.montoTotaDesc.ToString().Trim()));
                         writer.WriteElementString("NaturalezaDescuento", "Descuento aplicado al cliente");//agregar naturaleza desc                        
                         writer.WriteEndElement(); // 'descuento
 
                     }
-                    writer.WriteElementString("SubTotal", String.Format("{0:N3}", (detalle.montoTotal - detalle.montoTotalDesc).ToString().Trim()));
-                    //writer.WriteElementString("BaseImponible", String.Format("{0:N3}", detalle.xxxx.ToString().Trim()));
+                    writer.WriteElementString("SubTotal", String.Format("{0:N3}", (detalle.montoTotal - detalle.montoTotaDesc).ToString().Trim()));
 
 
 
-
-                    if (detalle.montoTotalImp != 0)
-                    {
-
-                        writer.WriteStartElement("Impuesto");
-                        writer.WriteElementString("Codigo", detalle.tbProducto.tbImpuestos.id.ToString().PadLeft(2, '0'));// impueto aplicado codigo
-                        writer.WriteElementString("CodigoTarifa", "08");
-                        writer.WriteElementString("Tarifa", detalle.tbProducto.tbImpuestos.valor.ToString());// %aplicado valor
-                        writer.WriteElementString("Monto", String.Format("{0:N3}", (detalle.montoTotalImp).ToString().Trim()));
-
-                        if (detalle.montoTotalExo != 0)
-                        {
-                            writer.WriteStartElement("Exoneracion");
-                            writer.WriteElementString("TipoDocuento", _receptor.tipoExoneracion.PadLeft(2, '0'));// impueto aplicado codigo
-                            writer.WriteElementString("NumeroDocumento", _receptor.institucionExo);// impueto aplicado codigo
-
-                            writer.WriteElementString("NombreInstitucion", _receptor.institucionExo);// impueto aplicado codigo
-                            writer.WriteElementString("FechaEmision", _receptor.fechaEmisionExo.ToString("yyyy-MM-ddTHH:mm:sszzz"));// impueto aplicado codigo
-                            writer.WriteElementString("PorcentajeExoneracion", _receptor.valorExo.ToString());// impueto aplicado codigo
-
-                            writer.WriteElementString("MontoExoneracion", String.Format("{0:N3}", detalle.montoTotalExo.ToString().Trim()));// impueto aplicado codigo
-
-                            writer.WriteEndElement(); // exoneracion
+                    writer.WriteStartElement("Impuesto");
+                    writer.WriteElementString("Codigo", "01");// impueto aplicado codigo
+                    writer.WriteElementString("CodigoTarifa", "08");
+                    writer.WriteElementString("Tarifa", String.Format("{0:N3}", "13"));// %aplicado valor
+                    writer.WriteElementString("Monto", String.Format("{0:N3}", (detalle.montoTotalImp).ToString().Trim()));
 
 
+                    //if (detalle.montoTotalExo != 0)
+                    //{
+                    //    writer.WriteStartElement("Exoneracion");
+                    //    writer.WriteElementString("TipoDocumento", _receptor.tipoExoneracion.PadLeft(2, '0'));// impueto aplicado codigo
+                    //    writer.WriteElementString("NumeroDocumento", _receptor.docExoneracion.Trim());// impueto aplicado codigo
 
-                        }
+                    //    writer.WriteElementString("NombreInstitucion", _receptor.institucionExo.Trim());// impueto aplicado codigo
+                    //    writer.WriteElementString("FechaEmision", _receptor.fechaEmisionExo.ToString("yyyy-MM-ddTHH:mm:sszzz"));// impueto aplicado codigo
+                    //    writer.WriteElementString("PorcentajeExoneracion", "100");// impueto aplicado codigo
 
-                        writer.WriteEndElement(); // Impuesto
-                        writer.WriteElementString("ImpuestoNeto", String.Format("{0:N3}", (detalle.montoTotalImp).ToString().Trim()));
+                    //    writer.WriteElementString("MontoExoneracion", String.Format("{0:N3}", detalle.montoTotalExo.ToString().Trim()));// impueto aplicado codigo
 
-                    }
+                    //    writer.WriteEndElement(); // exoneracion
+                    //}
 
-                    writer.WriteElementString("MontoTotalLinea", String.Format("{0:N3}", detalle.totalLinea.ToString().Trim()));
+                    writer.WriteEndElement(); // Impuesto
+                    writer.WriteElementString("ImpuestoNeto", String.Format("{0:N3}", (detalle.montoTotalImp - detalle.montoTotalExo).ToString().Trim()));
 
+
+                    writer.WriteElementString("MontoTotalLinea", String.Format("{0:N3}", detalle.montoTotalLinea.ToString().Trim()));
                     writer.WriteEndElement(); // LineaDetalle
                 }
                 // '-------------------------------------
 
                 writer.WriteEndElement(); // DetalleServicio
 
-
                 writer.WriteStartElement("ResumenFactura");
 
-                writer.WriteStartElement("CodigoTipoMoneda");
-                writer.WriteElementString("CodigoMoneda", _codigoMoneda);
+                //writer.WriteStartElement("CodigoTipoMoneda");
+                //writer.WriteElementString("CodigoMoneda", _codigoMoneda);
 
-                if (_codigoMoneda.ToUpper().Trim() == "USD")
-                {
-                    writer.WriteElementString("TipoCambio", String.Format("{0:N3}", _empresa.tbParametrosEmpresa.First().cambioDolar.ToString().Trim()));
+                //if (_codigoMoneda.ToUpper().Trim() == "USD")
+                //{
+                //    writer.WriteElementString("TipoCambio", String.Format("{0:N3}", _empresa.tbParametrosEmpresa.First().cambioDolar.ToString().Trim()));
 
-                }
-                else
-                {
-                    writer.WriteElementString("TipoCambio", String.Format("{0:N3}", "1"));
+                //}
+                //else
+                //{
+                //    writer.WriteElementString("TipoCambio", String.Format("{0:N3}", "1"));
 
-                }
-                writer.WriteEndElement(); // CodigoTipoMoneda
+                //}
+                //writer.WriteEndElement(); // CodigoTipoMoneda
 
 
 
@@ -1021,76 +1041,87 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                 decimal totalComprobante = 0;
                 decimal impuestos = 0;
 
-                foreach (tbDetalleDocumento detalle in _listaDetalle)
+                foreach (tbDetalleCompras detalle in _listaDetalleCompras)
                 {
-                    totalDescuento += detalle.montoTotalDesc;//total de decuento
-                    totalComprobante += detalle.totalLinea;//total de comprobante
+                    totalDescuento += detalle.montoTotaDesc;//total de decuento
+                    totalComprobante += detalle.montoTotalLinea;//total de comprobante
 
 
-                    if (detalle.montoTotalImp == 0)//valida si exonera es 0, si tiene valor de impuesto no exonera
-                    {//acumulo monto total, sin descuento. monto total es precio*cantidad
-                        if (Enum.GetName(typeof(Enums.TipoMedida), detalle.tbProducto.idMedida).Trim().ToUpper() == "SP")//valida si es producto o servicio y acumula en su respectiva variable
-                        {
-                            totalServExonerado += detalle.montoTotalExo;
-                            totalServExcentos += detalle.montoTotal;
-                        }
-                        else//si es producto
-                        {
-                            totalProdExonerado += detalle.montoTotalExo;
-                            totalProdExcentos += detalle.montoTotal;
-
-                        }
-
-
-                    }
-                    else
+                    if (Enum.GetName(typeof(Enums.TipoMedida), detalle.idMedida).Trim().ToUpper() == "SP")//valida si es producto o servicio y acumula en su respectiva variable
                     {
-                        impuestos += detalle.montoTotalImp;
 
-                        if (detalle.tbProducto.tbCategoriaProducto.nombre.Trim().ToUpper() == "SERVICIOS PROFESIONALES")
-                        {//si tiene impuesto y es un servicio
-                            totalServExonerado += detalle.montoTotalExo;
+                        //si el producto tiene impuesto, es un producto gravado, sino es un prodcuto excento
+                        if (detalle.montoTotalImp != 0 && detalle.montoTotalExo != 0)
+                        {
+                            totalServExonerado += detalle.montoTotal;
+                        }
+                        else if (detalle.montoTotalImp != 0 && detalle.montoTotalExo == 0)
+                        {
                             totalSevGravados += detalle.montoTotal;
+                            impuestos += detalle.montoTotalImp;
                         }
                         else
                         {
-                            totalProdExonerado += detalle.montoTotalExo;
-                            totalProdGravados += detalle.montoTotal;//si es un prodcuto
-
+                            totalServExcentos += detalle.montoTotal;
                         }
-
-
                     }
+                    else//si es producto
+                    {
 
 
-
+                        if (detalle.montoTotalImp != 0 && detalle.montoTotalExo != 0)
+                        {
+                            totalProdExonerado += detalle.montoTotal;
+                        }
+                        else if (detalle.montoTotalImp != 0 && detalle.montoTotalExo == 0)
+                        {
+                            totalProdGravados += detalle.montoTotal;
+                            impuestos += detalle.montoTotalImp;
+                        }
+                        else
+                        {
+                            totalProdExcentos += detalle.montoTotal;
+                        }
+                    }
                 }
+
+
+
                 writer.WriteElementString("TotalServGravados", String.Format("{0:N3}", totalSevGravados.ToString()));
+
                 writer.WriteElementString("TotalServExentos", String.Format("{0:N3}", totalServExcentos.ToString()));
+
                 writer.WriteElementString("TotalServExonerado", String.Format("{0:N3}", totalServExonerado.ToString()));
 
                 writer.WriteElementString("TotalMercanciasGravadas", String.Format("{0:N3}", totalProdGravados.ToString()));
+
                 writer.WriteElementString("TotalMercanciasExentas", String.Format("{0:N3}", totalProdExcentos.ToString()));
+
                 writer.WriteElementString("TotalMercExonerada", String.Format("{0:N3}", totalProdExonerado.ToString()));
 
                 decimal totalGravados = totalSevGravados + totalProdGravados;
                 decimal totalExentos = totalProdExcentos + totalServExcentos;
                 decimal totalExo = totalProdExonerado + totalServExonerado;
+
                 writer.WriteElementString("TotalGravado", String.Format("{0:N3}", totalGravados.ToString()));
+
                 writer.WriteElementString("TotalExento", String.Format("{0:N3}", totalExentos.ToString()));
+
                 writer.WriteElementString("TotalExonerado", String.Format("{0:N3}", totalExo.ToString()));
 
 
-
-
-                decimal totalVenta = totalGravados + totalExentos + totalExo;//total de venta, gravados y exonerados
+                decimal totalVenta = totalGravados + totalExentos + totalExo;
                 decimal totalVentaNeta = totalVenta - totalDescuento;//calula el monto de descuento
+
+
+
                 writer.WriteElementString("TotalVenta", String.Format("{0:N3}", totalVenta.ToString()));
+
                 writer.WriteElementString("TotalDescuentos", String.Format("{0:N3}", totalDescuento.ToString()));
+
                 writer.WriteElementString("TotalVentaNeta", String.Format("{0:N3}", totalVentaNeta.ToString()));
 
                 writer.WriteElementString("TotalImpuesto", String.Format("{0:N3}", impuestos.ToString()));
-
 
                 writer.WriteElementString("TotalComprobante", String.Format("{0:N3}", totalComprobante.ToString()));
                 writer.WriteEndElement(); // ResumenFactura
@@ -1101,11 +1132,11 @@ namespace FacturacionElectronicaLayer.ClasesDatos
                 //writer.WriteElementString("FechaResolucion", ((DateTime)_empresa.fechaResolucio).ToString("dd-MM-yyyy HH:MM:ss"));
                 //writer.WriteEndElement(); // Normativa
 
-                if (_doc.observaciones != null && _doc.observaciones.Trim() != string.Empty)
+                if (_compras.observaciones != null && _compras.observaciones.Trim() != string.Empty)
                 {
                     //otros
                     writer.WriteStartElement("Otros");
-                    writer.WriteElementString("OtroTexto", _doc.observaciones.Substring(0, 180).Trim());
+                    writer.WriteElementString("OtroTexto", _compras.observaciones.Substring(0, 180).Trim());
                     writer.WriteEndElement();//Otros
                 }
 
@@ -1560,7 +1591,7 @@ namespace FacturacionElectronicaLayer.ClasesDatos
         #endregion
 
 
-        #region 4.3
+        #region 4.2
 
         private void GeneraXMLMensajeHacienda(System.Xml.XmlTextWriter writer) // As System.Xml.XmlTextWriter
         {

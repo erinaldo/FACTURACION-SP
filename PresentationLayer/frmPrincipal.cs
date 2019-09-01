@@ -261,7 +261,7 @@ namespace PresentationLayer
             }
             else if (((ToolStripMenuItem)sender).Name == "mnuValidarMensajes")
             {
-                frmValidacionMensajesComprasHacienda frm = new frmValidacionMensajesComprasHacienda();
+                frmValidacionDocsHacienda frm = new frmValidacionDocsHacienda();
                 // frm.MdiParent = this;
                 frm.ShowDialog();
 
@@ -301,10 +301,16 @@ namespace PresentationLayer
                 frm.ShowDialog();
 
             }
-            
+            else if (((ToolStripMenuItem)sender).Name == "mnuCompras")
+            {
+                frmCompras frm = new frmCompras();
+                // frm.MdiParent = this;
+                frm.ShowDialog();
+
+            }
 
 
-      
+
 
 
         }
@@ -379,7 +385,7 @@ namespace PresentationLayer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frmFacturacion1 form = new frmFacturacion1();
+            frmFacturacion form = new frmFacturacion();
             form.ShowDialog();
         }
 
@@ -403,7 +409,7 @@ namespace PresentationLayer
 
         private void btnValidacion_Click(object sender, EventArgs e)
         {
-            frmValidacionDocumentosHacienda form = new frmValidacionDocumentosHacienda();
+            frmValidacionDocsHacienda form = new frmValidacionDocsHacienda();
             form.ShowDialog();
         }
 
@@ -437,7 +443,7 @@ namespace PresentationLayer
 
         private void btnValidarCompras_Click(object sender, EventArgs e)
         {
-            frmValidacionMensajesComprasHacienda form = new frmValidacionMensajesComprasHacienda();
+            frmValidacionDocsHacienda form = new frmValidacionDocsHacienda();
             form.ShowDialog();
         }
 
@@ -460,6 +466,12 @@ namespace PresentationLayer
         private void btnCompras_Click(object sender, EventArgs e)
         {
             frmCompras form = new frmCompras();
+            form.ShowDialog();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            frmAbonoCredito form = new frmAbonoCredito();
             form.ShowDialog();
         }
     }

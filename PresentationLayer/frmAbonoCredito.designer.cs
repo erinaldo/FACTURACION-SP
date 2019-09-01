@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAbonoCredito));
             this.gbxCredito = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtPendiente = new System.Windows.Forms.TextBox();
             this.chkImprimir = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.btnProcesar = new System.Windows.Forms.Button();
@@ -60,8 +62,6 @@
             this.txtTel = new System.Windows.Forms.TextBox();
             this.txtIdCliente = new System.Windows.Forms.TextBox();
             this.txtCliente = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtPendiente = new System.Windows.Forms.TextBox();
             this.gbxCredito.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -89,6 +89,26 @@
             this.gbxCredito.TabIndex = 1;
             this.gbxCredito.TabStop = false;
             this.gbxCredito.Text = "Créditos";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(571, 391);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(111, 24);
+            this.label9.TabIndex = 89;
+            this.label9.Text = "Pendiente:";
+            // 
+            // txtPendiente
+            // 
+            this.txtPendiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPendiente.Location = new System.Drawing.Point(697, 387);
+            this.txtPendiente.Margin = new System.Windows.Forms.Padding(4);
+            this.txtPendiente.Name = "txtPendiente";
+            this.txtPendiente.ReadOnly = true;
+            this.txtPendiente.Size = new System.Drawing.Size(288, 28);
+            this.txtPendiente.TabIndex = 88;
             // 
             // chkImprimir
             // 
@@ -386,26 +406,6 @@
             this.txtCliente.Size = new System.Drawing.Size(353, 22);
             this.txtCliente.TabIndex = 53;
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(571, 391);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(111, 24);
-            this.label9.TabIndex = 89;
-            this.label9.Text = "Pendiente:";
-            // 
-            // txtPendiente
-            // 
-            this.txtPendiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPendiente.Location = new System.Drawing.Point(697, 387);
-            this.txtPendiente.Margin = new System.Windows.Forms.Padding(4);
-            this.txtPendiente.Name = "txtPendiente";
-            this.txtPendiente.ReadOnly = true;
-            this.txtPendiente.Size = new System.Drawing.Size(288, 28);
-            this.txtPendiente.TabIndex = 88;
-            // 
             // frmAbonoCredito
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -416,7 +416,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmAbonoCredito";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Proceso: Abonos";
+            this.Text = "Proceso: Cuentas por Cobras(Abonos)";
             this.Load += new System.EventHandler(this.frmCredito_Load);
             this.gbxCredito.ResumeLayout(false);
             this.gbxCredito.PerformLayout();

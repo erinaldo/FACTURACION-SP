@@ -84,10 +84,11 @@ namespace CommonLayer
             FacturaElectronica=1,
             NotaDebitoElectronica=2,
             NotaCreditoElectronica=3,
-            TiqueteElectronico=4, 
-            Proforma=5, 
-            Compras=8, 
-            Todos=0
+            TiqueteElectronico=4,             
+            ComprasSimplificada=8,
+            Proforma = 20,
+            Compras = 21,
+            Todos =0
 
         }
 

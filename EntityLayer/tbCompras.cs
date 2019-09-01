@@ -20,6 +20,8 @@ namespace EntityLayer
             this.tbDetalleCompras = new HashSet<tbDetalleCompras>();
         }
     
+        public int id { get; set; }
+        public int tipoDoc { get; set; }
         public int numFactura { get; set; }
         public string idProveedor { get; set; }
         public int tipoIdProveedor { get; set; }
@@ -40,6 +42,20 @@ namespace EntityLayer
         public string usuario_crea { get; set; }
         public string usuario_ult_mod { get; set; }
         public bool estado { get; set; }
+        public string EstadoFacturaHacienda { get; set; }
+        public bool reporteAceptaHacienda { get; set; }
+        public string mensajeReporteHacienda { get; set; }
+        public bool mensajeRespHacienda { get; set; }
+        public string idEmpresa { get; set; }
+        public int tipoIdEmpresa { get; set; }
+        public string xmlSinFirma { get; set; }
+        public string xmlFirmado { get; set; }
+        public string xmlRespuesta { get; set; }
+        public bool notificarCorreo { get; set; }
+        public string correo1 { get; set; }
+        public Nullable<int> tipoMoneda { get; set; }
+        public decimal tipoCambio { get; set; }
+        public bool reportaInventario { get; set; }
     
         public virtual tbProveedores tbProveedores { get; set; }
         public virtual tbReporteHacienda tbReporteHacienda { get; set; }

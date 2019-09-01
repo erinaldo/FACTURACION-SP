@@ -15,9 +15,8 @@ namespace EntityLayer
     public partial class tbDetalleCompras
     {
         public int idDetalle { get; set; }
-        public int numFactura { get; set; }
-        public string idProveedor { get; set; }
-        public int tipoIdProveedor { get; set; }
+        public int idCompra { get; set; }
+        public int TipoCompra { get; set; }
         public string idProducto { get; set; }
         public string nombreProducto { get; set; }
         public int idMedida { get; set; }

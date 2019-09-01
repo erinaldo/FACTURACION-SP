@@ -17,6 +17,7 @@ namespace DataLayer
         DCategoriaProducto cateIns = new DCategoriaProducto();
         DInventario inventarioIns = new DInventario();
         DClientes clienteIns = new DClientes();
+        DProveedores proveedorIns = new DProveedores();
         DEliminarFactura detalleFacturaIns = new DEliminarFactura();
         DExoneraciones exoIns = new DExoneraciones();
 
@@ -58,7 +59,44 @@ namespace DataLayer
             return -1;
 
         }
+        public int getNewIDCompra(int tipoDoc)
+        {
+            try
+            {
+                using (dbSisSodInaEntities context = new dbSisSodInaEntities())
+                {
 
+                    var existe = (from u in context.tbCompras
+                                  where u.tipoDoc == tipoDoc
+                                  orderby u.id descending
+                                  select u);
+                    if (existe.Count() == 0)
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        var x = (from u in context.tbCompras
+                                 where u.tipoDoc == tipoDoc
+                                 orderby u.id descending
+                                 select u).Take(1);
+
+                        return x.First().id;
+
+                    }
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return -1;
+
+        }
         public int getNewIDMensaje()
         {
             try
@@ -170,13 +208,39 @@ namespace DataLayer
 
         }
 
+
+        public tbCompras ActualizarCompraSimplificada(tbCompras entity)
+        {
+
+            try
+            {
+
+                using (dbSisSodInaEntities context = new dbSisSodInaEntities())
+                {
+                   
+
+                    context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+
+                    context.SaveChanges();
+                    return entity;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new UpdateEntityException("facturacion actualizacion. Electronica");
+            }
+
+
+
+        }
         //private bool actualizarInventario(string idProducto, decimal cantidad)
         //{
         //    List<tbDetalleProducto> ingredientesLista = detalleProductoIns.GetListEntitiesByIdProduct(idProducto);
         //    tbInventario inventario;
         //    foreach(tbDetalleProducto detalle in ingredientesLista)
         //    {
-               
+
         //        inventario = inventarioIns.GetEntityByIngrediente(detalle.idIngrediente);
         //        if(inventario !=null)
         //        {
@@ -247,7 +311,7 @@ namespace DataLayer
         {
             return GetEntity(entity, true);
         }
-            public tbDocumento GetEntity(tbDocumento entity, bool cargaEntAnexas)
+         public tbDocumento GetEntity(tbDocumento entity, bool cargaEntAnexas)
         {
             try
             {
@@ -292,6 +356,36 @@ namespace DataLayer
                         return doc;
 
                     }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public tbCompras GetEntityCompra(tbCompras entity)
+        {
+            try
+            {
+                using (dbSisSodInaEntities context = new dbSisSodInaEntities())
+                {
+
+                   
+                        var doc = (from p in context.tbCompras.Include("tbDetalleCompras").Include("tbTipoPago").Include("tbTipoVenta")
+                                   where p.id == entity.id && p.tipoDoc == entity.tipoDoc
+                                   select p).FirstOrDefault();
+
+                        if (doc.idProveedor != null)
+                        {
+                            doc.tbProveedores = proveedorIns.GetProveedorById((int)doc.tipoIdProveedor, doc.idProveedor);
+
+                        }                       
+                        return doc;
+
+                
                 }
 
             }
@@ -450,6 +544,30 @@ namespace DataLayer
          
 
         }
+        
+        public IEnumerable<tbCompras> listaComprasSimplificada()
+        {
+            try
+            {
+                using (dbSisSodInaEntities context = new dbSisSodInaEntities())
+                {
+
+                    return (from p in context.tbCompras.Include("tbDetalleCompras").Include("tbProveedores.tbPersona")
+                            where p.estado==true && p.reporteElectronico==true
+                            select p).ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return null;
+
+        }
+
+
 
         public IEnumerable<tbReporteHacienda> GetListMensajesCompras()
         {
@@ -458,7 +576,7 @@ namespace DataLayer
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
                 {
 
-                    return (from p in context.tbReporteHacienda.Include("tbCompras")                                             
+                    return (from p in context.tbReporteHacienda.Include("tbCompras")                           
                             select p).ToList();
                 }
 
@@ -479,17 +597,17 @@ namespace DataLayer
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
                 {
                    
-                        var list= (from p in context.tbDocumento.Include("tbDetalleDocumento").Include("tbDetalleDocumento.tbProducto").Include("tbClientes")
+                        var list= (from p in context.tbDocumento.Include("tbDetalleDocumento").Include("tbDetalleDocumento.tbProducto")
                                 where p.estadoFactura != (int)Enums.EstadoFactura.Eliminada
-                                && (p.EstadoFacturaHacienda == null || p.EstadoFacturaHacienda == "procesando" || p.EstadoFacturaHacienda == "rechazado")
-                      && p.reporteElectronic==true
+                                &&  p.reporteElectronic==true
                                 select p).ToList();
 
                     foreach (var item in list)
                     {
                         if (item.idCliente!=null)
                         {
-           item.tbClientes = clienteIns.GetClienteById((int)item.tipoIdCliente, item.idCliente.Trim());
+
+                            item.tbClientes = clienteIns.GetClienteById((int)item.tipoIdCliente, item.idCliente.Trim());
                 
                         }
                  }
@@ -699,7 +817,49 @@ namespace DataLayer
                 throw new SaveEntityException("Error en Factura");
             }
         }
+        public tbCompras GuardarCompra(tbCompras entity)
+        {
+            try
+            {
+                using (dbSisSodInaEntities context = new dbSisSodInaEntities())
+                {
 
+                    context.tbCompras.Add(entity);
+
+
+
+                    if ((bool)Global.Usuario.tbEmpresa.tbParametrosEmpresa.First().manejaInventario && entity.reportaInventario)
+                    {
+                        foreach (var detalle in entity.tbDetalleCompras)
+                        {
+                            tbInventario inven = new tbInventario();
+                            inven.idProducto = detalle.idProducto;
+                            inven = inventarioIns.GetEntity(inven);
+                            if (inven!=null)
+                            {                              
+                                    inven.cantidad = inven.cantidad + detalle.cantidad;                              
+                             
+                            }
+                          
+
+                            context.Entry(inven).State = System.Data.Entity.EntityState.Modified;
+                        }
+
+
+
+                    }
+
+                    context.SaveChanges();
+
+                }
+                return entity;
+            }
+            catch (Exception ex)
+            {
+
+                throw new SaveEntityException("Error en Factura");
+            }
+        }
         public List<tbDocumento> GetListEntities(int estado)
         {
             throw new NotImplementedException();

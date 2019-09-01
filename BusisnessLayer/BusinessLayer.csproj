@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="BAbonos.cs" />
     <Compile Include="BCanton.cs" />
+    <Compile Include="BCompras.cs" />
     <Compile Include="BEmpresa.cs" />
     <Compile Include="BPendientes.cs" />
     <Compile Include="BTipoId.cs" />
