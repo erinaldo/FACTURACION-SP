@@ -35,7 +35,27 @@ namespace PresentationLayer
             formatoGrid();
             cargarDatos();
         }
+        private void cargarListas()
+        {
+            try
+            {
 
+                //int opcion= 
+                ////carga dacumentos emitidos
+                //facturasLista = facturaIns.listaFacturas();
+                ////carga mensajes de compras enviados
+                //mensajesLista = facturaIns.listaMensajesCompras();
+                ////carga compras simplificadas
+                //comprasLista = facturaIns.listaComprasSimplificada();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
         private void cargarDatos()
         {
             try
@@ -375,10 +395,7 @@ namespace PresentationLayer
                        
 
                     }
-                    else if (tipoDoc == Enum.GetName(typeof(Enums.TipoDocumento), Enums.TipoDocumento.ComprasSimplificada).ToUpper())
-                    {
-
-                    }
+                  
                 }
                 else if (e.ColumnIndex == 10)
                 {
@@ -596,12 +613,30 @@ namespace PresentationLayer
 
                             
 
-                            string id = item.Cells[0].Value.ToString();
-                            if (id != string.Empty)
+                            int id = int.Parse(item.Cells[0].Value.ToString());
+                            string tipoDoc = item.Cells[1].Value.ToString();
+
+                            if (tipoDoc == Enum.GetName(typeof(Enums.TipoDocumento), Enums.TipoDocumento.Compras).ToUpper())
+                            {
+                                facturaIns.consultarMensajePorIdFact(id);
+                               
+
+                            }
+                            else if (tipoDoc == Enum.GetName(typeof(Enums.TipoDocumento), Enums.TipoDocumento.FacturaElectronica).ToUpper() ||
+                               tipoDoc == Enum.GetName(typeof(Enums.TipoDocumento), Enums.TipoDocumento.NotaCreditoElectronica).ToUpper() ||
+                               tipoDoc == Enum.GetName(typeof(Enums.TipoDocumento), Enums.TipoDocumento.NotaDebitoElectronica).ToUpper() ||
+                               tipoDoc == Enum.GetName(typeof(Enums.TipoDocumento), Enums.TipoDocumento.TiqueteElectronico).ToUpper())
                             {
 
-                                facturaIns.consultarMensajePorIdFact(int.Parse(id));
-                                
+                                tbDocumento doc = facturasLista.Where(x => x.id == id && x.tipoDocumento == (int)Enums.TipoDocumento.FacturaElectronica).SingleOrDefault();
+                                facturaIns.consultarFacturaElectronicaPorIdFact(doc);
+
+
+                            }
+                            else if (tipoDoc == Enum.GetName(typeof(Enums.TipoDocumento), Enums.TipoDocumento.ComprasSimplificada).ToUpper())
+                            {
+                                tbCompras doc = comprasLista.Where(x => x.id == id && x.tipoDoc == (int)Enums.TipoDocumento.ComprasSimplificada).SingleOrDefault();
+                                facturaIns.consultarCompraSimplificada(doc);
 
                             }
 
@@ -612,17 +647,13 @@ namespace PresentationLayer
 
                         }
                         index++;
-
-
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
-
+                    throw ex;
                 }
-
-
 
             });
 

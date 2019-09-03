@@ -67,7 +67,6 @@
             this.mnuDocumentosEmitidos = new System.Windows.Forms.ToolStripMenuItem();
             this.comprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuConsultaMensajes = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuValidarMensajes = new System.Windows.Forms.ToolStripMenuItem();
             this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inventarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuInventarioGeneral = new System.Windows.Forms.ToolStripMenuItem();
@@ -321,10 +320,10 @@
             // 
             this.procesosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuFacturacion,
-            this.mnuReporteHacienda,
             this.mnuInventario,
             this.mnuAbonos,
-            this.mnuCompras});
+            this.mnuCompras,
+            this.mnuReporteHacienda});
             this.procesosToolStripMenuItem.Name = "procesosToolStripMenuItem";
             this.procesosToolStripMenuItem.Size = new System.Drawing.Size(79, 24);
             this.procesosToolStripMenuItem.Text = "Procesos";
@@ -341,8 +340,8 @@
             // 
             this.mnuReporteHacienda.Name = "mnuReporteHacienda";
             this.mnuReporteHacienda.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.mnuReporteHacienda.Size = new System.Drawing.Size(273, 26);
-            this.mnuReporteHacienda.Text = "Reportar Compras";
+            this.mnuReporteHacienda.Size = new System.Drawing.Size(278, 26);
+            this.mnuReporteHacienda.Text = "Enviar Compras Hacienda";
             this.mnuReporteHacienda.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuInventario
@@ -395,8 +394,7 @@
             // comprasToolStripMenuItem
             // 
             this.comprasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuConsultaMensajes,
-            this.mnuValidarMensajes});
+            this.mnuConsultaMensajes});
             this.comprasToolStripMenuItem.Name = "comprasToolStripMenuItem";
             this.comprasToolStripMenuItem.Size = new System.Drawing.Size(283, 26);
             this.comprasToolStripMenuItem.Text = "Cuentas por Pagar(Compras)";
@@ -408,14 +406,6 @@
             this.mnuConsultaMensajes.Size = new System.Drawing.Size(284, 26);
             this.mnuConsultaMensajes.Text = "Enviar Compras Hacienda";
             this.mnuConsultaMensajes.Click += new System.EventHandler(this.OpcionMenu_Click);
-            // 
-            // mnuValidarMensajes
-            // 
-            this.mnuValidarMensajes.Name = "mnuValidarMensajes";
-            this.mnuValidarMensajes.ShortcutKeys = System.Windows.Forms.Keys.F9;
-            this.mnuValidarMensajes.Size = new System.Drawing.Size(284, 26);
-            this.mnuValidarMensajes.Text = "Validar Compras Hacienda";
-            this.mnuValidarMensajes.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // reportesToolStripMenuItem
             // 
@@ -783,7 +773,6 @@
         private System.Windows.Forms.ToolStripMenuItem mnuReporteHacienda;
         private System.Windows.Forms.ToolStripMenuItem comprasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuConsultaMensajes;
-        private System.Windows.Forms.ToolStripMenuItem mnuValidarMensajes;
         private System.Windows.Forms.Button btnMensajesCompras;
         private System.Windows.Forms.Button btnConsultaMensajeHacienda;
         private System.Windows.Forms.ToolStripMenuItem mnuAbonos;

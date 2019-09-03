@@ -68,6 +68,8 @@
             this.colDetalle = new System.Windows.Forms.DataGridViewLinkColumn();
             this.colCorreo = new System.Windows.Forms.DataGridViewLinkColumn();
             this.colValidar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.cboTipoDoc = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvDetalleFactura)).BeginInit();
             this.gbxFechas.SuspendLayout();
@@ -163,7 +165,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(824, 27);
+            this.label3.Location = new System.Drawing.Point(899, 12);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(485, 38);
             this.label3.TabIndex = 38;
@@ -234,7 +236,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(59, 99);
+            this.label4.Location = new System.Drawing.Point(59, 122);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(116, 17);
             this.label4.TabIndex = 45;
@@ -242,14 +244,14 @@
             // 
             // txtIdRecept
             // 
-            this.txtIdRecept.Location = new System.Drawing.Point(181, 96);
+            this.txtIdRecept.Location = new System.Drawing.Point(181, 119);
             this.txtIdRecept.Name = "txtIdRecept";
             this.txtIdRecept.Size = new System.Drawing.Size(361, 22);
             this.txtIdRecept.TabIndex = 46;
             // 
             // txtClaveRecept
             // 
-            this.txtClaveRecept.Location = new System.Drawing.Point(181, 124);
+            this.txtClaveRecept.Location = new System.Drawing.Point(181, 147);
             this.txtClaveRecept.Name = "txtClaveRecept";
             this.txtClaveRecept.Size = new System.Drawing.Size(361, 22);
             this.txtClaveRecept.TabIndex = 48;
@@ -257,7 +259,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(66, 126);
+            this.label5.Location = new System.Drawing.Point(66, 149);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(109, 17);
             this.label5.TabIndex = 47;
@@ -265,7 +267,7 @@
             // 
             // txtConseRecept
             // 
-            this.txtConseRecept.Location = new System.Drawing.Point(181, 152);
+            this.txtConseRecept.Location = new System.Drawing.Point(181, 175);
             this.txtConseRecept.Name = "txtConseRecept";
             this.txtConseRecept.Size = new System.Drawing.Size(361, 22);
             this.txtConseRecept.TabIndex = 50;
@@ -273,7 +275,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(24, 152);
+            this.label6.Location = new System.Drawing.Point(24, 175);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(151, 17);
             this.label6.TabIndex = 49;
@@ -438,12 +440,31 @@
             this.colValidar.ToolTipText = "Validar";
             this.colValidar.UseColumnTextForButtonValue = true;
             // 
+            // cboTipoDoc
+            // 
+            this.cboTipoDoc.FormattingEnabled = true;
+            this.cboTipoDoc.Location = new System.Drawing.Point(181, 88);
+            this.cboTipoDoc.Name = "cboTipoDoc";
+            this.cboTipoDoc.Size = new System.Drawing.Size(361, 24);
+            this.cboTipoDoc.TabIndex = 63;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(59, 92);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(116, 17);
+            this.label8.TabIndex = 64;
+            this.label8.Text = "Tipo Documento:";
+            // 
             // frmValidacionDocsHacienda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1724, 800);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.cboTipoDoc);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtArchivo);
             this.Controls.Add(this.chkInconsistentes);
@@ -520,5 +541,7 @@
         private System.Windows.Forms.DataGridViewLinkColumn colDetalle;
         private System.Windows.Forms.DataGridViewLinkColumn colCorreo;
         private System.Windows.Forms.DataGridViewButtonColumn colValidar;
+        private System.Windows.Forms.ComboBox cboTipoDoc;
+        private System.Windows.Forms.Label label8;
     }
 }

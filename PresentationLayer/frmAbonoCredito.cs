@@ -188,6 +188,8 @@ namespace PresentationLayer
             docsModificados.Clear();
             abonosModificados.Clear();
 
+            txtPendiente.Text = String.Empty;
+
 
         }
         private void cargarDatosCliente() {
@@ -280,6 +282,7 @@ namespace PresentationLayer
                               
                                 txtAbono.Text = string.Empty;
                                 txtFacturado.Text = string.Empty;
+                                txtPendiente.Text = string.Empty;
                                 chkTodos.Checked = false;
                                 cargarDatosCliente();
                                 if (chkImprimir.Checked)
@@ -389,6 +392,8 @@ namespace PresentationLayer
                 txtAbono.ResetText();
             }
         }
+
+
     }
 }
 

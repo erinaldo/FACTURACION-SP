@@ -212,7 +212,7 @@ namespace PresentationLayer
             }
             else if (((ToolStripMenuItem)sender).Name == "mnuValidacionHacienda")
             {
-                frmValidacionDocumentosHacienda frm = new frmValidacionDocumentosHacienda();
+                frmValidacionDocsHacienda frm = new frmValidacionDocsHacienda();
                 // frm.MdiParent = this;
                 frm.ShowDialog();
 
