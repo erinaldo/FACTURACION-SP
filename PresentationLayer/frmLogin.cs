@@ -76,8 +76,16 @@ namespace PresentationLayer
         //Con este metodo verificamos la auteticidad de que el usuario ya existe
         private void btnEntrar_Click(object sender, EventArgs e)
         {
-           
-            ingresar();
+            try
+            {
+                ingresar();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        
         }
 
         private void ingresar()
