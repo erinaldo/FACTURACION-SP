@@ -17,7 +17,7 @@ namespace PresentationLayer
 {
     public partial class frmProveedores2 : Form
     {
-
+        Bcliente clienteInst = new Bcliente();
         int bandera = 1;
         tbProveedores proveedorGlobal = new tbProveedores();
         BProveedores proveedorIns = new BProveedores();
@@ -685,6 +685,38 @@ namespace PresentationLayer
                     }
                 }
 
+            }
+        }
+
+        private void BtnBuscarCliente_Click(object sender, EventArgs e)
+        {
+            if ((int)cbotipoId.SelectedValue == (int)Enums.TipoId.Fisica)
+            {
+                tbPersonasTribunalS cliente = clienteInst.GetClienteByIdTribunal(mskidentificacion.Text);
+                if (cliente != null)
+                {
+                    txtapellido1.Text = cliente.APELLIDO1.Trim();
+                    txtapellido2.Text = cliente.APELLIDO2.Trim();
+                    txtnombre.Text = cliente.NOMBRE.Trim();
+                    if (int.Parse(cliente.SEXO.Trim()) == 1)
+                    {
+                        rbtmasc.Checked = true;
+                    }
+                    else
+                    {
+                        rbtfem.Checked = true;
+                    }
+                    cboProvincia.SelectedValue = cliente.CODIGOPOSTAL.Substring(0, 1);
+                    int canton = int.Parse(cliente.CODIGOPOSTAL.Substring(1, 2));
+                    cboCanton.SelectedValue = canton.ToString().PadRight(2, ' ');
+                    cboCanton.Refresh();
+
+                    int distrito = int.Parse(cliente.CODIGOPOSTAL.Substring(3, 3));
+                    cboDistrito.SelectedValue = distrito.ToString().PadRight(2, ' '); ;
+
+
+
+                }
             }
         }
     }

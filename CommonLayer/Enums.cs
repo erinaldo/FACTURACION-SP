@@ -88,6 +88,7 @@ namespace CommonLayer
             ComprasSimplificada=8,
             Proforma = 20,
             Compras = 21,
+            Factura = 22,
             Todos =0
 
         }

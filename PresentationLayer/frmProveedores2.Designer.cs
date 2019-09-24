@@ -44,6 +44,7 @@
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.tlsBtnSalir = new System.Windows.Forms.ToolStripButton();
             this.gbxProveedor = new System.Windows.Forms.GroupBox();
+            this.cboBarrios = new System.Windows.Forms.ComboBox();
             this.txtCuentaBanco = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -87,7 +88,7 @@
             this.cbotipoId = new System.Windows.Forms.ComboBox();
             this.lblobservaciones = new System.Windows.Forms.Label();
             this.lbltipoId = new System.Windows.Forms.Label();
-            this.cboBarrios = new System.Windows.Forms.ComboBox();
+            this.btnBuscarCliente = new System.Windows.Forms.Button();
             this.tlsMenu.SuspendLayout();
             this.gbxProveedor.SuspendLayout();
             this.gboSexo.SuspendLayout();
@@ -219,6 +220,7 @@
             // 
             // gbxProveedor
             // 
+            this.gbxProveedor.Controls.Add(this.btnBuscarCliente);
             this.gbxProveedor.Controls.Add(this.cboBarrios);
             this.gbxProveedor.Controls.Add(this.txtCuentaBanco);
             this.gbxProveedor.Controls.Add(this.label10);
@@ -268,6 +270,16 @@
             this.gbxProveedor.TabStop = false;
             this.gbxProveedor.Text = "Datos del Proveedor";
             // 
+            // cboBarrios
+            // 
+            this.cboBarrios.Enabled = false;
+            this.cboBarrios.FormattingEnabled = true;
+            this.cboBarrios.Location = new System.Drawing.Point(146, 301);
+            this.cboBarrios.Name = "cboBarrios";
+            this.cboBarrios.Size = new System.Drawing.Size(194, 21);
+            this.cboBarrios.TabIndex = 73;
+            this.cboBarrios.Text = "Seleccione Opcion ";
+            // 
             // txtCuentaBanco
             // 
             this.txtCuentaBanco.Enabled = false;
@@ -282,7 +294,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(52, 191);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(89, 13);
+            this.label10.Size = new System.Drawing.Size(101, 15);
             this.label10.TabIndex = 71;
             this.label10.Text = "Cuenta Bancaria:";
             // 
@@ -291,7 +303,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(450, 102);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(27, 13);
+            this.label9.Size = new System.Drawing.Size(30, 15);
             this.label9.TabIndex = 69;
             this.label9.Text = "Fax:";
             // 
@@ -338,7 +350,7 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(13, 428);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(128, 13);
+            this.label16.Size = new System.Drawing.Size(146, 15);
             this.label16.TabIndex = 67;
             this.label16.Text = "Correo Electrónico Conta:";
             // 
@@ -347,7 +359,7 @@
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(45, 404);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(94, 13);
+            this.label17.Size = new System.Drawing.Size(110, 15);
             this.label17.TabIndex = 66;
             this.label17.Text = "Nombre Tributario:";
             // 
@@ -356,7 +368,7 @@
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(18, 453);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(123, 13);
+            this.label18.Size = new System.Drawing.Size(142, 15);
             this.label18.TabIndex = 65;
             this.label18.Text = "Encargado Contabilidad:";
             // 
@@ -365,7 +377,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(60, 477);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(81, 13);
+            this.label8.Size = new System.Drawing.Size(91, 15);
             this.label8.TabIndex = 50;
             this.label8.Text = "Observaciones:";
             // 
@@ -384,7 +396,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(88, 223);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(54, 13);
+            this.label7.Size = new System.Drawing.Size(60, 15);
             this.label7.TabIndex = 48;
             this.label7.Text = "Provincia:";
             // 
@@ -393,7 +405,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(100, 249);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 13);
+            this.label6.Size = new System.Drawing.Size(46, 15);
             this.label6.TabIndex = 47;
             this.label6.Text = "Cantón";
             // 
@@ -402,7 +414,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(98, 275);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(42, 13);
+            this.label5.Size = new System.Drawing.Size(48, 15);
             this.label5.TabIndex = 46;
             this.label5.Text = "Distrito:";
             // 
@@ -411,7 +423,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(74, 329);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 13);
+            this.label4.Size = new System.Drawing.Size(75, 15);
             this.label4.TabIndex = 45;
             this.label4.Text = "Otras señas:";
             // 
@@ -463,7 +475,7 @@
             this.rbtmasc.AutoSize = true;
             this.rbtmasc.Location = new System.Drawing.Point(6, 7);
             this.rbtmasc.Name = "rbtmasc";
-            this.rbtmasc.Size = new System.Drawing.Size(73, 17);
+            this.rbtmasc.Size = new System.Drawing.Size(85, 19);
             this.rbtmasc.TabIndex = 0;
             this.rbtmasc.TabStop = true;
             this.rbtmasc.Text = "Masculino";
@@ -474,7 +486,7 @@
             this.rbtfem.AutoSize = true;
             this.rbtfem.Location = new System.Drawing.Point(79, 8);
             this.rbtfem.Name = "rbtfem";
-            this.rbtfem.Size = new System.Drawing.Size(71, 17);
+            this.rbtfem.Size = new System.Drawing.Size(84, 19);
             this.rbtfem.TabIndex = 1;
             this.rbtfem.TabStop = true;
             this.rbtfem.Text = "Femenino";
@@ -485,7 +497,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(443, 51);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.Size = new System.Drawing.Size(38, 15);
             this.label3.TabIndex = 40;
             this.label3.Text = "Sexo:";
             // 
@@ -503,7 +515,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(34, 167);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(110, 13);
+            this.label2.Size = new System.Drawing.Size(126, 15);
             this.label2.TabIndex = 37;
             this.label2.Text = "Nombre del Contacto:";
             // 
@@ -512,7 +524,7 @@
             this.lbltelefono.AutoSize = true;
             this.lbltelefono.Location = new System.Drawing.Point(424, 79);
             this.lbltelefono.Name = "lbltelefono";
-            this.lbltelefono.Size = new System.Drawing.Size(52, 13);
+            this.lbltelefono.Size = new System.Drawing.Size(58, 15);
             this.lbltelefono.TabIndex = 35;
             this.lbltelefono.Text = "Telefono:";
             // 
@@ -540,7 +552,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(382, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 13);
+            this.label1.Size = new System.Drawing.Size(110, 15);
             this.label1.TabIndex = 32;
             this.label1.Text = "Fecha Nacimiento:";
             // 
@@ -576,7 +588,7 @@
             this.lblapellido2.AutoSize = true;
             this.lblapellido2.Location = new System.Drawing.Point(51, 125);
             this.lblapellido2.Name = "lblapellido2";
-            this.lblapellido2.Size = new System.Drawing.Size(93, 13);
+            this.lblapellido2.Size = new System.Drawing.Size(107, 15);
             this.lblapellido2.TabIndex = 28;
             this.lblapellido2.Text = "Segundo Apellido:";
             // 
@@ -585,7 +597,7 @@
             this.lblnombre.AutoSize = true;
             this.lblnombre.Location = new System.Drawing.Point(97, 73);
             this.lblnombre.Name = "lblnombre";
-            this.lblnombre.Size = new System.Drawing.Size(47, 13);
+            this.lblnombre.Size = new System.Drawing.Size(55, 15);
             this.lblnombre.TabIndex = 27;
             this.lblnombre.Text = "Nombre:";
             // 
@@ -594,7 +606,7 @@
             this.lblapellid1.AutoSize = true;
             this.lblapellid1.Location = new System.Drawing.Point(63, 99);
             this.lblapellid1.Name = "lblapellid1";
-            this.lblapellid1.Size = new System.Drawing.Size(79, 13);
+            this.lblapellid1.Size = new System.Drawing.Size(94, 15);
             this.lblapellid1.TabIndex = 26;
             this.lblapellid1.Text = "Primer Apellido:";
             // 
@@ -621,7 +633,7 @@
             this.lblidentificacion.AutoSize = true;
             this.lblidentificacion.Location = new System.Drawing.Point(73, 46);
             this.lblidentificacion.Name = "lblidentificacion";
-            this.lblidentificacion.Size = new System.Drawing.Size(73, 13);
+            this.lblidentificacion.Size = new System.Drawing.Size(82, 15);
             this.lblidentificacion.TabIndex = 23;
             this.lblidentificacion.Text = "Identificacion:";
             // 
@@ -631,7 +643,7 @@
             this.lblid.Enabled = false;
             this.lblid.Location = new System.Drawing.Point(125, 28);
             this.lblid.Name = "lblid";
-            this.lblid.Size = new System.Drawing.Size(0, 13);
+            this.lblid.Size = new System.Drawing.Size(0, 15);
             this.lblid.TabIndex = 20;
             // 
             // txtOtrasSenas
@@ -660,7 +672,7 @@
             this.lblobservaciones.AutoSize = true;
             this.lblobservaciones.Location = new System.Drawing.Point(103, 301);
             this.lblobservaciones.Name = "lblobservaciones";
-            this.lblobservaciones.Size = new System.Drawing.Size(37, 13);
+            this.lblobservaciones.Size = new System.Drawing.Size(43, 15);
             this.lblobservaciones.TabIndex = 7;
             this.lblobservaciones.Text = "Barrio:";
             // 
@@ -669,19 +681,20 @@
             this.lbltipoId.AutoSize = true;
             this.lbltipoId.Location = new System.Drawing.Point(34, 19);
             this.lbltipoId.Name = "lbltipoId";
-            this.lbltipoId.Size = new System.Drawing.Size(112, 13);
+            this.lbltipoId.Size = new System.Drawing.Size(126, 15);
             this.lbltipoId.TabIndex = 0;
             this.lbltipoId.Text = "Tipo de Identificación:";
             // 
-            // cboBarrios
+            // btnBuscarCliente
             // 
-            this.cboBarrios.Enabled = false;
-            this.cboBarrios.FormattingEnabled = true;
-            this.cboBarrios.Location = new System.Drawing.Point(146, 301);
-            this.cboBarrios.Name = "cboBarrios";
-            this.cboBarrios.Size = new System.Drawing.Size(194, 21);
-            this.cboBarrios.TabIndex = 73;
-            this.cboBarrios.Text = "Seleccione Opcion ";
+            this.btnBuscarCliente.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarCliente.Image")));
+            this.btnBuscarCliente.Location = new System.Drawing.Point(348, 41);
+            this.btnBuscarCliente.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBuscarCliente.Name = "btnBuscarCliente";
+            this.btnBuscarCliente.Size = new System.Drawing.Size(27, 28);
+            this.btnBuscarCliente.TabIndex = 72;
+            this.btnBuscarCliente.UseVisualStyleBackColor = true;
+            this.btnBuscarCliente.Click += new System.EventHandler(this.BtnBuscarCliente_Click);
             // 
             // frmProveedores2
             // 
@@ -690,7 +703,7 @@
             this.ClientSize = new System.Drawing.Size(679, 618);
             this.Controls.Add(this.gbxProveedor);
             this.Controls.Add(this.tlsMenu);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmProveedores2";
             this.Text = "Mantenimiento: Proveedores";
             this.Load += new System.EventHandler(this.frmProveedores2_Load);
@@ -766,5 +779,6 @@
         private System.Windows.Forms.TextBox txtCuentaBanco;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox cboBarrios;
+        private System.Windows.Forms.Button btnBuscarCliente;
     }
 }

@@ -112,7 +112,7 @@
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="spReporteVentasGeneralTableAdapter" GeneratorDataComponentClassName="spReporteVentasGeneralTableAdapter" Name="spReporteVentasGeneral" UserDataComponentName="spReporteVentasGeneralTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="dbSisSodInaConnectionString (Settings)" DbObjectName="dbSISSODINA.dbo.spReporteVentasGeneral" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="dbSisSodInaConnectionString (Settings)" DbObjectName="dbSISSODINA.dbo.spReporteVentasGeneral" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.spReporteVentasGeneral</CommandText>
@@ -136,6 +136,7 @@
               <Mapping SourceColumn="Producto" DataSetColumn="Producto" />
               <Mapping SourceColumn="TipoVenta" DataSetColumn="TipoVenta" />
               <Mapping SourceColumn="TipoPago" DataSetColumn="TipoPago" />
+              <Mapping SourceColumn="CodigoProdcuto" DataSetColumn="CodigoProdcuto" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -242,7 +243,7 @@
   <xs:element name="dsReportes" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsReportes" msprop:Generator_UserDSName="dsReportes">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="sp_InventarioBajo" msprop:Generator_TableClassName="sp_InventarioBajoDataTable" msprop:Generator_TableVarName="tablesp_InventarioBajo" msprop:Generator_RowChangedName="sp_InventarioBajoRowChanged" msprop:Generator_TablePropName="sp_InventarioBajo" msprop:Generator_RowDeletingName="sp_InventarioBajoRowDeleting" msprop:Generator_RowChangingName="sp_InventarioBajoRowChanging" msprop:Generator_RowEvHandlerName="sp_InventarioBajoRowChangeEventHandler" msprop:Generator_RowDeletedName="sp_InventarioBajoRowDeleted" msprop:Generator_RowClassName="sp_InventarioBajoRow" msprop:Generator_UserTableName="sp_InventarioBajo" msprop:Generator_RowEvArgName="sp_InventarioBajoRowChangeEvent">
+        <xs:element name="sp_InventarioBajo" msprop:Generator_TableClassName="sp_InventarioBajoDataTable" msprop:Generator_TableVarName="tablesp_InventarioBajo" msprop:Generator_TablePropName="sp_InventarioBajo" msprop:Generator_RowDeletingName="sp_InventarioBajoRowDeleting" msprop:Generator_RowChangingName="sp_InventarioBajoRowChanging" msprop:Generator_RowEvHandlerName="sp_InventarioBajoRowChangeEventHandler" msprop:Generator_RowDeletedName="sp_InventarioBajoRowDeleted" msprop:Generator_UserTableName="sp_InventarioBajo" msprop:Generator_RowChangedName="sp_InventarioBajoRowChanged" msprop:Generator_RowEvArgName="sp_InventarioBajoRowChangeEvent" msprop:Generator_RowClassName="sp_InventarioBajoRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="nombre" msprop:Generator_ColumnVarNameInTable="columnnombre" msprop:Generator_ColumnPropNameInRow="nombre" msprop:Generator_ColumnPropNameInTable="nombreColumn" msprop:Generator_UserColumnName="nombre">
@@ -286,7 +287,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sp_InventarioGeneral" msprop:Generator_TableClassName="sp_InventarioGeneralDataTable" msprop:Generator_TableVarName="tablesp_InventarioGeneral" msprop:Generator_RowChangedName="sp_InventarioGeneralRowChanged" msprop:Generator_TablePropName="sp_InventarioGeneral" msprop:Generator_RowDeletingName="sp_InventarioGeneralRowDeleting" msprop:Generator_RowChangingName="sp_InventarioGeneralRowChanging" msprop:Generator_RowEvHandlerName="sp_InventarioGeneralRowChangeEventHandler" msprop:Generator_RowDeletedName="sp_InventarioGeneralRowDeleted" msprop:Generator_RowClassName="sp_InventarioGeneralRow" msprop:Generator_UserTableName="sp_InventarioGeneral" msprop:Generator_RowEvArgName="sp_InventarioGeneralRowChangeEvent">
+        <xs:element name="sp_InventarioGeneral" msprop:Generator_TableClassName="sp_InventarioGeneralDataTable" msprop:Generator_TableVarName="tablesp_InventarioGeneral" msprop:Generator_TablePropName="sp_InventarioGeneral" msprop:Generator_RowDeletingName="sp_InventarioGeneralRowDeleting" msprop:Generator_RowChangingName="sp_InventarioGeneralRowChanging" msprop:Generator_RowEvHandlerName="sp_InventarioGeneralRowChangeEventHandler" msprop:Generator_RowDeletedName="sp_InventarioGeneralRowDeleted" msprop:Generator_UserTableName="sp_InventarioGeneral" msprop:Generator_RowChangedName="sp_InventarioGeneralRowChanged" msprop:Generator_RowEvArgName="sp_InventarioGeneralRowChangeEvent" msprop:Generator_RowClassName="sp_InventarioGeneralRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="nombre" msprop:Generator_ColumnVarNameInTable="columnnombre" msprop:Generator_ColumnPropNameInRow="nombre" msprop:Generator_ColumnPropNameInTable="nombreColumn" msprop:Generator_UserColumnName="nombre">
@@ -330,7 +331,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sp_InventarioSobre" msprop:Generator_TableClassName="sp_InventarioSobreDataTable" msprop:Generator_TableVarName="tablesp_InventarioSobre" msprop:Generator_RowChangedName="sp_InventarioSobreRowChanged" msprop:Generator_TablePropName="sp_InventarioSobre" msprop:Generator_RowDeletingName="sp_InventarioSobreRowDeleting" msprop:Generator_RowChangingName="sp_InventarioSobreRowChanging" msprop:Generator_RowEvHandlerName="sp_InventarioSobreRowChangeEventHandler" msprop:Generator_RowDeletedName="sp_InventarioSobreRowDeleted" msprop:Generator_RowClassName="sp_InventarioSobreRow" msprop:Generator_UserTableName="sp_InventarioSobre" msprop:Generator_RowEvArgName="sp_InventarioSobreRowChangeEvent">
+        <xs:element name="sp_InventarioSobre" msprop:Generator_TableClassName="sp_InventarioSobreDataTable" msprop:Generator_TableVarName="tablesp_InventarioSobre" msprop:Generator_TablePropName="sp_InventarioSobre" msprop:Generator_RowDeletingName="sp_InventarioSobreRowDeleting" msprop:Generator_RowChangingName="sp_InventarioSobreRowChanging" msprop:Generator_RowEvHandlerName="sp_InventarioSobreRowChangeEventHandler" msprop:Generator_RowDeletedName="sp_InventarioSobreRowDeleted" msprop:Generator_UserTableName="sp_InventarioSobre" msprop:Generator_RowChangedName="sp_InventarioSobreRowChanged" msprop:Generator_RowEvArgName="sp_InventarioSobreRowChangeEvent" msprop:Generator_RowClassName="sp_InventarioSobreRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="nombre" msprop:Generator_ColumnVarNameInTable="columnnombre" msprop:Generator_ColumnPropNameInRow="nombre" msprop:Generator_ColumnPropNameInTable="nombreColumn" msprop:Generator_UserColumnName="nombre">
@@ -374,7 +375,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sp_InventarioByCategoria" msprop:Generator_TableClassName="sp_InventarioByCategoriaDataTable" msprop:Generator_TableVarName="tablesp_InventarioByCategoria" msprop:Generator_RowChangedName="sp_InventarioByCategoriaRowChanged" msprop:Generator_TablePropName="sp_InventarioByCategoria" msprop:Generator_RowDeletingName="sp_InventarioByCategoriaRowDeleting" msprop:Generator_RowChangingName="sp_InventarioByCategoriaRowChanging" msprop:Generator_RowEvHandlerName="sp_InventarioByCategoriaRowChangeEventHandler" msprop:Generator_RowDeletedName="sp_InventarioByCategoriaRowDeleted" msprop:Generator_RowClassName="sp_InventarioByCategoriaRow" msprop:Generator_UserTableName="sp_InventarioByCategoria" msprop:Generator_RowEvArgName="sp_InventarioByCategoriaRowChangeEvent">
+        <xs:element name="sp_InventarioByCategoria" msprop:Generator_TableClassName="sp_InventarioByCategoriaDataTable" msprop:Generator_TableVarName="tablesp_InventarioByCategoria" msprop:Generator_TablePropName="sp_InventarioByCategoria" msprop:Generator_RowDeletingName="sp_InventarioByCategoriaRowDeleting" msprop:Generator_RowChangingName="sp_InventarioByCategoriaRowChanging" msprop:Generator_RowEvHandlerName="sp_InventarioByCategoriaRowChangeEventHandler" msprop:Generator_RowDeletedName="sp_InventarioByCategoriaRowDeleted" msprop:Generator_UserTableName="sp_InventarioByCategoria" msprop:Generator_RowChangedName="sp_InventarioByCategoriaRowChanged" msprop:Generator_RowEvArgName="sp_InventarioByCategoriaRowChangeEvent" msprop:Generator_RowClassName="sp_InventarioByCategoriaRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idProducto" msprop:Generator_ColumnVarNameInTable="columnidProducto" msprop:Generator_ColumnPropNameInRow="idProducto" msprop:Generator_ColumnPropNameInTable="idProductoColumn" msprop:Generator_UserColumnName="idProducto">
@@ -407,7 +408,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="spReporteVentasGeneral" msprop:Generator_TableClassName="spReporteVentasGeneralDataTable" msprop:Generator_TableVarName="tablespReporteVentasGeneral" msprop:Generator_RowChangedName="spReporteVentasGeneralRowChanged" msprop:Generator_TablePropName="spReporteVentasGeneral" msprop:Generator_RowDeletingName="spReporteVentasGeneralRowDeleting" msprop:Generator_RowChangingName="spReporteVentasGeneralRowChanging" msprop:Generator_RowEvHandlerName="spReporteVentasGeneralRowChangeEventHandler" msprop:Generator_RowDeletedName="spReporteVentasGeneralRowDeleted" msprop:Generator_RowClassName="spReporteVentasGeneralRow" msprop:Generator_UserTableName="spReporteVentasGeneral" msprop:Generator_RowEvArgName="spReporteVentasGeneralRowChangeEvent">
+        <xs:element name="spReporteVentasGeneral" msprop:Generator_TableClassName="spReporteVentasGeneralDataTable" msprop:Generator_TableVarName="tablespReporteVentasGeneral" msprop:Generator_TablePropName="spReporteVentasGeneral" msprop:Generator_RowDeletingName="spReporteVentasGeneralRowDeleting" msprop:Generator_RowChangingName="spReporteVentasGeneralRowChanging" msprop:Generator_RowEvHandlerName="spReporteVentasGeneralRowChangeEventHandler" msprop:Generator_RowDeletedName="spReporteVentasGeneralRowDeleted" msprop:Generator_UserTableName="spReporteVentasGeneral" msprop:Generator_RowChangedName="spReporteVentasGeneralRowChanged" msprop:Generator_RowEvArgName="spReporteVentasGeneralRowChangeEvent" msprop:Generator_RowClassName="spReporteVentasGeneralRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="CodigoProducto" msprop:Generator_ColumnVarNameInTable="columnCodigoProducto" msprop:Generator_ColumnPropNameInRow="CodigoProducto" msprop:Generator_ColumnPropNameInTable="CodigoProductoColumn" msprop:Generator_UserColumnName="CodigoProducto">
@@ -446,10 +447,17 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="CodigoProdcuto" msprop:Generator_ColumnVarNameInTable="columnCodigoProdcuto" msprop:Generator_ColumnPropNameInRow="CodigoProdcuto" msprop:Generator_ColumnPropNameInTable="CodigoProdcutoColumn" msprop:Generator_UserColumnName="CodigoProdcuto">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="spReporteVentasPorFechaEsp" msprop:Generator_TableClassName="spReporteVentasPorFechaEspDataTable" msprop:Generator_TableVarName="tablespReporteVentasPorFechaEsp" msprop:Generator_TablePropName="spReporteVentasPorFechaEsp" msprop:Generator_RowDeletingName="spReporteVentasPorFechaEspRowDeleting" msprop:Generator_RowChangingName="spReporteVentasPorFechaEspRowChanging" msprop:Generator_RowEvHandlerName="spReporteVentasPorFechaEspRowChangeEventHandler" msprop:Generator_RowDeletedName="spReporteVentasPorFechaEspRowDeleted" msprop:Generator_UserTableName="spReporteVentasPorFechaEsp" msprop:Generator_RowChangedName="spReporteVentasPorFechaEspRowChanged" msprop:Generator_RowEvArgName="spReporteVentasPorFechaEspRowChangeEvent" msprop:Generator_RowClassName="spReporteVentasPorFechaEspRow">
+        <xs:element name="spReporteVentasPorFechaEsp" msprop:Generator_TableClassName="spReporteVentasPorFechaEspDataTable" msprop:Generator_TableVarName="tablespReporteVentasPorFechaEsp" msprop:Generator_RowChangedName="spReporteVentasPorFechaEspRowChanged" msprop:Generator_TablePropName="spReporteVentasPorFechaEsp" msprop:Generator_RowDeletingName="spReporteVentasPorFechaEspRowDeleting" msprop:Generator_RowChangingName="spReporteVentasPorFechaEspRowChanging" msprop:Generator_RowEvHandlerName="spReporteVentasPorFechaEspRowChangeEventHandler" msprop:Generator_RowDeletedName="spReporteVentasPorFechaEspRowDeleted" msprop:Generator_RowClassName="spReporteVentasPorFechaEspRow" msprop:Generator_UserTableName="spReporteVentasPorFechaEsp" msprop:Generator_RowEvArgName="spReporteVentasPorFechaEspRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="CodigoProducto" msprop:Generator_ColumnVarNameInTable="columnCodigoProducto" msprop:Generator_ColumnPropNameInRow="CodigoProducto" msprop:Generator_ColumnPropNameInTable="CodigoProductoColumn" msprop:Generator_UserColumnName="CodigoProducto">
@@ -492,7 +500,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="spReporteVentasPorDias" msprop:Generator_TableClassName="spReporteVentasPorDiasDataTable" msprop:Generator_TableVarName="tablespReporteVentasPorDias" msprop:Generator_TablePropName="spReporteVentasPorDias" msprop:Generator_RowDeletingName="spReporteVentasPorDiasRowDeleting" msprop:Generator_RowChangingName="spReporteVentasPorDiasRowChanging" msprop:Generator_RowEvHandlerName="spReporteVentasPorDiasRowChangeEventHandler" msprop:Generator_RowDeletedName="spReporteVentasPorDiasRowDeleted" msprop:Generator_UserTableName="spReporteVentasPorDias" msprop:Generator_RowChangedName="spReporteVentasPorDiasRowChanged" msprop:Generator_RowEvArgName="spReporteVentasPorDiasRowChangeEvent" msprop:Generator_RowClassName="spReporteVentasPorDiasRow">
+        <xs:element name="spReporteVentasPorDias" msprop:Generator_TableClassName="spReporteVentasPorDiasDataTable" msprop:Generator_TableVarName="tablespReporteVentasPorDias" msprop:Generator_RowChangedName="spReporteVentasPorDiasRowChanged" msprop:Generator_TablePropName="spReporteVentasPorDias" msprop:Generator_RowDeletingName="spReporteVentasPorDiasRowDeleting" msprop:Generator_RowChangingName="spReporteVentasPorDiasRowChanging" msprop:Generator_RowEvHandlerName="spReporteVentasPorDiasRowChangeEventHandler" msprop:Generator_RowDeletedName="spReporteVentasPorDiasRowDeleted" msprop:Generator_RowClassName="spReporteVentasPorDiasRow" msprop:Generator_UserTableName="spReporteVentasPorDias" msprop:Generator_RowEvArgName="spReporteVentasPorDiasRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="CodigoProducto" msprop:Generator_ColumnVarNameInTable="columnCodigoProducto" msprop:Generator_ColumnPropNameInRow="CodigoProducto" msprop:Generator_ColumnPropNameInTable="CodigoProductoColumn" msprop:Generator_UserColumnName="CodigoProducto">
@@ -534,7 +542,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sp_NotasCreditoPorFechaEsp" msprop:Generator_TableClassName="sp_NotasCreditoPorFechaEspDataTable" msprop:Generator_TableVarName="tablesp_NotasCreditoPorFechaEsp" msprop:Generator_TablePropName="sp_NotasCreditoPorFechaEsp" msprop:Generator_RowDeletingName="sp_NotasCreditoPorFechaEspRowDeleting" msprop:Generator_RowChangingName="sp_NotasCreditoPorFechaEspRowChanging" msprop:Generator_RowEvHandlerName="sp_NotasCreditoPorFechaEspRowChangeEventHandler" msprop:Generator_RowDeletedName="sp_NotasCreditoPorFechaEspRowDeleted" msprop:Generator_UserTableName="sp_NotasCreditoPorFechaEsp" msprop:Generator_RowChangedName="sp_NotasCreditoPorFechaEspRowChanged" msprop:Generator_RowEvArgName="sp_NotasCreditoPorFechaEspRowChangeEvent" msprop:Generator_RowClassName="sp_NotasCreditoPorFechaEspRow">
+        <xs:element name="sp_NotasCreditoPorFechaEsp" msprop:Generator_TableClassName="sp_NotasCreditoPorFechaEspDataTable" msprop:Generator_TableVarName="tablesp_NotasCreditoPorFechaEsp" msprop:Generator_RowChangedName="sp_NotasCreditoPorFechaEspRowChanged" msprop:Generator_TablePropName="sp_NotasCreditoPorFechaEsp" msprop:Generator_RowDeletingName="sp_NotasCreditoPorFechaEspRowDeleting" msprop:Generator_RowChangingName="sp_NotasCreditoPorFechaEspRowChanging" msprop:Generator_RowEvHandlerName="sp_NotasCreditoPorFechaEspRowChangeEventHandler" msprop:Generator_RowDeletedName="sp_NotasCreditoPorFechaEspRowDeleted" msprop:Generator_RowClassName="sp_NotasCreditoPorFechaEspRow" msprop:Generator_UserTableName="sp_NotasCreditoPorFechaEsp" msprop:Generator_RowEvArgName="sp_NotasCreditoPorFechaEspRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="fecha" msprop:Generator_ColumnVarNameInTable="columnfecha" msprop:Generator_ColumnPropNameInRow="fecha" msprop:Generator_ColumnPropNameInTable="fechaColumn" msprop:Generator_UserColumnName="fecha" type="xs:dateTime" />
