@@ -125,8 +125,9 @@ namespace PresentationLayer
 
                 }
                 txtAdeudado.Text = adeudadoGeneral.ToString();
+                txtAbono.Text = "0";
                 txtFacturado.Text = mnontoGeneral.ToString();
-
+                txtPendiente.Text= adeudadoGeneral.ToString();
             }
             catch (Exception)
             {
@@ -384,7 +385,11 @@ namespace PresentationLayer
                 {
                     txtPendiente.Text = "0";
                 }
-                txtPendiente.Text = (decimal.Parse(txtAdeudado.Text) - decimal.Parse(txtAbono.Text)).ToString();
+                else
+                {
+                    txtPendiente.Text = (decimal.Parse(txtAdeudado.Text) - decimal.Parse(txtAbono.Text)).ToString();
+
+                }
             }
             catch (Exception)
             {

@@ -103,6 +103,7 @@
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(292, 34);
             this.txtUsuario.TabIndex = 5;
+            this.txtUsuario.Text = "moya";
             this.txtUsuario.TextChanged += new System.EventHandler(this.txtUsuario_TextChanged);
             // 
             // txtContraseña
@@ -114,6 +115,7 @@
             this.txtContraseña.PasswordChar = '*';
             this.txtContraseña.Size = new System.Drawing.Size(292, 34);
             this.txtContraseña.TabIndex = 7;
+            this.txtContraseña.Text = "123";
             this.txtContraseña.TextChanged += new System.EventHandler(this.txtContraseña_TextChanged);
             this.txtContraseña.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtContraseña_KeyPress);
             // 
@@ -158,7 +160,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
-            this.ClientSize = new System.Drawing.Size(362, 478);
+            this.ClientSize = new System.Drawing.Size(356, 478);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cboNumCaja);
             this.Controls.Add(this.txtContraseña);
