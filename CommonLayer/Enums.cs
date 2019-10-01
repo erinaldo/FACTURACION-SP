@@ -102,6 +102,12 @@ namespace CommonLayer
 
         }
 
+        public enum TipoFacturacionElectRegimenSimplificado
+        {
+            Todo = 1,
+            SoloFacturacionConCliente = 2,    
+        }
+
         public enum Mensajes
         {
 

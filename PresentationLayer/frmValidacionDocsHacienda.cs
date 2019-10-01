@@ -64,11 +64,14 @@ namespace PresentationLayer
                     
 
                 //carga dacumentos emitidos
-                facturasLista = facturaIns.listaFacturas();               
+                facturasLista = facturaIns.listaFacturas();
+                facturasLista = facturasLista.Where(x => x.reporteElectronic == true).ToList();
                 //carga mensajes de compras enviados
                 mensajesLista = facturaIns.listaMensajesCompras();
+              
                 //carga compras simplificadas
                 comprasLista = facturaIns.listaComprasSimplificada();
+                comprasLista = comprasLista.Where(x => x.reporteElectronico == true).ToList();
 
                 if (chkInconsistentes.Checked)
                 {

@@ -785,21 +785,26 @@ namespace DataLayer
                     {
                         foreach (tbDetalleDocumento detalle in entity.tbDetalleDocumento)
                         {
-                            tbInventario inven = new tbInventario();
-                            inven.idProducto = detalle.idProducto;
-                            inven = inventarioIns.GetEntity(inven);
-                            //si guardo factura desde 0, y el estado es cancelado, actualizo el inventario
-                            if (entity.tipoDocumento == (int)Enums.TipoDocumento.FacturaElectronica)
+                            if (detalle.idProducto!="SM")
                             {
-                                      inven.cantidad = inven.cantidad - detalle.cantidad;
-   }
-                            if (entity.tipoDocumento == (int)Enums.TipoDocumento.NotaCreditoElectronica || entity.tipoDocumento == (int)Enums.TipoDocumento.NotaDebitoElectronica)
-                            {
-                                inven.cantidad = inven.cantidad + detalle.cantidad;
+                                tbInventario inven = new tbInventario();
+                                inven.idProducto = detalle.idProducto;
+                                inven = inventarioIns.GetEntity(inven);
+                                //si guardo factura desde 0, y el estado es cancelado, actualizo el inventario
+                                if (entity.tipoDocumento == (int)Enums.TipoDocumento.FacturaElectronica)
+                                {
+                                    inven.cantidad = inven.cantidad - detalle.cantidad;
+                                }
+                                if (entity.tipoDocumento == (int)Enums.TipoDocumento.NotaCreditoElectronica || entity.tipoDocumento == (int)Enums.TipoDocumento.NotaDebitoElectronica)
+                                {
+                                    inven.cantidad = inven.cantidad + detalle.cantidad;
+
+                                }
+
+                                context.Entry(inven).State = System.Data.Entity.EntityState.Modified;
 
                             }
-                 
-                            context.Entry(inven).State = System.Data.Entity.EntityState.Modified;
+                          
                         }
 
 

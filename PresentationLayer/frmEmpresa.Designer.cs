@@ -44,6 +44,8 @@
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.tlsBtnSalir = new System.Windows.Forms.ToolStripButton();
             this.gbxDatos = new System.Windows.Forms.GroupBox();
+            this.txtNombreImpresora = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.txtActEconomica = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.chkImprimeDoc = new System.Windows.Forms.CheckBox();
@@ -85,12 +87,14 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.sp_FacturaElectronicaTableAdapter1 = new PresentationLayer.Reportes.dtReporteHaciendaTableAdapters.sp_FacturaElectronicaTableAdapter();
-            this.txtNombreImpresora = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkRegimenSimplificado = new System.Windows.Forms.CheckBox();
+            this.cboTipoFactRegimenSimplificado = new System.Windows.Forms.ComboBox();
             this.tlsMenu.SuspendLayout();
             this.gbxDatos.SuspendLayout();
             this.gbxHacienda.SuspendLayout();
             this.gbxCorreo.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tlsMenu
@@ -219,6 +223,7 @@
             // 
             // gbxDatos
             // 
+            this.gbxDatos.Controls.Add(this.groupBox1);
             this.gbxDatos.Controls.Add(this.txtNombreImpresora);
             this.gbxDatos.Controls.Add(this.label18);
             this.gbxDatos.Controls.Add(this.txtActEconomica);
@@ -234,10 +239,27 @@
             this.gbxDatos.Controls.Add(this.label11);
             this.gbxDatos.Location = new System.Drawing.Point(14, 42);
             this.gbxDatos.Name = "gbxDatos";
-            this.gbxDatos.Size = new System.Drawing.Size(628, 749);
+            this.gbxDatos.Size = new System.Drawing.Size(628, 816);
             this.gbxDatos.TabIndex = 15;
             this.gbxDatos.TabStop = false;
             this.gbxDatos.Text = "Datos de Empresa";
+            // 
+            // txtNombreImpresora
+            // 
+            this.txtNombreImpresora.Location = new System.Drawing.Point(187, 781);
+            this.txtNombreImpresora.MaxLength = 50;
+            this.txtNombreImpresora.Name = "txtNombreImpresora";
+            this.txtNombreImpresora.Size = new System.Drawing.Size(381, 22);
+            this.txtNombreImpresora.TabIndex = 37;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(46, 784);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(129, 17);
+            this.label18.TabIndex = 36;
+            this.label18.Text = "Nombre Impresora:";
             // 
             // txtActEconomica
             // 
@@ -259,7 +281,7 @@
             // chkImprimeDoc
             // 
             this.chkImprimeDoc.AutoSize = true;
-            this.chkImprimeDoc.Location = new System.Drawing.Point(187, 696);
+            this.chkImprimeDoc.Location = new System.Drawing.Point(187, 756);
             this.chkImprimeDoc.Name = "chkImprimeDoc";
             this.chkImprimeDoc.Size = new System.Drawing.Size(160, 21);
             this.chkImprimeDoc.TabIndex = 36;
@@ -289,7 +311,7 @@
             this.gbxHacienda.Controls.Add(this.label3);
             this.gbxHacienda.Controls.Add(this.label16);
             this.gbxHacienda.Controls.Add(this.label4);
-            this.gbxHacienda.Location = new System.Drawing.Point(18, 136);
+            this.gbxHacienda.Location = new System.Drawing.Point(18, 201);
             this.gbxHacienda.Name = "gbxHacienda";
             this.gbxHacienda.Size = new System.Drawing.Size(604, 291);
             this.gbxHacienda.TabIndex = 23;
@@ -485,7 +507,7 @@
             this.gbxCorreo.Controls.Add(this.label10);
             this.gbxCorreo.Controls.Add(this.label2);
             this.gbxCorreo.Controls.Add(this.label17);
-            this.gbxCorreo.Location = new System.Drawing.Point(13, 440);
+            this.gbxCorreo.Location = new System.Drawing.Point(18, 501);
             this.gbxCorreo.Name = "gbxCorreo";
             this.gbxCorreo.Size = new System.Drawing.Size(569, 251);
             this.gbxCorreo.TabIndex = 22;
@@ -614,28 +636,41 @@
             // 
             this.sp_FacturaElectronicaTableAdapter1.ClearBeforeFill = true;
             // 
-            // txtNombreImpresora
+            // groupBox1
             // 
-            this.txtNombreImpresora.Location = new System.Drawing.Point(187, 721);
-            this.txtNombreImpresora.MaxLength = 50;
-            this.txtNombreImpresora.Name = "txtNombreImpresora";
-            this.txtNombreImpresora.Size = new System.Drawing.Size(381, 22);
-            this.txtNombreImpresora.TabIndex = 37;
+            this.groupBox1.Controls.Add(this.cboTipoFactRegimenSimplificado);
+            this.groupBox1.Controls.Add(this.chkRegimenSimplificado);
+            this.groupBox1.Location = new System.Drawing.Point(18, 133);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(604, 68);
+            this.groupBox1.TabIndex = 39;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Régimen Simplificado";
             // 
-            // label18
+            // chkRegimenSimplificado
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(46, 724);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(129, 17);
-            this.label18.TabIndex = 36;
-            this.label18.Text = "Nombre Impresora:";
+            this.chkRegimenSimplificado.AutoSize = true;
+            this.chkRegimenSimplificado.Location = new System.Drawing.Point(9, 31);
+            this.chkRegimenSimplificado.Name = "chkRegimenSimplificado";
+            this.chkRegimenSimplificado.Size = new System.Drawing.Size(165, 21);
+            this.chkRegimenSimplificado.TabIndex = 36;
+            this.chkRegimenSimplificado.Text = "Régimen Simplificado";
+            this.chkRegimenSimplificado.UseVisualStyleBackColor = true;
+            this.chkRegimenSimplificado.CheckedChanged += new System.EventHandler(this.ChkRegimenSimplificado_CheckedChanged);
+            // 
+            // cboTipoFactRegimenSimplificado
+            // 
+            this.cboTipoFactRegimenSimplificado.FormattingEnabled = true;
+            this.cboTipoFactRegimenSimplificado.Location = new System.Drawing.Point(174, 29);
+            this.cboTipoFactRegimenSimplificado.Name = "cboTipoFactRegimenSimplificado";
+            this.cboTipoFactRegimenSimplificado.Size = new System.Drawing.Size(376, 24);
+            this.cboTipoFactRegimenSimplificado.TabIndex = 37;
             // 
             // frmEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(663, 815);
+            this.ClientSize = new System.Drawing.Size(663, 870);
             this.Controls.Add(this.gbxDatos);
             this.Controls.Add(this.tlsMenu);
             this.Name = "frmEmpresa";
@@ -649,6 +684,8 @@
             this.gbxHacienda.PerformLayout();
             this.gbxCorreo.ResumeLayout(false);
             this.gbxCorreo.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -714,5 +751,8 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtNombreImpresora;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ComboBox cboTipoFactRegimenSimplificado;
+        private System.Windows.Forms.CheckBox chkRegimenSimplificado;
     }
 }

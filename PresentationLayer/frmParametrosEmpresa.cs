@@ -32,6 +32,8 @@ namespace PresentationLayer
             tlsBtnCancelar.Enabled = false;
             tlsBtnEliminar.Enabled = false;
             tlsBtnSalir.Enabled = true;
+            chkServicioMesa.Checked = false;
+         
             cargarDatos();
             //listainve = inveIns.GetListEntities(3);
         }
@@ -74,7 +76,18 @@ namespace PresentationLayer
                 txtPrecioBase.Text = parametros.precioBase.ToString();
                 chkFacturacionElectronica.Checked = (bool)parametros.facturacionElectronica;
                 chkObligaClienteFacturacion.Checked = (bool)parametros.clienteObligatorioFact;
-           
+                chkServicioMesa.Checked = (bool)parametros.servicioMesa;
+
+                if (chkServicioMesa.Checked)
+                {
+                    txtPorcServicioMesa.Text = parametros.porcServicioMesa.ToString();
+             
+                }
+                else
+                {
+                    txtPorcServicioMesa.ResetText();
+                  
+                }
 
             }
             catch (Exception)
@@ -185,6 +198,15 @@ namespace PresentationLayer
                         parametros.idEmpresa = parametrosGlobal.idEmpresa;
                         parametros.idTipoEmpresa = parametrosGlobal.idTipoEmpresa;
 
+                        parametros.servicioMesa = chkServicioMesa.Checked;
+                        if (chkServicioMesa.Checked)
+                        {
+                            parametros.porcServicioMesa =int.Parse(txtPorcServicioMesa.Text);
+                        }
+                        else
+                        {
+                            parametros.porcServicioMesa = null;
+                        }
 
                         try
                         {
@@ -221,7 +243,7 @@ namespace PresentationLayer
         private bool validarDatos()
         {
 
-             if (txtPrecioBase.Text.Trim() == string.Empty)
+            if (txtPrecioBase.Text.Trim() == string.Empty)
             {
 
                 MessageBox.Show("Debe completar el campo de Precio Base", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -298,11 +320,35 @@ namespace PresentationLayer
                 txtPlazoMaxProf.Focus();
                 return false;
             }
+            else if (chkServicioMesa.Checked)
+            {
+                if (!Utility.isNumerInt(txtPorcServicioMesa.Text.Trim()))
+                {
+
+                    MessageBox.Show("No es un valor válido, Procentaje de Servicio Mesa", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPorcServicioMesa.Focus();
+                    return false;
+                }
+
+            }
            
 
             return true;
 
 
+        }
+
+        private void ChkServicioMesa_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkServicioMesa.Checked)
+            {
+               
+            }
+            else
+            {
+               
+                txtPorcServicioMesa.ResetText();
+            }
         }
     }
 }

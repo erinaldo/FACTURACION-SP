@@ -406,6 +406,8 @@
           <Property Name="imprimeDoc" Type="bit" />
           <Property Name="codigoActComercial" Type="nchar" MaxLength="6" Nullable="false" />
           <Property Name="nombreImpresora" Type="nchar" MaxLength="50" />
+          <Property Name="regimenSimplificado" Type="bit" Nullable="false" />
+          <Property Name="tipoFacturacionRegimen" Type="int" />
         </EntityType>
         <EntityType Name="tbExoneraciones">
           <Key>
@@ -552,6 +554,8 @@
           <Property Name="clienteObligatorioFact" Type="bit" />
           <Property Name="plazoMaximoCredito" Type="int" />
           <Property Name="plazoMaximoProforma" Type="int" />
+          <Property Name="servicioMesa" Type="bit" />
+          <Property Name="porcServicioMesa" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="tbPermisos">
           <Key>
@@ -2646,6 +2650,8 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="imprimeDoc" Type="Boolean" />
           <Property Name="codigoActComercial" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
           <Property Name="nombreImpresora" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="regimenSimplificado" Type="Boolean" Nullable="false" />
+          <Property Name="tipoFacturacionRegimen" Type="Int32" />
           <NavigationProperty Name="tbDocumento" Relationship="dbSisSodInaModel.FK_tbDocumento_tbEmpresa" FromRole="tbEmpresa" ToRole="tbDocumento" />
           <NavigationProperty Name="tbPersona" Relationship="dbSisSodInaModel.FK_tbEmpresa_tbPersona" FromRole="tbEmpresa" ToRole="tbPersona" />
           <NavigationProperty Name="tbParametrosEmpresa" Relationship="dbSisSodInaModel.FK_tbParametrosEmpresa_tbEmpresa" FromRole="tbEmpresa" ToRole="tbParametrosEmpresa" />
@@ -2807,6 +2813,8 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="clienteObligatorioFact" Type="Boolean" />
           <Property Name="plazoMaximoCredito" Type="Int32" />
           <Property Name="plazoMaximoProforma" Type="Int32" />
+          <Property Name="servicioMesa" Type="Boolean" />
+          <Property Name="porcServicioMesa" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="tbEmpresa" Relationship="dbSisSodInaModel.FK_tbParametrosEmpresa_tbEmpresa" FromRole="tbParametrosEmpresa" ToRole="tbEmpresa" />
         </EntityType>
         <EntityType Name="tbPersona">
@@ -4248,6 +4256,8 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <EntitySetMapping Name="tbEmpresa">
             <EntityTypeMapping TypeName="dbSisSodInaModel.tbEmpresa">
               <MappingFragment StoreEntitySet="tbEmpresa">
+                <ScalarProperty Name="tipoFacturacionRegimen" ColumnName="tipoFacturacionRegimen" />
+                <ScalarProperty Name="regimenSimplificado" ColumnName="regimenSimplificado" />
                 <ScalarProperty Name="nombreImpresora" ColumnName="nombreImpresora" />
                 <ScalarProperty Name="codigoActComercial" ColumnName="codigoActComercial" />
                 <ScalarProperty Name="imprimeDoc" ColumnName="imprimeDoc" />
@@ -4400,6 +4410,8 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <EntitySetMapping Name="tbParametrosEmpresa">
             <EntityTypeMapping TypeName="dbSisSodInaModel.tbParametrosEmpresa">
               <MappingFragment StoreEntitySet="tbParametrosEmpresa">
+                <ScalarProperty Name="porcServicioMesa" ColumnName="porcServicioMesa" />
+                <ScalarProperty Name="servicioMesa" ColumnName="servicioMesa" />
                 <ScalarProperty Name="plazoMaximoProforma" ColumnName="plazoMaximoProforma" />
                 <ScalarProperty Name="plazoMaximoCredito" ColumnName="plazoMaximoCredito" />
                 <ScalarProperty Name="clienteObligatorioFact" ColumnName="clienteObligatorioFact" />

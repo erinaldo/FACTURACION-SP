@@ -25,9 +25,11 @@ namespace PresentationLayer
 
         private void frmEmpresa_Load(object sender, EventArgs e)
         {
+
             MenuGenerico.CambioEstadoMenu(ref tlsMenu, (int)EnumMenu.OpcionMenu.Modificar);
             Utility.EnableDisableForm(ref gbxDatos, false);
-        
+
+            cboTipoFactRegimenSimplificado.Enabled = false;
             tlsBtnBuscar.Enabled = false;
             tlsBtnCancelar.Enabled = false;
             tlsBtnEliminar.Enabled = false;
@@ -38,7 +40,7 @@ namespace PresentationLayer
 
         private void cargarDatos()
         {
-
+            cboTipoFactRegimenSimplificado.DataSource = Enum.GetValues(typeof(Enums.TipoFacturacionElectRegimenSimplificado));
             try
             {
                 empresaGlobal.id = Global.Usuario.tbEmpresa.id.Trim();
@@ -78,7 +80,17 @@ namespace PresentationLayer
                 chkAmbienteDesa.Checked = (bool)!empresa.ambientePruebas;
                 txtUsuarioHacienda.Text = empresa.usuarioApiHacienda.Trim();
                 txtConstrasenaHacienda.Text = empresa.claveApiHacienda.Trim();
-              
+
+                chkRegimenSimplificado.Checked = empresa.regimenSimplificado;
+                if (chkRegimenSimplificado.Checked)
+                {
+                    cboTipoFactRegimenSimplificado.Text = Enum.GetName(typeof(Enums.TipoFacturacionElectRegimenSimplificado), empresa.tipoFacturacionRegimen); 
+
+                }
+                else
+                {
+                    cboTipoFactRegimenSimplificado.ResetText();
+                }
 
                 txtCertificado.Text = empresa.certificadoInstalado.Trim();
                 txtPinCertificado.Text = empresa.pin.ToString().Trim();
@@ -101,7 +113,7 @@ namespace PresentationLayer
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
@@ -276,6 +288,18 @@ namespace PresentationLayer
                         empresaGlobal.certificadoInstalado = txtCertificado.Text;
                         empresaGlobal.pin = int.Parse(txtPinCertificado.Text);
 
+
+                        empresaGlobal.regimenSimplificado = chkRegimenSimplificado.Checked;
+                        if (empresaGlobal.regimenSimplificado)
+                        {
+                            empresaGlobal.tipoFacturacionRegimen = (int)cboTipoFactRegimenSimplificado.SelectedValue;
+
+                        }
+                        else
+                        {
+                            empresaGlobal.tipoFacturacionRegimen = null;
+                        }
+
                         empresaGlobal.rutaCertificado = txtRutaXML.Text;
                         empresaGlobal.rutaXMLCompras = txtXMLCompras.Text;
 
@@ -337,6 +361,17 @@ namespace PresentationLayer
                 MessageBox.Show("Debe indicar el código de la actividad económica de la empresa", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtActEconomica.Focus();
                 return false;
+            }
+
+            else if (chkRegimenSimplificado.Checked)
+            {
+                if (cboTipoFactRegimenSimplificado.Text==String.Empty)
+                {
+                    MessageBox.Show("Debe indicar Tipo Facturación electrónica para el régimen simplificado", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    cboTipoFactRegimenSimplificado.Focus();
+                    return false;
+                }
+           
             }
             else if (txtUsuarioHacienda.Text.Trim()==string.Empty)
             {
@@ -446,6 +481,18 @@ namespace PresentationLayer
         private void gbxHacienda_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void ChkRegimenSimplificado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkRegimenSimplificado.Checked)
+            {
+                cboTipoFactRegimenSimplificado.Enabled = true;
+            }
+            else
+            {
+                cboTipoFactRegimenSimplificado.Enabled = false;
+            }
         }
     }
 }

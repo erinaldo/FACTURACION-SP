@@ -44,6 +44,7 @@
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.tlsBtnSalir = new System.Windows.Forms.ToolStripButton();
             this.gbxDatos = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.txtPrecioBase = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -66,7 +67,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
+            this.chkServicioMesa = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtPorcServicioMesa = new System.Windows.Forms.TextBox();
             this.tlsMenu.SuspendLayout();
             this.gbxDatos.SuspendLayout();
             this.SuspendLayout();
@@ -197,6 +200,9 @@
             // 
             // gbxDatos
             // 
+            this.gbxDatos.Controls.Add(this.txtPorcServicioMesa);
+            this.gbxDatos.Controls.Add(this.label13);
+            this.gbxDatos.Controls.Add(this.chkServicioMesa);
             this.gbxDatos.Controls.Add(this.label12);
             this.gbxDatos.Controls.Add(this.label11);
             this.gbxDatos.Controls.Add(this.txtPrecioBase);
@@ -222,10 +228,19 @@
             this.gbxDatos.Controls.Add(this.label15);
             this.gbxDatos.Location = new System.Drawing.Point(12, 42);
             this.gbxDatos.Name = "gbxDatos";
-            this.gbxDatos.Size = new System.Drawing.Size(532, 314);
+            this.gbxDatos.Size = new System.Drawing.Size(532, 363);
             this.gbxDatos.TabIndex = 14;
             this.gbxDatos.TabStop = false;
             this.gbxDatos.Text = "Parámetros Empresa";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(308, 24);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(59, 17);
+            this.label12.TabIndex = 63;
+            this.label12.Text = "Colones";
             // 
             // label11
             // 
@@ -307,7 +322,7 @@
             // chkObligaClienteFacturacion
             // 
             this.chkObligaClienteFacturacion.AutoSize = true;
-            this.chkObligaClienteFacturacion.Location = new System.Drawing.Point(18, 268);
+            this.chkObligaClienteFacturacion.Location = new System.Drawing.Point(8, 286);
             this.chkObligaClienteFacturacion.Name = "chkObligaClienteFacturacion";
             this.chkObligaClienteFacturacion.Size = new System.Drawing.Size(244, 21);
             this.chkObligaClienteFacturacion.TabIndex = 52;
@@ -317,7 +332,7 @@
             // chkFacturacionElectronica
             // 
             this.chkFacturacionElectronica.AutoSize = true;
-            this.chkFacturacionElectronica.Location = new System.Drawing.Point(18, 241);
+            this.chkFacturacionElectronica.Location = new System.Drawing.Point(8, 259);
             this.chkFacturacionElectronica.Name = "chkFacturacionElectronica";
             this.chkFacturacionElectronica.Size = new System.Drawing.Size(178, 21);
             this.chkFacturacionElectronica.TabIndex = 51;
@@ -327,7 +342,7 @@
             // chkAprobDes
             // 
             this.chkAprobDes.AutoSize = true;
-            this.chkAprobDes.Location = new System.Drawing.Point(16, 187);
+            this.chkAprobDes.Location = new System.Drawing.Point(6, 205);
             this.chkAprobDes.Name = "chkAprobDes";
             this.chkAprobDes.Size = new System.Drawing.Size(174, 21);
             this.chkAprobDes.TabIndex = 50;
@@ -337,7 +352,7 @@
             // chkManejaInventario
             // 
             this.chkManejaInventario.AutoSize = true;
-            this.chkManejaInventario.Location = new System.Drawing.Point(16, 214);
+            this.chkManejaInventario.Location = new System.Drawing.Point(6, 232);
             this.chkManejaInventario.Name = "chkManejaInventario";
             this.chkManejaInventario.Size = new System.Drawing.Size(142, 21);
             this.chkManejaInventario.TabIndex = 49;
@@ -417,20 +432,38 @@
             this.label15.TabIndex = 40;
             this.label15.Text = "Plazo Máximo Proformas:";
             // 
-            // label12
+            // chkServicioMesa
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(308, 24);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(59, 17);
-            this.label12.TabIndex = 63;
-            this.label12.Text = "Colones";
+            this.chkServicioMesa.AutoSize = true;
+            this.chkServicioMesa.Location = new System.Drawing.Point(8, 313);
+            this.chkServicioMesa.Name = "chkServicioMesa";
+            this.chkServicioMesa.Size = new System.Drawing.Size(118, 21);
+            this.chkServicioMesa.TabIndex = 64;
+            this.chkServicioMesa.Text = "Servicio Mesa";
+            this.chkServicioMesa.UseVisualStyleBackColor = true;
+            this.chkServicioMesa.CheckedChanged += new System.EventHandler(this.ChkServicioMesa_CheckedChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(215, 314);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(20, 17);
+            this.label13.TabIndex = 66;
+            this.label13.Text = "%";
+            // 
+            // txtPorcServicioMesa
+            // 
+            this.txtPorcServicioMesa.Location = new System.Drawing.Point(130, 312);
+            this.txtPorcServicioMesa.Name = "txtPorcServicioMesa";
+            this.txtPorcServicioMesa.Size = new System.Drawing.Size(77, 22);
+            this.txtPorcServicioMesa.TabIndex = 67;
             // 
             // frmParametrosEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(558, 366);
+            this.ClientSize = new System.Drawing.Size(558, 425);
             this.Controls.Add(this.gbxDatos);
             this.Controls.Add(this.tlsMenu);
             this.Name = "frmParametrosEmpresa";
@@ -485,5 +518,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.CheckBox chkServicioMesa;
+        private System.Windows.Forms.TextBox txtPorcServicioMesa;
     }
 }

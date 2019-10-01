@@ -45,7 +45,13 @@ namespace PresentationLayer
             {
                 chkTiqueteElectronico.Enabled = false;
                 chkTiqueteElectronico.Checked = false;
-                chkServicioMesa.Checked = documentoTotal.tbDetalleDocumento.Where(x => x.idProducto == "SM").SingleOrDefault() != null;
+                chkServicioMesa.Visible = (bool)Global.Usuario.tbEmpresa.tbParametrosEmpresa.FirstOrDefault().servicioMesa;
+                if (chkServicioMesa.Visible)
+                {
+                    chkServicioMesa.Text = "Servicio Mesa(" + Global.Usuario.tbEmpresa.tbParametrosEmpresa.FirstOrDefault().porcServicioMesa + "%)";
+                    chkServicioMesa.Checked = documentoTotal.tbDetalleDocumento.Where(x => x.idProducto == "SM").SingleOrDefault() != null;
+
+                }
                 cargarListaTotal();
             }
             catch (Exception)
@@ -250,7 +256,7 @@ namespace PresentationLayer
                 detalle.idProducto = "SM";
                 detalle.cantidad = 1;
                 detalle.montoTotal = lista.Sum(x => x.totalLinea);
-                detalle.montoTotal *= decimal.Parse("0.10");
+                detalle.montoTotal *= ((decimal)Global.Usuario.tbEmpresa.tbParametrosEmpresa.FirstOrDefault().porcServicioMesa / 100);
                 detalle.totalLinea = detalle.cantidad * detalle.montoTotal;
                 lista.Add(detalle);
 
@@ -793,23 +799,73 @@ namespace PresentationLayer
                 documento.correo2 = txtCorreo2.Text == string.Empty ? null : txtCorreo2.Text.Trim();
 
             }
-            
+
+            //cliente
             if (clienteGlo != null)
             {
                 documento.idCliente = clienteGlo.id;
                 documento.tipoIdCliente = clienteGlo.tipoId;
-                //asigna el valor que tenga el cliente si es contribuyente o no
-
                 documento.tbClientes = clienteGlo;
-                if (chkTiqueteElectronico.Checked)
+
+            }
+
+            if (documento.reporteElectronic)
+            {
+                if ((bool)Global.Usuario.tbEmpresa.regimenSimplificado)
                 {
-                    documento.tipoDocumento = (int)Enums.TipoDocumento.TiqueteElectronico;
+                    if (Global.Usuario.tbEmpresa.tipoFacturacionRegimen == (int)Enums.TipoFacturacionElectRegimenSimplificado.SoloFacturacionConCliente)
+                    {
+                        if (clienteGlo != null)
+                        {
+                            documento.tipoDocumento = (int)Enums.TipoDocumento.FacturaElectronica;
+                            if (chkTiqueteElectronico.Checked)
+                            {
+                                documento.tipoDocumento = (int)Enums.TipoDocumento.TiqueteElectronico;
+                            }
+                        }
+                        else
+                        {
+                            documento.tipoDocumento = (int)Enums.TipoDocumento.Factura;
+                            documento.reporteElectronic = false;
+                        }
+                    }
+                    else if (Global.Usuario.tbEmpresa.tipoFacturacionRegimen == (int)Enums.TipoFacturacionElectRegimenSimplificado.Todo)
+                    {
+                        if (clienteGlo != null)
+                        {
+                            documento.tipoDocumento = (int)Enums.TipoDocumento.FacturaElectronica;
+                            if (chkTiqueteElectronico.Checked)
+                            {
+                                documento.tipoDocumento = (int)Enums.TipoDocumento.TiqueteElectronico;
+                            }
+                        }
+                        else
+                        {
+                            documento.tipoDocumento = (int)Enums.TipoDocumento.TiqueteElectronico;
+                        }
+                    }
+                }
+                else
+                {
+                    if (clienteGlo != null)
+                    {
+                        documento.tipoDocumento = (int)Enums.TipoDocumento.FacturaElectronica;
+                        if (chkTiqueteElectronico.Checked)
+                        {
+                            documento.tipoDocumento = (int)Enums.TipoDocumento.TiqueteElectronico;
+                        }
+                    }
+                    else
+                    {
+                        documento.tipoDocumento = (int)Enums.TipoDocumento.TiqueteElectronico;
+
+                    }
                 }
             }
             else
             {
-                documento.tipoDocumento = (int)Enums.TipoDocumento.TiqueteElectronico;
-
+                documento.tipoDocumento = (int)Enums.TipoDocumento.Factura;
+                documento.reporteElectronic = false;
             }
 
             documento.estado = true;
