@@ -858,7 +858,7 @@ namespace FacturacionElectronicaLayer.ClasesDatos
 
                 // La clave se crea con la función CreaClave de la clase Datos
                 writer.WriteElementString("Clave", _numeroClave);
-                writer.WriteElementString("CodigoActividad", _emisor.codigoActividad.ToString().PadLeft(6, '0'));
+                writer.WriteElementString("CodigoActividad", _empresa.codigoActComercial.ToString().PadLeft(6, '0'));
 
 
 
