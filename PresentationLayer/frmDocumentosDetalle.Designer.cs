@@ -49,6 +49,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.likClave = new System.Windows.Forms.LinkLabel();
             this.label13 = new System.Windows.Forms.Label();
             this.txtClaveRef = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -85,7 +86,8 @@
             this.label14 = new System.Windows.Forms.Label();
             this.txtEstadoHacienda = new System.Windows.Forms.TextBox();
             this.btnReImprimir = new System.Windows.Forms.Button();
-            this.likClave = new System.Windows.Forms.LinkLabel();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtEstadoFact = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -157,7 +159,7 @@
             // 
             // txtFecha
             // 
-            this.txtFecha.Location = new System.Drawing.Point(495, 69);
+            this.txtFecha.Location = new System.Drawing.Point(524, 47);
             this.txtFecha.Margin = new System.Windows.Forms.Padding(4);
             this.txtFecha.Name = "txtFecha";
             this.txtFecha.ReadOnly = true;
@@ -194,7 +196,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(437, 72);
+            this.label4.Location = new System.Drawing.Point(466, 50);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(51, 17);
             this.label4.TabIndex = 70;
@@ -229,7 +231,7 @@
             // 
             // txtTipoVenta
             // 
-            this.txtTipoVenta.Location = new System.Drawing.Point(495, 96);
+            this.txtTipoVenta.Location = new System.Drawing.Point(524, 74);
             this.txtTipoVenta.Margin = new System.Windows.Forms.Padding(4);
             this.txtTipoVenta.Name = "txtTipoVenta";
             this.txtTipoVenta.ReadOnly = true;
@@ -238,7 +240,7 @@
             // 
             // txtTipoPago
             // 
-            this.txtTipoPago.Location = new System.Drawing.Point(495, 123);
+            this.txtTipoPago.Location = new System.Drawing.Point(524, 101);
             this.txtTipoPago.Margin = new System.Windows.Forms.Padding(4);
             this.txtTipoPago.Name = "txtTipoPago";
             this.txtTipoPago.ReadOnly = true;
@@ -248,7 +250,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(411, 126);
+            this.label9.Location = new System.Drawing.Point(440, 101);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(77, 17);
             this.label9.TabIndex = 77;
@@ -257,7 +259,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(407, 99);
+            this.label10.Location = new System.Drawing.Point(436, 76);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(81, 17);
             this.label10.TabIndex = 78;
@@ -265,6 +267,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label16);
+            this.groupBox1.Controls.Add(this.txtEstadoFact);
             this.groupBox1.Controls.Add(this.likClave);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.txtClaveRef);
@@ -285,10 +289,21 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(693, 156);
+            this.groupBox1.Size = new System.Drawing.Size(728, 156);
             this.groupBox1.TabIndex = 79;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de Factura";
+            // 
+            // likClave
+            // 
+            this.likClave.AutoSize = true;
+            this.likClave.Location = new System.Drawing.Point(105, 21);
+            this.likClave.Name = "likClave";
+            this.likClave.Size = new System.Drawing.Size(60, 17);
+            this.likClave.TabIndex = 83;
+            this.likClave.TabStop = true;
+            this.likClave.Text = "Sin dato";
+            this.likClave.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.likClave_LinkClicked);
             // 
             // label13
             // 
@@ -311,7 +326,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(432, 48);
+            this.label12.Location = new System.Drawing.Point(44, 130);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(56, 17);
             this.label12.TabIndex = 80;
@@ -319,11 +334,11 @@
             // 
             // txtEstado
             // 
-            this.txtEstado.Location = new System.Drawing.Point(495, 43);
+            this.txtEstado.Location = new System.Drawing.Point(106, 126);
             this.txtEstado.Margin = new System.Windows.Forms.Padding(4);
             this.txtEstado.Name = "txtEstado";
             this.txtEstado.ReadOnly = true;
-            this.txtEstado.Size = new System.Drawing.Size(188, 22);
+            this.txtEstado.Size = new System.Drawing.Size(293, 22);
             this.txtEstado.TabIndex = 79;
             // 
             // groupBox2
@@ -342,7 +357,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(693, 137);
+            this.groupBox2.Size = new System.Drawing.Size(729, 137);
             this.groupBox2.TabIndex = 80;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos de Cliente";
@@ -376,7 +391,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox3.Size = new System.Drawing.Size(1080, 217);
+            this.groupBox3.Size = new System.Drawing.Size(1116, 217);
             this.groupBox3.TabIndex = 81;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Detalle de Factura";
@@ -398,7 +413,7 @@
             this.lsvFacturas.Location = new System.Drawing.Point(7, 22);
             this.lsvFacturas.Margin = new System.Windows.Forms.Padding(4);
             this.lsvFacturas.Name = "lsvFacturas";
-            this.lsvFacturas.Size = new System.Drawing.Size(1052, 187);
+            this.lsvFacturas.Size = new System.Drawing.Size(1088, 187);
             this.lsvFacturas.TabIndex = 2;
             this.lsvFacturas.UseCompatibleStateImageBehavior = false;
             this.lsvFacturas.View = System.Windows.Forms.View.Details;
@@ -457,7 +472,7 @@
             this.gbxMontos.Controls.Add(this.lblDescuento);
             this.gbxMontos.Controls.Add(this.txtIva);
             this.gbxMontos.Controls.Add(this.lblTotal);
-            this.gbxMontos.Location = new System.Drawing.Point(713, 40);
+            this.gbxMontos.Location = new System.Drawing.Point(748, 42);
             this.gbxMontos.Margin = new System.Windows.Forms.Padding(4);
             this.gbxMontos.Name = "gbxMontos";
             this.gbxMontos.Padding = new System.Windows.Forms.Padding(4);
@@ -599,7 +614,7 @@
             this.btnCancelarFactura.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarFactura.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelarFactura.Image")));
             this.btnCancelarFactura.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnCancelarFactura.Location = new System.Drawing.Point(769, 598);
+            this.btnCancelarFactura.Location = new System.Drawing.Point(801, 598);
             this.btnCancelarFactura.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancelarFactura.Name = "btnCancelarFactura";
             this.btnCancelarFactura.Size = new System.Drawing.Size(90, 70);
@@ -614,7 +629,7 @@
             this.btnEnviarCorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEnviarCorreo.Image = global::PresentationLayer.Properties.Resources.correoEnvio;
             this.btnEnviarCorreo.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnEnviarCorreo.Location = new System.Drawing.Point(1002, 596);
+            this.btnEnviarCorreo.Location = new System.Drawing.Point(1034, 596);
             this.btnEnviarCorreo.Margin = new System.Windows.Forms.Padding(4);
             this.btnEnviarCorreo.Name = "btnEnviarCorreo";
             this.btnEnviarCorreo.Size = new System.Drawing.Size(90, 70);
@@ -659,7 +674,7 @@
             this.btnReImprimir.ForeColor = System.Drawing.Color.Black;
             this.btnReImprimir.Image = ((System.Drawing.Image)(resources.GetObject("btnReImprimir.Image")));
             this.btnReImprimir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnReImprimir.Location = new System.Drawing.Point(904, 597);
+            this.btnReImprimir.Location = new System.Drawing.Point(936, 597);
             this.btnReImprimir.Margin = new System.Windows.Forms.Padding(4);
             this.btnReImprimir.Name = "btnReImprimir";
             this.btnReImprimir.Size = new System.Drawing.Size(90, 70);
@@ -669,22 +684,29 @@
             this.btnReImprimir.UseVisualStyleBackColor = true;
             this.btnReImprimir.Click += new System.EventHandler(this.btnReImprimir_Click);
             // 
-            // likClave
+            // label16
             // 
-            this.likClave.AutoSize = true;
-            this.likClave.Location = new System.Drawing.Point(105, 21);
-            this.likClave.Name = "likClave";
-            this.likClave.Size = new System.Drawing.Size(60, 17);
-            this.likClave.TabIndex = 83;
-            this.likClave.TabStop = true;
-            this.likClave.Text = "Sin dato";
-            this.likClave.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.likClave_LinkClicked);
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(409, 129);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(108, 17);
+            this.label16.TabIndex = 85;
+            this.label16.Text = "Estado Factura:";
+            // 
+            // txtEstadoFact
+            // 
+            this.txtEstadoFact.Location = new System.Drawing.Point(524, 127);
+            this.txtEstadoFact.Margin = new System.Windows.Forms.Padding(4);
+            this.txtEstadoFact.Name = "txtEstadoFact";
+            this.txtEstadoFact.ReadOnly = true;
+            this.txtEstadoFact.Size = new System.Drawing.Size(188, 22);
+            this.txtEstadoFact.TabIndex = 84;
             // 
             // frmDocumentosDetalle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1107, 680);
+            this.ClientSize = new System.Drawing.Size(1140, 680);
             this.Controls.Add(this.btnReImprimir);
             this.Controls.Add(this.txtEstadoHacienda);
             this.Controls.Add(this.label14);
@@ -772,5 +794,7 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button btnReImprimir;
         private System.Windows.Forms.LinkLabel likClave;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox txtEstadoFact;
     }
 }

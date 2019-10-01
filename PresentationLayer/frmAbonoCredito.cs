@@ -398,7 +398,42 @@ namespace PresentationLayer
             }
         }
 
+        private void TxtIdCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                if (txtIdCliente.Text != string.Empty)
+                {
+                    try
+                    {
+                        tbClientes clienteGlo = clienteB.GetClienteById(txtIdCliente.Text.Trim());
+                        if (clienteGlo != null)
+                        {
+                            dataBuscar(clienteGlo);
+                        }
+                        else
+                        {
+                            MessageBox.Show($"No se encontró el Cliente con el ID: {txtIdCliente.Text.Trim()}", "Buscar Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                            clienteGlo = null;
+                            txtIdCliente.Text = string.Empty;
+                            txtCliente.Text = string.Empty;
+                            txtDireccion.Text = string.Empty;
+                            txtTel.Text = string.Empty;
+                            txtCorreo.Text = string.Empty;
+                     
+
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        txtCliente.Text = string.Empty;
+                        MessageBox.Show("No se pudo obtener el Cliente, verifique los datos", "Buscar Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -393,9 +393,9 @@
             this.txtIdCliente.Location = new System.Drawing.Point(107, 21);
             this.txtIdCliente.Margin = new System.Windows.Forms.Padding(4);
             this.txtIdCliente.Name = "txtIdCliente";
-            this.txtIdCliente.ReadOnly = true;
             this.txtIdCliente.Size = new System.Drawing.Size(209, 22);
             this.txtIdCliente.TabIndex = 55;
+            this.txtIdCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtIdCliente_KeyPress);
             // 
             // txtCliente
             // 

@@ -85,6 +85,7 @@ namespace PresentationLayer
             txtTipoPago.Text = _doc.tipoPago==null?string.Empty: Enum.GetName(typeof(Enums.TipoPago), _doc.tipoPago).ToUpper();
             txtTipoVenta.Text = _doc.tipoVenta == null ? string.Empty : Enum.GetName(typeof(Enums.tipoVenta), _doc.tipoVenta).ToUpper();
             txtEstado.Text =  Enum.GetName(typeof(Enums.Estado), _doc.estado).ToUpper();
+            txtEstadoFact.Text = Enum.GetName(typeof(Enums.EstadoFactura), _doc.estadoFactura).ToUpper();
             txtClaveRef.Text = _doc.claveRef;
             if (_doc.EstadoFacturaHacienda!=null)
             {
