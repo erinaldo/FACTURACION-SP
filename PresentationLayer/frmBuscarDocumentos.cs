@@ -38,23 +38,9 @@ namespace PresentationLayer
             try
             {
                 IEnumerable<tbDocumento> fact=null;
-                if ((int)cboTipoDoc.SelectedValue == (int)Enums.TipoDocumento.Todos)
-                {
                     fact = factIns.getListAllDocumentos();
-                }
-          
-                else if ((int)cboTipoDoc.SelectedValue != (int)Enums.TipoDocumento.Proforma)
-                {
-
-                    fact = factIns.getListFacturasAceptadasHacienda();
-
-
-                }
-                else
-                {
-
-                    fact = factIns.getListAllDocumentos();
-                }
+            
+                
 
 
                 bool estado = (int)cboEstado.SelectedValue == 0 ? false : true;

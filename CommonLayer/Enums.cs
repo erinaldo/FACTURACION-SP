@@ -89,6 +89,7 @@ namespace CommonLayer
             Proforma = 20,
             Compras = 21,
             Factura = 22,
+            NotaCredito=23,
             Todos =0
 
         }

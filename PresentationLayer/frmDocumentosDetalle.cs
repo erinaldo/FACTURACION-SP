@@ -41,7 +41,7 @@ namespace PresentationLayer
         private void frmFacturaDeshabilitada_Load(object sender, EventArgs e)
         {
             btnReImprimir.Visible = (bool)Global.Usuario.tbEmpresa.imprimeDoc;
-            //btnCancelarFactura.Enabled = _doc.tipoDocumento == (int)Enums.TipoDocumento.FacturaElectronica ? true:false;
+            btnCancelarFactura.Enabled = _doc.tipoDocumento != (int)Enums.TipoDocumento.Proforma && _doc.tipoDocumento != (int)Enums.TipoDocumento.Compras && _doc.tipoDocumento != (int)Enums.TipoDocumento.ComprasSimplificada ? true:false;
             if (_doc.estado==false)
             {
                 btnCancelarFactura.Enabled = false;
@@ -285,11 +285,19 @@ namespace PresentationLayer
                 notaCredito.tipoMoneda = _doc.tipoMoneda;
                 notaCredito.tipoCambio =(int) _doc.tipoCambio;
 
-          
 
 
+                if (_doc.tipoDocumento==(int)Enums.TipoDocumento.Factura && !_doc.reporteElectronic)
+                {
+                    notaCredito.tipoDocumento = (int)Enums.TipoDocumento.NotaCredito;
 
-                notaCredito.tipoDocumento = (int)Enums.TipoDocumento.NotaCreditoElectronica;
+                }
+                else
+                {
+                    notaCredito.tipoDocumento = (int)Enums.TipoDocumento.NotaCreditoElectronica;
+
+                }
+
                 notaCredito.tipoIdCliente = _doc.tipoIdCliente;
                 notaCredito.tipoIdEmpresa = _doc.tipoIdEmpresa;
                 notaCredito.usuario_crea = Global.Usuario.nombreUsuario.Trim().ToUpper(); 
