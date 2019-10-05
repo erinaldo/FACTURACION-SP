@@ -81,10 +81,13 @@ namespace PresentationLayer
                 }
                 else if (reporte == (int)Enums.reportes.reporteGeneralVenta)
                 {
-                    Reporte = new rptVentasGeneral();
-                    Reportes.dsReportesTableAdapters.spReporteVentasGeneralTableAdapter dt = new Reportes.dsReportesTableAdapters.spReporteVentasGeneralTableAdapter();
+                    this.fechaInicio = Utility.getDate();
+                    this.fechaFin = Utility.getDate();
+                    Reporte = new rptVentaDia();
+                    Reportes.dsReportesTableAdapters.spReporteVentasPorFechaEspTableAdapter dt = new Reportes.dsReportesTableAdapters.spReporteVentasPorFechaEspTableAdapter();
                     dt.Connection = _SqlConnection;
-                    dt.Fill(ds.spReporteVentasGeneral);
+                    dt.Fill(ds.spReporteVentasPorFechaEsp, this.fechaInicio, this.fechaFin);
+
                 }
                 else if (reporte == (int)Enums.reportes.ventasFechaInicioFin)
                 {

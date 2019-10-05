@@ -665,6 +665,12 @@
       <DependentUpon>rptNotasCreditoFechaIncioFin.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reportes\rptVentaDia.cs">
+      <DependentUpon>rptVentaDia.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reportes\rptVentasFechasInicioFin1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -970,6 +976,10 @@
     <EmbeddedResource Include="Reportes\rptNotasCreditoFechaIncioFin.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptNotasCreditoFechaIncioFin.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\rptVentaDia.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptVentaDia.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\rptVentasFechasInicioFin1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
