@@ -762,9 +762,10 @@ namespace PresentationLayer
             precio2 = (costo + (costo * (decimal.Parse(txtUtilidad2.Text) / 100)));
             precio3 = (costo + (costo * (decimal.Parse(txtUtilidad3.Text) / 100)));
 
-            //precio1 = Utility.redondearNumero(precio1);
-            //precio2 = Utility.redondearNumero(precio2);
-            //precio3 = Utility.redondearNumero(precio3);
+            precio1 = Math.Ceiling(precio1);
+            precio2 = Math.Ceiling(precio2);
+            precio3 = Math.Ceiling(precio3);
+    
 
             if (cboImpuesto.SelectedIndex != -1)
             {
@@ -779,17 +780,14 @@ namespace PresentationLayer
             txtPrecio2.Text = precio2.ToString();
             txtPrecio3.Text = precio3.ToString();
 
-            precio1 += (precio1 * impuesto);
-            precio2 += (precio2 * impuesto);
-            precio3 += (precio3 * impuesto);
+            precio1 += Math.Ceiling((precio1 * impuesto));
+            precio2 += Math.Ceiling((precio2 * impuesto));
+            precio3 += Math.Ceiling((precio3 * impuesto));
 
-            //precio1 = Utility.redondearNumero(precio1);
-            //precio2 = Utility.redondearNumero(precio2);
-            //precio3 = Utility.redondearNumero(precio3);
 
-            txtPrecioVenta1.Text = precio1.ToString();
-            txtPrecioVenta2.Text = precio2.ToString();
-            txtPrecioVenta3.Text = precio3.ToString();
+            txtPrecioVenta1.Text = Math.Ceiling(precio1).ToString();
+            txtPrecioVenta2.Text = Math.Ceiling(precio2).ToString(); 
+            txtPrecioVenta3.Text = Math.Ceiling(precio3).ToString(); 
 
 
 

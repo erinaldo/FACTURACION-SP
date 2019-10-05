@@ -1,5 +1,6 @@
 ﻿using CommonLayer;
 using CrystalDecisions.CrystalReports.Engine;
+using EntityLayer;
 using PresentationLayer.Reportes;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace PresentationLayer
 
         public DateTime fechaInicio { get; set; }
         public DateTime fechaFin { get; set; }
+        public tbClientes clienteGlo { get; set; }
 
         private int reporte { get; set; }
 
@@ -114,6 +116,30 @@ namespace PresentationLayer
                     dt.Connection = _SqlConnection;
                     dt.Fill(ds.sp_NotasCreditoPorFechaEsp, this.fechaInicio, this.fechaFin);
                 }
+                else if (reporte == (int)Enums.reportes.estadoCuentaCliente)
+                {
+                    frmClienteReporte buscar = new frmClienteReporte();
+                    buscar.pasarDatosEvent += datoscliente;
+                    buscar.ShowDialog();
+                    if (clienteGlo==null)
+                    {
+                        this.Close();
+                        return;
+                    }
+
+                    Reporte = new rptEstadoCuentaClienteEsp();
+                    Reportes.dsReportesTableAdapters.sp_EstadoCuentaClienteEspTableAdapter dt = new Reportes.dsReportesTableAdapters.sp_EstadoCuentaClienteEspTableAdapter();
+                    dt.Connection = _SqlConnection;
+                    dt.Fill(ds.sp_EstadoCuentaClienteEsp, (int)clienteGlo.tipoId, clienteGlo.id.Trim().ToString());
+                }
+                else if (reporte == (int)Enums.reportes.morosos)
+                {              
+
+                    Reporte = new rptMoridadClientes();
+                    Reportes.dsReportesTableAdapters.sp_MorosidadClientesTableAdapter dt = new Reportes.dsReportesTableAdapters.sp_MorosidadClientesTableAdapter();
+                    dt.Connection = _SqlConnection;
+                    dt.Fill(ds.sp_MorosidadClientes);
+                }
 
 
 
@@ -131,6 +157,13 @@ namespace PresentationLayer
 
           
 
+        }
+
+        private void datoscliente(tbClientes entity)
+        {
+          
+                clienteGlo = entity;
+           
         }
 
         private void datosFechas(DateTime fechaInicio, DateTime fechaFin)

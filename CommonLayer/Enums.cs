@@ -156,8 +156,10 @@ namespace CommonLayer
             inventarioCategoria=4,
             reporteGeneralVenta=5,
             ventasFechaInicioFin=6,
-            notasCreditoFechaIncioFin=7
-           
+            notasCreditoFechaIncioFin=7,
+            estadoCuentaCliente = 8,
+            morosos=9
+
         }
 
         public enum roles

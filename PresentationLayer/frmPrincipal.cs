@@ -358,7 +358,16 @@ namespace PresentationLayer
                 reporte = (int)Enums.reportes.notasCreditoFechaIncioFin;
 
             }
+            else if (((ToolStripMenuItem)sender).Name == "mnuEstadoCuentaCliente")
+            {
+                reporte = (int)Enums.reportes.estadoCuentaCliente;
 
+            }
+            else if (((ToolStripMenuItem)sender).Name == "mnuMorosos")
+            {
+                reporte = (int)Enums.reportes.morosos;
+
+            }
 
 
             frmReportes frm = new frmReportes(reporte);         
@@ -473,6 +482,11 @@ namespace PresentationLayer
         {
             frmAbonoCredito form = new frmAbonoCredito();
             form.ShowDialog();
+        }
+
+        private void cuentasPorCobrasCréditosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

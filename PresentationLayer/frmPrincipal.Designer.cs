@@ -58,10 +58,10 @@
             this.mnuTipoMovimientos = new System.Windows.Forms.ToolStripMenuItem();
             this.procesosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFacturacion = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuReporteHacienda = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuInventario = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAbonos = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCompras = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuReporteHacienda = new System.Windows.Forms.ToolStripMenuItem();
             this.consultasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuValidacionHacienda = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDocumentosEmitidos = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,6 +78,10 @@
             this.mnuReporteFechaIncioFin = new System.Windows.Forms.ToolStripMenuItem();
             this.notasCréditoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuNotasCreditoFechas = new System.Windows.Forms.ToolStripMenuItem();
+            this.clienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuEstadoCuentaCliente = new System.Windows.Forms.ToolStripMenuItem();
+            this.cuentasPorCobrasCréditosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuMorosos = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAcercaDe = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDocEmitidos = new System.Windows.Forms.Button();
             this.btnValidacion = new System.Windows.Forms.Button();
@@ -332,9 +336,30 @@
             // 
             this.mnuFacturacion.Name = "mnuFacturacion";
             this.mnuFacturacion.ShortcutKeys = System.Windows.Forms.Keys.F6;
-            this.mnuFacturacion.Size = new System.Drawing.Size(273, 26);
+            this.mnuFacturacion.Size = new System.Drawing.Size(278, 26);
             this.mnuFacturacion.Text = "Facturacion";
             this.mnuFacturacion.Click += new System.EventHandler(this.OpcionMenu_Click);
+            // 
+            // mnuInventario
+            // 
+            this.mnuInventario.Name = "mnuInventario";
+            this.mnuInventario.Size = new System.Drawing.Size(278, 26);
+            this.mnuInventario.Text = "Inventario";
+            this.mnuInventario.Click += new System.EventHandler(this.OpcionMenu_Click);
+            // 
+            // mnuAbonos
+            // 
+            this.mnuAbonos.Name = "mnuAbonos";
+            this.mnuAbonos.Size = new System.Drawing.Size(278, 26);
+            this.mnuAbonos.Text = "Cuentas por Cobrar(Abonos)";
+            this.mnuAbonos.Click += new System.EventHandler(this.OpcionMenu_Click);
+            // 
+            // mnuCompras
+            // 
+            this.mnuCompras.Name = "mnuCompras";
+            this.mnuCompras.Size = new System.Drawing.Size(278, 26);
+            this.mnuCompras.Text = "Cuentas por Pagar(Compras)";
+            this.mnuCompras.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuReporteHacienda
             // 
@@ -343,27 +368,6 @@
             this.mnuReporteHacienda.Size = new System.Drawing.Size(278, 26);
             this.mnuReporteHacienda.Text = "Enviar Compras Hacienda";
             this.mnuReporteHacienda.Click += new System.EventHandler(this.OpcionMenu_Click);
-            // 
-            // mnuInventario
-            // 
-            this.mnuInventario.Name = "mnuInventario";
-            this.mnuInventario.Size = new System.Drawing.Size(273, 26);
-            this.mnuInventario.Text = "Inventario";
-            this.mnuInventario.Click += new System.EventHandler(this.OpcionMenu_Click);
-            // 
-            // mnuAbonos
-            // 
-            this.mnuAbonos.Name = "mnuAbonos";
-            this.mnuAbonos.Size = new System.Drawing.Size(273, 26);
-            this.mnuAbonos.Text = "Cuentas por Cobrar(Abonos)";
-            this.mnuAbonos.Click += new System.EventHandler(this.OpcionMenu_Click);
-            // 
-            // mnuCompras
-            // 
-            this.mnuCompras.Name = "mnuCompras";
-            this.mnuCompras.Size = new System.Drawing.Size(273, 26);
-            this.mnuCompras.Text = "Cuentas por Pagar(Compras)";
-            this.mnuCompras.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // consultasToolStripMenuItem
             // 
@@ -403,7 +407,7 @@
             // mnuConsultaMensajes
             // 
             this.mnuConsultaMensajes.Name = "mnuConsultaMensajes";
-            this.mnuConsultaMensajes.Size = new System.Drawing.Size(284, 26);
+            this.mnuConsultaMensajes.Size = new System.Drawing.Size(254, 26);
             this.mnuConsultaMensajes.Text = "Enviar Compras Hacienda";
             this.mnuConsultaMensajes.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
@@ -412,7 +416,9 @@
             this.reportesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.inventarioToolStripMenuItem,
             this.ventasToolStripMenuItem,
-            this.notasCréditoToolStripMenuItem});
+            this.notasCréditoToolStripMenuItem,
+            this.clienteToolStripMenuItem,
+            this.cuentasPorCobrasCréditosToolStripMenuItem});
             this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
             this.reportesToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
             this.reportesToolStripMenuItem.Text = "Reportes";
@@ -425,7 +431,7 @@
             this.mnuInventarioSobre,
             this.mnuGeneralByCat});
             this.inventarioToolStripMenuItem.Name = "inventarioToolStripMenuItem";
-            this.inventarioToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.inventarioToolStripMenuItem.Size = new System.Drawing.Size(278, 26);
             this.inventarioToolStripMenuItem.Text = "Inventario";
             // 
             // mnuInventarioGeneral
@@ -462,7 +468,7 @@
             this.mnuRptGeneralVenta,
             this.mnuReporteFechaIncioFin});
             this.ventasToolStripMenuItem.Name = "ventasToolStripMenuItem";
-            this.ventasToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.ventasToolStripMenuItem.Size = new System.Drawing.Size(278, 26);
             this.ventasToolStripMenuItem.Text = "Ventas";
             // 
             // mnuRptGeneralVenta
@@ -484,7 +490,7 @@
             this.notasCréditoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuNotasCreditoFechas});
             this.notasCréditoToolStripMenuItem.Name = "notasCréditoToolStripMenuItem";
-            this.notasCréditoToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.notasCréditoToolStripMenuItem.Size = new System.Drawing.Size(278, 26);
             this.notasCréditoToolStripMenuItem.Text = "Notas Crédito";
             // 
             // mnuNotasCreditoFechas
@@ -493,6 +499,37 @@
             this.mnuNotasCreditoFechas.Size = new System.Drawing.Size(183, 26);
             this.mnuNotasCreditoFechas.Text = "General Fechas";
             this.mnuNotasCreditoFechas.Click += new System.EventHandler(this.ReporteMenu_Click);
+            // 
+            // clienteToolStripMenuItem
+            // 
+            this.clienteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuEstadoCuentaCliente});
+            this.clienteToolStripMenuItem.Name = "clienteToolStripMenuItem";
+            this.clienteToolStripMenuItem.Size = new System.Drawing.Size(277, 26);
+            this.clienteToolStripMenuItem.Text = "Clientes";
+            // 
+            // mnuEstadoCuentaCliente
+            // 
+            this.mnuEstadoCuentaCliente.Name = "mnuEstadoCuentaCliente";
+            this.mnuEstadoCuentaCliente.Size = new System.Drawing.Size(179, 26);
+            this.mnuEstadoCuentaCliente.Text = "Estado Cuenta";
+            this.mnuEstadoCuentaCliente.Click += new System.EventHandler(this.ReporteMenu_Click);
+            // 
+            // cuentasPorCobrasCréditosToolStripMenuItem
+            // 
+            this.cuentasPorCobrasCréditosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuMorosos});
+            this.cuentasPorCobrasCréditosToolStripMenuItem.Name = "cuentasPorCobrasCréditosToolStripMenuItem";
+            this.cuentasPorCobrasCréditosToolStripMenuItem.Size = new System.Drawing.Size(277, 26);
+            this.cuentasPorCobrasCréditosToolStripMenuItem.Text = "Cuentas por Cobrar(Créditos)";
+            this.cuentasPorCobrasCréditosToolStripMenuItem.Click += new System.EventHandler(this.cuentasPorCobrasCréditosToolStripMenuItem_Click);
+            // 
+            // mnuMorosos
+            // 
+            this.mnuMorosos.Name = "mnuMorosos";
+            this.mnuMorosos.Size = new System.Drawing.Size(231, 26);
+            this.mnuMorosos.Text = "Documentos Vencidos";
+            this.mnuMorosos.Click += new System.EventHandler(this.ReporteMenu_Click);
             // 
             // mnuAcercaDe
             // 
@@ -793,5 +830,9 @@
         private System.Windows.Forms.Button btnCompras;
         private System.Windows.Forms.ToolStripMenuItem mnuCompras;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem clienteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuEstadoCuentaCliente;
+        private System.Windows.Forms.ToolStripMenuItem cuentasPorCobrasCréditosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuMorosos;
     }
 }
