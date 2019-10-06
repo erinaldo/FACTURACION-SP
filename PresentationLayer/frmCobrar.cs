@@ -17,7 +17,7 @@ namespace PresentationLayer
     public partial class frmCobrar : Form
     {
 
-        
+        public string cliente { set; get; }
         //public float totalPagar = 0.0f;
        public tbDocumento facturaGlobal = new tbDocumento();
         BFacturacion facturacionIns = new BFacturacion();
@@ -495,9 +495,17 @@ namespace PresentationLayer
                             decimal pago = txtPago.Text == string.Empty ? 0 : decimal.Parse(txtPago.Text);
                             decimal vuelto = txtVuelto.Text == string.Empty ? 0 : decimal.Parse(txtVuelto.Text);
 
-
-                            clsImpresionFactura imprimir = new clsImpresionFactura(facturaGlobal, Global.Usuario.tbEmpresa, pago, vuelto);
-                            imprimir.print();
+                            if (facturaGlobal.tipoDocumento==(int)Enums.TipoDocumento.TiqueteElectronico && cliente!=string.Empty)
+                            {
+                                clsImpresionFactura imprimir = new clsImpresionFactura(facturaGlobal, Global.Usuario.tbEmpresa, pago, vuelto, cliente);
+                                imprimir.print();
+                            }
+                            else
+                            {
+                                clsImpresionFactura imprimir = new clsImpresionFactura(facturaGlobal, Global.Usuario.tbEmpresa, pago, vuelto);
+                                imprimir.print();
+                            }
+                      
                             //}
 
                         }

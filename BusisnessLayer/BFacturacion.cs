@@ -1279,8 +1279,7 @@ namespace BusinessLayer
                     {
 
                         throw ex;
-                    }
-               
+                    }              
 
 
                     string jsonRespuesta = "";

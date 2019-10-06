@@ -319,7 +319,7 @@
             this.btnAceptar.FlatAppearance.BorderSize = 2;
             this.btnAceptar.FlatAppearance.CheckedBackColor = System.Drawing.Color.Black;
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAceptar.Location = new System.Drawing.Point(249, 286);
+            this.btnAceptar.Location = new System.Drawing.Point(249, 288);
             this.btnAceptar.Margin = new System.Windows.Forms.Padding(4);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(111, 171);

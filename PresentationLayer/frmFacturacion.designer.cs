@@ -28,27 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFacturacion));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbxCategorias = new System.Windows.Forms.GroupBox();
             this.gbxProductos = new System.Windows.Forms.GroupBox();
             this.tabFacturacion = new System.Windows.Forms.TabControl();
             this.tabFact = new System.Windows.Forms.TabPage();
             this.chkTiqueteElectronico = new System.Windows.Forms.CheckBox();
             this.gbxAcciones = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.btnAbonos = new System.Windows.Forms.Button();
             this.label22 = new System.Windows.Forms.Label();
             this.btnReImprimir = new System.Windows.Forms.Button();
             this.btnBuscarProforma = new System.Windows.Forms.Button();
             this.btnValidacion = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.btnProductos = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
             this.btnClientes = new System.Windows.Forms.Button();
             this.btnBuscarFactura = new System.Windows.Forms.Button();
             this.btnLimpiarForm = new System.Windows.Forms.Button();
             this.label21 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -112,8 +114,6 @@
             this.tabPendientes = new System.Windows.Forms.TabPage();
             this.btnEliminarPendientes = new System.Windows.Forms.Button();
             this.gbxPendientes = new System.Windows.Forms.GroupBox();
-            this.btnAbonos = new System.Windows.Forms.Button();
-            this.label18 = new System.Windows.Forms.Label();
             this.tabFacturacion.SuspendLayout();
             this.tabFact.SuspendLayout();
             this.gbxAcciones.SuspendLayout();
@@ -231,6 +231,29 @@
             this.gbxAcciones.TabStop = false;
             this.gbxAcciones.Text = "Acciones";
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 4.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.Color.Maroon;
+            this.label18.Location = new System.Drawing.Point(385, 13);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(43, 12);
+            this.label18.TabIndex = 64;
+            this.label18.Text = "Abonos";
+            // 
+            // btnAbonos
+            // 
+            this.btnAbonos.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAbonos.Image = ((System.Drawing.Image)(resources.GetObject("btnAbonos.Image")));
+            this.btnAbonos.Location = new System.Drawing.Point(380, 25);
+            this.btnAbonos.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAbonos.Name = "btnAbonos";
+            this.btnAbonos.Size = new System.Drawing.Size(57, 49);
+            this.btnAbonos.TabIndex = 63;
+            this.btnAbonos.UseVisualStyleBackColor = true;
+            this.btnAbonos.Click += new System.EventHandler(this.button1_Click);
+            // 
             // label22
             // 
             this.label22.AutoSize = true;
@@ -303,6 +326,17 @@
             this.btnProductos.UseVisualStyleBackColor = true;
             this.btnProductos.Click += new System.EventHandler(this.btnProductos_Click);
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 4.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.Maroon;
+            this.label14.Location = new System.Drawing.Point(439, 13);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(52, 12);
+            this.label14.TabIndex = 53;
+            this.label14.Text = "Hacienda";
+            // 
             // btnClientes
             // 
             this.btnClientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -351,17 +385,6 @@
             this.label21.Size = new System.Drawing.Size(57, 12);
             this.label21.TabIndex = 59;
             this.label21.Text = "Proformas";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 4.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.Color.Maroon;
-            this.label14.Location = new System.Drawing.Point(439, 13);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(52, 12);
-            this.label14.TabIndex = 53;
-            this.label14.Text = "Hacienda";
             // 
             // label13
             // 
@@ -521,14 +544,14 @@
             // 
             this.dtgvDetalleFactura.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dtgvDetalleFactura.BackgroundColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvDetalleFactura.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvDetalleFactura.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dtgvDetalleFactura.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvDetalleFactura.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colNom,
@@ -538,28 +561,28 @@
             this.colSubTot,
             this.colId,
             this.colEliminar});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dtgvDetalleFactura.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dtgvDetalleFactura.DefaultCellStyle = dataGridViewCellStyle2;
             this.dtgvDetalleFactura.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dtgvDetalleFactura.Location = new System.Drawing.Point(0, 55);
             this.dtgvDetalleFactura.Margin = new System.Windows.Forms.Padding(4);
             this.dtgvDetalleFactura.MultiSelect = false;
             this.dtgvDetalleFactura.Name = "dtgvDetalleFactura";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvDetalleFactura.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvDetalleFactura.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dtgvDetalleFactura.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dtgvDetalleFactura.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvDetalleFactura.Size = new System.Drawing.Size(840, 230);
@@ -1100,7 +1123,6 @@
             this.txtCliente.Location = new System.Drawing.Point(276, 12);
             this.txtCliente.Margin = new System.Windows.Forms.Padding(4);
             this.txtCliente.Name = "txtCliente";
-            this.txtCliente.ReadOnly = true;
             this.txtCliente.Size = new System.Drawing.Size(435, 27);
             this.txtCliente.TabIndex = 55;
             // 
@@ -1141,29 +1163,6 @@
             this.gbxPendientes.Size = new System.Drawing.Size(1266, 728);
             this.gbxPendientes.TabIndex = 19;
             this.gbxPendientes.TabStop = false;
-            // 
-            // btnAbonos
-            // 
-            this.btnAbonos.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAbonos.Image = ((System.Drawing.Image)(resources.GetObject("btnAbonos.Image")));
-            this.btnAbonos.Location = new System.Drawing.Point(380, 25);
-            this.btnAbonos.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAbonos.Name = "btnAbonos";
-            this.btnAbonos.Size = new System.Drawing.Size(57, 49);
-            this.btnAbonos.TabIndex = 63;
-            this.btnAbonos.UseVisualStyleBackColor = true;
-            this.btnAbonos.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 4.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.ForeColor = System.Drawing.Color.Maroon;
-            this.label18.Location = new System.Drawing.Point(385, 13);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(43, 12);
-            this.label18.TabIndex = 64;
-            this.label18.Text = "Abonos";
             // 
             // frmFacturacion
             // 

@@ -81,7 +81,9 @@ namespace PresentationLayer
         private void frmFacturacion_Load(object sender, EventArgs e)
         {
             chkTiqueteElectronico.Enabled = false;
-            chkTiqueteElectronico.Checked = false;
+            chkTiqueteElectronico.Checked = true;
+            txtCliente.Enabled = true;
+
             btnReImprimir.Enabled = (bool)Global.Usuario.tbEmpresa.imprimeDoc;
             chkServicioMesa.Visible= (bool)Global.Usuario.tbEmpresa.tbParametrosEmpresa.FirstOrDefault().servicioMesa;
             if (chkServicioMesa.Visible)
@@ -585,8 +587,10 @@ namespace PresentationLayer
                 exoneracionClie = false;
                 if (cliente != null)
                 {
+                    txtCliente.Enabled = false;
                     chkTiqueteElectronico.Enabled = true;
                     chkTiqueteElectronico.Checked = false;
+                    chkEnviar.Checked = true;
                     clienteGlo = cliente;
                     if (cliente.idExonercion != null)
                     {
@@ -1139,6 +1143,16 @@ namespace PresentationLayer
 
                         tbDocumento documento = crearDocumento();
                         frmCobrar form = new frmCobrar();
+                        //en caso de poner cliente sin que se encuentre registrado en al base datos y es tiquete electronico, s
+                        //solo para imprimir
+                        if (documento.tipoDocumento==(int)Enums.TipoDocumento.TiqueteElectronico && txtCliente.Text!=string.Empty)
+                        {
+                            form.cliente = txtCliente.Text.ToUpper().Trim();
+                        }
+                        else
+                        {
+                            form.cliente = string.Empty;
+                        }
                         form.recuperarTotal += respuesta;
                         form.facturaGlobal = documento;
                         form.ShowDialog();
@@ -1489,6 +1503,7 @@ namespace PresentationLayer
             clienteGlo = null;
             exoneracionClie = false;
             existeRespuesta = false;
+            txtCliente.Enabled = true;
 
             chkEnviar.Checked = false;
             txtCorreo2.Text = string.Empty;
@@ -1524,7 +1539,7 @@ namespace PresentationLayer
             chkServicioMesa.Checked = false;
 
             chkTiqueteElectronico.Enabled = false;
-            chkTiqueteElectronico.Checked = false;
+            chkTiqueteElectronico.Checked = true;
         }
 
         private void btnLimpiarForm_Click(object sender, EventArgs e)

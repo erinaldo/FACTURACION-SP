@@ -235,6 +235,7 @@ namespace PresentationLayer
 
                     row.Cells[10].Value = doc.mensajeReporteHacienda == null ? "SIN VALIDAR" : doc.mensajeReporteHacienda.Trim().ToUpper();
                     dtgvDetalleFactura.Rows.Add(row);
+                    row.Cells[11].Value = doc.tipoDocumento;
                     // dtgvDetalleFactura.Rows[listaDetalleDocumento.Count-1].Selected=true;
                 }
 
@@ -255,6 +256,8 @@ namespace PresentationLayer
 
                     row.Cells[10].Value = doc.EstadoRespHacienda == null ? "SIN VALIDAR" : doc.EstadoRespHacienda.Trim().ToUpper();
                     dtgvDetalleFactura.Rows.Add(row);
+                    row.Cells[11].Value = Enums.TipoDocumento.Compras;
+
                     // dtgvDetalleFactura.Rows[listaDetalleDocumento.Count-1].Selected=true;
                 }
 
@@ -346,6 +349,9 @@ namespace PresentationLayer
             {
                 int id = int.Parse(dtgvDetalleFactura.Rows[e.RowIndex].Cells[0].Value.ToString());
                 string tipoDoc = dtgvDetalleFactura.Rows[e.RowIndex].Cells[1].Value.ToString();
+                int tipoDocumento = int.Parse(dtgvDetalleFactura.Rows[e.RowIndex].Cells[11].Value.ToString());
+
+
 
                 if (e.ColumnIndex == 8)
                 {
@@ -371,7 +377,7 @@ namespace PresentationLayer
                         tipoDoc == Enum.GetName(typeof(Enums.TipoDocumento), Enums.TipoDocumento.TiqueteElectronico).ToUpper())
                     {
 
-                        tbDocumento doc = facturasLista.Where(x => x.id == id && x.tipoDocumento == (int)Enums.TipoDocumento.FacturaElectronica).SingleOrDefault();
+                        tbDocumento doc = facturasLista.Where(x => x.id == id && x.tipoDocumento == tipoDocumento).SingleOrDefault();
                         if (doc != null)
                         {
                             doc = facturaIns.getEntity(doc);
@@ -415,8 +421,8 @@ namespace PresentationLayer
                            tipoDoc == Enum.GetName(typeof(Enums.TipoDocumento), Enums.TipoDocumento.NotaDebitoElectronica).ToUpper() ||
                            tipoDoc == Enum.GetName(typeof(Enums.TipoDocumento), Enums.TipoDocumento.TiqueteElectronico).ToUpper())
                         {
-
-                            tbDocumento doc = facturasLista.Where(x => x.id == id && x.tipoDocumento == (int)Enums.TipoDocumento.FacturaElectronica).SingleOrDefault();
+                           
+                            tbDocumento doc = facturasLista.Where(x => x.id == id && x.tipoDocumento == tipoDocumento).SingleOrDefault();
                             facturaIns.consultarFacturaElectronicaPorIdFact(doc);
 
 

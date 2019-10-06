@@ -27,6 +27,9 @@ namespace PresentationLayer
         tbEmpresa _empresa { set; get; }
         List<tbDocumento> _docs { set; get; }
         decimal _saldo { set; get; }
+        string _clienteSimplificada { set; get; }
+
+
         public clsImpresionFactura(List<tbDocumento> docs, tbClientes cliente, tbEmpresa empresa, decimal saldoPend)
         {
             _docs = docs;
@@ -49,6 +52,16 @@ namespace PresentationLayer
             _paga = paga;
             _vuelto = vuelto;
             _canton = cantonIns.GetEntity(_empresa.tbPersona.canton, _empresa.tbPersona.provincia);
+        }
+
+        public clsImpresionFactura(tbDocumento doc, tbEmpresa empresa, decimal paga, decimal vuelto, string cliente)
+        {
+            _doc = doc;
+            _empresa = empresa;
+            _paga = paga;
+            _vuelto = vuelto;
+            _canton = cantonIns.GetEntity(_empresa.tbPersona.canton, _empresa.tbPersona.provincia);
+            _clienteSimplificada= cliente;
         }
 
 
@@ -236,6 +249,13 @@ namespace PresentationLayer
                 Ticket1.TextoIzquierda("ID Cliente:" + id);
                 Ticket1.TextoIzquierda("Cliente:" +nombre);
 
+            }
+            else
+            {
+                if (_clienteSimplificada!=string.Empty)
+                {
+                    Ticket1.TextoIzquierda("Cliente:" + _clienteSimplificada);
+                }
             }
   
             Ticket1.LineasGuion(); // imprime una linea de guiones

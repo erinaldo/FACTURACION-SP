@@ -57,6 +57,8 @@
             this.chkInconsistentes = new System.Windows.Forms.CheckBox();
             this.txtArchivo = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.cboTipoDoc = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.colIdTipoDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TipoDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colFecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,8 +70,7 @@
             this.colDetalle = new System.Windows.Forms.DataGridViewLinkColumn();
             this.colCorreo = new System.Windows.Forms.DataGridViewLinkColumn();
             this.colValidar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.cboTipoDoc = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.colTipoDocumento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvDetalleFactura)).BeginInit();
             this.gbxFechas.SuspendLayout();
@@ -149,7 +150,8 @@
             this.colRespHacienda,
             this.colDetalle,
             this.colCorreo,
-            this.colValidar});
+            this.colValidar,
+            this.colTipoDocumento});
             this.dtgvDetalleFactura.GridColor = System.Drawing.SystemColors.ActiveBorder;
             this.dtgvDetalleFactura.Location = new System.Drawing.Point(15, 23);
             this.dtgvDetalleFactura.Margin = new System.Windows.Forms.Padding(4);
@@ -357,6 +359,23 @@
             this.label7.TabIndex = 62;
             this.label7.Text = "Nombre Archivo:";
             // 
+            // cboTipoDoc
+            // 
+            this.cboTipoDoc.FormattingEnabled = true;
+            this.cboTipoDoc.Location = new System.Drawing.Point(181, 88);
+            this.cboTipoDoc.Name = "cboTipoDoc";
+            this.cboTipoDoc.Size = new System.Drawing.Size(361, 24);
+            this.cboTipoDoc.TabIndex = 63;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(59, 92);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(116, 17);
+            this.label8.TabIndex = 64;
+            this.label8.Text = "Tipo Documento:";
+            // 
             // colIdTipoDoc
             // 
             this.colIdTipoDoc.HeaderText = "ID";
@@ -440,22 +459,12 @@
             this.colValidar.ToolTipText = "Validar";
             this.colValidar.UseColumnTextForButtonValue = true;
             // 
-            // cboTipoDoc
+            // colTipoDocumento
             // 
-            this.cboTipoDoc.FormattingEnabled = true;
-            this.cboTipoDoc.Location = new System.Drawing.Point(181, 88);
-            this.cboTipoDoc.Name = "cboTipoDoc";
-            this.cboTipoDoc.Size = new System.Drawing.Size(361, 24);
-            this.cboTipoDoc.TabIndex = 63;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(59, 92);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(116, 17);
-            this.label8.TabIndex = 64;
-            this.label8.Text = "Tipo Documento:";
+            this.colTipoDocumento.HeaderText = "colTipoDocumentoNum";
+            this.colTipoDocumento.Name = "colTipoDocumento";
+            this.colTipoDocumento.ReadOnly = true;
+            this.colTipoDocumento.Visible = false;
             // 
             // frmValidacionDocsHacienda
             // 
@@ -530,6 +539,8 @@
         private System.Windows.Forms.CheckBox chkInconsistentes;
         private System.Windows.Forms.TextBox txtArchivo;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox cboTipoDoc;
+        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridViewTextBoxColumn colIdTipoDoc;
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoDoc;
         private System.Windows.Forms.DataGridViewTextBoxColumn colFecha;
@@ -541,7 +552,6 @@
         private System.Windows.Forms.DataGridViewLinkColumn colDetalle;
         private System.Windows.Forms.DataGridViewLinkColumn colCorreo;
         private System.Windows.Forms.DataGridViewButtonColumn colValidar;
-        private System.Windows.Forms.ComboBox cboTipoDoc;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTipoDocumento;
     }
 }
