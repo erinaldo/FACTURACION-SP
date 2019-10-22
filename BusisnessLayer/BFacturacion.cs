@@ -20,8 +20,10 @@ namespace BusinessLayer
     {
         DFacturacion DFacturaIns = new DFacturacion();
         string codigoPais = "506";
-        string sucursal = "1";
-        string caja = "1";
+        string sucursal = Global.sucursal.ToString();
+        string caja = Global.NumeroCaja.ToString();
+
+
         List<tbReporteHacienda> listaGuardados = null;
 
 

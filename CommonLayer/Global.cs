@@ -13,6 +13,8 @@ namespace CommonLayer
         private static tbUsuarios usuario;
         private static int numeroCaja;
 
+        public static int sucursal { get; set; }
+
         public static tbUsuarios Usuario
         {
             get

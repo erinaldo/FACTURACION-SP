@@ -49,7 +49,52 @@ namespace DataLayer
 
         }
         
+        public bool ActualizarProductosImports(List<tbProducto> listaPro)
+        {
+            try
+            {
+                using (dbSisSodInaEntities context = new dbSisSodInaEntities())
+                {
+                    foreach (var item in listaPro)
+                    {
+                        tbProducto pro = GetEntityById(item.idProducto);
+                        if (pro != null)
+                        {
+                            pro.tbImpuestos = null;
 
+                            pro.idMedida = item.idMedida;
+                            pro.nombre = item.nombre;
+                            pro.precio_real = item.precio_real;
+                            pro.precioVenta1 = item.precioVenta1;
+                            pro.precioVenta2 = item.precioVenta2;
+                            pro.precioVenta3 = item.precioVenta3;
+                            pro.precioVariable = item.precioVariable;
+                            pro.precioUtilidad1 = item.precioUtilidad1;
+                            pro.precioUtilidad2 = item.precioUtilidad2;
+                            pro.precioUtilidad3 = item.precioUtilidad3;
+                            pro.utilidad1Porc = item.utilidad1Porc;
+                            pro.utilidad2Porc = item.utilidad2Porc;
+                            pro.utilidad3Porc = item.utilidad3Porc;
+                            pro.aplicaDescuento = item.aplicaDescuento;
+                            pro.descuento_max = item.descuento_max;
+                            pro.esExento = item.esExento;
+                            context.Entry(pro).State = System.Data.Entity.EntityState.Modified;
+                        }
+                    }
+
+                    context.SaveChanges();
+
+                    return true;
+
+                }
+            }
+            catch (Exception ex )
+            {
+
+                throw ex;
+            }
+
+        }
         /// <summary>
         /// Actualizamos el producto en la base de datos.
         /// </summary>

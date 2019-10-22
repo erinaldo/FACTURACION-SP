@@ -308,9 +308,23 @@ namespace PresentationLayer
                 frm.ShowDialog();
 
             }
+            else if (((ToolStripMenuItem)sender).Name == "mnuExportarPrecios")
+            {
+                frmExportListaPreciosJSON frm = new frmExportListaPreciosJSON();
+                // frm.MdiParent = this;
+                frm.ShowDialog();
+
+            }
+            else if (((ToolStripMenuItem)sender).Name == "mnuImportarDatosJson")
+            {
+                frmImportaListaPreciosJSON frm = new frmImportaListaPreciosJSON();
+                // frm.MdiParent = this;
+                frm.ShowDialog();
+
+            }
 
 
-
+            
 
 
         }

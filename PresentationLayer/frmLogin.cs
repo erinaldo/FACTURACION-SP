@@ -70,7 +70,7 @@ namespace PresentationLayer
         //El numero de caja lo cargamos dinamicamente desde base de datos
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            //ingresar();
+            ingresar();
         }
 
         //Con este metodo verificamos la auteticidad de que el usuario ya existe
@@ -98,11 +98,14 @@ namespace PresentationLayer
                 login = insBUsuario.getLoginUsuario(login);
 
 
+
                 if (login != null)
                 {
                     if (login.tbEmpresa.fechaCaducidad > Utility.getDate())
                     {
                         Global.Usuario = login;
+                        Global.sucursal = 2;
+                        Global.NumeroCaja = 1;
                         // Global.NumeroCaja = (int)cboNumCaja.SelectedValue;
                         //permisosEvent(login);
                         this.Close();

@@ -44,6 +44,12 @@ namespace BusinessLayer
 
         }
 
+        public bool actualizarProductosImport(List<tbProducto> listaPro)
+        {
+
+            return productoIns.ActualizarProductosImports(listaPro);
+        }
+
 
         /// <summary>
         /// Pasamos la informacion para actualizar en la base da datos.

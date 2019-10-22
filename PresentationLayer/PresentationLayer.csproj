@@ -41,6 +41,9 @@
     <ApplicationIcon>spartan_38092.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
@@ -72,6 +75,9 @@
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportViewer.11.0.3366.16\lib\Microsoft.ReportViewer.WinForms.DLL</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -98,7 +104,14 @@
       <DependentUpon>Acerca.cs</DependentUpon>
     </Compile>
     <Compile Include="clsImpresionFactura.cs" />
+    <Compile Include="clsProductoExportImport.cs" />
     <Compile Include="EntityDisableStateException.cs" />
+    <Compile Include="frmExportListaPreciosJSON.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmExportListaPreciosJSON.Designer.cs">
+      <DependentUpon>frmExportListaPreciosJSON.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -236,6 +249,12 @@
     </Compile>
     <Compile Include="frmFechaInicoFin.Designer.cs">
       <DependentUpon>frmFechaInicoFin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmImportaListaPreciosJSON.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmImportaListaPreciosJSON.Designer.cs">
+      <DependentUpon>frmImportaListaPreciosJSON.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMensajesHacienda.cs">
       <SubType>Form</SubType>
@@ -686,6 +705,9 @@
     <EmbeddedResource Include="Acerca.resx">
       <DependentUpon>Acerca.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmExportListaPreciosJSON.resx">
+      <DependentUpon>frmExportListaPreciosJSON.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -833,6 +855,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmFechaInicoFin.resx">
       <DependentUpon>frmFechaInicoFin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmImportaListaPreciosJSON.resx">
+      <DependentUpon>frmImportaListaPreciosJSON.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmIngredientes.resx">
       <DependentUpon>frmIngredientes.cs</DependentUpon>
@@ -989,6 +1014,7 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptVentasGeneral.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="configuracionLocal.json" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\BusinessLayer.BCategoriaProducto.datasource" />
     <None Include="Properties\DataSources\EntityLayer.tbCategoriaProducto.datasource" />

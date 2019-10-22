@@ -62,6 +62,8 @@
             this.mnuAbonos = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCompras = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuReporteHacienda = new System.Windows.Forms.ToolStripMenuItem();
+            this.importarExportarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuExportarPrecios = new System.Windows.Forms.ToolStripMenuItem();
             this.consultasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuValidacionHacienda = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDocumentosEmitidos = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,6 +95,7 @@
             this.btnConsultaMensajeHacienda = new System.Windows.Forms.Button();
             this.btnCompras = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.mnuImportarDatosJson = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -327,7 +330,8 @@
             this.mnuInventario,
             this.mnuAbonos,
             this.mnuCompras,
-            this.mnuReporteHacienda});
+            this.mnuReporteHacienda,
+            this.importarExportarToolStripMenuItem});
             this.procesosToolStripMenuItem.Name = "procesosToolStripMenuItem";
             this.procesosToolStripMenuItem.Size = new System.Drawing.Size(79, 24);
             this.procesosToolStripMenuItem.Text = "Procesos";
@@ -368,6 +372,22 @@
             this.mnuReporteHacienda.Size = new System.Drawing.Size(278, 26);
             this.mnuReporteHacienda.Text = "Enviar Compras Hacienda";
             this.mnuReporteHacienda.Click += new System.EventHandler(this.OpcionMenu_Click);
+            // 
+            // importarExportarToolStripMenuItem
+            // 
+            this.importarExportarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuExportarPrecios,
+            this.mnuImportarDatosJson});
+            this.importarExportarToolStripMenuItem.Name = "importarExportarToolStripMenuItem";
+            this.importarExportarToolStripMenuItem.Size = new System.Drawing.Size(278, 26);
+            this.importarExportarToolStripMenuItem.Text = "Importar/Exportar";
+            // 
+            // mnuExportarPrecios
+            // 
+            this.mnuExportarPrecios.Name = "mnuExportarPrecios";
+            this.mnuExportarPrecios.Size = new System.Drawing.Size(263, 26);
+            this.mnuExportarPrecios.Text = "Exportar Precios Productos";
+            this.mnuExportarPrecios.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // consultasToolStripMenuItem
             // 
@@ -431,7 +451,7 @@
             this.mnuInventarioSobre,
             this.mnuGeneralByCat});
             this.inventarioToolStripMenuItem.Name = "inventarioToolStripMenuItem";
-            this.inventarioToolStripMenuItem.Size = new System.Drawing.Size(278, 26);
+            this.inventarioToolStripMenuItem.Size = new System.Drawing.Size(277, 26);
             this.inventarioToolStripMenuItem.Text = "Inventario";
             // 
             // mnuInventarioGeneral
@@ -468,7 +488,7 @@
             this.mnuRptGeneralVenta,
             this.mnuReporteFechaIncioFin});
             this.ventasToolStripMenuItem.Name = "ventasToolStripMenuItem";
-            this.ventasToolStripMenuItem.Size = new System.Drawing.Size(278, 26);
+            this.ventasToolStripMenuItem.Size = new System.Drawing.Size(277, 26);
             this.ventasToolStripMenuItem.Text = "Ventas";
             // 
             // mnuRptGeneralVenta
@@ -490,7 +510,7 @@
             this.notasCréditoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuNotasCreditoFechas});
             this.notasCréditoToolStripMenuItem.Name = "notasCréditoToolStripMenuItem";
-            this.notasCréditoToolStripMenuItem.Size = new System.Drawing.Size(278, 26);
+            this.notasCréditoToolStripMenuItem.Size = new System.Drawing.Size(277, 26);
             this.notasCréditoToolStripMenuItem.Text = "Notas Crédito";
             // 
             // mnuNotasCreditoFechas
@@ -735,6 +755,13 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // mnuImportarDatosJson
+            // 
+            this.mnuImportarDatosJson.Name = "mnuImportarDatosJson";
+            this.mnuImportarDatosJson.Size = new System.Drawing.Size(263, 26);
+            this.mnuImportarDatosJson.Text = "Importar Precios Productos";
+            this.mnuImportarDatosJson.Click += new System.EventHandler(this.OpcionMenu_Click);
+            // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -834,5 +861,8 @@
         private System.Windows.Forms.ToolStripMenuItem mnuEstadoCuentaCliente;
         private System.Windows.Forms.ToolStripMenuItem cuentasPorCobrasCréditosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuMorosos;
+        private System.Windows.Forms.ToolStripMenuItem importarExportarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuExportarPrecios;
+        private System.Windows.Forms.ToolStripMenuItem mnuImportarDatosJson;
     }
 }
