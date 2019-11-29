@@ -19,6 +19,7 @@ namespace PresentationLayer
         //nombramos las variables e instancias necesarias para acceder a los objetos necesarios
         tbUsuarios usuarioB = new tbUsuarios();
         BUsuario insBUsuario = new BUsuario();
+        BActividadesEconomicas actINs = new BActividadesEconomicas();
         int i = 1;
         int intentos = 3;
 
@@ -29,19 +30,20 @@ namespace PresentationLayer
         public delegate void cargarPermisos(tbUsuarios usu);
         public event cargarPermisos permisosEvent;
 
+        BActividadesEconomicas actIns = new BActividadesEconomicas();
 
         public frmLogin()
         {
             InitializeComponent();
         }
 
-        private void CargarNumCaja()
-        {
-            BCajas insCaja = new BCajas();
-            cboNumCaja.DisplayMember = "nombre";
-            cboNumCaja.ValueMember = "id";  
-            cboNumCaja.DataSource = insCaja.getListTipoing((int)Enums.EstadoBusqueda.Activo);
-        }
+        //private void CargarNumCaja()
+        //{
+        //    BCajas insCaja = new BCajas();
+        //    cboNumCaja.DisplayMember = "nombre";
+        //    cboNumCaja.ValueMember = "id";  
+        //    cboNumCaja.DataSource = insCaja.getListTipoing((int)Enums.EstadoBusqueda.Activo);
+        //}
 
         //Validamos el ingreso de datos
         private bool Validar()
@@ -70,7 +72,14 @@ namespace PresentationLayer
         //El numero de caja lo cargamos dinamicamente desde base de datos
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            ingresar();
+            
+            cargarDatos();
+            //ingresar();
+        }
+
+        private void cargarDatos()
+        {          
+           
         }
 
         //Con este metodo verificamos la auteticidad de que el usuario ya existe
@@ -106,8 +115,28 @@ namespace PresentationLayer
                         Global.Usuario = login;
                         Global.sucursal = 2;
                         Global.NumeroCaja = 1;
-                        // Global.NumeroCaja = (int)cboNumCaja.SelectedValue;
-                        //permisosEvent(login);
+                        List<tbEmpresaActividades> listaAct = actINs.getListaEmpresaActividad(login.idEmpresa, (int)login.idTipoIdEmpresa);
+                        if (listaAct.Count == 0)
+                        {
+                            MessageBox.Show("No existen actividades económicas aplicadas a este usuario");
+                            cerrarFact();
+                            this.Close();
+                        }
+                        else if (listaAct.Count == 1)
+                        {
+                            Global.multiActividad = false;
+                            Global.actividadEconomic = listaAct.FirstOrDefault();
+                        }
+                        else
+                        {
+                            Global.multiActividad=true;
+                            frmActividadEconomicaCombo act = new frmActividadEconomicaCombo();
+                            act.listaAct = listaAct;
+                            act.ShowDialog();
+
+
+                        }
+
                         this.Close();
 
                     }
@@ -153,7 +182,7 @@ namespace PresentationLayer
         {
             txtUsuario.Text = string.Empty;
             txtContraseña.Text = string.Empty;
-            cboNumCaja.ResetText();
+            //cboNumCaja.ResetText();
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -188,6 +217,11 @@ namespace PresentationLayer
             {
                 ingresar();
             }
+        }
+
+        private void cboNumCaja_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

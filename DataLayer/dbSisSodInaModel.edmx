@@ -39,6 +39,13 @@
           <Property Name="usuario_ult_mod" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="estado" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="tbActividades">
+          <Key>
+            <PropertyRef Name="codigoAct" />
+          </Key>
+          <Property Name="codigoAct" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombreAct" Type="nchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="tbBarrios">
           <Key>
             <PropertyRef Name="Provincia" />
@@ -395,19 +402,31 @@
           <Property Name="claveApiHacienda" Type="nchar" MaxLength="100" />
           <Property Name="numeroResolucion" Type="nchar" MaxLength="100" />
           <Property Name="fechaResolucio" Type="datetime2" Precision="7" />
-          <Property Name="correoElectronicoEmpresa" Type="nchar" MaxLength="50" />
-          <Property Name="contrasenaCorreo" Type="nchar" MaxLength="50" />
-          <Property Name="nombreComercial" Type="nchar" MaxLength="100" />
-          <Property Name="cuerpoCorreo" Type="nchar" MaxLength="500" />
-          <Property Name="subjectCorreo" Type="nchar" MaxLength="50" />
           <Property Name="fechaCaducidad" Type="date" />
           <Property Name="ambientePruebas" Type="bit" />
           <Property Name="rutaXMLCompras" Type="nchar" MaxLength="500" />
           <Property Name="imprimeDoc" Type="bit" />
-          <Property Name="codigoActComercial" Type="nchar" MaxLength="6" Nullable="false" />
           <Property Name="nombreImpresora" Type="nchar" MaxLength="50" />
           <Property Name="regimenSimplificado" Type="bit" Nullable="false" />
           <Property Name="tipoFacturacionRegimen" Type="int" />
+        </EntityType>
+        <EntityType Name="tbEmpresaActividades">
+          <Key>
+            <PropertyRef Name="idEmpresa" />
+            <PropertyRef Name="tipoId" />
+            <PropertyRef Name="CodActividad" />
+          </Key>
+          <Property Name="idEmpresa" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="tipoId" Type="int" Nullable="false" />
+          <Property Name="CodActividad" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="correoElectronicoEmpresa" Type="nchar" MaxLength="50" />
+          <Property Name="contrasenaCorreo" Type="nchar" MaxLength="50" />
+          <Property Name="cuerpoCorreo" Type="nchar" MaxLength="500" />
+          <Property Name="subjectCorreo" Type="nchar" MaxLength="50" />
+          <Property Name="regimenSimplificado" Type="bit" />
+          <Property Name="tipoFacturacionRegimen" Type="int" />
+          <Property Name="nombreComercial" Type="nchar" MaxLength="100" />
+          <Property Name="default" Type="bit" />
         </EntityType>
         <EntityType Name="tbExoneraciones">
           <Key>
@@ -554,7 +573,7 @@
           <Property Name="clienteObligatorioFact" Type="bit" />
           <Property Name="plazoMaximoCredito" Type="int" />
           <Property Name="plazoMaximoProforma" Type="int" />
-          <Property Name="servicioMesa" Type="bit" />
+          <Property Name="servicioMesa" Type="bit" Nullable="false" />
           <Property Name="porcServicioMesa" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="tbPermisos">
@@ -1281,6 +1300,32 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbEmpresaActividades_tbActividades">
+          <End Role="tbActividades" Type="Self.tbActividades" Multiplicity="1" />
+          <End Role="tbEmpresaActividades" Type="Self.tbEmpresaActividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbActividades">
+              <PropertyRef Name="codigoAct" />
+            </Principal>
+            <Dependent Role="tbEmpresaActividades">
+              <PropertyRef Name="CodActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbEmpresaActividades_tbEmpresa">
+          <End Role="tbEmpresa" Type="Self.tbEmpresa" Multiplicity="1" />
+          <End Role="tbEmpresaActividades" Type="Self.tbEmpresaActividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbEmpresa">
+              <PropertyRef Name="id" />
+              <PropertyRef Name="tipoId" />
+            </Principal>
+            <Dependent Role="tbEmpresaActividades">
+              <PropertyRef Name="idEmpresa" />
+              <PropertyRef Name="tipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbFactura_tbClientes">
           <End Role="tbClientes" Type="Self.tbClientes" Multiplicity="0..1" />
           <End Role="tbDocumento" Type="Self.tbDocumento" Multiplicity="*" />
@@ -1621,6 +1666,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <EntitySet Name="publishers" EntityType="Self.publishers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbAbonos" EntityType="Self.tbAbonos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbActividades" EntityType="Self.tbActividades" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbBarrios" EntityType="Self.tbBarrios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbCajas" EntityType="Self.tbCajas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbCajaUsuario" EntityType="Self.tbCajaUsuario" Schema="dbo" store:Type="Tables" />
@@ -1642,6 +1688,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <EntitySet Name="tbDocumentosPendiente" EntityType="Self.tbDocumentosPendiente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbEmpleado" EntityType="Self.tbEmpleado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbEmpresa" EntityType="Self.tbEmpresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbEmpresaActividades" EntityType="Self.tbEmpresaActividades" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbExoneraciones" EntityType="Self.tbExoneraciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbHorarioProveedor" EntityType="Self.tbHorarioProveedor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbImpuestos" EntityType="Self.tbImpuestos" Schema="dbo" store:Type="Tables" />
@@ -1806,6 +1853,14 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
             <End Role="tbPersona" EntitySet="tbPersona" />
             <End Role="tbEmpresa" EntitySet="tbEmpresa" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbEmpresaActividades_tbActividades" Association="Self.FK_tbEmpresaActividades_tbActividades">
+            <End Role="tbActividades" EntitySet="tbActividades" />
+            <End Role="tbEmpresaActividades" EntitySet="tbEmpresaActividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbEmpresaActividades_tbEmpresa" Association="Self.FK_tbEmpresaActividades_tbEmpresa">
+            <End Role="tbEmpresa" EntitySet="tbEmpresa" />
+            <End Role="tbEmpresaActividades" EntitySet="tbEmpresaActividades" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbFactura_tbClientes" Association="Self.FK_tbFactura_tbClientes">
             <End Role="tbClientes" EntitySet="tbClientes" />
             <End Role="tbDocumento" EntitySet="tbDocumento" />
@@ -1919,6 +1974,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <EntitySet Name="publishers" EntityType="dbSisSodInaModel.publishers" />
           <EntitySet Name="sysdiagrams" EntityType="dbSisSodInaModel.sysdiagrams" />
           <EntitySet Name="tbAbonos" EntityType="dbSisSodInaModel.tbAbonos" />
+          <EntitySet Name="tbActividades" EntityType="dbSisSodInaModel.tbActividades" />
           <EntitySet Name="tbBarrios" EntityType="dbSisSodInaModel.tbBarrios" />
           <EntitySet Name="tbCajas" EntityType="dbSisSodInaModel.tbCajas" />
           <EntitySet Name="tbCajaUsuario" EntityType="dbSisSodInaModel.tbCajaUsuario" />
@@ -1940,6 +1996,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <EntitySet Name="tbDocumentosPendiente" EntityType="dbSisSodInaModel.tbDocumentosPendiente" />
           <EntitySet Name="tbEmpleado" EntityType="dbSisSodInaModel.tbEmpleado" />
           <EntitySet Name="tbEmpresa" EntityType="dbSisSodInaModel.tbEmpresa" />
+          <EntitySet Name="tbEmpresaActividades" EntityType="dbSisSodInaModel.tbEmpresaActividades" />
           <EntitySet Name="tbExoneraciones" EntityType="dbSisSodInaModel.tbExoneraciones" />
           <EntitySet Name="tbHorarioProveedor" EntityType="dbSisSodInaModel.tbHorarioProveedor" />
           <EntitySet Name="tbImpuestos" EntityType="dbSisSodInaModel.tbImpuestos" />
@@ -1973,6 +2030,10 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <AssociationSet Name="FK_tbAbonos_tbDocumento" Association="dbSisSodInaModel.FK_tbAbonos_tbDocumento">
             <End Role="tbDocumento" EntitySet="tbDocumento" />
             <End Role="tbAbonos" EntitySet="tbAbonos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbEmpresaActividades_tbActividades" Association="dbSisSodInaModel.FK_tbEmpresaActividades_tbActividades">
+            <End Role="tbActividades" EntitySet="tbActividades" />
+            <End Role="tbEmpresaActividades" EntitySet="tbEmpresaActividades" />
           </AssociationSet>
           <AssociationSet Name="FK_tbBarrios_tbDistrito" Association="dbSisSodInaModel.FK_tbBarrios_tbDistrito">
             <End Role="tbDistrito" EntitySet="tbDistrito" />
@@ -2122,6 +2183,10 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
             <End Role="tbPersona" EntitySet="tbPersona" />
             <End Role="tbEmpresa" EntitySet="tbEmpresa" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbEmpresaActividades_tbEmpresa" Association="dbSisSodInaModel.FK_tbEmpresaActividades_tbEmpresa">
+            <End Role="tbEmpresa" EntitySet="tbEmpresa" />
+            <End Role="tbEmpresaActividades" EntitySet="tbEmpresaActividades" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbParametrosEmpresa_tbEmpresa" Association="dbSisSodInaModel.FK_tbParametrosEmpresa_tbEmpresa">
             <End Role="tbEmpresa" EntitySet="tbEmpresa" />
             <End Role="tbParametrosEmpresa" EntitySet="tbParametrosEmpresa" />
@@ -2236,6 +2301,14 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="usuario_ult_mod" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="tbDocumento" Relationship="dbSisSodInaModel.FK_tbAbonos_tbDocumento" FromRole="tbAbonos" ToRole="tbDocumento" />
+        </EntityType>
+        <EntityType Name="tbActividades">
+          <Key>
+            <PropertyRef Name="codigoAct" />
+          </Key>
+          <Property Name="codigoAct" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="nombreAct" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="tbEmpresaActividades" Relationship="dbSisSodInaModel.FK_tbEmpresaActividades_tbActividades" FromRole="tbActividades" ToRole="tbEmpresaActividades" />
         </EntityType>
         <EntityType Name="tbBarrios">
           <Key>
@@ -2639,24 +2712,39 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="claveApiHacienda" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="numeroResolucion" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="fechaResolucio" Type="DateTime" Precision="7" />
-          <Property Name="correoElectronicoEmpresa" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="contrasenaCorreo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="nombreComercial" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="cuerpoCorreo" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
-          <Property Name="subjectCorreo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="fechaCaducidad" Type="DateTime" Precision="0" />
           <Property Name="ambientePruebas" Type="Boolean" />
           <Property Name="rutaXMLCompras" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
           <Property Name="imprimeDoc" Type="Boolean" />
-          <Property Name="codigoActComercial" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
           <Property Name="nombreImpresora" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="regimenSimplificado" Type="Boolean" Nullable="false" />
           <Property Name="tipoFacturacionRegimen" Type="Int32" />
           <NavigationProperty Name="tbDocumento" Relationship="dbSisSodInaModel.FK_tbDocumento_tbEmpresa" FromRole="tbEmpresa" ToRole="tbDocumento" />
           <NavigationProperty Name="tbPersona" Relationship="dbSisSodInaModel.FK_tbEmpresa_tbPersona" FromRole="tbEmpresa" ToRole="tbPersona" />
+          <NavigationProperty Name="tbEmpresaActividades" Relationship="dbSisSodInaModel.FK_tbEmpresaActividades_tbEmpresa" FromRole="tbEmpresa" ToRole="tbEmpresaActividades" />
           <NavigationProperty Name="tbParametrosEmpresa" Relationship="dbSisSodInaModel.FK_tbParametrosEmpresa_tbEmpresa" FromRole="tbEmpresa" ToRole="tbParametrosEmpresa" />
           <NavigationProperty Name="tbReporteHacienda" Relationship="dbSisSodInaModel.FK_tbReporteHacienda_tbEmpresa" FromRole="tbEmpresa" ToRole="tbReporteHacienda" />
           <NavigationProperty Name="tbUsuarios" Relationship="dbSisSodInaModel.FK_tbUsuarios_tbEmpresa" FromRole="tbEmpresa" ToRole="tbUsuarios" />
+        </EntityType>
+        <EntityType Name="tbEmpresaActividades">
+          <Key>
+            <PropertyRef Name="idEmpresa" />
+            <PropertyRef Name="tipoId" />
+            <PropertyRef Name="CodActividad" />
+          </Key>
+          <Property Name="idEmpresa" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="tipoId" Type="Int32" Nullable="false" />
+          <Property Name="CodActividad" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="correoElectronicoEmpresa" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="contrasenaCorreo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="cuerpoCorreo" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+          <Property Name="subjectCorreo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="regimenSimplificado" Type="Boolean" />
+          <Property Name="tipoFacturacionRegimen" Type="Int32" />
+          <Property Name="nombreComercial" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="default" Type="Boolean" />
+          <NavigationProperty Name="tbActividades" Relationship="dbSisSodInaModel.FK_tbEmpresaActividades_tbActividades" FromRole="tbEmpresaActividades" ToRole="tbActividades" />
+          <NavigationProperty Name="tbEmpresa" Relationship="dbSisSodInaModel.FK_tbEmpresaActividades_tbEmpresa" FromRole="tbEmpresaActividades" ToRole="tbEmpresa" />
         </EntityType>
         <EntityType Name="tbExoneraciones">
           <Key>
@@ -2813,7 +2901,7 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
           <Property Name="clienteObligatorioFact" Type="Boolean" />
           <Property Name="plazoMaximoCredito" Type="Int32" />
           <Property Name="plazoMaximoProforma" Type="Int32" />
-          <Property Name="servicioMesa" Type="Boolean" />
+          <Property Name="servicioMesa" Type="Boolean" Nullable="false" />
           <Property Name="porcServicioMesa" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="tbEmpresa" Relationship="dbSisSodInaModel.FK_tbParametrosEmpresa_tbEmpresa" FromRole="tbParametrosEmpresa" ToRole="tbEmpresa" />
         </EntityType>
@@ -3162,6 +3250,18 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
             <Dependent Role="tbAbonos">
               <PropertyRef Name="idDoc" />
               <PropertyRef Name="tipoDoc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbEmpresaActividades_tbActividades">
+          <End Type="dbSisSodInaModel.tbActividades" Role="tbActividades" Multiplicity="1" />
+          <End Type="dbSisSodInaModel.tbEmpresaActividades" Role="tbEmpresaActividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbActividades">
+              <PropertyRef Name="codigoAct" />
+            </Principal>
+            <Dependent Role="tbEmpresaActividades">
+              <PropertyRef Name="CodActividad" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3641,6 +3741,20 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbEmpresaActividades_tbEmpresa">
+          <End Type="dbSisSodInaModel.tbEmpresa" Role="tbEmpresa" Multiplicity="1" />
+          <End Type="dbSisSodInaModel.tbEmpresaActividades" Role="tbEmpresaActividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbEmpresa">
+              <PropertyRef Name="id" />
+              <PropertyRef Name="tipoId" />
+            </Principal>
+            <Dependent Role="tbEmpresaActividades">
+              <PropertyRef Name="idEmpresa" />
+              <PropertyRef Name="tipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbParametrosEmpresa_tbEmpresa">
           <End Type="dbSisSodInaModel.tbEmpresa" Role="tbEmpresa" Multiplicity="1" />
           <End Type="dbSisSodInaModel.tbParametrosEmpresa" Role="tbParametrosEmpresa" Multiplicity="*" />
@@ -3907,6 +4021,14 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
                 <ScalarProperty Name="tipoDoc" ColumnName="tipoDoc" />
                 <ScalarProperty Name="idDoc" ColumnName="idDoc" />
                 <ScalarProperty Name="idAbono" ColumnName="idAbono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbActividades">
+            <EntityTypeMapping TypeName="dbSisSodInaModel.tbActividades">
+              <MappingFragment StoreEntitySet="tbActividades">
+                <ScalarProperty Name="nombreAct" ColumnName="nombreAct" />
+                <ScalarProperty Name="codigoAct" ColumnName="codigoAct" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4259,16 +4381,10 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
                 <ScalarProperty Name="tipoFacturacionRegimen" ColumnName="tipoFacturacionRegimen" />
                 <ScalarProperty Name="regimenSimplificado" ColumnName="regimenSimplificado" />
                 <ScalarProperty Name="nombreImpresora" ColumnName="nombreImpresora" />
-                <ScalarProperty Name="codigoActComercial" ColumnName="codigoActComercial" />
                 <ScalarProperty Name="imprimeDoc" ColumnName="imprimeDoc" />
                 <ScalarProperty Name="rutaXMLCompras" ColumnName="rutaXMLCompras" />
                 <ScalarProperty Name="ambientePruebas" ColumnName="ambientePruebas" />
                 <ScalarProperty Name="fechaCaducidad" ColumnName="fechaCaducidad" />
-                <ScalarProperty Name="subjectCorreo" ColumnName="subjectCorreo" />
-                <ScalarProperty Name="cuerpoCorreo" ColumnName="cuerpoCorreo" />
-                <ScalarProperty Name="nombreComercial" ColumnName="nombreComercial" />
-                <ScalarProperty Name="contrasenaCorreo" ColumnName="contrasenaCorreo" />
-                <ScalarProperty Name="correoElectronicoEmpresa" ColumnName="correoElectronicoEmpresa" />
                 <ScalarProperty Name="fechaResolucio" ColumnName="fechaResolucio" />
                 <ScalarProperty Name="numeroResolucion" ColumnName="numeroResolucion" />
                 <ScalarProperty Name="claveApiHacienda" ColumnName="claveApiHacienda" />
@@ -4279,6 +4395,23 @@ advertencia 6013: La tabla o vista 'dbSISSODINA.dbo.tbPrueba' no tiene definida 
                 <ScalarProperty Name="razonSocial" ColumnName="razonSocial" />
                 <ScalarProperty Name="tipoId" ColumnName="tipoId" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbEmpresaActividades">
+            <EntityTypeMapping TypeName="dbSisSodInaModel.tbEmpresaActividades">
+              <MappingFragment StoreEntitySet="tbEmpresaActividades">
+                <ScalarProperty Name="default" ColumnName="default" />
+                <ScalarProperty Name="nombreComercial" ColumnName="nombreComercial" />
+                <ScalarProperty Name="tipoFacturacionRegimen" ColumnName="tipoFacturacionRegimen" />
+                <ScalarProperty Name="regimenSimplificado" ColumnName="regimenSimplificado" />
+                <ScalarProperty Name="subjectCorreo" ColumnName="subjectCorreo" />
+                <ScalarProperty Name="cuerpoCorreo" ColumnName="cuerpoCorreo" />
+                <ScalarProperty Name="contrasenaCorreo" ColumnName="contrasenaCorreo" />
+                <ScalarProperty Name="correoElectronicoEmpresa" ColumnName="correoElectronicoEmpresa" />
+                <ScalarProperty Name="CodActividad" ColumnName="CodActividad" />
+                <ScalarProperty Name="tipoId" ColumnName="tipoId" />
+                <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

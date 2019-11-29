@@ -1,6 +1,6 @@
 ﻿using BusinessLayer;
 using CommonLayer;
-
+using EntityLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,7 +15,7 @@ namespace PresentationLayer
 {
     public partial class frmPrincipal : Form
     {
-        
+        BActividadesEconomicas actIns = new BActividadesEconomicas();
         bool cerrando = false;
         public frmPrincipal()
         {
@@ -24,7 +24,10 @@ namespace PresentationLayer
 
         private void frmPrincipal_Load(object sender, EventArgs e)
         {
+
             cargarLogeo();
+            mnuCambiarActividad.Visible = Global.multiActividad;
+            tlsPrincipal.Text = Global.actividadEconomic.nombreComercial.Trim();
         }
 
         private void cargarLogeo()
@@ -43,6 +46,10 @@ namespace PresentationLayer
 
         private void frmPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //frmValidacionDocumentosHacienda va = new frmValidacionDocumentosHacienda();
+            //va.actualizarAutomaticamente = true;
+            //va.ShowDialog();
+
             if (!cerrando)
             {
                 BPendientes pendientesIns = new BPendientes();
@@ -322,9 +329,32 @@ namespace PresentationLayer
                 frm.ShowDialog();
 
             }
+            else if (((ToolStripMenuItem)sender).Name == "mnuCambiarActividad")
+            {
+                List<tbEmpresaActividades> listaAct = actIns.getListaEmpresaActividad(Global.Usuario.idEmpresa, (int)Global.Usuario.idTipoIdEmpresa);
 
+                if (listaAct.Count == 1)
+                {
+                    Global.actividadEconomic = listaAct.FirstOrDefault();
+                }
+                else
+                {
+                    frmActividadEconomicaCombo act = new frmActividadEconomicaCombo();
+                    act.listaAct = listaAct;
+                    act.ShowDialog();
+                    tlsPrincipal.Text = Global.actividadEconomic.nombreComercial;
+
+                }
 
             
+
+            }
+
+            
+
+
+
+
 
 
         }

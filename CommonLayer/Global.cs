@@ -14,6 +14,8 @@ namespace CommonLayer
         private static int numeroCaja;
 
         public static int sucursal { get; set; }
+        public static tbEmpresaActividades actividadEconomic { get; set; }
+        public static bool multiActividad { get; set; }
 
         public static tbUsuarios Usuario
         {

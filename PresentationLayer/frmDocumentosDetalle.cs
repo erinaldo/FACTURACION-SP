@@ -1,6 +1,7 @@
 ﻿using BusinessLayer;
 using CommonLayer;
 using CommonLayer.Exceptions.BussinessExceptions;
+using CommonLayer.Logs;
 using CrystalDecisions.Shared;
 using EntityLayer;
 using PresentationLayer.Reportes;
@@ -393,9 +394,9 @@ namespace PresentationLayer
                 }
          
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                clsEvento evento = new clsEvento(ex.Message, "1");
                 MessageBox.Show("Se produjo un error al enviar el Correo Electrónico","Correo Electrónico",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
           

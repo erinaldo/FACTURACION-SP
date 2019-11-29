@@ -112,9 +112,9 @@ namespace PresentationLayer
             Ticket1.AbreCajon();  //abre el cajon
             string nombreEmpresa = string.Empty;
             string nombreComercial = string.Empty;
-            if (_empresa.nombreComercial != null)
+            if (Global.actividadEconomic.nombreComercial != null)
             {
-                nombreComercial = _empresa.nombreComercial.Trim().ToUpper();
+                nombreComercial = Global.actividadEconomic.nombreComercial.Trim().ToUpper();
             }
 
             if (_empresa.tipoId == (int)Enums.TipoId.Fisica)
@@ -188,9 +188,9 @@ namespace PresentationLayer
             Ticket1.AbreCajon();  //abre el cajon
             string nombreEmpresa = string.Empty;
             string nombreComercial = string.Empty;
-            if (_empresa.nombreComercial!=null )
+            if (Global.actividadEconomic.nombreComercial != null )
             {
-                nombreComercial = _empresa.nombreComercial.Trim().ToUpper();
+                nombreComercial = Global.actividadEconomic.nombreComercial.Trim().ToUpper();
             }
            
             if (_empresa.tipoId == (int)Enums.TipoId.Fisica)

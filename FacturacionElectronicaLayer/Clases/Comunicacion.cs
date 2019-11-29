@@ -33,6 +33,7 @@
 
 using CommonLayer;
 using CommonLayer.Exceptions.BussinessExceptions;
+using CommonLayer.Logs;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
@@ -140,6 +141,7 @@ namespace FacturacionElectronicaLayer.Clases
             }
             catch (Exception ex)
             {
+                clsEvento evento = new clsEvento(ex.Message, "1");
                 throw new FacturacionElectronicaException(ex);
             }
         }
@@ -217,7 +219,9 @@ namespace FacturacionElectronicaLayer.Clases
                 return statusCode;
             }
             catch (Exception ex)
+
             {
+                clsEvento evento = new clsEvento(ex.Message, "1");
                 throw new FacturacionElectronicaException(ex);
             }
         }
@@ -261,6 +265,7 @@ namespace FacturacionElectronicaLayer.Clases
             }
             catch (Exception ex)
             {
+                clsEvento evento = new clsEvento(ex.Message, "1");
                 throw new RespuestaHaciendaException(ex);
             }
         }
@@ -301,6 +306,7 @@ namespace FacturacionElectronicaLayer.Clases
             }
             catch (Exception ex)
             {
+                clsEvento evento = new clsEvento(ex.Message, "1");
                 throw new RespuestaHaciendaException(ex);
             }
         }

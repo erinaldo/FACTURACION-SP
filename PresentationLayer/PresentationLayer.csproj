@@ -106,6 +106,18 @@
     <Compile Include="clsImpresionFactura.cs" />
     <Compile Include="clsProductoExportImport.cs" />
     <Compile Include="EntityDisableStateException.cs" />
+    <Compile Include="frmActividadEconomicaCombo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmActividadEconomicaCombo.Designer.cs">
+      <DependentUpon>frmActividadEconomicaCombo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmBuscarActividadEconomica.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBuscarActividadEconomica.Designer.cs">
+      <DependentUpon>frmBuscarActividadEconomica.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmExportListaPreciosJSON.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -704,6 +716,12 @@
     </Compile>
     <EmbeddedResource Include="Acerca.resx">
       <DependentUpon>Acerca.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmActividadEconomicaCombo.resx">
+      <DependentUpon>frmActividadEconomicaCombo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBuscarActividadEconomica.resx">
+      <DependentUpon>frmBuscarActividadEconomica.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmExportListaPreciosJSON.resx">
       <DependentUpon>frmExportListaPreciosJSON.cs</DependentUpon>

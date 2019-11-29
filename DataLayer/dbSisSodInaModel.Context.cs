@@ -30,6 +30,7 @@ namespace DataLayer
         public virtual DbSet<publishers> publishers { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<tbAbonos> tbAbonos { get; set; }
+        public virtual DbSet<tbActividades> tbActividades { get; set; }
         public virtual DbSet<tbBarrios> tbBarrios { get; set; }
         public virtual DbSet<tbCajas> tbCajas { get; set; }
         public virtual DbSet<tbCajaUsuario> tbCajaUsuario { get; set; }
@@ -51,6 +52,7 @@ namespace DataLayer
         public virtual DbSet<tbDocumentosPendiente> tbDocumentosPendiente { get; set; }
         public virtual DbSet<tbEmpleado> tbEmpleado { get; set; }
         public virtual DbSet<tbEmpresa> tbEmpresa { get; set; }
+        public virtual DbSet<tbEmpresaActividades> tbEmpresaActividades { get; set; }
         public virtual DbSet<tbExoneraciones> tbExoneraciones { get; set; }
         public virtual DbSet<tbHorarioProveedor> tbHorarioProveedor { get; set; }
         public virtual DbSet<tbImpuestos> tbImpuestos { get; set; }

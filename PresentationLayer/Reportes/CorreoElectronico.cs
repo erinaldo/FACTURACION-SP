@@ -66,10 +66,10 @@ namespace PresentationLayer.Reportes
             try
             {
 
-                _envioCorreo = Global.Usuario.tbEmpresa.correoElectronicoEmpresa.Trim();
-                _contrasena = Global.Usuario.tbEmpresa.contrasenaCorreo.Trim();
-                _mensaje = Global.Usuario.tbEmpresa.cuerpoCorreo.Trim();
-                _subject = Global.Usuario.tbEmpresa.subjectCorreo.Trim();
+                _envioCorreo = Global.actividadEconomic.correoElectronicoEmpresa.Trim();
+                _contrasena = Global.actividadEconomic.contrasenaCorreo.Trim();
+                _mensaje = Global.actividadEconomic.cuerpoCorreo.Trim();
+                _subject = Global.actividadEconomic.subjectCorreo.Trim();
 
                 _adjuntos = generarAdjuntos();
 

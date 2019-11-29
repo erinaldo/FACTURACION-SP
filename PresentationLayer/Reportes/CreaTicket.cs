@@ -132,7 +132,7 @@ namespace PresentationLayer.Reportes
         }
         public void AgregaArticulo(string par1, decimal cant, decimal precio, decimal total)
         {
-            if (String.Format("{0:0.0}", cant).Length <= 3 && (String.Format("{0:N2}", precio.ToString().Trim())).Length <= 10 && (String.Format("{0:N2}", total.ToString().Trim())).Length <= 11) // valida que cant precio y total esten dentro de rango
+            if (Utility.DoFormat(cant).Length <= 5 &&  Utility.DoFormat(precio).Length <= 10 && Utility.DoFormat(total).Length <= 11) // valida que cant precio y total esten dentro de rango
             {
                 max = par1.Length;
                 if (max > 16)                                 // **********
@@ -142,24 +142,24 @@ namespace PresentationLayer.Reportes
                 }
                 else { parte1 = par1; }                      // **********
                 ticket = parte1;                             // agrega articulo
-                max = (3 - String.Format("{0:0.0}", cant).Length) + (16 - parte1.Length);
+                max = (5 - Utility.DoFormat(cant).Length) + (16 - parte1.Length);
                 for (int i = 0; i < max; i++)                // **********
                 {
                     ticket += " ";                           // Agrega espacios para poner el valor de cantidad
                 }
-                ticket += String.Format("{0:0.0}", cant).ToString();                   // agrega cantidad
-                max = 10 - (String.Format("{0:N2}", precio.ToString().Trim()).Length);
+                ticket += Utility.DoFormat(cant);                   // agrega cantidad
+                max = 8 - Utility.DoFormat(precio).Length;
                 for (int i = 0; i < max; i++)                // **********
                 {
                     ticket += " ";                           // Agrega espacios
                 }                                            // **********
-                ticket += (String.Format("{0:N2}", precio.ToString().Trim())); // agrega precio
-                max = 11 - (total.ToString().Length);
+                ticket += Utility.DoFormat(precio); // agrega precio
+                max = 11 - Utility.DoFormat(total).Length;
                 for (int i = 0; i < max; i++)                // **********
                 {
                     ticket += " ";                           // Agrega espacios
                 }                                            // **********
-                ticket += (String.Format("{0:N2}", total.ToString().Trim())) + "\n"; // agrega precio
+                ticket += Utility.DoFormat(total) + "\n"; // agrega precio
                 RawPrinterHelper.SendStringToPrinter(impresora, ticket); // imprime texto
             }
             else

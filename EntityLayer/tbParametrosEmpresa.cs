@@ -27,7 +27,7 @@ namespace EntityLayer
         public Nullable<bool> clienteObligatorioFact { get; set; }
         public Nullable<int> plazoMaximoCredito { get; set; }
         public Nullable<int> plazoMaximoProforma { get; set; }
-        public Nullable<bool> servicioMesa { get; set; }
+        public bool servicioMesa { get; set; }
         public Nullable<decimal> porcServicioMesa { get; set; }
     
         public virtual tbEmpresa tbEmpresa { get; set; }

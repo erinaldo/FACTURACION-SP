@@ -12,6 +12,7 @@ using System.Xml;
 using CommonLayer.Exceptions.BussinessExceptions;
 using System.IO;
 using System.ComponentModel;
+using CommonLayer.Logs;
 
 namespace BusinessLayer
 {
@@ -646,7 +647,7 @@ namespace BusinessLayer
 
 
 
-                _emisor = new Emisor(NombreEmpresa, tipoId, id, _empresa.tbPersona.provincia.Trim(), _empresa.tbPersona.canton.Trim().PadLeft(2, '0'), _empresa.tbPersona.distrito.Trim().PadLeft(2, '0'), _empresa.tbPersona.barrio.Trim().PadLeft(2, '0'), _empresa.tbPersona.otrasSenas.Trim().ToUpper(), _empresa.tbPersona.codigoPaisTel.Trim(), _empresa.tbPersona.telefono, _empresa.tbPersona.correoElectronico.Trim(), _empresa.codigoActComercial);
+                _emisor = new Emisor(NombreEmpresa, tipoId, id, _empresa.tbPersona.provincia.Trim(), _empresa.tbPersona.canton.Trim().PadLeft(2, '0'), _empresa.tbPersona.distrito.Trim().PadLeft(2, '0'), _empresa.tbPersona.barrio.Trim().PadLeft(2, '0'), _empresa.tbPersona.otrasSenas.Trim().ToUpper(), _empresa.tbPersona.codigoPaisTel.Trim(), _empresa.tbPersona.telefono, _empresa.tbPersona.correoElectronico.Trim(), Global.actividadEconomic.CodActividad.Trim());
 
                 //recepetor al cliente al cual se factura
 
@@ -771,6 +772,8 @@ namespace BusinessLayer
             }
             catch (TokenException ex)
             {
+                clsEvento evento = new clsEvento(ex.Message,"1");
+              
                 throw ex;
             }
             catch (generarXMLException ex)
@@ -1345,6 +1348,7 @@ namespace BusinessLayer
             }
             catch (Exception ex)
             {
+                clsEvento evento = new clsEvento(ex.Message, "1");
                 throw new ConsultaHaciendaExcpetion(ex);
             }
 

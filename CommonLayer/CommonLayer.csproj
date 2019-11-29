@@ -66,6 +66,8 @@
     <Compile Include="Factura.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Interfaces\IDataGeneric.cs" />
+    <Compile Include="Logs\clsEvento.cs" />
+    <Compile Include="Logs\EventLogs.cs" />
     <Compile Include="MenuGenerico.cs" />
     <Compile Include="pdf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

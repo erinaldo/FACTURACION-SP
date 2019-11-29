@@ -19,26 +19,32 @@ namespace PresentationLayer
         BFacturacion facturaIns = new BFacturacion();
         Bcliente clienteIns = new Bcliente();
         IEnumerable<tbDocumento> facturas = new List<tbDocumento>();
+        public bool actualizarAutomaticamente { get; set; }
         public frmValidacionDocumentosHacienda()
         {
             InitializeComponent();
+            actualizarAutomaticamente=false;
         }
 
         private void frmValidacionDocumentosHacienda_Load(object sender, EventArgs e)
         {
             try
             {
+               
                 formatoGrid();
                 cargarDatos();
                 progressBar1.Visible  = false;
+                if (actualizarAutomaticamente)
+                {
+                    validarTodos();
+                }
+                
             }
             catch (Exception)
             {
 
                 MessageBox.Show("Error al cargar los datos","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
-       
-
 
         }
 
@@ -223,12 +229,8 @@ namespace PresentationLayer
 
         }
 
-       
-
-
-        private async void btnValidarTodos_Click(object sender, EventArgs e)
+        private async void validarTodos()
         {
-
 
             if (Utility.AccesoInternet())
             {
@@ -263,6 +265,14 @@ namespace PresentationLayer
                 MessageBox.Show("No hay acceso a internet, no se validarán los documentos", "Sin Internet", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             progressBar1.Visible = false;
+
+        }
+
+
+        private async void btnValidarTodos_Click(object sender, EventArgs e)
+        {
+            validarTodos();
+
         }
 
         private void progressBar1_Click(object sender, EventArgs e)

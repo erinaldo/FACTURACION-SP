@@ -42,6 +42,7 @@
             this.mnuParametros = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCambiarContrasena = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSalir = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuCambiarActividad = new System.Windows.Forms.ToolStripMenuItem();
             this.mantenimientosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuProductosPrincipal = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuProductos = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,6 +65,7 @@
             this.mnuReporteHacienda = new System.Windows.Forms.ToolStripMenuItem();
             this.importarExportarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuExportarPrecios = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuImportarDatosJson = new System.Windows.Forms.ToolStripMenuItem();
             this.consultasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuValidacionHacienda = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDocumentosEmitidos = new System.Windows.Forms.ToolStripMenuItem();
@@ -95,8 +97,10 @@
             this.btnConsultaMensajeHacienda = new System.Windows.Forms.Button();
             this.btnCompras = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.mnuImportarDatosJson = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tlsPrincipal = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -123,6 +127,7 @@
             this.toolStripSeparator2,
             this.mnuParametrosSistema,
             this.empresaToolStripMenuItem,
+            this.mnuCambiarActividad,
             this.mnuCambiarContrasena,
             this.mnuSalir});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
@@ -136,39 +141,39 @@
             this.mnuRoles,
             this.mnuPermisos});
             this.mnuSeguridad.Name = "mnuSeguridad";
-            this.mnuSeguridad.Size = new System.Drawing.Size(224, 26);
+            this.mnuSeguridad.Size = new System.Drawing.Size(305, 26);
             this.mnuSeguridad.Text = "Seguridad";
             // 
             // mnuUsuarios
             // 
             this.mnuUsuarios.Name = "mnuUsuarios";
-            this.mnuUsuarios.Size = new System.Drawing.Size(142, 26);
+            this.mnuUsuarios.Size = new System.Drawing.Size(216, 26);
             this.mnuUsuarios.Text = "Usuarios";
             this.mnuUsuarios.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuRoles
             // 
             this.mnuRoles.Name = "mnuRoles";
-            this.mnuRoles.Size = new System.Drawing.Size(142, 26);
+            this.mnuRoles.Size = new System.Drawing.Size(216, 26);
             this.mnuRoles.Text = "Roles";
             this.mnuRoles.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuPermisos
             // 
             this.mnuPermisos.Name = "mnuPermisos";
-            this.mnuPermisos.Size = new System.Drawing.Size(142, 26);
+            this.mnuPermisos.Size = new System.Drawing.Size(216, 26);
             this.mnuPermisos.Text = "Permisos";
             this.mnuPermisos.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(221, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(302, 6);
             // 
             // mnuParametrosSistema
             // 
             this.mnuParametrosSistema.Name = "mnuParametrosSistema";
-            this.mnuParametrosSistema.Size = new System.Drawing.Size(224, 26);
+            this.mnuParametrosSistema.Size = new System.Drawing.Size(305, 26);
             this.mnuParametrosSistema.Text = "Configuración";
             this.mnuParametrosSistema.Visible = false;
             this.mnuParametrosSistema.Click += new System.EventHandler(this.OpcionMenu_Click);
@@ -179,35 +184,42 @@
             this.mnuEmpresa,
             this.mnuParametros});
             this.empresaToolStripMenuItem.Name = "empresaToolStripMenuItem";
-            this.empresaToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.empresaToolStripMenuItem.Size = new System.Drawing.Size(305, 26);
             this.empresaToolStripMenuItem.Text = "Empresa";
             // 
             // mnuEmpresa
             // 
             this.mnuEmpresa.Name = "mnuEmpresa";
-            this.mnuEmpresa.Size = new System.Drawing.Size(158, 26);
+            this.mnuEmpresa.Size = new System.Drawing.Size(216, 26);
             this.mnuEmpresa.Text = "Empresa";
             this.mnuEmpresa.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuParametros
             // 
             this.mnuParametros.Name = "mnuParametros";
-            this.mnuParametros.Size = new System.Drawing.Size(158, 26);
+            this.mnuParametros.Size = new System.Drawing.Size(216, 26);
             this.mnuParametros.Text = "Parámetros";
             this.mnuParametros.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuCambiarContrasena
             // 
             this.mnuCambiarContrasena.Name = "mnuCambiarContrasena";
-            this.mnuCambiarContrasena.Size = new System.Drawing.Size(224, 26);
+            this.mnuCambiarContrasena.Size = new System.Drawing.Size(305, 26);
             this.mnuCambiarContrasena.Text = "Cambiar Constraseña";
             this.mnuCambiarContrasena.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mnuSalir
             // 
             this.mnuSalir.Name = "mnuSalir";
-            this.mnuSalir.Size = new System.Drawing.Size(224, 26);
+            this.mnuSalir.Size = new System.Drawing.Size(305, 26);
             this.mnuSalir.Text = "Salir";
+            // 
+            // mnuCambiarActividad
+            // 
+            this.mnuCambiarActividad.Name = "mnuCambiarActividad";
+            this.mnuCambiarActividad.Size = new System.Drawing.Size(305, 26);
+            this.mnuCambiarActividad.Text = "Cambiar de Actividad Económica";
+            this.mnuCambiarActividad.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // mantenimientosToolStripMenuItem
             // 
@@ -388,6 +400,13 @@
             this.mnuExportarPrecios.Size = new System.Drawing.Size(263, 26);
             this.mnuExportarPrecios.Text = "Exportar Precios Productos";
             this.mnuExportarPrecios.Click += new System.EventHandler(this.OpcionMenu_Click);
+            // 
+            // mnuImportarDatosJson
+            // 
+            this.mnuImportarDatosJson.Name = "mnuImportarDatosJson";
+            this.mnuImportarDatosJson.Size = new System.Drawing.Size(263, 26);
+            this.mnuImportarDatosJson.Text = "Importar Precios Productos";
+            this.mnuImportarDatosJson.Click += new System.EventHandler(this.OpcionMenu_Click);
             // 
             // consultasToolStripMenuItem
             // 
@@ -755,12 +774,22 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // mnuImportarDatosJson
+            // statusStrip1
             // 
-            this.mnuImportarDatosJson.Name = "mnuImportarDatosJson";
-            this.mnuImportarDatosJson.Size = new System.Drawing.Size(263, 26);
-            this.mnuImportarDatosJson.Text = "Importar Precios Productos";
-            this.mnuImportarDatosJson.Click += new System.EventHandler(this.OpcionMenu_Click);
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tlsPrincipal});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 814);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1611, 22);
+            this.statusStrip1.TabIndex = 21;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // tlsPrincipal
+            // 
+            this.tlsPrincipal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.tlsPrincipal.Name = "tlsPrincipal";
+            this.tlsPrincipal.Size = new System.Drawing.Size(0, 17);
             // 
             // frmPrincipal
             // 
@@ -768,6 +797,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1611, 836);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnCompras);
             this.Controls.Add(this.btnConsultaMensajeHacienda);
@@ -790,6 +820,8 @@
             this.Load += new System.EventHandler(this.frmPrincipal_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -864,5 +896,8 @@
         private System.Windows.Forms.ToolStripMenuItem importarExportarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuExportarPrecios;
         private System.Windows.Forms.ToolStripMenuItem mnuImportarDatosJson;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel tlsPrincipal;
+        private System.Windows.Forms.ToolStripMenuItem mnuCambiarActividad;
     }
 }

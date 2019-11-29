@@ -18,6 +18,7 @@ namespace EntityLayer
         public tbEmpresa()
         {
             this.tbDocumento = new HashSet<tbDocumento>();
+            this.tbEmpresaActividades = new HashSet<tbEmpresaActividades>();
             this.tbParametrosEmpresa = new HashSet<tbParametrosEmpresa>();
             this.tbReporteHacienda = new HashSet<tbReporteHacienda>();
             this.tbUsuarios = new HashSet<tbUsuarios>();
@@ -33,16 +34,10 @@ namespace EntityLayer
         public string claveApiHacienda { get; set; }
         public string numeroResolucion { get; set; }
         public Nullable<System.DateTime> fechaResolucio { get; set; }
-        public string correoElectronicoEmpresa { get; set; }
-        public string contrasenaCorreo { get; set; }
-        public string nombreComercial { get; set; }
-        public string cuerpoCorreo { get; set; }
-        public string subjectCorreo { get; set; }
         public Nullable<System.DateTime> fechaCaducidad { get; set; }
         public Nullable<bool> ambientePruebas { get; set; }
         public string rutaXMLCompras { get; set; }
         public Nullable<bool> imprimeDoc { get; set; }
-        public string codigoActComercial { get; set; }
         public string nombreImpresora { get; set; }
         public bool regimenSimplificado { get; set; }
         public Nullable<int> tipoFacturacionRegimen { get; set; }
@@ -50,6 +45,8 @@ namespace EntityLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbDocumento> tbDocumento { get; set; }
         public virtual tbPersona tbPersona { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbEmpresaActividades> tbEmpresaActividades { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbParametrosEmpresa> tbParametrosEmpresa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

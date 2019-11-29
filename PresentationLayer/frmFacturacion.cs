@@ -1982,6 +1982,11 @@ namespace PresentationLayer
             frmAbonoCredito form = new frmAbonoCredito();
             form.ShowDialog();
         }
+
+        private void txtCodigo_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
 

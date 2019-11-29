@@ -1,5 +1,6 @@
 ﻿using BusinessLayer;
 using CommonLayer;
+using CommonLayer.Logs;
 using EntityLayer;
 using PresentationLayer.Reportes;
 using System;
@@ -445,9 +446,10 @@ namespace PresentationLayer
                 }
                 cargarDatos();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Ocurrio un error, intente de nuevo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clsEvento evento = new clsEvento(ex.Message, "1");
+                    MessageBox.Show("Ocurrio un error, intente de nuevo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
 

@@ -62,15 +62,11 @@ namespace DataLayer
         public tbEmpresa GetEntity(tbEmpresa entity)
         {
 
-
-    
-
-
             try
             {
                 using (dbSisSodInaEntities context = new dbSisSodInaEntities())
 
-                    entity = (from p in context.tbEmpresa.Include("tbPersona").Include("tbParametrosEmpresa")
+                    entity = (from p in context.tbEmpresa.Include("tbPersona").Include("tbParametrosEmpresa").Include("tbEmpresaActividades.tbActividades")
                                where p.id == entity.id
                                && p.tipoId == entity.tipoId
 

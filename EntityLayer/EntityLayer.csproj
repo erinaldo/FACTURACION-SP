@@ -76,6 +76,9 @@
     <Compile Include="tbAbonos.cs">
       <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbActividades.cs">
+      <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbBarrios.cs">
       <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
     </Compile>
@@ -137,6 +140,9 @@
       <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tbEmpresa.cs">
+      <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbEmpresaActividades.cs">
       <DependentUpon>dbSisSodInaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tbExoneraciones.cs">

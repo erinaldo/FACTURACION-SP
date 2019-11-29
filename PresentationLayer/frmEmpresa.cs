@@ -16,8 +16,11 @@ namespace PresentationLayer
 {
     public partial class frmEmpresa : Form
     {
+        BActividadesEconomicas actIns = new BActividadesEconomicas();
         BEmpresa empresaIns = new BEmpresa();
         tbEmpresa empresaGlobal = new tbEmpresa();
+        List<tbEmpresaActividades> listaActividades = new List<tbEmpresaActividades>();
+        tbEmpresaActividades empresaAct= new tbEmpresaActividades();
         public frmEmpresa()
         {
             InitializeComponent();
@@ -26,8 +29,8 @@ namespace PresentationLayer
         private void frmEmpresa_Load(object sender, EventArgs e)
         {
 
-            MenuGenerico.CambioEstadoMenu(ref tlsMenu, (int)EnumMenu.OpcionMenu.Modificar);
-            Utility.EnableDisableForm(ref gbxDatos, false);
+            //MenuGenerico.CambioEstadoMenu(ref tlsMenu, (int)EnumMenu.OpcionMenu.Modificar);
+            //Utility.EnableDisableForm(ref gbxDatos, false);
 
             cboTipoFactRegimenSimplificado.Enabled = false;
             tlsBtnBuscar.Enabled = false;
@@ -73,8 +76,8 @@ namespace PresentationLayer
                     txtNombreEmpresa.Text = empresa.tbPersona.nombre.Trim().ToUpper();
 
                 }
-                txtNombreComercial.Text = empresa.nombreComercial.Trim();
-                txtActEconomica.Text = empresa.codigoActComercial;
+               
+               
 
                 //datos hacienda
                 chkAmbienteDesa.Checked = (bool)!empresa.ambientePruebas;
@@ -101,16 +104,19 @@ namespace PresentationLayer
                 txtResolucion.Text = empresa.numeroResolucion.Trim();
                 txtFechaResolucion.Text = empresa.fechaResolucio.ToString().Trim();
 
-                //correo 
-                txtCorreoEmpresa.Text = empresa.correoElectronicoEmpresa.Trim();
-                txtContraseCorreo.Text = empresa.contrasenaCorreo.Trim();
-                txtAsuntoCorreo.Text = empresa.subjectCorreo.Trim();
-                txtCuerpoCorreo.Text = empresa.cuerpoCorreo.Trim();
+      
+               
                 chkImprimeDoc.Checked = (bool)empresa.imprimeDoc;
                 if (chkImprimeDoc.Checked)
                 {
                     txtNombreImpresora.Text = empresa.nombreImpresora.Trim();
+                }           
+
+                foreach (var item in empresa.tbEmpresaActividades)
+                {
+                    listaActividades.Add(item);
                 }
+                cargarListaActividad(listaActividades);
 
             }
             catch (Exception ex)
@@ -119,24 +125,7 @@ namespace PresentationLayer
                 throw;
             }
         }
-
-        private void label16_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCertificado_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                CargaCertificado();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
+ 
         private void CargaCertificado()
         {
             try
@@ -148,18 +137,6 @@ namespace PresentationLayer
             catch (Exception ex)
             {
                 throw ex;
-            }
-        }
-
-        private void btnRutaXML_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                txtRutaXML.Text = BuscaCertificado();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
             }
         }
 
@@ -178,18 +155,7 @@ namespace PresentationLayer
             return "";
         }
 
-        private void btnRutaComprasXML_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                txtXMLCompras.Text = BuscaCertificado();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
+        
         private void tlsMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             accionMenu(e.ClickedItem.Text);
@@ -280,11 +246,11 @@ namespace PresentationLayer
                             isNuevo = true;
                         }
 
-                        empresaGlobal.nombreComercial = txtNombreComercial.Text;
+                        //empresaGlobal.nombreComercial = txtNombreComercial.Text;
                         empresaGlobal.ambientePruebas=!chkAmbienteDesa.Checked ;
                         empresaGlobal.usuarioApiHacienda= txtUsuarioHacienda.Text;
                         empresaGlobal.claveApiHacienda= txtConstrasenaHacienda.Text;
-                        empresaGlobal.codigoActComercial = txtActEconomica.Text;
+                        //empresaGlobal.codigoActComercial = txtActEconomica.Text;
                         empresaGlobal.certificadoInstalado = txtCertificado.Text;
                         empresaGlobal.pin = int.Parse(txtPinCertificado.Text);
 
@@ -306,11 +272,11 @@ namespace PresentationLayer
                         empresaGlobal.numeroResolucion = txtResolucion.Text;
                         empresaGlobal.fechaResolucio = DateTime.Parse( txtFechaResolucion.Text);
 
-                        //correo 
-                        empresaGlobal.correoElectronicoEmpresa = txtCorreoEmpresa.Text;
-                        empresaGlobal.contrasenaCorreo = txtContraseCorreo.Text;
-                        empresaGlobal.subjectCorreo = txtAsuntoCorreo.Text;
-                        empresaGlobal.cuerpoCorreo = txtCuerpoCorreo.Text;
+                        ////correo 
+                        //empresaGlobal.correoElectronicoEmpresa = txtCorreoEmpresa.Text;
+                        //empresaGlobal.contrasenaCorreo = txtContraseCorreo.Text;
+                        //empresaGlobal.subjectCorreo = txtAsuntoCorreo.Text;
+                        //empresaGlobal.cuerpoCorreo = txtCuerpoCorreo.Text;
 
 
                         empresaGlobal.imprimeDoc = chkImprimeDoc.Checked;
@@ -429,10 +395,219 @@ namespace PresentationLayer
                 txtFechaResolucion.Focus();
                 return false;
             }
+             
+            else if (chkImprimeDoc.Checked && txtNombreImpresora.Text.Trim() == string.Empty)
+            {
+
+                MessageBox.Show("Debe indicar el nombre de la impresora.", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtNombreImpresora.Focus();
+                return false;
+            }
+
+
+            return true;
+
+
+        }
+        
+        private void btnCertificado_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                CargaCertificado();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void chkRegimenSimplificado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkRegimenSimplificado.Checked)
+            {
+                cboTipoFactRegimenSimplificado.Enabled = true;
+            }
+            else
+            {
+                cboTipoFactRegimenSimplificado.Enabled = false;
+            }
+        }
+
+        private void btnRutaCompras_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                txtXMLCompras.Text = BuscaCertificado();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnRuta_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                txtRutaXML.Text = BuscaCertificado();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnActividadEconomica_Click(object sender, EventArgs e)
+        {
+            buscarAct buscar = new buscarAct();
+
+
+            buscar.pasarDatosEvent += pasarDatos;
+
+            buscar.ShowDialog();
+
+        }
+
+        private void pasarDatos(tbActividades entity)
+        {
+
+            cargarDatosActividadEconica(entity);
+        }
+
+        private void cargarDatosActividadEconica(tbActividades act  )
+        {
+            txtActEconomica.Text = act.codigoAct;
+            txtNombreAct.Text = act.nombreAct.Trim().ToUpper();
+
+
+        }
+
+        private void txtActEconomica_KeyPress(object sender, KeyPressEventArgs e)
+        {
+          
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                string codigo = txtActEconomica.Text.Trim().ToUpper();
+                if (codigo != string.Empty)
+                {
+                    buscarAct();
+
+                }
+                else
+                {
+                    txtActEconomica.ResetText();
+                    txtNombreAct.ResetText();
+
+                }
+               
+            }
+        }
+
+        private void buscarAct()
+        {
+            try
+            {
+                tbActividades act = new tbActividades();
+                act.codigoAct = txtActEconomica.Text.Trim().ToUpper();
+                act = actIns.getById(act);
+                if (act != null)
+                {
+                    txtActEconomica.Text = act.codigoAct;
+                    txtNombreAct.Text = act.nombreAct.Trim().ToUpper();
+                }
+                else
+                {
+                    txtActEconomica.ResetText();
+                    txtNombreAct.ResetText();
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void btnAgregarAct_Click(object sender, EventArgs e)
+        {
+            if (validarDatosActividadEco())
+            {
+                tbEmpresaActividades act = new tbEmpresaActividades();
+                act.CodActividad = txtActEconomica.Text;
+                act.contrasenaCorreo = txtContraseCorreo.Text;
+                act.correoElectronicoEmpresa = txtCorreoEmpresa.Text;
+                act.cuerpoCorreo = txtCuerpoCorreo.Text;
+                act.nombreComercial = txtNombreComercial.Text;
+                act.subjectCorreo = txtAsuntoCorreo.Text;
+                listaActividades.Add(act);
+                cargarListaActividad(listaActividades);
+                resetFormActividadComercial();
+            }
+        }
+
+        private void cargarListaActividad(List<tbEmpresaActividades> listaActividades)
+        {
+            lstvActividades.Items.Clear();
+            foreach (var act in listaActividades)
+            {
+                ListViewItem item = new ListViewItem();
+                item.Text = act.CodActividad;
+                txtActEconomica.Text = act.CodActividad; buscarAct();
+                item.SubItems.Add(txtNombreAct.Text.Trim().ToUpper());
+                lstvActividades.Items.Add(item);
+            }
+            txtActEconomica.ResetText();
+            txtNombreAct.ResetText();
+        }
+
+        private void resetFormActividadComercial()
+        {
+            txtNombreAct.ResetText();
+            txtActEconomica.Text=string.Empty;
+            txtContraseCorreo.Text = string.Empty;
+            txtCorreoEmpresa.Text = string.Empty;
+            txtCuerpoCorreo.Text = string.Empty;
+            txtNombreComercial.Text = string.Empty;
+            txtAsuntoCorreo.Text = string.Empty;
+            empresaAct = null;
+        }
+
+        private bool validarDatosActividadEco()
+        {
+
+            if (txtActEconomica.Text.Trim() == string.Empty || txtNombreAct.Text==string.Empty)
+            {
+
+                MessageBox.Show("Debe indicar la actividad Económica", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtActEconomica.Focus();
+                return false;
+            }
+            else if (listaActividades.Where(x=>x.CodActividad.Trim().ToUpper()==txtActEconomica.Text.Trim().ToUpper()).SingleOrDefault()!=null)
+            {
+                MessageBox.Show("Ya existe esa actividad económica asiganada", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                txtActEconomica.Focus();
+                txtNombreAct.ResetText();
+                txtActEconomica.ResetText();
+                return false;
+
+            }
+           
+            else if (txtNombreComercial.Text.Trim() == string.Empty)
+            {
+
+                MessageBox.Show("Debe indicar el nombre comercial", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtNombreComercial.Focus();
+                return false;
+            }
+
             else if (txtCorreoEmpresa.Text.Trim() == string.Empty)
             {
 
-                MessageBox.Show("Debe indicar el correo institucional", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Debe indicar el correo de la empresa", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCorreoEmpresa.Focus();
                 return false;
             }
@@ -464,35 +639,47 @@ namespace PresentationLayer
                 txtCuerpoCorreo.Focus();
                 return false;
             }
-            else if (chkImprimeDoc.Checked && txtNombreImpresora.Text.Trim() == string.Empty)
-            {
-
-                MessageBox.Show("Debe indicar el nombre de la impresora.", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtNombreImpresora.Focus();
-                return false;
-            }
 
 
             return true;
+        }
 
+        private void lstvActividades_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstvActividades.SelectedItems.Count > 0)
+            {
+
+                empresaAct= listaActividades.Where(x => x.CodActividad.Trim().ToUpper() == lstvActividades.SelectedItems[0].Text.Trim().ToUpper()).SingleOrDefault();
+
+             
+                txtActEconomica.Text = empresaAct.CodActividad.Trim();
+                buscarAct();
+                txtContraseCorreo.Text = empresaAct.contrasenaCorreo.Trim(); 
+                txtCorreoEmpresa.Text = empresaAct.correoElectronicoEmpresa.Trim();
+                txtCuerpoCorreo.Text = empresaAct.cuerpoCorreo.Trim();
+                txtNombreComercial.Text = empresaAct.nombreComercial.Trim() ;
+                txtAsuntoCorreo.Text = empresaAct.subjectCorreo.Trim();
+
+            }
+        }
+
+        private void btnEliminarAct_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Desea eliminar la actividad económoica?", "Actividad Económica", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+
+                listaActividades.Remove(listaActividades.Where(x => x.CodActividad == lstvActividades.SelectedItems[0].Text).SingleOrDefault());
+                cargarListaActividad(listaActividades);
+                resetFormActividadComercial();
+
+            }
 
         }
 
-        private void gbxHacienda_Enter(object sender, EventArgs e)
+        private void txtActEconomica_TextChanged(object sender, EventArgs e)
         {
 
-        }
-
-        private void ChkRegimenSimplificado_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkRegimenSimplificado.Checked)
-            {
-                cboTipoFactRegimenSimplificado.Enabled = true;
-            }
-            else
-            {
-                cboTipoFactRegimenSimplificado.Enabled = false;
-            }
         }
     }
 }

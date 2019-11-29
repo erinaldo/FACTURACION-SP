@@ -44,6 +44,7 @@ namespace PresentationLayer
                 SaveFileDialog iFile = new SaveFileDialog();
                 iFile.Filter = "Json File|*.json";
                 iFile.Title = "Guardar Archivo Json";
+                iFile.FileName = Utility.getDate().ToString("dd-MM-yyyy");
                 iFile.ShowDialog();
                 return iFile.FileName;
             }

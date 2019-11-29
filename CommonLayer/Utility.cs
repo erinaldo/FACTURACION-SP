@@ -15,7 +15,10 @@ namespace CommonLayer
 {
     public class Utility
     {
-
+        public static string DoFormat(decimal myNumber)
+        {
+            return string.Format("{0:0.00}", myNumber).Replace(".00", "");
+        }
         /// <summary>
         /// Recuperamos la fecha actual de la computadora.
         /// </summary>
